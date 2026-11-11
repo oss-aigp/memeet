@@ -24,7 +24,9 @@ const app = "(function(){'use strict';var W=window,D=document;\n" +
 const macro = fs.readFileSync(path.join(root, 'outlook', 'MeMeet-weekagenda.bas'), 'utf8').replace(/\r?\n/g, '\r\n');
 const appWithMacro = app.replace('__OUTLOOK_MACRO__', () => JSON.stringify(macro))
   // het icoon (.ico) voor de snelkoppeling op het bureaublad
-  .replace('__MEMEET_ICO__', () => JSON.stringify(fs.readFileSync(path.join(root, 'icons', '2-tafel.ico')).toString('base64')));
+  .replace('__MEMEET_ICO__', () => JSON.stringify(fs.readFileSync(path.join(root, 'icons', '2-tafel.ico')).toString('base64')))
+  // WebAssembly van pdf.js voor ingescande PDF's (CCITT-fax en JBIG2, JPEG 2000)
+  .replace('__PDFJS_WASM__', () => { const dir = path.join(path.dirname(mod('pdfjs-dist/build/pdf.min.mjs')), '..', 'wasm'), o = {}; ['jbig2.wasm', 'openjpeg.wasm'].forEach((f) => { o[f] = fs.readFileSync(path.join(dir, f)).toString('base64'); }); return JSON.stringify(o); });
 
 const libs = [mod('pdf-lib/dist/pdf-lib.min.js'), mod('jszip/dist/jszip.min.js')].map((f) => fs.readFileSync(f, 'utf8')).join('\n;\n');
 const pdfjs = bundleIife(mod('pdfjs-dist/build/pdf.worker.min.mjs'), 'pdfjsWorker') + '\n;\n' + bundleIife(mod('pdfjs-dist/build/pdf.min.mjs'), 'pdfjsLib');
@@ -40,7 +42,7 @@ fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
 const version = require(path.join(root, 'package.json')).version;
 const marker = '<!-- MeMeet-versie: ' + version + ' -->';
 // licentie en meegeleverde onderdelen, zodat dat ook in het losse bestand te lezen is
-const notice = '<!--\n  MeMeet ' + version + ' © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet\n  Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.\n  Bevat pdf.js (Apache-2.0, Mozilla Foundation), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)\n  en JSZip (MIT of GPL-3.0); volledige teksten in THIRD-PARTY-NOTICES.md.\n-->';
+const notice = '<!--\n  MeMeet ' + version + ' © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet\n  Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.\n  Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)\n  en JSZip (MIT of GPL-3.0); volledige teksten in THIRD-PARTY-NOTICES.md.\n-->';
 const out = html.replace(/^(<!doctype[^>]*>)/i, (m) => m + '\n' + marker + '\n' + notice);
 // De laatste versie heet altijd MeMeet.html. Een eerdere versie gaat naar dist/archive, met zijn versienummer in de naam.
 const latest = path.join(root, 'dist', 'MeMeet.html'), archive = path.join(root, 'dist', 'archive');

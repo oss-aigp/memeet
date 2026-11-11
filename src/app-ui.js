@@ -896,6 +896,15 @@
     var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); }
     requestAnimationFrame(function () { if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } });
   }
+  /* Ingescande PDF's gebruiken vaak CCITT-fax, JBIG2 of JPEG 2000 voor de pagina-afbeelding. pdf.js pakt die uit met WebAssembly
+     (jbig2.wasm, openjpeg.wasm). Die bestanden zitten in MeMeet zelf en worden hier aan pdf.js gegeven, zonder netwerkverkeer. */
+  var PDFJS_WASM = __PDFJS_WASM__;
+  function EmbeddedBinaryData() {}
+  EmbeddedBinaryData.prototype.fetch = function (q) {
+    var d = q && q.kind === 'wasmUrl' ? PDFJS_WASM[q.filename] : null;
+    return d ? Promise.resolve(b64(d)) : Promise.reject(new Error('Niet meegeleverd in MeMeet: ' + (q && q.filename)));
+  };
+  function pdfOpts(data) { return { data: data, isEvalSupported: false, wasmUrl: 'memeet-wasm/', useWorkerFetch: false, BinaryDataFactory: EmbeddedBinaryData }; }
   async function pvShow(m, i) {
     var el = $('#pv'); if (!el) return;
     el.classList.toggle('max', !!A.pvMax);
@@ -946,7 +955,7 @@
     var pvp = $('#pvp');
     if (!blob) { setHTML(pvp, '<div class="pvmsg">Dit bestand kan niet als PDF worden getoond.<br><small>Open het origineel in Word of Excel, sla het op als PDF en sleep die PDF op deze vergadering.</small><br><button type="button" class="btn" id="pvorig">Origineel downloaden</button></div>'); $('#pvorig').onclick = function () { pvAct('orig', m, i); }; return; }
     var data = new Uint8Array(await blob.arrayBuffer()), pdf;
-    try { pdf = await W.pdfjsLib.getDocument({ data: data.slice(), isEvalSupported: false }).promise; }
+    try { pdf = await W.pdfjsLib.getDocument(pdfOpts(data.slice())).promise; }
     catch (e) { console.error(e); if (tok === PV.tok) setHTML(pvp, '<div class="pvmsg">Deze PDF kan niet worden getoond (' + esc(e.message || e) + ').<br><button type="button" class="btn" id="pvtab">Openen in nieuw tabblad</button></div>'); var pt = $('#pvtab'); if (pt) pt.onclick = function () { pvAct('tab', m, i); }; return; }
     if (tok !== PV.tok) { pdf.destroy(); return; }
     if (editable && !f.ann) f.ann = {};
