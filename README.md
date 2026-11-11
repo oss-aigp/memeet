@@ -12,16 +12,16 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 
 <table>
 <tr>
-<td width="50%"><a href="docs/films/MeMeet-promo.mp4"><img src="docs/films/MeMeet-promo.jpg" alt="Promofilm MeMeet (1:42): voor, tijdens en na de vergadering"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-promo.mp4"><img src="docs/films/MeMeet-promo.jpg" alt="Promofilm MeMeet (3:24): voor, tijdens en na de vergadering"></a></td>
 <td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:06)"></a></td>
 </tr>
 <tr>
-<td><b><a href="docs/films/MeMeet-promo.mp4">Promofilm</a></b> (1:42): hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
+<td><b><a href="docs/films/MeMeet-promo.mp4">Promofilm</a></b> (3:24): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
 <td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:06): downloaden, een vaste plek geven, de datamap kiezen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
 </tr>
 </table>
 
-De films hebben geen geluid; de uitleg staat in beeld. Klik op een plaatje om de film te openen. Speelt hij niet af in je browser, download hem dan en open hem op je computer.
+De uitleg staat in beeld; er wordt niet gesproken. Onder de promofilm staat een rustig muziekje (eigen compositie, vrijgegeven onder CC0). Klik op een plaatje om de film te openen. Speelt hij niet af in je browser, download hem dan en open hem op je computer.
 
 ---
 
