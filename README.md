@@ -8,8 +8,26 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 
 ---
 
+## Filmpjes
+
+<table>
+<tr>
+<td width="50%"><a href="docs/films/MeMeet-promo.mp4"><img src="docs/films/MeMeet-promo.jpg" alt="Promofilm MeMeet (1:42): voor, tijdens en na de vergadering"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:06)"></a></td>
+</tr>
+<tr>
+<td><b><a href="docs/films/MeMeet-promo.mp4">Promofilm</a></b> (1:42): hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
+<td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:06): downloaden, een vaste plek geven, de datamap kiezen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
+</tr>
+</table>
+
+De films hebben geen geluid; de uitleg staat in beeld. Klik op een plaatje om de film te openen. Speelt hij niet af in je browser, download hem dan en open hem op je computer.
+
+---
+
 ## Inhoud
 
+- [Filmpjes](#filmpjes)
 - [Wat kan MeMeet?](#wat-kan-memeet)
 - [Installatie voor gebruikers (5 minuten)](#installatie-voor-gebruikers-5-minuten)
   - [Stap 1. MeMeet downloaden](#stap-1-memeet-downloaden)
@@ -54,6 +72,8 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 ## Installatie voor gebruikers (5 minuten)
 
 **Wat je nodig hebt:** Windows 10 of 11 met **Microsoft Edge** of **Google Chrome**, een recente versie. Je hebt geen beheerdersrechten nodig en er wordt niets geïnstalleerd.
+
+> Liever kijken dan lezen? De [installatiefilm](docs/films/MeMeet-installatie.mp4) (1:06) laat alle stappen hieronder zien.
 
 > MeMeet werkt niet goed in Firefox of Safari. Die browsers kunnen niet met mappen op je computer werken.
 
@@ -335,7 +355,7 @@ memeet/
 ├─ outlook/
 │  └─ MeMeet-weekagenda.bas ← Outlook-macro: agenda van de komende 7 dagen opslaan als .ics
 ├─ icons/                ← vier icoonontwerpen als SVG, PNG en ICO
-├─ docs/                 ← schermafbeeldingen voor deze README
+├─ docs/                 ← schermafbeeldingen voor deze README, en in films/ de promo- en installatiefilm
 ├─ scripts/build.js      ← bouwscript
 ├─ LICENSE               ← EUPL-1.2
 ├─ THIRD-PARTY-NOTICES.md ← licenties van pdf.js, pdf-lib en JSZip
