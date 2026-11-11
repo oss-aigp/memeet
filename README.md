@@ -12,16 +12,16 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 
 <table>
 <tr>
-<td width="50%"><a href="docs/films/MeMeet-promo.mp4"><img src="docs/films/MeMeet-promo.jpg" alt="Promofilm MeMeet (3:37): voor, tijdens en na de vergadering"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (3:37): voor, tijdens en na de vergadering"></a></td>
 <td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:06)"></a></td>
 </tr>
 <tr>
-<td><b><a href="docs/films/MeMeet-promo.mp4">Promofilm</a></b> (3:37): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
+<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (3:37): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
 <td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:06): downloaden, een vaste plek geven, de datamap kiezen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
 </tr>
 </table>
 
-De uitleg staat in beeld; er wordt niet gesproken. Onder de promofilm staat een rustig muziekje (eigen compositie, vrijgegeven onder CC0). Klik op een plaatje om de film te openen. Speelt hij niet af in je browser, download hem dan en open hem op je computer.
+De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat een rustig muziekje (eigen compositie, vrijgegeven onder CC0). Klik op een plaatje om de film te openen. Speelt hij niet af in je browser, download hem dan en open hem op je computer.
 
 ---
 
@@ -355,7 +355,7 @@ memeet/
 ├─ outlook/
 │  └─ MeMeet-weekagenda.bas ← Outlook-macro: agenda van de komende 7 dagen opslaan als .ics
 ├─ icons/                ← vier icoonontwerpen als SVG, PNG en ICO
-├─ docs/                 ← schermafbeeldingen voor deze README, en in films/ de promo- en installatiefilm
+├─ docs/                 ← schermafbeeldingen voor deze README, en in films/ de instructie- en installatiefilm
 ├─ scripts/build.js      ← bouwscript
 ├─ LICENSE               ← EUPL-1.2
 ├─ THIRD-PARTY-NOTICES.md ← licenties van pdf.js, pdf-lib en JSZip
