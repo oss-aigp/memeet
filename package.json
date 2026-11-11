@@ -1,0 +1,16 @@
+{
+  "name": "memeet",
+  "version": "1.0.0",
+  "description": "MeMeet: een lokale vergaderapp in één HTML-bestand. Sleep Outlook-mails erin en je krijgt vergaderingen met stukken, PDF-viewer met aantekeningen, notulen en een actielijst.",
+  "private": true,
+  "license": "EUPL-1.2",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "jszip": "3.10.1",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "6.2.108"
+  }
+}
