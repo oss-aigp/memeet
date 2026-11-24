@@ -166,13 +166,13 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 - **Sneltoets met macro (optioneel):** de macro in [`outlook/MeMeet-weekagenda.bas`](outlook/MeMeet-weekagenda.bas) slaat met één klik de komende 7 dagen op in je map Downloads. Op de importpagina staat hoe je hem instelt, met een knop om de code te kopiëren. Dit werkt alleen in de klassieke Outlook voor Windows en alleen als je organisatie macro's toestaat.
 
 **iBabs**
-- Een vergadering heeft twee links: de **Vergaderlink** (Teams, Zoom en dergelijke) voor **Deelnemen**, en de **iBabs-link** naar de stukken. MeMeet herkent een iBabs-link aan `https://vergaderen.rijksweb.nl/` of aan "ibabs" in de domeinnaam, bij inslepen en bij de weekimport. Een link naar een vergadering (`/Meeting/View/`) gaat voor. Je kunt de link ook zelf plakken of wijzigen.
+- Een vergadering heeft twee links: de **Vergaderlink** (Teams, Zoom en dergelijke) voor **Deelnemen**, en de **iBabs-link** naar de stukken. MeMeet herkent een iBabs-link aan `https://vergaderen.rijksweb.nl/` of aan "ibabs" in de domeinnaam, bij inslepen en bij de weekimport. Een link naar een vergadering (`/Meeting/View/`) gaat voor. De iBabs-link kun je ook zelf plakken of wijzigen; de vergaderlink voeg je toe of wijzig je met **🔗** naast **Deelnemen**.
 - De oranje knop **iBabs** (op de vergaderpagina en bij Vandaag en Morgen) opent iBabs in een eigen venster, zonder tabbladen. Een klik bij een andere vergadering laadt die in hetzelfde venster.
 - **Naast elkaar** zet iBabs links op het scherm en je aantekeningen rechts, elk in een eigen venster. Houdt Edge het tweede venster tegen, sta dan één keer pop-ups toe voor MeMeet. De vensters komen op het scherm waar MeMeet staat; het venster van MeMeet zelf verschuift niet. iBabs in MeMeet zelf tonen kan niet: iBabs staat dat niet toe.
-- Bij oudere vergaderingen kan de iBabs-link nog in het veld Vergaderlink staan (dan opende *Deelnemen* iBabs). Knip hem daar weg en plak hem bij iBabs-link.
+- Bij oudere vergaderingen kan de iBabs-link nog als vergaderlink staan (dan opent *Deelnemen* iBabs). Haal hem met **🔗** weg en plak hem bij iBabs-link.
 
 **Vergaderingen verwijderen**
-- Open een vergadering en klik op **Verwijder**, of vink in de lijst bij Vergaderingen meerdere vergaderingen aan en klik op **🗑 Verwijderen** in de balk die onderaan verschijnt.
+- Open een vergadering en klik bovenaan op de prullenbak **🗑**, of vink in de lijst bij Vergaderingen meerdere vergaderingen aan en klik op **🗑 Verwijderen** in de balk die onderaan verschijnt.
 - Bij verwijderen uit de lijst wordt alles gewist wat bij de vergadering hoort: de map met stukken, de originele mail, gewijzigde versies, de aantekeningen en de acties.
 
 **Stukken**
@@ -206,12 +206,12 @@ Alle knoppen staan op één regel boven het stuk. In een smalle kolom tonen Teks
 - Opslaan doe je met **💾 Opslaan** of **Ctrl+S**. De eerste keer bewaart MeMeet een kopie `(oorspronkelijk)` en daarna wordt de PDF bijgewerkt.
 
 **Aantekeningen en acties**
-- Klik op **✎ Aantekeningen** voor de kolom rechts. Versleep de linkerrand om de kolom breder of smaller te maken, of klik op **⧉ Apart venster** om de aantekeningen in een eigen venster rechts op je scherm te zetten, naast andere programma's. Een regel die met `!` begint, wordt een actie, bijvoorbeeld `! Jan stuurt de notitie rond`.
+- Rechts staat altijd de kolom **Aantekeningen**. Versleep de linkerrand om de kolom breder of smaller te maken, of klik op **⧉ Apart venster** om de aantekeningen in een eigen venster rechts op je scherm te zetten, naast andere programma's. Een regel die met `!` begint, wordt een actie, bijvoorbeeld `! Jan stuurt de notitie rond`.
 - Een regel die met `=` begint, is een **besluit**, bijvoorbeeld `= livegang schuift naar maart`. Een regel die met `>` begint, is een **meeneempunt** voor het vervolgoverleg, bijvoorbeeld `> begroting opnieuw bespreken`. Je tekst blijft staan zoals je hem typt, ook in het tekstbestand.
 - In het tabblad **Actielijst** voeg je ook **losse acties** toe, zonder vergadering: typ ze in het vak bovenaan en klik op **+ Toevoegen** (of Enter). Je kunt acties bewerken, afvinken, ⏰ snoozen, een begindatum geven en van de lijst halen. Wat je van de lijst haalt, staat onder *Verwijderd* en kun je terugzetten.
 
 **Verslag mailen**
-- In de kolom **✎ Aantekeningen** en in het verslag (tabblad Verslagen) staat **✉ Mailen**. Outlook opent dan een nieuwe mail met de tekst van je aantekeningen; je vult zelf de ontvanger in. Is de tekst lang, dan downloadt MeMeet een conceptmail (`.eml`): open dat bestand en Outlook toont een nieuwe mail met de hele tekst.
+- In de kolom **Aantekeningen** en in het verslag (tabblad Verslagen) staat **✉ Mailen**. Outlook opent dan een nieuwe mail met de tekst van je aantekeningen; je vult zelf de ontvanger in. Is de tekst lang, dan downloadt MeMeet een conceptmail (`.eml`): open dat bestand en Outlook toont een nieuwe mail met de hele tekst.
 - De mail begint met de **besluiten** (`=`), dan de **acties** (`!`), dan de overige aantekeningen in de volgorde waarin je ze typte, elk onder een kopje. Kopjes zonder regels worden weggelaten. **Meeneempunten** (`>`) zijn privé en gaan niet mee.
 
 **Downloads**

@@ -748,10 +748,10 @@
     h += '<form class="card meta mline" id="frm" autocomplete="off"><input class="ttl" name="title" required placeholder="Titel van de vergadering" title="Titel" value="' + esc(m.title) + '">' +
       '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
-      '<span class="lk"><input name="link" type="url" placeholder="Vergaderlink" title="Vergaderlink: plak hier eventueel een Teams- of andere link" value="' + esc(m.link || '') + '"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a></span>' +
+      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">🔗</button></span>' +
       '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button>' + (isNew ? '' : '<button type="button" class="btn sm" id="ibSide" title="iBabs links en je aantekeningen rechts op het scherm, elk in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>Naast elkaar</button>') + '</span>' +
-      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm' + (A.notesOpen ? ' on' : '') + '" id="npToggle" title="Kolom voor aantekeningen tijdens de vergadering">✎ Aantekeningen</button><button type="button" class="btn sm red" id="del" title="Vergadering verwijderen">Verwijder</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">Terug</a></span></form>';
-    h += '<div class="ws' + (A.notesOpen && !isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">📋 Meeneempunten</button>') + '</span></div>';
+      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">🗑</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">Terug</a></span></form>';
+    h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">📋 Meeneempunten</button>') + '</span></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
     if (!isNew) h += vervolgRowHtml(m);
     var dsel = isNew ? {} : docSel(m);
@@ -821,11 +821,15 @@
     $$('[data-rm]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.rm]; if (!confirm('"' + f.name + '" verwijderen' + (annCount(f.ann) ? ', inclusief je aantekeningen' : '') + '?')) return; readForm(); await A.store.del(m, f.name); if (f.pdf && f.pdf !== f.name) await A.store.del(m, f.pdf); if (f.backup) await A.store.del(m, f.backup); m.files.splice(+a.dataset.rm, 1); await persist(); renderDetail(m); }; });
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });
-    var nt = $('#npToggle'); if (nt) nt.onclick = toggleNotes;
     bindFolders($('#main'));
-    var li = $('[name=link]', frm), jb = $('#joinBtn');
-    function upd() { var v = li.value.trim(); var ok = /^https?:\/\//i.test(v); jb.hidden = !ok; if (ok) jb.href = v; }
-    li.addEventListener('input', upd); li.addEventListener('change', async function () { readForm(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); } });
+    /* vergaderlink: geen invoervak meer (de link komt uit de uitnodiging); met 🔗 voeg je hem toe of wijzig je hem */
+    var jb = $('#joinBtn'), le = $('#linkEd');
+    function upd() { var ok = /^https?:\/\//i.test(m.link || ''); jb.hidden = !ok; jb.href = ok ? m.link : '#'; le.title = ok ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)'; }
+    le.onclick = async function () {
+      var v = prompt('Vergaderlink (Teams, Zoom of een andere link).\nLaat het vak leeg om de link weg te halen.', m.link || ''); if (v === null) return;
+      v = v.trim(); if (v && !/^https?:\/\//i.test(v)) { toast('Dat is geen geldige link: hij moet met https:// beginnen.', 'warn'); return; }
+      m.link = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? 'Vergaderlink bewaard.' : 'Vergaderlink weggehaald.', 'ok'); }
+    };
     /* iBabs-link: de knoppen verschijnen zodra er een link staat; een gewijzigde link wordt meteen bewaard, net als de vergaderlink */
     var ib = $('[name=ibabs]', frm), ibB = $('#ibBtn'), ibS = $('#ibSide');
     function updIb() { var ok = /^https?:\/\//i.test(ib.value.trim()); ibB.hidden = !ok; if (ibS) ibS.hidden = !ok; }
@@ -833,9 +837,9 @@
     ibB.onclick = function () { readForm(); openIbabs(m); };
     if (ibS) ibS.onclick = async function () { readForm(); if (A.flushNotes) { try { await A.flushNotes(); } catch (e) {} } sideBySide(m); };
     if (!isNew && m.link === undefined && m.source && m.source.file) {
-      A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m && !li.value) { li.value = m.link; upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });
+      A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m) { upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });
     }
-    if (A.notesOpen && !isNew) renderNotes(m);
+    if (!isNew) renderNotes(m); /* de aantekeningen staan altijd open */
     pvShow(m, sel);
   }
   /* ---------- stukken: meer tegelijk selecteren (Ctrl+klik, Shift+klik) en slepen om de volgorde te veranderen */
@@ -1403,7 +1407,7 @@
     $('#pickDocs').onchange = function () { var f = this.files; if (f.length) handleDrop(f); this.value = ''; };
   }
   migrateLocalPrefs();
-  try { A.notesOpen = localStorage.getItem('memeet-notes') === '1'; } catch (e) {}
+  A.notesOpen = true; /* de kolom Aantekeningen staat altijd open */
   W.addEventListener('hashchange', function () { if (A.flushNotes) { try { A.flushNotes(); } catch (e) {} A.flushNotes = null; } });
   W.addEventListener('beforeunload', function (e) { if (A.npWin && !A.npWin.closed) { try { A.npWin.close(); } catch (er) {} } if (A.flushNotes) A.flushNotes(); if (A.edCtl && A.edCtl.isDirty()) { e.preventDefault(); e.returnValue = ''; } });
   async function start() {

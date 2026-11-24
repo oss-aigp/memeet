@@ -106,11 +106,11 @@
   function renderNotes(m) {
     var np = $('#np'); if (!np) return;
     npWidth();
-    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '<button type="button" class="link" id="npclose" title="Kolom sluiten">✕</button></div>';
-    if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); $('#npclose').onclick = toggleNotes; bindGrip(); return; }
+    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '</div>';
+    if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); bindGrip(); return; }
     if (npPopped(m)) {
       setHTML(np, h + '<div class="pvmsg">De aantekeningen staan in een apart venster.<br><button type="button" class="btn sm" id="npfocus">Naar het venster</button> <button type="button" class="btn sm" id="npback">Terugzetten in MeMeet</button></div>');
-      $('#npclose').onclick = toggleNotes; $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
+      $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
       $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; bindGrip(); return;
     }
     h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
@@ -119,7 +119,6 @@
     function queue() { var st = $('#npst'); if (st) { st.textContent = 'opslaan…'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = 'opgeslagen ✓'; s2.className = 'npst ok'; } }, 800); }
     ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; queue(); });
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
-    $('#npclose').onclick = toggleNotes;
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
     $('#nppop').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } popNotes(m); };
     var dlb = $('#npdl'); if (dlb) dlb.onclick = function () { dl(new Blob(['﻿' + minutesText(m)], { type: 'text/plain' }), minutesFileName(m)); };
@@ -200,13 +199,6 @@
     if (!openIbabs(m, true)) return;
     popNotes(m);
   }
-  function toggleNotes() {
-    A.notesOpen = !A.notesOpen; try { localStorage.setItem('memeet-notes', A.notesOpen ? '1' : '0'); } catch (e) {}
-    var ws = $('.ws'); if (ws) { ws.classList.toggle('n3', A.notesOpen); applyLw(); }
-    var b = $('#npToggle'); if (b) b.classList.toggle('on', A.notesOpen);
-    if (A.notesOpen) { var m = currentMeeting(); if (m) renderNotes(m); var t = $('#npt'); if (t) t.focus(); }
-    if (PV.fit && $('#pvp')) setTimeout(layoutPages, 50);
-  }
 
   /* ---------- actielijst */
   function editActionLine(a, newText) {
@@ -244,7 +236,7 @@
       return '<tr class="' + (a.done ? 'done' : '') + '" data-k="' + k + '"><td><input type="checkbox" class="adone"' + (a.done ? ' checked' : '') + ' title="Afgerond"></td>' +
         '<td><span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span> ' + tag + '</td>' +
         '<td><input type="date" class="astart" value="' + esc(a.start) + '"></td>' +
-        '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '" data-open-notes="1">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">Losse actie</span>') + '</td>' +
+        '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">Losse actie</span>') + '</td>' +
         '<td class="aact">' + (a.loose ? '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red aldel" title="Deze losse actie verwijderen">✕</button>' : a.hidden ? '<button type="button" class="btn sm arest">↩ Terugzetten</button>' : '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red adel" title="Van de actielijst halen (blijft in de aantekeningen staan)">✕</button>') + '</td></tr>';
     }).join('') : '<tr><td colspan="5" class="empty">' + (all.length ? (f.show === 'snooze' ? 'Geen gesnoozede acties.' : 'Geen acties met dit filter.') : 'Nog geen acties. Typ hierboven een actie en klik op Toevoegen, of begin in de aantekeningen van een vergadering een regel met !.') + '</td></tr>';
     h += '</tbody></table></div>' + (A.store.kind === 'map' ? '<p class="note">Wordt ook bijgehouden in Actielijst › Actielijst.txt</p>' : '') + '</section>';
@@ -299,7 +291,6 @@
     });
     if (!A.snzBound) { A.snzBound = true; D.addEventListener('click', function (e) { var mn = $('#snzmenu'); if (mn && !mn.hidden && !e.target.closest('#snzmenu')) mn.hidden = true; }); }
     $$('[data-show]').forEach(function (b) { b.onclick = function () { f.show = b.dataset.show; renderActions(); }; });
-    $$('[data-open-notes]').forEach(function (a) { a.onclick = function () { A.notesOpen = true; }; });
     var qi = $('#aq'); qi.oninput = function () { f.q = qi.value; var p = qi.selectionStart; renderActions(); var n = $('#aq'); n.focus(); n.setSelectionRange(p, p); };
     bindFolders($('#main'));
     $('#adl').onclick = function () { dl(new Blob(['﻿' + actionListText()], { type: 'text/plain' }), 'Actielijst.txt'); };
