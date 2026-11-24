@@ -4,7 +4,7 @@
     '<li>Kopieer de <b>hele map <code>memeet-data</code></b>, mét het bestand <code>memeet.json</code> erin, naar bijvoorbeeld OneDrive, een netwerkschijf of een USB-stick.</li></ol>' +
     '<p><code>memeet.json</code> is het register van MeMeet: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen in de PDF\'s. Zonder dat bestand zijn alleen de losse stukken terug te halen.</p>' +
     '<h3>Back-up terugzetten</h3><ol><li>Zet de gekopieerde map <code>memeet-data</code> terug, bijvoorbeeld in <code>Documenten\\MeMeet</code>.</li>' +
-    '<li>Open MeMeet, klik rechtsboven bij de map op <b>wijzig</b> en kies die map <code>memeet-data</code>.</li></ol>' +
+    '<li>Open MeMeet, klik rechtsboven op <b>📁 Wijzig datamap</b> en kies die map <code>memeet-data</code>.</li></ol>' +
     '<p class="muted">Losse vergadermappen terugkopiëren in <code>Vergaderingen</code> werkt niet: MeMeet werkt vanuit <code>memeet.json</code>. Zet altijd de hele map terug.</p>';
 
   var GITHUB = 'https://github.com/oss-aigp/memeet', GITHUB_DL = 'https://github.com/oss-aigp/memeet/blob/main/dist/MeMeet.html';
@@ -49,7 +49,7 @@
       '<li><b>Je gegevens zijn gewone bestanden</b> in <code>memeet-data</code>, niet versleuteld. Ze zijn net zo goed beveiligd als je andere documenten: via je Windows-account en de beveiliging van je werkplek.</li>' +
       '<li><b>OneDrive.</b> Wordt je map Documenten met OneDrive gesynchroniseerd, dan komt <code>memeet-data</code> ook in de OneDrive van je organisatie. Voor gewone werkstukken is dat meestal prima; volg voor vertrouwelijke of gerubriceerde informatie de regels van je organisatie.</li>' +
       '<li><b>Bewaar je alles in de browser</b>, dan staan de gegevens in je browserprofiel op deze computer. Wis je de browsergegevens, dan ben je ze kwijt: maak dan regelmatig een export.</li>' +
-      '<li><b>Wat wel naar buiten gaat:</b> alleen wat je zelf doet, zoals <b>Deelnemen</b> (opent de Teams-link), <b>iBabs</b> (opent iBabs in een eigen venster), een conceptmail die je in Outlook verstuurt, of een link naar GitHub in deze help.</li>' +
+      '<li><b>Wat wel naar buiten gaat:</b> alleen wat je zelf doet, zoals <b>Deelnemen</b> (opent de Teams-link), <b>iBabs</b> (opent iBabs in een eigen tabblad), een conceptmail die je in Outlook verstuurt, of een link naar GitHub in deze help.</li>' +
       '<li><b>Let op bij delen:</b> een PDF die je downloadt met aantekeningen bevat je markeringen en opmerkingen.</li></ul>'],
     ['Waarom vraagt de browser elke keer om toestemming?', '<p>Dat is een beveiligingsregel van de browser: een webpagina mag pas bij een map op je computer als jij daar in die sessie toestemming voor geeft. Klik op <b>Map openen</b> en daarna op <b>Toestaan</b>.</p>'],
     ['Kan ik MeMeet op meerdere computers gebruiken?', '<p>Ja, maar niet tegelijk met dezelfde gegevens. Kopieer de hele map <code>memeet-data</code> naar de andere computer en kies daar die map. Werk niet op twee computers tegelijk in dezelfde map (bijvoorbeeld via OneDrive): dan kunnen wijzigingen elkaar overschrijven.</p>'],
@@ -57,7 +57,7 @@
   var ABOUT_HTML = '<p><b>MeMeet</b> is een vergaderapp in één HTML-bestand. Je sleept mails en uitnodigingen uit Outlook erin, en MeMeet maakt er vergaderingen van met alle stukken, die je kunt lezen, markeren en bewerken. Alles blijft op je eigen computer.</p>' +
     '<h3>Zo werkt het</h3><ol><li><b>Vergaderingen maken</b>: sleep een mail of uitnodiging erin, of lees met <b>Importeer weekagenda</b> je Outlook-agenda in. Titel, datum, tijd, locatie, vergaderlink, iBabs-link en bijlagen worden overgenomen.</li>' +
     '<li><b>Stukken</b>: elk stuk blijft in zijn eigen formaat (Word, Excel, PowerPoint, PDF, afbeeldingen, mails). Een zip wordt uitgepakt; bij een mail komen de bijlagen als losse stukken erachter. De viewer toont ze allemaal; daarin kun je zoeken, markeren en opmerkingen maken. Bij Bewerken pas je het origineel aan.</li>' +
-    '<li><b>Vergaderen</b>: met <b>Deelnemen</b> open je de online vergadering, met <b>iBabs</b> de stukken in iBabs, en rechts maak je aantekeningen. <b>Naast elkaar</b> zet iBabs links en je aantekeningen rechts. Regels die met <code>!</code> beginnen, worden acties; met <code>=</code> besluiten; met <code>&gt;</code> meeneempunten voor het vervolgoverleg.</li>' +
+    '<li><b>Vergaderen</b>: met <b>Deelnemen</b> open je de online vergadering, met <b>iBabs</b> de stukken in iBabs, en rechts maak je aantekeningen. Regels die met <code>!</code> beginnen, worden acties; met <code>=</code> besluiten; met <code>&gt;</code> meeneempunten voor het vervolgoverleg.</li>' +
     '<li><b>Afronden</b>: verslagen en acties vind je terug in de tabbladen <b>Verslagen</b> en <b>Actielijst</b>. Bij het volgende overleg met dezelfde titel staan de besluiten, acties en meeneempunten van de vorige keer klaar onder <b>📋 Meeneempunten</b>.</li>' +
     '<li><b>Terugvinden</b>: in <b>Bestanden</b> staan alle stukken, met versies, en kun je ze openen, downloaden en mailen.</li></ol>' +
     '<h3>Waar staat wat?</h3><pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html      de app\n  MeMeet.ico       het icoon\n  memeet-data\\     je gegevens\n    Vergaderingen\\  per vergadering de stukken\n    Aantekeningen\\  de verslagen als .txt\n    Actielijst\\     Actielijst.txt\n    memeet.json     het register</pre>' +
@@ -76,7 +76,7 @@
       '<li><b>📅 Importeer weekagenda</b> leest je hele Outlook-agenda van de komende dagen in één keer in.</li>' +
       '<li><b>+ Nieuwe vergadering</b> maakt een lege vergadering die je zelf invult.</li></ul>' +
       '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>↻</b> zie je een andere.</p>' +
-      '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen venster.</li>' +
+      '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
       '<li>Vandaag en Morgen kun je in- en uitklappen met <b>weergeven</b>/<b>verbergen</b>; in de kop zie je hoeveel vergaderingen er zijn. Vandaag is na 20:30 standaard ingeklapt, Morgen staat standaard open.</li></ul>' +
       '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten zijn standaard ingeklapt. Klik op de kop of op <b>weergeven</b>.</li>' +
       '<li>Volgende vergaderingen begint bij overmorgen. Het Archief bevat de vergaderingen die geweest zijn.</li>' +
@@ -87,8 +87,7 @@
       '<h3>Gegevens</h3><ul><li>Titel, datum, tijd, locatie, Deelnemen en de iBabs-link staan samen op één regel bovenaan, zodat er zoveel mogelijk ruimte is voor de stukken. Is het venster te smal, dan krijgt die regel een schuifbalk; hij valt nooit over twee regels. Wijzig je iets, dan wordt het vanzelf bewaard (je ziet even <i>opgeslagen ✓</i>). Alleen een nieuwe vergadering heeft een knop <b>Opslaan</b>.</li>' +
       '<li><b>Deelnemen</b> opent de vergaderlink (Teams, Zoom …) uit de uitnodiging. Met <b>🔗</b> ernaast voeg je een vergaderlink toe of wijzig je hem; laat je het vak leeg, dan gaat de link weg.</li>' +
       '<li>De <b>iBabs-link</b> is een eigen veld, apart van de vergaderlink. MeMeet vult hem vanzelf als de uitnodiging een link naar iBabs bevat (bij inslepen en bij de weekimport). Je kunt hem ook zelf plakken of wijzigen. Opent Deelnemen bij een oudere vergadering iBabs, haal de link dan met 🔗 weg en plak hem bij iBabs-link.</li></ul>' +
-      '<h3>iBabs</h3><ul><li><b>iBabs</b> opent de vergadering in iBabs in een eigen venster, zonder tabbladen. Klik je bij een andere vergadering, dan laadt die in hetzelfde venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
-      '<li><b>Naast elkaar</b> zet iBabs links op je scherm en je aantekeningen rechts, elk in een eigen venster. Houdt de browser het tweede venster tegen, sta dan één keer pop-ups toe voor MeMeet (het icoontje rechts in de adresbalk). De vensters komen op het scherm waar MeMeet staat; het venster van MeMeet zelf verschuift niet.</li>' +
+      '<h3>iBabs</h3><ul><li><b>iBabs</b> opent de vergadering in iBabs in een eigen tabblad. Klik je bij een andere vergadering, dan laadt die in hetzelfde tabblad. Wil je iBabs en MeMeet naast elkaar, sleep dat tabblad dan los naar een eigen venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
       '<li>iBabs kan niet in MeMeet zelf worden getoond: iBabs staat dat niet toe.</li></ul>' +
       '<h3>Stukken</h3><ul><li>Sleep documenten op de vergadering, of klik op het vak <i>Sleep documenten of een mail hierheen</i> om ze te kiezen. Elk stuk blijft in zijn eigen formaat; MeMeet maakt er geen PDF van. De viewer toont Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails.</li>' +
       '<li>Een <b>zip</b> wordt uitgepakt: de bestanden erin worden losse stukken.</li>' +
@@ -119,8 +118,8 @@
       '<li>Liever in Office zelf? Download het stuk via <b>⋯</b> › <i>Origineel downloaden</i>, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
       '<h3>Aantekeningen en acties</h3><ul><li>Rechts staat altijd de kolom <b>Aantekeningen</b>. Alles wordt vanzelf bewaard en ook als tekstbestand in de map Aantekeningen gezet.</li>' +
       '<li>Een regel die begint met <code>!</code> wordt een actie, bijvoorbeeld <code>! Jan stuurt de notitie rond</code>. Die staat daarna in de Actielijst.</li>' +
-      '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>✉ Mailen</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
-      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor het vervolgoverleg, bijvoorbeeld <code>&gt; begroting opnieuw bespreken</code>. Bij de volgende vergadering met dezelfde titel staat het klaar onder <b>📋 Meeneempunten</b>. Meeneempunten zijn privé: ze gaan niet mee met Mailen.</li>' +
+      '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>✉ Mail</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
+      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor het vervolgoverleg, bijvoorbeeld <code>&gt; begroting opnieuw bespreken</code>. Bij de volgende vergadering met dezelfde titel staat het klaar onder <b>📋 Meeneempunten</b>. Meeneempunten zijn privé: ze gaan niet mee met ✉ Mail.</li>' +
       '<li>Je regels blijven staan zoals je ze typt, ook in het tekstbestand.</li>' +
       '<li>Maak de kolom <b>breder of smaller</b> door de linkerrand te verslepen (dubbelklik: standaardbreedte).</li>' +
       '<li><b>⧉ Apart venster</b> zet de aantekeningen in een eigen venster rechts op je scherm. Dat kun je los verschuiven en naast andere programma\'s zetten. Met <b>⇤ Terug</b> of door het venster te sluiten, staan ze weer in MeMeet.</li></ul>' +
@@ -132,8 +131,8 @@
       '<li>Klik op een verslag om het te bewerken in een Word-achtige editor: koppen, vet, cursief, onderstreept en lijsten. Wijzigingen worden vanzelf bewaard.</li>' +
       '<li>Een webadres (https://… of www.…) wordt vanzelf een link. Klik erop om hem in een nieuw tabblad te openen.</li>' +
       '<li>Regels die met <code>!</code> beginnen, zijn acties en staan ook in de Actielijst. Regels met <code>=</code> zijn besluiten; regels met <code>&gt;</code> zijn meeneempunten voor het vervolgoverleg.</li>' +
-      '<li>In de kolom <b>Besluiten, acties en meeneempunten</b> staat per vergadering een kort overzicht daarvan; klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>📋 Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>📋 Meeneempunten</b>.</li>' +
-      '<li><b>✉ Mailen</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
+      '<li>Achter de titel van een vergadering staat rechts <b>📋 Meeneempunten</b> als er besluiten, acties of meeneempunten zijn (de Besluiten, acties en meeneempunten; met de muis erop zie je hoeveel). Klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>📋 Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>📋 Meeneempunten</b>.</li>' +
+      '<li><b>✉ Mail</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
       '<li>Elk verslag staat ook als tekstbestand in de map <code>memeet-data\\Aantekeningen</code>, als <code>jjjjmmdd Titel.txt</code>. Pas die bestanden niet buiten MeMeet aan: MeMeet schrijft ze opnieuw bij de volgende wijziging.</li></ul>' },
     actions: { t: 'Actielijst', h:
       '<p>Alle acties: uit de aantekeningen van vergaderingen, en losse acties die je hier zelf toevoegt.</p><ul>' +
@@ -141,10 +140,11 @@
       '<li><b>Actie uit een vergadering</b>: begin in de aantekeningen een regel met <code>!</code>. Wijzig je de tekst hier, dan verandert de regel in de aantekeningen mee.</li>' +
       '<li>Met de knoppen bovenaan kies je wat je ziet: <b>Open</b>, <b>⏰ Gesnoozed</b>, <b>Afgerond</b>, <b>Alle</b>, en <b>Verwijderd</b> als je acties van de lijst hebt gehaald.</li>' +
       '<li>Klik op de tekst om een actie te bewerken. Vink hem af als hij klaar is.</li>' +
+      '<li><b>Mail als actie</b>: sleep een mail uit Outlook naar de Actielijst. Het onderwerp wordt de actie, met ✉ ervoor (en 📎 met het aantal bijlagen). Klik op zo\'n actie: een viewer toont de mail, en links de bijlagen die je aanklikt om ze te bekijken. Bovenin pas je de tekst van de actie aan; <b>⤓ Download</b> bewaart het bestand dat je ziet. <b>Esc</b> sluit de viewer. Verwijder je de actie, dan gaat de bewaarde mail ook weg.</li>' +
       '<li><b>⏰ Snoozen</b> verbergt een actie tot morgen, overmorgen, volgende week of een datum die je kiest. Daarna staat hij weer bij Open.</li>' +
       '<li>Een <b>begindatum</b> zegt vanaf wanneer je met een actie aan de slag gaat.</li>' +
       '<li><b>Van de lijst halen</b> verwijdert de actie uit dit overzicht; de regel blijft in de aantekeningen staan. Onder Verwijderd zet je hem terug.</li>' +
-      '<li>Klik op de vergadering om ernaartoe te gaan. De actielijst staat ook als <code>Actielijst.txt</code> in de map Actielijst.</li></ul>' },
+      '<li>Klik op de vergadering om ernaartoe te gaan. De actielijst staat ook als <code>Actielijst.txt</code> in de map Actielijst; mails die je als actie hebt toegevoegd, staan in <code>Actielijst\\Mails</code>.</li></ul>' },
     files: { t: 'Bestanden', h:
       '<p>Een verkenner met alle stukken uit je datamap. Je kunt hier bestanden bekijken, downloaden en mailen, maar niet bewerken.</p><ul>' +
       '<li>Links kies je een map, of <b>Alle bestanden</b>. Zoek met het zoekvak en filter per kolom.</li>' +

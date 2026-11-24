@@ -44,11 +44,13 @@
       try { await root.removeEntry('memeet.json.tmp'); } catch (e) {}
     };
     this.meetingsDir = function () { return root.getDirectoryHandle(MEET_DIR, { create: true }); };
-    this.dir = async function (m) { return (await this.meetingsDir()).getDirectoryHandle(m.folder, { create: true }); };
+    /* mails op de actielijst staan in Actielijst › Mails, elk in een eigen map */
+    this.mailsDir = async function () { return (await root.getDirectoryHandle(ACTS_DIR, { create: true })).getDirectoryHandle('Mails', { create: true }); };
+    this.dir = async function (m) { return (m.sub === 'act' ? await this.mailsDir() : await this.meetingsDir()).getDirectoryHandle(m.folder, { create: true }); };
     this.put = async function (m, name, blob) { await writeFile(await this.dir(m), name, blob); };
     this.get = async function (m, name) { return (await (await this.dir(m)).getFileHandle(name)).getFile(); };
     this.del = async function (m, name) { try { await (await this.dir(m)).removeEntry(name); } catch (e) {} };
-    this.delMeeting = async function (m) { if (!m.folder) return; try { await (await this.meetingsDir()).removeEntry(m.folder, { recursive: true }); } catch (e) { if (e.name !== 'NotFoundError') throw e; } };
+    this.delMeeting = async function (m) { if (!m.folder) return; try { await (m.sub === 'act' ? await this.mailsDir() : await this.meetingsDir()).removeEntry(m.folder, { recursive: true }); } catch (e) { if (e.name !== 'NotFoundError') throw e; } };
   }
   function BrowserStore() {
     this.kind = 'browser'; this.name = 'deze browser';
@@ -255,6 +257,12 @@
     var mails = files.filter(isMail), docs = files.filter(function (f) { return !isMail(f); });
     var cur = currentMeeting();
     function item(f) { return { name: f.name, type: f.type || guessMime(f.name), blob: f }; }
+    /* op de Actielijst: elke mail wordt een actie */
+    if (location.hash === '#/acties') {
+      if (mails.length) await addMailActions(mails);
+      if (docs.length) toast('Op de Actielijst kun je alleen mails slepen (.msg of .eml). Het onderwerp wordt dan de actie.', 'warn');
+      return;
+    }
     try {
       if (cur && !cur.isNew) {
         var n = 0, list = await expandFiles(docs.map(item)); /* zips uitpakken */
@@ -539,7 +547,7 @@
     var nOpen = A.store ? openCount() : 0;
     h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
     if (A.store) {
-      h += '<span class="tinfo" title="Hier worden alle vergaderingen, stukken en aantekeningen bewaard">📁 ' + (A.store.kind === 'map' ? 'Map: <b>' + esc(A.store.name) + '</b>' : 'In de browser') + ' <button class="link" id="chgStore">' + (A.store.kind === 'map' ? 'wijzig' : 'map kiezen') + '</button></span>';
+      h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">📁 Wijzig datamap</button>';
     }
     setHTML(s, h);
     var cs = $('#chgStore', s); if (cs) cs.onclick = chooseFolder;
@@ -749,7 +757,7 @@
       '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
       '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">🔗</button></span>' +
-      '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button>' + (isNew ? '' : '<button type="button" class="btn sm" id="ibSide" title="iBabs links en je aantekeningen rechts op het scherm, elk in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>Naast elkaar</button>') + '</span>' +
+      '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen tabblad"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button></span>' +
       '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">🗑</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">Terug</a></span></form>';
     h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">📋 Meeneempunten</button>') + '</span></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
@@ -828,11 +836,10 @@
       m.link = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? 'Vergaderlink bewaard.' : 'Vergaderlink weggehaald.', 'ok'); }
     };
     /* iBabs-link: de knoppen verschijnen zodra er een link staat; een gewijzigde link wordt meteen bewaard, net als de vergaderlink */
-    var ib = $('[name=ibabs]', frm), ibB = $('#ibBtn'), ibS = $('#ibSide');
-    function updIb() { var ok = /^https?:\/\//i.test(ib.value.trim()); ibB.hidden = !ok; if (ibS) ibS.hidden = !ok; }
+    var ib = $('[name=ibabs]', frm), ibB = $('#ibBtn');
+    function updIb() { ibB.hidden = !/^https?:\/\//i.test(ib.value.trim()); }
     ib.addEventListener('input', updIb); ib.addEventListener('change', async function () { readForm(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); } });
     ibB.onclick = function () { readForm(); openIbabs(m); };
-    if (ibS) ibS.onclick = async function () { readForm(); if (A.flushNotes) { try { await A.flushNotes(); } catch (e) {} } sideBySide(m); };
     if (!isNew && m.link === undefined && m.source && m.source.file) {
       A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m) { upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });
     }
@@ -1391,7 +1398,7 @@
   function initDrop() {
     var ov = $('#overlay'), depth = 0;
     function hasFiles(e) { return e.dataTransfer && Array.prototype.indexOf.call(e.dataTransfer.types || [], 'Files') >= 0; }
-    D.addEventListener('dragenter', function (e) { if (!hasFiles(e)) return; e.preventDefault(); depth++; var c = currentMeeting(); $('#ovText').textContent = c ? 'Laat los om toe te voegen aan "' + (c.title || 'deze vergadering') + '"' : 'Laat los om een vergadering aan te maken'; ov.className = 'on'; });
+    D.addEventListener('dragenter', function (e) { if (!hasFiles(e)) return; e.preventDefault(); depth++; var c = currentMeeting(); $('#ovText').textContent = location.hash === '#/acties' ? 'Laat de mail los: het onderwerp wordt een actie' : c ? 'Laat los om toe te voegen aan "' + (c.title || 'deze vergadering') + '"' : 'Laat los om een vergadering aan te maken'; ov.className = 'on'; });
     D.addEventListener('dragover', function (e) { if (hasFiles(e)) { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; } });
     D.addEventListener('dragleave', function () { if (--depth <= 0) { depth = 0; ov.className = ''; } });
     D.addEventListener('drop', function (e) {

@@ -106,7 +106,7 @@
   function renderNotes(m) {
     var np = $('#np'); if (!np) return;
     npWidth();
-    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '</div>';
+    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mail</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '</div>';
     if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); bindGrip(); return; }
     if (npPopped(m)) {
       setHTML(np, h + '<div class="pvmsg">De aantekeningen staan in een apart venster.<br><button type="button" class="btn sm" id="npfocus">Naar het venster</button> <button type="button" class="btn sm" id="npback">Terugzetten in MeMeet</button></div>');
@@ -116,7 +116,7 @@
     h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
     setHTML(np, h);
     var ta = $('#npt'), t;
-    function queue() { var st = $('#npst'); if (st) { st.textContent = 'opslaan…'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = 'opgeslagen ✓'; s2.className = 'npst ok'; } }, 800); }
+    function queue() { var st = $('#npst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = '✓'; s2.title = 'Opgeslagen'; s2.className = 'npst ok'; } }, 800); }
     ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; queue(); });
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
@@ -157,7 +157,7 @@
     var d = win.document;
     d.open(); d.write('<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Aantekeningen: ' + esc(m.title || 'Vergadering') + '</title><style>' + POP_CSS + '</style></head><body>' +
       '<header><div class="t"><b>' + esc(m.title || 'Vergadering') + '</b><small>' + esc(m.date ? fmtLong(m.date) : '') + (m.start ? ', ' + esc(m.start) : '') + '</small></div><span id="st"></span>' +
-      '<button id="mail" title="Het verslag mailen">✉ Mailen</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
+      '<button id="mail" title="Het verslag mailen">✉ Mail</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
       '<textarea id="t" spellcheck="true" placeholder="Typ hier je aantekeningen…"></textarea><div id="links"></div>' +
       '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt voor het vervolgoverleg. Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
     d.close();
@@ -175,29 +175,17 @@
     A.flushNotes = null;
     renderNotes(m);
   }
-  /* iBabs in een eigen venster, zonder tabbladenbalk, links op het scherm. Door de vaste naam laadt een volgende klik
-     (ook bij een andere vergadering) in hetzelfde venster. iBabs kan niet in MeMeet zelf: iBabs staat dat niet toe. */
+  /* iBabs in een eigen tabblad. Door de vaste naam laadt een volgende klik (ook bij een andere vergadering) in hetzelfde tabblad.
+     iBabs kan niet in MeMeet zelf: iBabs staat dat niet toe. */
   var IBABS_WIN = 'memeet-ibabs';
-  function openIbabs(m, beside) {
+  function openIbabs(m) {
     var url = String(m.ibabs || '').trim();
     if (!/^https?:\/\//i.test(url)) { toast('Er staat geen iBabs-link bij deze vergadering.', 'warn'); return null; }
-    var left = screen.availLeft || 0, top = screen.availTop || 0, hgt = screen.availHeight;
-    var w = beside ? Math.max(400, screen.availWidth - npPopWidth()) : Math.max(640, Math.round(screen.availWidth * 0.65));
-    var feat = 'popup=yes,width=' + w + ',height=' + hgt + ',left=' + left + ',top=' + top;
-    /* Naast elkaar: staat iBabs al open, dan kan MeMeet dat venster niet meer verplaatsen (het is van iBabs). Sluiten en op de goede plek opnieuw openen; je blijft ingelogd. */
-    if (beside && A.ibWin && !A.ibWin.closed) { try { A.ibWin.close(); } catch (e) {} }
-    /* Een venster met deze naam dat al open is, laadt de nieuwe link; anders opent een nieuw venster op de opgegeven plek.
-       (MeMeet moet de 'opener' van het venster blijven: anders kan het venster niet worden hergebruikt.) */
-    var win = W.open(url, IBABS_WIN, feat);
-    if (!win) { toast('De browser blokkeerde het venster. Sta pop-ups toe voor MeMeet (het icoontje rechts in de adresbalk).', 'warn'); return null; }
+    var win = W.open(url, IBABS_WIN);
+    if (!win) { toast('De browser blokkeerde het tabblad. Sta pop-ups toe voor MeMeet (het icoontje rechts in de adresbalk).', 'warn'); return null; }
     try { win.focus(); } catch (e) {}
     A.ibWin = win;
     return win;
-  }
-  /* iBabs links en de aantekeningen rechts, elk in een eigen venster. De browser kan het tweede venster als pop-up tegenhouden. */
-  function sideBySide(m) {
-    if (!openIbabs(m, true)) return;
-    popNotes(m);
   }
 
   /* ---------- actielijst */
@@ -226,7 +214,7 @@
       return ok && (!q || (a.text + ' ' + (a.m ? a.m.title : 'losse actie')).toLowerCase().indexOf(q) >= 0);
     });
     if (f.show === 'snooze') list.sort(function (x, y) { return x.snooze.localeCompare(y.snooze); });
-    var h = '<div class="head"><h1>Actielijst</h1><div class="acts"><button class="btn" id="adl">Download als tekstbestand</button></div></div>';
+    var h = '<div class="head"><h1>Actielijst</h1><span class="hhint">✉ Sleep een mail hierheen: het onderwerp wordt een actie</span><div class="acts"><button class="btn sm" id="adl">⤓ Download als tekstbestand</button></div></div>';
     h += '<section class="card"><form class="addact" id="addAct" autocomplete="off"><input id="newAct" placeholder="Nieuwe actie, bijvoorbeeld: Offerte opvragen bij de leverancier" aria-label="Nieuwe actie"><input type="date" id="newActD" title="Begindatum (mag leeg blijven)" aria-label="Begindatum"><button type="submit" class="btn pri">+ Toevoegen</button></form>' +
       '<div class="filters"><input id="aq" type="search" placeholder="Zoeken in acties of vergaderingen…" value="' + esc(f.q) + '">' +
       '<div class="seg">' + [['open', 'Open (' + cnt.open + ')'], ['snooze', '⏰ Gesnoozed (' + cnt.snooze + ')'], ['afgerond', 'Afgerond (' + cnt.afgerond + ')'], ['alle', 'Alle (' + cnt.alle + ')']].concat(cnt.weg ? [['weg', 'Verwijderd (' + cnt.weg + ')']] : []).map(function (s) { return '<button type="button" class="' + (f.show === s[0] ? 'on' : '') + '" data-show="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div></div>';
@@ -234,18 +222,19 @@
     h += list.length ? list.map(function (a, k) {
       var tag = a.snoozed ? '<span class="bdg snz">⏰ tot ' + esc(fmtDay(a.snooze)) + '</span>' : a.back ? '<span class="bdg back">terug van snooze</span>' : '';
       return '<tr class="' + (a.done ? 'done' : '') + '" data-k="' + k + '"><td><input type="checkbox" class="adone"' + (a.done ? ' checked' : '') + ' title="Afgerond"></td>' +
-        '<td><span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span> ' + tag + '</td>' +
+        '<td>' + (a.loose && a.loose.mail ? '<button type="button" class="atext amail" title="De mail' + (a.loose.mail.atts ? ' en ' + a.loose.mail.atts + ' bijlage' + (a.loose.mail.atts === 1 ? '' : 'n') : '') + ' bekijken"><span class="mic" aria-hidden="true">✉</span>' + esc(a.text) + (a.loose.mail.atts ? ' <span class="bdg">📎 ' + a.loose.mail.atts + '</span>' : '') + '</button>' : '<span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span>') + ' ' + tag + '</td>' +
         '<td><input type="date" class="astart" value="' + esc(a.start) + '"></td>' +
-        '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">Losse actie</span>') + '</td>' +
+        '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">' + (a.loose && a.loose.mail ? 'Uit een mail' + (a.loose.mail.from ? '<br><small>van ' + esc(a.loose.mail.from) + '</small>' : '') : 'Losse actie') + '</span>') + '</td>' +
         '<td class="aact">' + (a.loose ? '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red aldel" title="Deze losse actie verwijderen">✕</button>' : a.hidden ? '<button type="button" class="btn sm arest">↩ Terugzetten</button>' : '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red adel" title="Van de actielijst halen (blijft in de aantekeningen staan)">✕</button>') + '</td></tr>';
-    }).join('') : '<tr><td colspan="5" class="empty">' + (all.length ? (f.show === 'snooze' ? 'Geen gesnoozede acties.' : 'Geen acties met dit filter.') : 'Nog geen acties. Typ hierboven een actie en klik op Toevoegen, of begin in de aantekeningen van een vergadering een regel met !.') + '</td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty">' + (all.length ? (f.show === 'snooze' ? 'Geen gesnoozede acties.' : 'Geen acties met dit filter.') : 'Nog geen acties. Typ hierboven een actie en klik op Toevoegen, sleep een mail hierheen, of begin in de aantekeningen van een vergadering een regel met !.') + '</td></tr>';
     h += '</tbody></table></div>' + (A.store.kind === 'map' ? '<p class="note">Wordt ook bijgehouden in Actielijst › Actielijst.txt</p>' : '') + '</section>';
     h += '<div class="snzmenu" id="snzmenu" hidden></div>';
     setHTML($('#main'), h);
     function rowA(el) { var tr = el.closest('tr[data-k]'); return tr ? list[+tr.dataset.k] : null; }
     $$('.adone').forEach(function (cb) { cb.onchange = async function () { var a = rowA(cb); setMeta(a.id, 'done', cb.checked ? new Date().toISOString() : null); if (cb.checked) setMeta(a.id, 'snooze', null); await saveActions(a.m); renderActions(); }; });
     $$('.astart').forEach(function (inp) { inp.onchange = async function () { var a = rowA(inp); setMeta(a.id, 'start', inp.value && inp.value !== (a.m ? a.m.date : String(a.loose.created || '').slice(0, 10)) ? inp.value : null); await saveActions(a.m); renderActions(); }; });
-    $$('.atext').forEach(function (sp) {
+    $$('.amail').forEach(function (b) { b.onclick = function () { openMailAct(rowA(b).loose); }; });
+    $$('.atext:not(.amail)').forEach(function (sp) {
       sp.onclick = function () {
         var a = rowA(sp), inp = el2('input', 'aedit'); inp.value = a.text; sp.replaceWith(inp); inp.focus(); inp.select();
         var fin = false;
@@ -253,7 +242,7 @@
           if (fin) return; fin = true; var v = inp.value.trim();
           if (save && v !== a.text) {
             if (!v && !confirm('Lege tekst: actie verwijderen?')) { renderActions(); return; }
-            if (a.loose) { if (v) a.loose.text = v; else { A.data.todo = A.data.todo.filter(function (x) { return x !== a.loose; }); delete (A.data.act || {})[a.id]; } }
+            if (a.loose) { if (v) a.loose.text = v; else { A.data.todo = A.data.todo.filter(function (x) { return x !== a.loose; }); delete (A.data.act || {})[a.id]; await dropMailAction(a.loose); } }
             else editActionLine(a, v);
             await saveActions(a.m);
           }
@@ -264,7 +253,7 @@
       };
     });
     $$('.adel').forEach(function (b) { b.onclick = async function () { var a = rowA(b); setMeta(a.id, 'hidden', new Date().toISOString()); await saveActions(a.m); toast('Van de actielijst gehaald. In de aantekeningen van "' + a.m.title + '" staat de regel nog met !', 'ok'); renderActions(); }; });
-    $$('.aldel').forEach(function (b) { b.onclick = async function () { var a = rowA(b); if (!confirm('Losse actie "' + a.text + '" verwijderen?')) return; A.data.todo = (A.data.todo || []).filter(function (x) { return x !== a.loose; }); if (A.data.act) delete A.data.act[a.id]; await saveActions(null); toast('Actie verwijderd.', 'ok'); renderActions(); }; });
+    $$('.aldel').forEach(function (b) { b.onclick = async function () { var a = rowA(b); if (!confirm('Losse actie "' + a.text + '" verwijderen?' + (a.loose.mail ? '\n\nDe bewaarde mail wordt ook verwijderd.' : ''))) return; await dropMailAction(a.loose); A.data.todo = (A.data.todo || []).filter(function (x) { return x !== a.loose; }); if (A.data.act) delete A.data.act[a.id]; await saveActions(null); toast('Actie verwijderd.', 'ok'); renderActions(); }; });
     $('#addAct').onsubmit = async function (e) {
       e.preventDefault(); var inp = $('#newAct'), v = inp.value.trim(), d = $('#newActD').value; if (!v) { inp.focus(); return; }
       var x = { id: 'L' + uid(), text: v, created: new Date().toISOString() }; (A.data.todo || (A.data.todo = [])).push(x);

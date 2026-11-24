@@ -57,10 +57,10 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 | **Stukken** | Elk stuk blijft in zijn eigen formaat: Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails. Een **zip** wordt uitgepakt; bij een **mail** komen de bijlagen als losse stukken erachter. De viewer toont alles: andere bestanden dan PDF worden bij het openen omgezet om te tonen, zonder dat er een PDF wordt bewaard. PowerPoint-dia's worden getrouw weergegeven: thema en diamaster, achtergronden, vormen, afbeeldingen, tabellen, grafieken en SmartArt. Ordenen doe je door te slepen, ook met meer stukken tegelijk. |
 | **Viewer** | Je kunt zoeken in de PDF (Ctrl+F), tekst selecteren en kopiëren, **markeren** in geel of groen, en **opmerkingen** maken. Opmerkingen staan in de rechtermarge, met een pijltje naar het woord, in 9 pt. Ongedaan maken en Opnieuw werken tot 20 stappen. Ook **ingescande PDF's** worden getoond, in zwart-wit en in kleur; heeft de scanner tekstherkenning (OCR) gedaan, dan kun je er ook in zoeken. |
 | **Bewerken** | Een bewerkomgeving voor Word (stijlen, vet, cursief, onderstrepen, uitlijnen), Excel (raster, formulebalk, formules) en PowerPoint (dia's met miniaturen). Het originele bestand blijft netjes en opent gewoon in Office. Ongedaan maken en Opnieuw werken tot 20 stappen. |
-| **iBabs** | Staan de stukken in iBabs, dan opent de knop **iBabs** de vergadering in een eigen venster. **Naast elkaar** zet iBabs links en je aantekeningen rechts op het scherm. |
+| **iBabs** | Staan de stukken in iBabs, dan opent de knop **iBabs** de vergadering in een eigen tabblad. |
 | **Aantekeningen** | Een kolom om aantekeningen te maken tijdens de vergadering. Een regel die begint met `!` wordt een actie, met `=` een besluit en met `>` een meeneempunt voor het vervolgoverleg. Alles wordt opgeslagen als `jjjjmmdd Titel.txt`. |
 | **Verslagen** | Alle aantekeningen op een rij, te sorteren op naam, datum en datum gewijzigd. Klik op een verslag om het te bewerken in een Word-achtige editor (koppen, vet, cursief, onderstreept, lijsten). Wijzigingen worden automatisch bewaard. Webadressen worden vanzelf links die je met een klik in een nieuw tabblad opent. |
-| **Actielijst** | Alle acties (uit vergaderingen en losse acties die je zelf toevoegt) met de vergaderdatum. Je kunt acties bewerken, afvinken en van de lijst halen (de regel blijft in de aantekeningen staan). Je kunt een begindatum opgeven en **snoozen** naar morgen, overmorgen, volgende week of een datum die je kiest. |
+| **Actielijst** | Alle acties (uit vergaderingen en losse acties die je zelf toevoegt) met de vergaderdatum. Je kunt acties bewerken, afvinken en van de lijst halen (de regel blijft in de aantekeningen staan). Je kunt een begindatum opgeven en **snoozen** naar morgen, overmorgen, volgende week of een datum die je kiest. Sleep je een **mail** naar de Actielijst, dan wordt het onderwerp een actie; een klik erop toont de mail en de bijlagen. |
 | **Vervolgoverleg** | Heeft een vergadering een eerdere vergadering met dezelfde titel, dan staan de **besluiten, acties en meeneempunten van de vorige keer** klaar onder **📋 Meeneempunten**, als popup. Op het tabblad **Verslagen** staat dat overzicht bij elk verslag. |
 | **Bestanden** | Een verkenner met alle bestanden: zoeken, filteren per kolom, openen, downloaden, **mailen** (als conceptmail met bijlage) en naar de vergadering springen. Met **Verwijderen** haal je een bestand uit het overzicht zonder het uit de vergadering te halen. Bestanden kun je hier alleen bekijken, niet bewerken. | Hetzelfde bestand in een ander formaat of een vorige versie (PDF-versie, *(oorspronkelijk)*) staat op één regel; klik met de **rechtermuisknop** (of op *versies*) om alle versies te zien, elk met een eigen download- en mailknop. Aantekeningen, de actielijst en originele mails staan niet in dit overzicht: die vind je in de tabbladen Verslagen en Actielijst en in de vergadering zelf.
 
@@ -167,8 +167,7 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 
 **iBabs**
 - Een vergadering heeft twee links: de **Vergaderlink** (Teams, Zoom en dergelijke) voor **Deelnemen**, en de **iBabs-link** naar de stukken. MeMeet herkent een iBabs-link aan `https://vergaderen.rijksweb.nl/` of aan "ibabs" in de domeinnaam, bij inslepen en bij de weekimport. Een link naar een vergadering (`/Meeting/View/`) gaat voor. De iBabs-link kun je ook zelf plakken of wijzigen; de vergaderlink voeg je toe of wijzig je met **🔗** naast **Deelnemen**.
-- De oranje knop **iBabs** (op de vergaderpagina en bij Vandaag en Morgen) opent iBabs in een eigen venster, zonder tabbladen. Een klik bij een andere vergadering laadt die in hetzelfde venster.
-- **Naast elkaar** zet iBabs links op het scherm en je aantekeningen rechts, elk in een eigen venster. Houdt Edge het tweede venster tegen, sta dan één keer pop-ups toe voor MeMeet. De vensters komen op het scherm waar MeMeet staat; het venster van MeMeet zelf verschuift niet. iBabs in MeMeet zelf tonen kan niet: iBabs staat dat niet toe.
+- De oranje knop **iBabs** (op de vergaderpagina en bij Vandaag en Morgen) opent iBabs in een eigen tabblad. Een klik bij een andere vergadering laadt die in hetzelfde tabblad. Wil je iBabs en MeMeet naast elkaar, sleep dat tabblad dan los naar een eigen venster. iBabs in MeMeet zelf tonen kan niet: iBabs staat dat niet toe.
 - Bij oudere vergaderingen kan de iBabs-link nog als vergaderlink staan (dan opent *Deelnemen* iBabs). Haal hem met **🔗** weg en plak hem bij iBabs-link.
 
 **Vergaderingen verwijderen**
@@ -210,9 +209,10 @@ Alle knoppen staan op één regel boven het stuk. In een smalle kolom tonen Teks
 - Rechts staat altijd de kolom **Aantekeningen**. Versleep de linkerrand om de kolom breder of smaller te maken, of klik op **⧉ Apart venster** om de aantekeningen in een eigen venster rechts op je scherm te zetten, naast andere programma's. Een regel die met `!` begint, wordt een actie, bijvoorbeeld `! Jan stuurt de notitie rond`.
 - Een regel die met `=` begint, is een **besluit**, bijvoorbeeld `= livegang schuift naar maart`. Een regel die met `>` begint, is een **meeneempunt** voor het vervolgoverleg, bijvoorbeeld `> begroting opnieuw bespreken`. Je tekst blijft staan zoals je hem typt, ook in het tekstbestand.
 - In het tabblad **Actielijst** voeg je ook **losse acties** toe, zonder vergadering: typ ze in het vak bovenaan en klik op **+ Toevoegen** (of Enter). Je kunt acties bewerken, afvinken, ⏰ snoozen, een begindatum geven en van de lijst halen. Wat je van de lijst haalt, staat onder *Verwijderd* en kun je terugzetten.
+- Sleep je een **mail** uit Outlook naar het tabblad **Actielijst**, dan wordt het onderwerp een actie, met ✉ ervoor (en 📎 met het aantal bijlagen). Klik op zo'n actie: een viewer toont de mail, met links de bijlagen die je aanklikt om ze te bekijken. Bovenin pas je de tekst van de actie aan; **⤓ Download** bewaart het bestand dat je ziet. De mail wordt bewaard in `Actielijst\Mails`.
 
 **Verslag mailen**
-- In de kolom **Aantekeningen** en in het verslag (tabblad Verslagen) staat **✉ Mailen**. Outlook opent dan een nieuwe mail met de tekst van je aantekeningen; je vult zelf de ontvanger in. Is de tekst lang, dan downloadt MeMeet een conceptmail (`.eml`): open dat bestand en Outlook toont een nieuwe mail met de hele tekst.
+- In de kolom **Aantekeningen** en in het verslag (tabblad Verslagen) staat **✉ Mail**. Outlook opent dan een nieuwe mail met de tekst van je aantekeningen; je vult zelf de ontvanger in. Is de tekst lang, dan downloadt MeMeet een conceptmail (`.eml`): open dat bestand en Outlook toont een nieuwe mail met de hele tekst.
 - De mail begint met de **besluiten** (`=`), dan de **acties** (`!`), dan de overige aantekeningen in de volgorde waarin je ze typte, elk onder een kopje. Kopjes zonder regels worden weggelaten. **Meeneempunten** (`>`) zijn privé en gaan niet mee.
 
 **Downloads**
@@ -268,7 +268,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 ## Back-up en verhuizen
 
 - **Back-up:** sluit MeMeet en kopieer de **hele map `memeet-data`**, mét het bestand `memeet.json` erin, bijvoorbeeld naar OneDrive, een netwerkschijf of een USB-stick. `memeet.json` is het register: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen. Zonder dat bestand zijn alleen de losse stukken terug te halen.
-- **Terugzetten of naar een andere computer:** zet de gekopieerde map `memeet-data` neer (bijvoorbeeld in `Documenten\MeMeet`), open `MeMeet.html` en kies via **wijzig** rechtsboven die map.
+- **Terugzetten of naar een andere computer:** zet de gekopieerde map `memeet-data` neer (bijvoorbeeld in `Documenten\MeMeet`), open `MeMeet.html` en kies via **📁 Wijzig datamap** rechtsboven die map.
 - Losse vergadermappen terugkopiëren in `Vergaderingen` werkt niet: MeMeet werkt vanuit `memeet.json`. Zet altijd de hele map terug.
 
 ---
@@ -286,7 +286,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 | **Een gescande PDF toont lege witte pagina's** | Dat kwam voor in versie 1.0.0, bij scans in zwart-wit (CCITT-fax of JBIG2) of JPEG 2000. Vanaf versie 1.0.1 worden die gewoon getoond. Werk MeMeet bij en open het stuk opnieuw. |
 | **De viewer blijft leeg** | Kies in ⋯ voor **PDF openen in nieuw tabblad**. |
 | **De conceptmail opent als gewone mail** | Dat gebeurt in de nieuwe Outlook. Download de bestanden dan met ⤓ en sleep ze in een nieuwe mail. |
-| **Ik zie mijn vergaderingen niet meer** | Kies bovenin via **wijzig** de juiste datamap. Kijk ook in het **Archief** onderaan de beginpagina. |
+| **Ik zie mijn vergaderingen niet meer** | Kies rechtsboven via **📁 Wijzig datamap** de juiste datamap. Kijk ook in het **Archief** onderaan de beginpagina. |
 
 ---
 

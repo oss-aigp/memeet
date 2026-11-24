@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.1.2 -->
+<!-- MeMeet-versie: 1.2.0 -->
 <!--
-  MeMeet 1.1.2 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.2.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   en JSZip (MIT of GPL-3.0); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -365,7 +365,7 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .pvbar.one{container-type:inline-size}.pvbar.one .tic{display:none}
 .pvbar.one .srch:has(input:placeholder-shown) .tl{display:none}.pvbar.one .srch{flex:0 1 190px;min-width:90px}
 @container (max-width:640px){.pvbar.one [data-act=undo],.pvbar.one [data-act=redo],.pvbar.one [data-act=prev],.pvbar.one [data-act=next],.pvbar.one .sep{display:none}.pvbar.one .srch{min-width:60px}.pvbar.one .pvtools{gap:1px}}
-@container (max-width:800px){.pvbar.one .srch .tl{display:none}.pvbar.one .srch{min-width:70px}.pvbar.one .vtabs button{padding:3px 6px}.pvbar.one .cols{margin:0 1px}.pvbar.one .tic{display:inline}.pvbar.one .tlb{display:none}.pvbar.one button.tl[data-tool]{min-width:28px;padding:4px 5px}}
+@container (max-width:1000px){.pvbar.one .srch .tl{display:none}.pvbar.one .srch{min-width:70px}.pvbar.one .vtabs button{padding:3px 6px}.pvbar.one .cols{margin:0 1px}.pvbar.one .tic{display:inline}.pvbar.one .tlb{display:none}.pvbar.one button.tl[data-tool]{min-width:28px;padding:4px 5px}}
 .pvbar.one span.srch{min-width:0;display:flex;align-items:center;gap:2px}.pvbar.one span.srch input{flex:1 1 auto;width:auto;min-width:44px}.pvbar.one .srch .qc{flex:none;white-space:nowrap}
 .annohead .mtop{justify-content:space-between}.annohead .annomeet{margin-top:0}
 .anno-ed .rep-ed>:first-child{font-weight:700}.anno-ed .rep-ed>:first-child *{font-weight:inherit}
@@ -443,6 +443,87 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .vvbody li.vvact{list-style:none;margin-left:-20px}.vvact label{display:flex;gap:7px;align-items:baseline;cursor:pointer}.vvact input{width:auto;margin:0}.vvact.done span{text-decoration:line-through;color:var(--mute)}
 .dlg.vv .dlgacts{flex-wrap:wrap;align-items:center}.vvlink{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mute)}.vvlink select{max-width:300px}
 .vvl{font-size:12.5px;text-align:left}
+/* ====================================================================== vormgeving 1.2
+   Eén ritme voor de hele app: compacte kopbalk, gelijke knophoogtes (36 px, klein 30 px), kolomkoppen van 44 px,
+   en zo weinig mogelijk witruimte boven de inhoud. */
+:root{--hdr:52px;--colhead:44px}
+header{height:var(--hdr);padding:0 18px;gap:12px}
+.logo{font-size:17px}.logo img{width:28px;height:28px;border-radius:7px}
+.topnav{margin-left:16px;gap:2px}.topnav a{padding:6px 12px;font-size:14px}
+button.tinfo{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;cursor:pointer;color:#fff;border-radius:16px;white-space:nowrap}
+button.tinfo:hover{background:rgba(255,255,255,.22)}
+.wrap{min-height:calc(100% - var(--hdr))}
+main{padding:16px 22px 24px}
+h1{font-size:22px}
+.head{margin-bottom:12px;gap:10px;min-height:36px}.head h1{line-height:1.2}
+.hhint{font-size:13px;color:var(--mute)}
+.card{padding:14px 18px;margin-bottom:12px}
+/* knoppen: overal dezelfde hoogte, tekst netjes in het midden */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;line-height:1;white-space:nowrap;font-size:14px}
+.btn.sm{height:30px;padding:0 10px;font-size:12.5px;gap:5px}
+.btn.sm.icon{width:30px;padding:0}
+.seg button{padding:0 12px;height:34px}
+.filters{margin-bottom:10px;align-items:center}.filters input{height:36px}
+input,select{min-height:34px}
+.chk{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;color:var(--mute);font-size:13.5px;cursor:pointer}.chk input{width:auto;min-height:0;margin:0}
+/* tabellen: rustiger koppen, iets compactere regels */
+th{padding:7px 10px;font-size:11.5px}
+td{padding:8px 10px}
+/* startpagina: begroeting en sleepvak smaller, meer ruimte voor de vergaderingen */
+.quote{padding:10px 56px 10px 22px;margin-bottom:12px}
+.qhi b{font-size:17px}.qhi span{font-size:13px}
+.quote blockquote{font-size:15px}.qfig:before{font-size:38px;top:-8px}
+.dropbar{padding:8px 14px 8px 48px;background-size:24px;background-position:14px center;font-size:13px;margin-bottom:12px}
+.today{padding-top:12px}.tl li{padding:8px 10px}
+.archbtn{padding:12px 22px}
+/* vergaderpagina: kopregel en drie kolommen met gelijke koppen */
+main.detail{height:calc(100vh - var(--hdr));padding:10px 14px 10px}
+.meta.mline{padding:6px 10px;margin-bottom:10px;gap:6px}
+.mline .btn.sm{height:30px}
+.ws,.ws.n3{gap:10px}
+.list{padding:0;display:flex;flex-direction:column}
+.list .shead{height:var(--colhead);flex:none;margin:0;padding:0 8px 0 12px;border-bottom:1px solid var(--line)}
+.list .shead h2{font-size:15px}
+.list .vvrow{margin:8px 8px 4px}
+.list .docs{padding:4px 6px}
+.list .dz.small{margin:6px 8px}
+.list>.note,.list>p{margin:4px 12px 8px}
+.pvbar,.pvbar.one{min-height:var(--colhead);padding:4px 8px}
+.nphead{height:var(--colhead);flex:none;padding:0 8px 0 12px;gap:6px}
+.nphead b{flex:none;font-size:15px;color:var(--brand)}
+.npst{flex:1;min-width:0;font-size:13px;font-weight:700}
+.nphead .btn.sm{height:28px;padding:0 9px;font-size:12.5px}
+#npt{padding:10px 12px}
+/* Verslagen: titel met rechts de link naar de besluiten, acties en meeneempunten */
+.rname{display:flex;align-items:center;gap:12px;min-width:0}.rname b{min-width:0}
+.rname .vvl{margin-left:auto;padding:2px 6px;white-space:nowrap;flex:none}
+/* Actielijst: een actie uit een mail opent de mail */
+.atext.amail{display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:0;font:inherit;color:var(--ink);cursor:pointer;text-align:left;border-bottom:1px dashed transparent}
+.atext.amail:hover{color:var(--brand2);border-bottom-color:var(--brand2)}
+.mic{color:var(--hemel);font-size:15px}
+.addact{display:flex;gap:8px;align-items:center;padding:10px;background:var(--soft);border-radius:8px;margin-bottom:10px}.addact input{height:36px}
+/* viewer voor een mail met bijlagen */
+.dlg.ma{width:min(1180px,100%);height:min(90vh,980px);padding:0;display:flex;flex-direction:column;overflow:hidden}
+.mahead{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--line);flex:none}
+.maic{font-size:22px;color:var(--hemel);flex:none}
+.mattl{flex:1;min-width:0;display:flex;flex-direction:column}
+.matitle{font-size:17px;font-weight:700;color:var(--brand);border:1px solid transparent;padding:2px 6px;margin-left:-7px;background:transparent;min-height:0}
+.matitle:hover,.matitle:focus{border-color:var(--line);background:var(--card)}
+.mattl small{font-size:12.5px;padding-left:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mabody{flex:1;min-height:0;display:grid;grid-template-columns:240px minmax(0,1fr)}
+.malist{list-style:none;margin:0;padding:8px;border-right:1px solid var(--line);overflow:auto}
+.malist li{margin-bottom:2px}.malist li.muted{padding:6px 8px;font-size:13px}
+.malist button{display:flex;gap:7px;align-items:center;width:100%;border:0;background:none;padding:7px 8px;border-radius:6px;font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;text-align:left}
+.malist button:hover{background:var(--row)}.malist button.on{background:var(--soft);box-shadow:inset 3px 0 0 var(--hemel);font-weight:600}
+.malist .fn{flex:1}.malist small{flex:none;font-size:11.5px}.mii{flex:none;width:18px;text-align:center}
+.mapv{overflow:auto;background:#4a5563;padding:18px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.mapg{flex:none;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+@media (max-width:760px){.mabody{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.malist{border-right:0;border-bottom:1px solid var(--line);max-height:30vh}}
+@media (max-width:1250px){main.detail{height:auto}}
+input[type=checkbox],input[type=radio]{min-height:0}
+.filters .chk{margin-left:auto}.filters .chk input{flex:none;min-width:0;width:auto;height:auto}
+.card.pv{padding:0}
+.ws.n3 .np .nphead,.nphead{border-bottom:1px solid var(--line);box-shadow:none}
 </style></head><body>
 <header><a class="logo" href="#/"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4gPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTRiOGE2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGY2ZTc0Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+IDxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIiByeD0iNTYiIGZpbGw9InVybCgjZykiLz4gPGcgZmlsbD0iI2ZmZmZmZiI+IDxjaXJjbGUgY3g9IjEyOC4wIiBjeT0iNDguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iMTg0LjYiIGN5PSI3MS40IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIyMDguMCIgY3k9IjEyOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxODQuNiIgY3k9IjE4NC42IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxMjguMCIgY3k9IjIwOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSI3MS40IiBjeT0iMTg0LjYiIHI9IjEzIi8+IDxjaXJjbGUgY3g9IjQ4LjAiIGN5PSIxMjguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iNzEuNCIgY3k9IjcxLjQiIHI9IjEzIi8+IDwvZz4gPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTI4IiByPSI1MiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjk2Ii8+IDxyZWN0IHg9IjEwNiIgeT0iMTAyIiB3aWR0aD0iNDQiIGhlaWdodD0iNTQiIHJ4PSI2IiBmaWxsPSIjMGY2ZTc0Ii8+IDxyZWN0IHg9IjExMyIgeT0iMTEzIiB3aWR0aD0iMzAiIGhlaWdodD0iNSIgcng9IjIuNSIgZmlsbD0iI2ZmZmZmZiIvPiA8cmVjdCB4PSIxMTMiIHk9IjEyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiM5ZWU2ZGQiLz4gPHJlY3QgeD0iMTEzIiB5PSIxMzUiIHdpZHRoPSIyOCIgaGVpZ2h0PSI1IiByeD0iMi41IiBmaWxsPSIjOWVlNmRkIi8+IDxjaXJjbGUgY3g9IjEyOCIgY3k9IjQ4IiByPSIxMyIgZmlsbD0iI2ZmZDQwMCIvPiA8L3N2Zz4g" alt="" width="28" height="28">MeMeet</a><div id="side" class="topbar"></div><button type="button" class="helpbtn" id="helpBtn" title="Help bij deze pagina (F1)" aria-label="Help bij deze pagina">?</button></header>
 <div class="wrap"><main id="main"></main></div>
@@ -2856,7 +2937,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function renderNotes(m) {
     var np = $('#np'); if (!np) return;
     npWidth();
-    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '</div>';
+    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mail</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '</div>';
     if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); bindGrip(); return; }
     if (npPopped(m)) {
       setHTML(np, h + '<div class="pvmsg">De aantekeningen staan in een apart venster.<br><button type="button" class="btn sm" id="npfocus">Naar het venster</button> <button type="button" class="btn sm" id="npback">Terugzetten in MeMeet</button></div>');
@@ -2866,7 +2947,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
     setHTML(np, h);
     var ta = $('#npt'), t;
-    function queue() { var st = $('#npst'); if (st) { st.textContent = 'opslaan…'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = 'opgeslagen ✓'; s2.className = 'npst ok'; } }, 800); }
+    function queue() { var st = $('#npst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = '✓'; s2.title = 'Opgeslagen'; s2.className = 'npst ok'; } }, 800); }
     ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; queue(); });
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
@@ -2907,7 +2988,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var d = win.document;
     d.open(); d.write('<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Aantekeningen: ' + esc(m.title || 'Vergadering') + '</title><style>' + POP_CSS + '</style></head><body>' +
       '<header><div class="t"><b>' + esc(m.title || 'Vergadering') + '</b><small>' + esc(m.date ? fmtLong(m.date) : '') + (m.start ? ', ' + esc(m.start) : '') + '</small></div><span id="st"></span>' +
-      '<button id="mail" title="Het verslag mailen">✉ Mailen</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
+      '<button id="mail" title="Het verslag mailen">✉ Mail</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
       '<textarea id="t" spellcheck="true" placeholder="Typ hier je aantekeningen…"></textarea><div id="links"></div>' +
       '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt voor het vervolgoverleg. Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
     d.close();
@@ -2925,29 +3006,17 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     A.flushNotes = null;
     renderNotes(m);
   }
-  /* iBabs in een eigen venster, zonder tabbladenbalk, links op het scherm. Door de vaste naam laadt een volgende klik
-     (ook bij een andere vergadering) in hetzelfde venster. iBabs kan niet in MeMeet zelf: iBabs staat dat niet toe. */
+  /* iBabs in een eigen tabblad. Door de vaste naam laadt een volgende klik (ook bij een andere vergadering) in hetzelfde tabblad.
+     iBabs kan niet in MeMeet zelf: iBabs staat dat niet toe. */
   var IBABS_WIN = 'memeet-ibabs';
-  function openIbabs(m, beside) {
+  function openIbabs(m) {
     var url = String(m.ibabs || '').trim();
     if (!/^https?:\/\//i.test(url)) { toast('Er staat geen iBabs-link bij deze vergadering.', 'warn'); return null; }
-    var left = screen.availLeft || 0, top = screen.availTop || 0, hgt = screen.availHeight;
-    var w = beside ? Math.max(400, screen.availWidth - npPopWidth()) : Math.max(640, Math.round(screen.availWidth * 0.65));
-    var feat = 'popup=yes,width=' + w + ',height=' + hgt + ',left=' + left + ',top=' + top;
-    /* Naast elkaar: staat iBabs al open, dan kan MeMeet dat venster niet meer verplaatsen (het is van iBabs). Sluiten en op de goede plek opnieuw openen; je blijft ingelogd. */
-    if (beside && A.ibWin && !A.ibWin.closed) { try { A.ibWin.close(); } catch (e) {} }
-    /* Een venster met deze naam dat al open is, laadt de nieuwe link; anders opent een nieuw venster op de opgegeven plek.
-       (MeMeet moet de 'opener' van het venster blijven: anders kan het venster niet worden hergebruikt.) */
-    var win = W.open(url, IBABS_WIN, feat);
-    if (!win) { toast('De browser blokkeerde het venster. Sta pop-ups toe voor MeMeet (het icoontje rechts in de adresbalk).', 'warn'); return null; }
+    var win = W.open(url, IBABS_WIN);
+    if (!win) { toast('De browser blokkeerde het tabblad. Sta pop-ups toe voor MeMeet (het icoontje rechts in de adresbalk).', 'warn'); return null; }
     try { win.focus(); } catch (e) {}
     A.ibWin = win;
     return win;
-  }
-  /* iBabs links en de aantekeningen rechts, elk in een eigen venster. De browser kan het tweede venster als pop-up tegenhouden. */
-  function sideBySide(m) {
-    if (!openIbabs(m, true)) return;
-    popNotes(m);
   }
 
   /* ---------- actielijst */
@@ -2976,7 +3045,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       return ok && (!q || (a.text + ' ' + (a.m ? a.m.title : 'losse actie')).toLowerCase().indexOf(q) >= 0);
     });
     if (f.show === 'snooze') list.sort(function (x, y) { return x.snooze.localeCompare(y.snooze); });
-    var h = '<div class="head"><h1>Actielijst</h1><div class="acts"><button class="btn" id="adl">Download als tekstbestand</button></div></div>';
+    var h = '<div class="head"><h1>Actielijst</h1><span class="hhint">✉ Sleep een mail hierheen: het onderwerp wordt een actie</span><div class="acts"><button class="btn sm" id="adl">⤓ Download als tekstbestand</button></div></div>';
     h += '<section class="card"><form class="addact" id="addAct" autocomplete="off"><input id="newAct" placeholder="Nieuwe actie, bijvoorbeeld: Offerte opvragen bij de leverancier" aria-label="Nieuwe actie"><input type="date" id="newActD" title="Begindatum (mag leeg blijven)" aria-label="Begindatum"><button type="submit" class="btn pri">+ Toevoegen</button></form>' +
       '<div class="filters"><input id="aq" type="search" placeholder="Zoeken in acties of vergaderingen…" value="' + esc(f.q) + '">' +
       '<div class="seg">' + [['open', 'Open (' + cnt.open + ')'], ['snooze', '⏰ Gesnoozed (' + cnt.snooze + ')'], ['afgerond', 'Afgerond (' + cnt.afgerond + ')'], ['alle', 'Alle (' + cnt.alle + ')']].concat(cnt.weg ? [['weg', 'Verwijderd (' + cnt.weg + ')']] : []).map(function (s) { return '<button type="button" class="' + (f.show === s[0] ? 'on' : '') + '" data-show="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div></div>';
@@ -2984,18 +3053,19 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     h += list.length ? list.map(function (a, k) {
       var tag = a.snoozed ? '<span class="bdg snz">⏰ tot ' + esc(fmtDay(a.snooze)) + '</span>' : a.back ? '<span class="bdg back">terug van snooze</span>' : '';
       return '<tr class="' + (a.done ? 'done' : '') + '" data-k="' + k + '"><td><input type="checkbox" class="adone"' + (a.done ? ' checked' : '') + ' title="Afgerond"></td>' +
-        '<td><span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span> ' + tag + '</td>' +
+        '<td>' + (a.loose && a.loose.mail ? '<button type="button" class="atext amail" title="De mail' + (a.loose.mail.atts ? ' en ' + a.loose.mail.atts + ' bijlage' + (a.loose.mail.atts === 1 ? '' : 'n') : '') + ' bekijken"><span class="mic" aria-hidden="true">✉</span>' + esc(a.text) + (a.loose.mail.atts ? ' <span class="bdg">📎 ' + a.loose.mail.atts + '</span>' : '') + '</button>' : '<span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span>') + ' ' + tag + '</td>' +
         '<td><input type="date" class="astart" value="' + esc(a.start) + '"></td>' +
-        '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">Losse actie</span>') + '</td>' +
+        '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">' + (a.loose && a.loose.mail ? 'Uit een mail' + (a.loose.mail.from ? '<br><small>van ' + esc(a.loose.mail.from) + '</small>' : '') : 'Losse actie') + '</span>') + '</td>' +
         '<td class="aact">' + (a.loose ? '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red aldel" title="Deze losse actie verwijderen">✕</button>' : a.hidden ? '<button type="button" class="btn sm arest">↩ Terugzetten</button>' : '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red adel" title="Van de actielijst halen (blijft in de aantekeningen staan)">✕</button>') + '</td></tr>';
-    }).join('') : '<tr><td colspan="5" class="empty">' + (all.length ? (f.show === 'snooze' ? 'Geen gesnoozede acties.' : 'Geen acties met dit filter.') : 'Nog geen acties. Typ hierboven een actie en klik op Toevoegen, of begin in de aantekeningen van een vergadering een regel met !.') + '</td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty">' + (all.length ? (f.show === 'snooze' ? 'Geen gesnoozede acties.' : 'Geen acties met dit filter.') : 'Nog geen acties. Typ hierboven een actie en klik op Toevoegen, sleep een mail hierheen, of begin in de aantekeningen van een vergadering een regel met !.') + '</td></tr>';
     h += '</tbody></table></div>' + (A.store.kind === 'map' ? '<p class="note">Wordt ook bijgehouden in Actielijst › Actielijst.txt</p>' : '') + '</section>';
     h += '<div class="snzmenu" id="snzmenu" hidden></div>';
     setHTML($('#main'), h);
     function rowA(el) { var tr = el.closest('tr[data-k]'); return tr ? list[+tr.dataset.k] : null; }
     $$('.adone').forEach(function (cb) { cb.onchange = async function () { var a = rowA(cb); setMeta(a.id, 'done', cb.checked ? new Date().toISOString() : null); if (cb.checked) setMeta(a.id, 'snooze', null); await saveActions(a.m); renderActions(); }; });
     $$('.astart').forEach(function (inp) { inp.onchange = async function () { var a = rowA(inp); setMeta(a.id, 'start', inp.value && inp.value !== (a.m ? a.m.date : String(a.loose.created || '').slice(0, 10)) ? inp.value : null); await saveActions(a.m); renderActions(); }; });
-    $$('.atext').forEach(function (sp) {
+    $$('.amail').forEach(function (b) { b.onclick = function () { openMailAct(rowA(b).loose); }; });
+    $$('.atext:not(.amail)').forEach(function (sp) {
       sp.onclick = function () {
         var a = rowA(sp), inp = el2('input', 'aedit'); inp.value = a.text; sp.replaceWith(inp); inp.focus(); inp.select();
         var fin = false;
@@ -3003,7 +3073,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
           if (fin) return; fin = true; var v = inp.value.trim();
           if (save && v !== a.text) {
             if (!v && !confirm('Lege tekst: actie verwijderen?')) { renderActions(); return; }
-            if (a.loose) { if (v) a.loose.text = v; else { A.data.todo = A.data.todo.filter(function (x) { return x !== a.loose; }); delete (A.data.act || {})[a.id]; } }
+            if (a.loose) { if (v) a.loose.text = v; else { A.data.todo = A.data.todo.filter(function (x) { return x !== a.loose; }); delete (A.data.act || {})[a.id]; await dropMailAction(a.loose); } }
             else editActionLine(a, v);
             await saveActions(a.m);
           }
@@ -3014,7 +3084,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       };
     });
     $$('.adel').forEach(function (b) { b.onclick = async function () { var a = rowA(b); setMeta(a.id, 'hidden', new Date().toISOString()); await saveActions(a.m); toast('Van de actielijst gehaald. In de aantekeningen van "' + a.m.title + '" staat de regel nog met !', 'ok'); renderActions(); }; });
-    $$('.aldel').forEach(function (b) { b.onclick = async function () { var a = rowA(b); if (!confirm('Losse actie "' + a.text + '" verwijderen?')) return; A.data.todo = (A.data.todo || []).filter(function (x) { return x !== a.loose; }); if (A.data.act) delete A.data.act[a.id]; await saveActions(null); toast('Actie verwijderd.', 'ok'); renderActions(); }; });
+    $$('.aldel').forEach(function (b) { b.onclick = async function () { var a = rowA(b); if (!confirm('Losse actie "' + a.text + '" verwijderen?' + (a.loose.mail ? '\n\nDe bewaarde mail wordt ook verwijderd.' : ''))) return; await dropMailAction(a.loose); A.data.todo = (A.data.todo || []).filter(function (x) { return x !== a.loose; }); if (A.data.act) delete A.data.act[a.id]; await saveActions(null); toast('Actie verwijderd.', 'ok'); renderActions(); }; });
     $('#addAct').onsubmit = async function (e) {
       e.preventDefault(); var inp = $('#newAct'), v = inp.value.trim(), d = $('#newActD').value; if (!v) { inp.focus(); return; }
       var x = { id: 'L' + uid(), text: v, created: new Date().toISOString() }; (A.data.todo || (A.data.todo = [])).push(x);
@@ -3045,6 +3115,99 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     bindFolders($('#main'));
     $('#adl').onclick = function () { dl(new Blob(['﻿' + actionListText()], { type: 'text/plain' }), 'Actielijst.txt'); };
   }
+
+  /* ================================================================== Mails op de actielijst
+     Een mail die je op de Actielijst sleept, wordt een losse actie: het onderwerp is de tekst van de actie.
+     De mail zelf wordt bewaard (in de datamap onder Actielijst › Mails); de bijlagen worden bij het openen uit de mail gehaald.
+     Klik je op zo'n actie, dan toont een viewer de mail en de bijlagen. */
+  function actBox(x) { return { id: 'act-' + x.id, folder: x.mail.folder, sub: 'act', files: [{ name: x.mail.file }] }; }
+  async function addMailActions(files) {
+    var n = 0, last = null;
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i];
+      try {
+        var mm = await readMail(f, f.name);
+        var subj = (cleanSubject(mm.subject || '') || mm.subject || '').trim() || String(f.name || 'Mail').replace(/\.[^.]+$/, '');
+        var x = { id: 'L' + uid(), text: subj, created: new Date().toISOString() };
+        var name = safe(f.name || 'mail.eml'); if (!/\.(msg|eml)$/i.test(name)) name += /outlook/i.test(f.type || '') ? '.msg' : '.eml';
+        x.mail = { file: name, type: f.type || guessMime(name), size: f.size, from: mm.from || '', sent: mm.sent && !isNaN(mm.sent) ? mm.sent.toISOString() : '',
+          folder: safe(subj).slice(0, 60) + ' [' + x.id.slice(-4) + ']', atts: mm.attachments.filter(function (a) { return !a.inline; }).length };
+        var box = actBox(x);
+        try { await A.store.put(box, name, f); }
+        catch (e) { x.mail.file = name = safe(name.normalize('NFKD').replace(/[^\x20-\x7e]/g, '')); box = actBox(x); await A.store.put(box, name, f); }
+        (A.data.todo || (A.data.todo = [])).push(x); n++; last = x;
+      } catch (e) { console.error(e); toast('Kon "' + f.name + '" niet lezen als mail: ' + (e.message || e), 'err'); }
+    }
+    if (!n) return;
+    var af = A.af || (A.af = { show: 'open', q: '' }); if (af.show !== 'alle' && af.show !== 'open') af.show = 'open';
+    await saveActions(null);
+    toast(n === 1 ? 'Actie toegevoegd: "' + last.text + '". Klik erop om de mail te lezen.' : n + ' acties toegevoegd uit mails.', 'ok');
+    if (location.hash === '#/acties') renderActions();
+  }
+  async function dropMailAction(x) { if (!x || !x.mail) return; try { await A.store.delMeeting(actBox(x)); } catch (e) { console.warn(e); } }
+
+  /* ---------- viewer: de mail en de bijlagen */
+  var MA = { tok: 0, pdf: null };
+  function closeMailAct() {
+    var d = $('#maDlg'); if (d) d.remove();
+    if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
+    MA.tok++; MA.items = null;
+    if (MA.focus && MA.focus.isConnected) { try { MA.focus.focus(); } catch (e) {} } MA.focus = null;
+  }
+  async function openMailAct(x) {
+    closeMailAct();
+    MA.focus = D.activeElement;
+    var bg = D.createElement('div'); bg.className = 'dlgbg mabg'; bg.id = 'maDlg';
+    var sent = x.mail.sent ? new Date(x.mail.sent) : null;
+    var sub = [x.mail.from ? 'Van ' + x.mail.from : '', sent && !isNaN(sent) ? sent.toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }) : ''].filter(Boolean).join(' · ');
+    setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-label="Actie uit een mail">' +
+      '<div class="mahead"><span class="maic" aria-hidden="true">✉</span><div class="mattl"><input id="maT" class="matitle" value="' + esc(x.text) + '" aria-label="Tekst van de actie" title="Tekst van de actie; je kunt hem hier aanpassen"><small class="muted">' + esc(sub) + '</small></div>' +
+      '<button type="button" class="btn sm" id="maDl" title="Het geselecteerde bestand downloaden">⤓ Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div>' +
+      '<div class="mabody"><ul class="malist" id="maList"><li class="muted">Mail wordt gelezen…</li></ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
+    D.body.appendChild(bg);
+    bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
+    $('#maX', bg).onclick = closeMailAct;
+    var ti = $('#maT', bg);
+    ti.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') ti.blur(); else if (e.key === 'Escape') { ti.value = x.text; closeMailAct(); } });
+    ti.addEventListener('change', async function () { var v = ti.value.trim(); if (!v) { ti.value = x.text; return; } if (v === x.text) return; x.text = v; await saveActions(null); if (location.hash === '#/acties') renderActions(); });
+    var blob;
+    try { blob = await A.store.get(actBox(x), x.mail.file); } catch (e) { setHTML($('#maPv', bg), '<div class="pvmsg">De mail is niet meer gevonden in de datamap.</div>'); setHTML($('#maList', bg), ''); return; }
+    var items = await expandFiles([{ name: x.mail.file, type: x.mail.type || guessMime(x.mail.file), blob: blob }]);
+    if (!$('#maDlg')) return;
+    MA.items = items;
+    setHTML($('#maList', bg), items.map(function (it, i) {
+      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '✉' : '📎') : '✉') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob.size || 0)) + '</small>' : '') + '</button></li>';
+    }).join('') + (items.length > 1 ? '' : '<li class="muted manone">Geen bijlagen</li>'));
+    $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); }; });
+    $('#maDl', bg).onclick = function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob, it.name); };
+    showMailItem(0);
+  }
+  async function showMailItem(i) {
+    var it = MA.items && MA.items[i], pv = $('#maPv'); if (!it || !pv) return;
+    MA.cur = i; var tok = ++MA.tok;
+    $$('#maList [data-mi]').forEach(function (b) { b.classList.toggle('on', +b.dataset.mi === i); });
+    if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
+    setHTML(pv, '<div class="pvmsg">Wordt klaargemaakt…</div>');
+    var out = null;
+    try { var r = await convertToPdf(it.name, it.type, it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
+    if (tok !== MA.tok) return;
+    if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">⤓ Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
+    var pdf;
+    try { pdf = await W.pdfjsLib.getDocument(pdfOpts(new Uint8Array(await out.arrayBuffer()))).promise; }
+    catch (e) { if (tok === MA.tok) setHTML(pv, '<div class="pvmsg">Dit bestand kan niet worden getoond (' + esc(e.message || e) + ').</div>'); return; }
+    if (tok !== MA.tok) { pdf.destroy(); return; }
+    MA.pdf = pdf; pv.textContent = ''; pv.scrollTop = 0;
+    var width = Math.max(320, pv.clientWidth - 40), dpr = W.devicePixelRatio || 1;
+    for (var n = 1; n <= pdf.numPages; n++) {
+      var pg = await pdf.getPage(n); if (tok !== MA.tok) return;
+      var base = pg.getViewport({ scale: 1 }), sc = Math.min(width / base.width, 1.6), vp = pg.getViewport({ scale: sc * dpr });
+      var cv = D.createElement('canvas'); cv.width = Math.floor(vp.width); cv.height = Math.floor(vp.height); cv.style.width = Math.floor(vp.width / dpr) + 'px'; cv.style.height = Math.floor(vp.height / dpr) + 'px'; cv.className = 'mapg';
+      pv.appendChild(cv);
+      await pg.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+    }
+  }
+  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#maDlg')) { e.preventDefault(); e.stopPropagation(); closeMailAct(); } }, true);
+  W.addEventListener('hashchange', function () { if ($('#maDlg')) closeMailAct(); });
 
   /* ================================================================== Verslagen: aantekeningen in een Word-achtige editor */
   var REP_BLOCK = { P: 'p', DIV: 'p', H1: 'h1', H2: 'h2', LI: 'li' };
@@ -3117,11 +3280,11 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var cols = [['name', 'Naam'], ['date', 'Datum'], ['changed', 'Gewijzigd']];
     var h = '<div class="head"><h1>Verslagen</h1></div><section class="card"><div class="filters"><input id="rq" type="search" placeholder="Zoeken in verslagen…" value="' + esc(f.q) + '">' +
       '<label class="chk"><input type="checkbox" id="rall"' + (f.all ? ' checked' : '') + '> Ook vergaderingen zonder aantekeningen</label></div>';
-    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '<th class="nosort">Besluiten, acties en meeneempunten</th></tr></thead><tbody>';
+    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
     h += list.length ? list.map(function (m) {
       var chg = m.minutesUpdated ? new Date(m.minutesUpdated) : null, vv = vervolgOf(m);
-      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><b>' + esc(m.title || 'Vergadering') + '</b></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td><td>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="Besluiten, acties en meeneempunten van deze vergadering">📋 ' + esc(vervolgSummary(vv)) + '</button>' : '<span class="muted">—</span>') + '</td></tr>';
-    }).join('') : '<tr><td colspan="4" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
+      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><div class="rname"><b>' + esc(m.title || 'Vergadering') + '</b>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="' + esc(vervolgSummary(vv)) + '">📋 Meeneempunten</button>' : '') + '</div></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td></tr>';
+    }).join('') : '<tr><td colspan="3" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
     h += '</tbody></table></div><p class="note">' + list.length + ' verslag' + (list.length === 1 ? '' : 'en') + ' · Klik op een kolomkop om te sorteren, en op een verslag om het te bewerken.</p></section>';
     setHTML($('#main'), h);
     $$('[data-rsort]').forEach(function (th) { th.onclick = function () { var k = th.dataset.rsort; f.dir = f.key === k ? -f.dir : (k === 'name' ? 1 : -1); f.key = k; renderReports(); }; });
@@ -3251,7 +3414,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   function mailMinutes(m) { return mailText('Aantekeningen: ' + (m.title || 'Vergadering') + (m.date ? ' (' + fmtShort(m.date) + ')' : ''), minutesMailText(m)); }
   function renderReport(m) {
-    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">📋 Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
+    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">📋 Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mail</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
     h += '<section class="card repcard"><div class="edwrap" id="repbox"></div></section>';
     setHTML($('#main'), h);
     var E = repEditor($('#repbox'), {
@@ -3587,7 +3750,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     '<li>Kopieer de <b>hele map <code>memeet-data</code></b>, mét het bestand <code>memeet.json</code> erin, naar bijvoorbeeld OneDrive, een netwerkschijf of een USB-stick.</li></ol>' +
     '<p><code>memeet.json</code> is het register van MeMeet: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen in de PDF\'s. Zonder dat bestand zijn alleen de losse stukken terug te halen.</p>' +
     '<h3>Back-up terugzetten</h3><ol><li>Zet de gekopieerde map <code>memeet-data</code> terug, bijvoorbeeld in <code>Documenten\\MeMeet</code>.</li>' +
-    '<li>Open MeMeet, klik rechtsboven bij de map op <b>wijzig</b> en kies die map <code>memeet-data</code>.</li></ol>' +
+    '<li>Open MeMeet, klik rechtsboven op <b>📁 Wijzig datamap</b> en kies die map <code>memeet-data</code>.</li></ol>' +
     '<p class="muted">Losse vergadermappen terugkopiëren in <code>Vergaderingen</code> werkt niet: MeMeet werkt vanuit <code>memeet.json</code>. Zet altijd de hele map terug.</p>';
 
   var GITHUB = 'https://github.com/oss-aigp/memeet', GITHUB_DL = 'https://github.com/oss-aigp/memeet/blob/main/dist/MeMeet.html';
@@ -3632,7 +3795,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>Je gegevens zijn gewone bestanden</b> in <code>memeet-data</code>, niet versleuteld. Ze zijn net zo goed beveiligd als je andere documenten: via je Windows-account en de beveiliging van je werkplek.</li>' +
       '<li><b>OneDrive.</b> Wordt je map Documenten met OneDrive gesynchroniseerd, dan komt <code>memeet-data</code> ook in de OneDrive van je organisatie. Voor gewone werkstukken is dat meestal prima; volg voor vertrouwelijke of gerubriceerde informatie de regels van je organisatie.</li>' +
       '<li><b>Bewaar je alles in de browser</b>, dan staan de gegevens in je browserprofiel op deze computer. Wis je de browsergegevens, dan ben je ze kwijt: maak dan regelmatig een export.</li>' +
-      '<li><b>Wat wel naar buiten gaat:</b> alleen wat je zelf doet, zoals <b>Deelnemen</b> (opent de Teams-link), <b>iBabs</b> (opent iBabs in een eigen venster), een conceptmail die je in Outlook verstuurt, of een link naar GitHub in deze help.</li>' +
+      '<li><b>Wat wel naar buiten gaat:</b> alleen wat je zelf doet, zoals <b>Deelnemen</b> (opent de Teams-link), <b>iBabs</b> (opent iBabs in een eigen tabblad), een conceptmail die je in Outlook verstuurt, of een link naar GitHub in deze help.</li>' +
       '<li><b>Let op bij delen:</b> een PDF die je downloadt met aantekeningen bevat je markeringen en opmerkingen.</li></ul>'],
     ['Waarom vraagt de browser elke keer om toestemming?', '<p>Dat is een beveiligingsregel van de browser: een webpagina mag pas bij een map op je computer als jij daar in die sessie toestemming voor geeft. Klik op <b>Map openen</b> en daarna op <b>Toestaan</b>.</p>'],
     ['Kan ik MeMeet op meerdere computers gebruiken?', '<p>Ja, maar niet tegelijk met dezelfde gegevens. Kopieer de hele map <code>memeet-data</code> naar de andere computer en kies daar die map. Werk niet op twee computers tegelijk in dezelfde map (bijvoorbeeld via OneDrive): dan kunnen wijzigingen elkaar overschrijven.</p>'],
@@ -3640,7 +3803,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   var ABOUT_HTML = '<p><b>MeMeet</b> is een vergaderapp in één HTML-bestand. Je sleept mails en uitnodigingen uit Outlook erin, en MeMeet maakt er vergaderingen van met alle stukken, die je kunt lezen, markeren en bewerken. Alles blijft op je eigen computer.</p>' +
     '<h3>Zo werkt het</h3><ol><li><b>Vergaderingen maken</b>: sleep een mail of uitnodiging erin, of lees met <b>Importeer weekagenda</b> je Outlook-agenda in. Titel, datum, tijd, locatie, vergaderlink, iBabs-link en bijlagen worden overgenomen.</li>' +
     '<li><b>Stukken</b>: elk stuk blijft in zijn eigen formaat (Word, Excel, PowerPoint, PDF, afbeeldingen, mails). Een zip wordt uitgepakt; bij een mail komen de bijlagen als losse stukken erachter. De viewer toont ze allemaal; daarin kun je zoeken, markeren en opmerkingen maken. Bij Bewerken pas je het origineel aan.</li>' +
-    '<li><b>Vergaderen</b>: met <b>Deelnemen</b> open je de online vergadering, met <b>iBabs</b> de stukken in iBabs, en rechts maak je aantekeningen. <b>Naast elkaar</b> zet iBabs links en je aantekeningen rechts. Regels die met <code>!</code> beginnen, worden acties; met <code>=</code> besluiten; met <code>&gt;</code> meeneempunten voor het vervolgoverleg.</li>' +
+    '<li><b>Vergaderen</b>: met <b>Deelnemen</b> open je de online vergadering, met <b>iBabs</b> de stukken in iBabs, en rechts maak je aantekeningen. Regels die met <code>!</code> beginnen, worden acties; met <code>=</code> besluiten; met <code>&gt;</code> meeneempunten voor het vervolgoverleg.</li>' +
     '<li><b>Afronden</b>: verslagen en acties vind je terug in de tabbladen <b>Verslagen</b> en <b>Actielijst</b>. Bij het volgende overleg met dezelfde titel staan de besluiten, acties en meeneempunten van de vorige keer klaar onder <b>📋 Meeneempunten</b>.</li>' +
     '<li><b>Terugvinden</b>: in <b>Bestanden</b> staan alle stukken, met versies, en kun je ze openen, downloaden en mailen.</li></ol>' +
     '<h3>Waar staat wat?</h3><pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html      de app\n  MeMeet.ico       het icoon\n  memeet-data\\     je gegevens\n    Vergaderingen\\  per vergadering de stukken\n    Aantekeningen\\  de verslagen als .txt\n    Actielijst\\     Actielijst.txt\n    memeet.json     het register</pre>' +
@@ -3659,7 +3822,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>📅 Importeer weekagenda</b> leest je hele Outlook-agenda van de komende dagen in één keer in.</li>' +
       '<li><b>+ Nieuwe vergadering</b> maakt een lege vergadering die je zelf invult.</li></ul>' +
       '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>↻</b> zie je een andere.</p>' +
-      '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen venster.</li>' +
+      '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
       '<li>Vandaag en Morgen kun je in- en uitklappen met <b>weergeven</b>/<b>verbergen</b>; in de kop zie je hoeveel vergaderingen er zijn. Vandaag is na 20:30 standaard ingeklapt, Morgen staat standaard open.</li></ul>' +
       '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten zijn standaard ingeklapt. Klik op de kop of op <b>weergeven</b>.</li>' +
       '<li>Volgende vergaderingen begint bij overmorgen. Het Archief bevat de vergaderingen die geweest zijn.</li>' +
@@ -3670,8 +3833,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<h3>Gegevens</h3><ul><li>Titel, datum, tijd, locatie, Deelnemen en de iBabs-link staan samen op één regel bovenaan, zodat er zoveel mogelijk ruimte is voor de stukken. Is het venster te smal, dan krijgt die regel een schuifbalk; hij valt nooit over twee regels. Wijzig je iets, dan wordt het vanzelf bewaard (je ziet even <i>opgeslagen ✓</i>). Alleen een nieuwe vergadering heeft een knop <b>Opslaan</b>.</li>' +
       '<li><b>Deelnemen</b> opent de vergaderlink (Teams, Zoom …) uit de uitnodiging. Met <b>🔗</b> ernaast voeg je een vergaderlink toe of wijzig je hem; laat je het vak leeg, dan gaat de link weg.</li>' +
       '<li>De <b>iBabs-link</b> is een eigen veld, apart van de vergaderlink. MeMeet vult hem vanzelf als de uitnodiging een link naar iBabs bevat (bij inslepen en bij de weekimport). Je kunt hem ook zelf plakken of wijzigen. Opent Deelnemen bij een oudere vergadering iBabs, haal de link dan met 🔗 weg en plak hem bij iBabs-link.</li></ul>' +
-      '<h3>iBabs</h3><ul><li><b>iBabs</b> opent de vergadering in iBabs in een eigen venster, zonder tabbladen. Klik je bij een andere vergadering, dan laadt die in hetzelfde venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
-      '<li><b>Naast elkaar</b> zet iBabs links op je scherm en je aantekeningen rechts, elk in een eigen venster. Houdt de browser het tweede venster tegen, sta dan één keer pop-ups toe voor MeMeet (het icoontje rechts in de adresbalk). De vensters komen op het scherm waar MeMeet staat; het venster van MeMeet zelf verschuift niet.</li>' +
+      '<h3>iBabs</h3><ul><li><b>iBabs</b> opent de vergadering in iBabs in een eigen tabblad. Klik je bij een andere vergadering, dan laadt die in hetzelfde tabblad. Wil je iBabs en MeMeet naast elkaar, sleep dat tabblad dan los naar een eigen venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
       '<li>iBabs kan niet in MeMeet zelf worden getoond: iBabs staat dat niet toe.</li></ul>' +
       '<h3>Stukken</h3><ul><li>Sleep documenten op de vergadering, of klik op het vak <i>Sleep documenten of een mail hierheen</i> om ze te kiezen. Elk stuk blijft in zijn eigen formaat; MeMeet maakt er geen PDF van. De viewer toont Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails.</li>' +
       '<li>Een <b>zip</b> wordt uitgepakt: de bestanden erin worden losse stukken.</li>' +
@@ -3702,8 +3864,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Liever in Office zelf? Download het stuk via <b>⋯</b> › <i>Origineel downloaden</i>, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
       '<h3>Aantekeningen en acties</h3><ul><li>Rechts staat altijd de kolom <b>Aantekeningen</b>. Alles wordt vanzelf bewaard en ook als tekstbestand in de map Aantekeningen gezet.</li>' +
       '<li>Een regel die begint met <code>!</code> wordt een actie, bijvoorbeeld <code>! Jan stuurt de notitie rond</code>. Die staat daarna in de Actielijst.</li>' +
-      '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>✉ Mailen</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
-      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor het vervolgoverleg, bijvoorbeeld <code>&gt; begroting opnieuw bespreken</code>. Bij de volgende vergadering met dezelfde titel staat het klaar onder <b>📋 Meeneempunten</b>. Meeneempunten zijn privé: ze gaan niet mee met Mailen.</li>' +
+      '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>✉ Mail</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
+      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor het vervolgoverleg, bijvoorbeeld <code>&gt; begroting opnieuw bespreken</code>. Bij de volgende vergadering met dezelfde titel staat het klaar onder <b>📋 Meeneempunten</b>. Meeneempunten zijn privé: ze gaan niet mee met ✉ Mail.</li>' +
       '<li>Je regels blijven staan zoals je ze typt, ook in het tekstbestand.</li>' +
       '<li>Maak de kolom <b>breder of smaller</b> door de linkerrand te verslepen (dubbelklik: standaardbreedte).</li>' +
       '<li><b>⧉ Apart venster</b> zet de aantekeningen in een eigen venster rechts op je scherm. Dat kun je los verschuiven en naast andere programma\'s zetten. Met <b>⇤ Terug</b> of door het venster te sluiten, staan ze weer in MeMeet.</li></ul>' +
@@ -3715,8 +3877,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Klik op een verslag om het te bewerken in een Word-achtige editor: koppen, vet, cursief, onderstreept en lijsten. Wijzigingen worden vanzelf bewaard.</li>' +
       '<li>Een webadres (https://… of www.…) wordt vanzelf een link. Klik erop om hem in een nieuw tabblad te openen.</li>' +
       '<li>Regels die met <code>!</code> beginnen, zijn acties en staan ook in de Actielijst. Regels met <code>=</code> zijn besluiten; regels met <code>&gt;</code> zijn meeneempunten voor het vervolgoverleg.</li>' +
-      '<li>In de kolom <b>Besluiten, acties en meeneempunten</b> staat per vergadering een kort overzicht daarvan; klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>📋 Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>📋 Meeneempunten</b>.</li>' +
-      '<li><b>✉ Mailen</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
+      '<li>Achter de titel van een vergadering staat rechts <b>📋 Meeneempunten</b> als er besluiten, acties of meeneempunten zijn (de Besluiten, acties en meeneempunten; met de muis erop zie je hoeveel). Klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>📋 Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>📋 Meeneempunten</b>.</li>' +
+      '<li><b>✉ Mail</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
       '<li>Elk verslag staat ook als tekstbestand in de map <code>memeet-data\\Aantekeningen</code>, als <code>jjjjmmdd Titel.txt</code>. Pas die bestanden niet buiten MeMeet aan: MeMeet schrijft ze opnieuw bij de volgende wijziging.</li></ul>' },
     actions: { t: 'Actielijst', h:
       '<p>Alle acties: uit de aantekeningen van vergaderingen, en losse acties die je hier zelf toevoegt.</p><ul>' +
@@ -3724,10 +3886,11 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>Actie uit een vergadering</b>: begin in de aantekeningen een regel met <code>!</code>. Wijzig je de tekst hier, dan verandert de regel in de aantekeningen mee.</li>' +
       '<li>Met de knoppen bovenaan kies je wat je ziet: <b>Open</b>, <b>⏰ Gesnoozed</b>, <b>Afgerond</b>, <b>Alle</b>, en <b>Verwijderd</b> als je acties van de lijst hebt gehaald.</li>' +
       '<li>Klik op de tekst om een actie te bewerken. Vink hem af als hij klaar is.</li>' +
+      '<li><b>Mail als actie</b>: sleep een mail uit Outlook naar de Actielijst. Het onderwerp wordt de actie, met ✉ ervoor (en 📎 met het aantal bijlagen). Klik op zo\'n actie: een viewer toont de mail, en links de bijlagen die je aanklikt om ze te bekijken. Bovenin pas je de tekst van de actie aan; <b>⤓ Download</b> bewaart het bestand dat je ziet. <b>Esc</b> sluit de viewer. Verwijder je de actie, dan gaat de bewaarde mail ook weg.</li>' +
       '<li><b>⏰ Snoozen</b> verbergt een actie tot morgen, overmorgen, volgende week of een datum die je kiest. Daarna staat hij weer bij Open.</li>' +
       '<li>Een <b>begindatum</b> zegt vanaf wanneer je met een actie aan de slag gaat.</li>' +
       '<li><b>Van de lijst halen</b> verwijdert de actie uit dit overzicht; de regel blijft in de aantekeningen staan. Onder Verwijderd zet je hem terug.</li>' +
-      '<li>Klik op de vergadering om ernaartoe te gaan. De actielijst staat ook als <code>Actielijst.txt</code> in de map Actielijst.</li></ul>' },
+      '<li>Klik op de vergadering om ernaartoe te gaan. De actielijst staat ook als <code>Actielijst.txt</code> in de map Actielijst; mails die je als actie hebt toegevoegd, staan in <code>Actielijst\\Mails</code>.</li></ul>' },
     files: { t: 'Bestanden', h:
       '<p>Een verkenner met alle stukken uit je datamap. Je kunt hier bestanden bekijken, downloaden en mailen, maar niet bewerken.</p><ul>' +
       '<li>Links kies je een map, of <b>Alle bestanden</b>. Zoek met het zoekvak en filter per kolom.</li>' +
@@ -3847,11 +4010,13 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       try { await root.removeEntry('memeet.json.tmp'); } catch (e) {}
     };
     this.meetingsDir = function () { return root.getDirectoryHandle(MEET_DIR, { create: true }); };
-    this.dir = async function (m) { return (await this.meetingsDir()).getDirectoryHandle(m.folder, { create: true }); };
+    /* mails op de actielijst staan in Actielijst › Mails, elk in een eigen map */
+    this.mailsDir = async function () { return (await root.getDirectoryHandle(ACTS_DIR, { create: true })).getDirectoryHandle('Mails', { create: true }); };
+    this.dir = async function (m) { return (m.sub === 'act' ? await this.mailsDir() : await this.meetingsDir()).getDirectoryHandle(m.folder, { create: true }); };
     this.put = async function (m, name, blob) { await writeFile(await this.dir(m), name, blob); };
     this.get = async function (m, name) { return (await (await this.dir(m)).getFileHandle(name)).getFile(); };
     this.del = async function (m, name) { try { await (await this.dir(m)).removeEntry(name); } catch (e) {} };
-    this.delMeeting = async function (m) { if (!m.folder) return; try { await (await this.meetingsDir()).removeEntry(m.folder, { recursive: true }); } catch (e) { if (e.name !== 'NotFoundError') throw e; } };
+    this.delMeeting = async function (m) { if (!m.folder) return; try { await (m.sub === 'act' ? await this.mailsDir() : await this.meetingsDir()).removeEntry(m.folder, { recursive: true }); } catch (e) { if (e.name !== 'NotFoundError') throw e; } };
   }
   function BrowserStore() {
     this.kind = 'browser'; this.name = 'deze browser';
@@ -4058,6 +4223,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var mails = files.filter(isMail), docs = files.filter(function (f) { return !isMail(f); });
     var cur = currentMeeting();
     function item(f) { return { name: f.name, type: f.type || guessMime(f.name), blob: f }; }
+    /* op de Actielijst: elke mail wordt een actie */
+    if (location.hash === '#/acties') {
+      if (mails.length) await addMailActions(mails);
+      if (docs.length) toast('Op de Actielijst kun je alleen mails slepen (.msg of .eml). Het onderwerp wordt dan de actie.', 'warn');
+      return;
+    }
     try {
       if (cur && !cur.isNew) {
         var n = 0, list = await expandFiles(docs.map(item)); /* zips uitpakken */
@@ -4342,7 +4513,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var nOpen = A.store ? openCount() : 0;
     h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
     if (A.store) {
-      h += '<span class="tinfo" title="Hier worden alle vergaderingen, stukken en aantekeningen bewaard">📁 ' + (A.store.kind === 'map' ? 'Map: <b>' + esc(A.store.name) + '</b>' : 'In de browser') + ' <button class="link" id="chgStore">' + (A.store.kind === 'map' ? 'wijzig' : 'map kiezen') + '</button></span>';
+      h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">📁 Wijzig datamap</button>';
     }
     setHTML(s, h);
     var cs = $('#chgStore', s); if (cs) cs.onclick = chooseFolder;
@@ -4552,7 +4723,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
       '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">🔗</button></span>' +
-      '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button>' + (isNew ? '' : '<button type="button" class="btn sm" id="ibSide" title="iBabs links en je aantekeningen rechts op het scherm, elk in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>Naast elkaar</button>') + '</span>' +
+      '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen tabblad"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button></span>' +
       '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">🗑</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">Terug</a></span></form>';
     h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">📋 Meeneempunten</button>') + '</span></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
@@ -4631,11 +4802,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       m.link = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? 'Vergaderlink bewaard.' : 'Vergaderlink weggehaald.', 'ok'); }
     };
     /* iBabs-link: de knoppen verschijnen zodra er een link staat; een gewijzigde link wordt meteen bewaard, net als de vergaderlink */
-    var ib = $('[name=ibabs]', frm), ibB = $('#ibBtn'), ibS = $('#ibSide');
-    function updIb() { var ok = /^https?:\/\//i.test(ib.value.trim()); ibB.hidden = !ok; if (ibS) ibS.hidden = !ok; }
+    var ib = $('[name=ibabs]', frm), ibB = $('#ibBtn');
+    function updIb() { ibB.hidden = !/^https?:\/\//i.test(ib.value.trim()); }
     ib.addEventListener('input', updIb); ib.addEventListener('change', async function () { readForm(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); } });
     ibB.onclick = function () { readForm(); openIbabs(m); };
-    if (ibS) ibS.onclick = async function () { readForm(); if (A.flushNotes) { try { await A.flushNotes(); } catch (e) {} } sideBySide(m); };
     if (!isNew && m.link === undefined && m.source && m.source.file) {
       A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m) { upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });
     }
@@ -5194,7 +5364,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function initDrop() {
     var ov = $('#overlay'), depth = 0;
     function hasFiles(e) { return e.dataTransfer && Array.prototype.indexOf.call(e.dataTransfer.types || [], 'Files') >= 0; }
-    D.addEventListener('dragenter', function (e) { if (!hasFiles(e)) return; e.preventDefault(); depth++; var c = currentMeeting(); $('#ovText').textContent = c ? 'Laat los om toe te voegen aan "' + (c.title || 'deze vergadering') + '"' : 'Laat los om een vergadering aan te maken'; ov.className = 'on'; });
+    D.addEventListener('dragenter', function (e) { if (!hasFiles(e)) return; e.preventDefault(); depth++; var c = currentMeeting(); $('#ovText').textContent = location.hash === '#/acties' ? 'Laat de mail los: het onderwerp wordt een actie' : c ? 'Laat los om toe te voegen aan "' + (c.title || 'deze vergadering') + '"' : 'Laat los om een vergadering aan te maken'; ov.className = 'on'; });
     D.addEventListener('dragover', function (e) { if (hasFiles(e)) { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; } });
     D.addEventListener('dragleave', function () { if (--depth <= 0) { depth = 0; ov.className = ''; } });
     D.addEventListener('drop', function (e) {
