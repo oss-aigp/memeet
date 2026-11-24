@@ -4,7 +4,8 @@
   var XMLNS = 'http://www.w3.org/XML/1998/namespace', UNDO_MAX = 20;
   function ser(x) { return new XMLSerializer().serializeToString(x); }
   function el2(tag, cls, txt) { var e = D.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
-  function btn(label, title, cls) { var b = el2('button', 'rb' + (cls ? ' ' + cls : ''), label); b.type = 'button'; if (title) b.title = title; b.addEventListener('mousedown', function (e) { e.preventDefault(); }); return b; }
+  /* label: tekst, of [icoon, tekst] met een icoon uit Material Symbols */
+  function btn(label, title, cls) { var b = el2('button', 'rb' + (cls ? ' ' + cls : ''), typeof label === 'string' ? label : null); if (typeof label !== 'string') { b.appendChild(icEl(label[0])); if (label[1]) b.appendChild(D.createTextNode(' ' + label[1])); } b.type = 'button'; if (title) b.title = title; b.addEventListener('mousedown', function (e) { e.preventDefault(); }); return b; }
   function sepEl() { return el2('span', 'rsep'); }
   function blockText(div) {
     var o = '';
@@ -173,8 +174,8 @@
     // --- lint
     var tools = el2('div', 'rgroup'), selSt = el2('select', 'rsel'); selSt.title = 'Stijl';
     [['p', 'Normaal'], ['h0', 'Titel'], ['h1', 'Kop 1'], ['h2', 'Kop 2'], ['h3', 'Kop 3'], ['li', '• Opsomming']].forEach(function (o) { var op = el2('option', null, o[1]); op.value = o[0]; selSt.appendChild(op); });
-    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstrepen (Ctrl+U)', 'u'), bL = btn('•≡', 'Opsomming');
-    var al = {}; [['left', '⯇≡', 'Links uitlijnen'], ['center', '≡', 'Centreren'], ['right', '≡⯈', 'Rechts uitlijnen'], ['justify', '☰', 'Uitvullen']].forEach(function (a) { al[a[0]] = btn(a[1], a[2], 'al'); });
+    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstrepen (Ctrl+U)', 'u'), bL = btn(['format_list_bulleted'], 'Opsomming');
+    var al = {}; [['left', ['format_align_left'], 'Links uitlijnen'], ['center', ['format_align_center'], 'Centreren'], ['right', ['format_align_right'], 'Rechts uitlijnen'], ['justify', ['format_align_justify'], 'Uitvullen']].forEach(function (a) { al[a[0]] = btn(a[1], a[2], 'al'); });
     tools.appendChild(selSt); tools.appendChild(sepEl()); [bB, bI, bU].forEach(function (b) { tools.appendChild(b); }); tools.appendChild(sepEl()); tools.appendChild(bL); tools.appendChild(sepEl()); Object.keys(al).forEach(function (k) { tools.appendChild(al[k]); });
     var hist = History(function () { return { h: root.innerHTML, c: caretPath(root) }; }, function (s) { root.innerHTML = s.h; root.focus(); setCaretPath(root, s.c); onDirty(); refresh(); }, function () { api.onState && api.onState(); });
     function applyStyle(st) { var bl = selectedBlocks(root); if (!bl.length) return; hist.push(); bl.forEach(function (d) { ['p', 'h0', 'h1', 'h2', 'h3', 'li'].forEach(function (k) { d.classList.remove('s-' + k); }); d.dataset.st = st; d.classList.add('s-' + st); d.style.marginLeft = st === 'li' ? '22px' : ''; }); onDirty(); refresh(); }
@@ -481,7 +482,7 @@
   async function mountEditor(m, f, box, done) {
     setHTML(box, '<div class="pvmsg">Bestand openen…</div>');
     var ext = (f.name.split('.').pop() || '').toLowerCase(), ed, dirty = false;
-    var ribbon = el2('div', 'ribbon rb-' + ext), save = btn('💾 Opslaan', 'Opslaan (Ctrl+S)', 'save'), un = btn('↶', 'Ongedaan maken (Ctrl+Z)'), re = btn('↷', 'Opnieuw (Ctrl+Y)'), st = el2('span', 'edst');
+    var ribbon = el2('div', 'ribbon rb-' + ext), save = btn(['save', 'Opslaan'], 'Opslaan (Ctrl+S)', 'save'), un = btn(['undo'], 'Ongedaan maken (Ctrl+Z)'), re = btn(['redo'], 'Opnieuw (Ctrl+Y)'), st = el2('span', 'edst');
     var foot = el2('div', 'edfoot'), fl = el2('span'), fr = el2('span', 'edtip', 'Liever in Word, Excel of PowerPoint zelf? Download via ⤓ en sleep het bestand met dezelfde naam terug.');
     save.disabled = true;
     function stateBtns() { un.disabled = !ed.canUndo(); re.disabled = !ed.canRedo(); fl.textContent = ed.kind + ' · ' + ed.status(); }

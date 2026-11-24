@@ -32,6 +32,11 @@
   }
 
 
+  /* Iconen: Material Symbols Rounded (Google, Apache-2.0). De vorm staat als CSS-masker in de stijl (zie scripts/build.js),
+     zodat de kleur meegaat met de tekst. ic(naam) geeft de HTML, icEl(naam) een element. */
+  function ic(n, cls) { return '<span class="i i-' + n + (cls ? ' ' + cls : '') + '" aria-hidden="true"></span>'; }
+  function icEl(n, cls) { var s = (D || document).createElement('span'); s.className = 'i i-' + n + (cls ? ' ' + cls : ''); s.setAttribute('aria-hidden', 'true'); return s; }
+
   /* HTML zetten zonder innerHTML (werkt ook bij strenge CSP / Trusted Types) */
   var VOID = { input: 1, br: 1, img: 1, hr: 1 };
   function ent(t) { return t.replace(/&#(\d+);/g, function (m, n) { return String.fromCharCode(+n); }).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&'); }

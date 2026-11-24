@@ -106,7 +106,7 @@
   function renderNotes(m) {
     var np = $('#np'); if (!np) return;
     npWidth();
-    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mail</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '</div>';
+    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">' + ic('mail') + ' Mail</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">' + ic('open_in_new') + ' Apart venster</button>') + '</div>';
     if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); bindGrip(); return; }
     if (npPopped(m)) {
       setHTML(np, h + '<div class="pvmsg">De aantekeningen staan in een apart venster.<br><button type="button" class="btn sm" id="npfocus">Naar het venster</button> <button type="button" class="btn sm" id="npback">Terugzetten in MeMeet</button></div>');
@@ -116,7 +116,7 @@
     h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
     setHTML(np, h);
     var ta = $('#npt'), t;
-    function queue() { var st = $('#npst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = '✓'; s2.title = 'Opgeslagen'; s2.className = 'npst ok'; } }, 800); }
+    function queue() { var st = $('#npst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { setHTML(s2, ic('check')); s2.title = 'Opgeslagen'; s2.className = 'npst ok'; } }, 800); }
     ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; queue(); });
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
@@ -138,7 +138,7 @@
     g.ondblclick = function () { try { localStorage.removeItem('memeet-npw'); } catch (e) {} npWidth(); };
   }
   /* aantekeningen in een apart browservenster, rechts op het scherm */
-  var POP_CSS = ':root{--bg:#fff;--ink:#1b1f24;--mute:#5d6875;--line:#d8dfe7;--soft:#E5F2F9}@media (prefers-color-scheme:dark){:root{--bg:#16202b;--ink:#e7edf3;--mute:#9cadbf;--line:#283544;--soft:#1b2a39}}' +
+  var POP_CSS = ':root{--bg:#fff;--ink:#1b1f24;--mute:#5d6875;--line:#d8dfe7;--soft:#E5F2F9}' + /* de aantekeningen blijven altijd licht, ook in de donkere modus */
     '*{box-sizing:border-box}html,body{margin:0;height:100%}body{display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font:14px/1.5 "RO Sans","Segoe UI",system-ui,sans-serif}' +
     'header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(90deg,#123a66,#154273 60%,#1a5189);color:#fff;border-bottom:3px solid #007BC7}' +
     'header .t{flex:1;min-width:0}header b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}header small{color:#cfe5f4;font-size:12px}' +
@@ -148,6 +148,12 @@
     '#links{border-top:1px solid var(--line);padding:6px 12px;max-height:30vh;overflow:auto}#links:empty{display:none}#links .lbl{display:block;font-size:12px;font-weight:600;color:var(--mute)}#links a{display:block;color:#01689B;word-break:break-all;font-size:13px;padding:2px 0}' +
     'footer{padding:6px 12px;font-size:12px;color:var(--mute);border-top:1px solid var(--line);background:var(--soft)}';
   function npPopWidth() { return Math.max(360, Math.min(560, Math.round(screen.availWidth * 0.3))); }
+  /* de stijl van een paar iconen, voor het aparte venster (dat heeft de stijl van MeMeet niet) */
+  function icCss(names) {
+    var o = '';
+    Array.prototype.forEach.call(D.styleSheets, function (sh) { try { Array.prototype.forEach.call(sh.cssRules, function (r) { if (r.selectorText === '.i' || names.some(function (n) { return r.selectorText === '.i-' + n; })) o += r.cssText; }); } catch (e) {} });
+    return o;
+  }
   function popNotes(m) {
     var w = npPopWidth(), hgt = screen.availHeight, left = (screen.availLeft || 0) + screen.availWidth - w, top = screen.availTop || 0;
     var win = W.open('', 'memeet-aantekeningen', 'popup=yes,width=' + w + ',height=' + hgt + ',left=' + left + ',top=' + top);
@@ -155,15 +161,15 @@
     if (A.npWin && A.npWin !== win) { try { A.npWin.close(); } catch (e) {} }
     A.npWin = win; A.npWinMid = m.id;
     var d = win.document;
-    d.open(); d.write('<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Aantekeningen: ' + esc(m.title || 'Vergadering') + '</title><style>' + POP_CSS + '</style></head><body>' +
+    d.open(); d.write('<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Aantekeningen: ' + esc(m.title || 'Vergadering') + '</title><style>' + POP_CSS + icCss(['mail', 'arrow_back']) + '</style></head><body>' +
       '<header><div class="t"><b>' + esc(m.title || 'Vergadering') + '</b><small>' + esc(m.date ? fmtLong(m.date) : '') + (m.start ? ', ' + esc(m.start) : '') + '</small></div><span id="st"></span>' +
-      '<button id="mail" title="Het verslag mailen">✉ Mail</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
+      '<button id="mail" title="Het verslag mailen">' + ic('mail') + ' Mail</button><button id="back" title="Terugzetten in MeMeet">' + ic('arrow_back') + ' Terug</button></header>' +
       '<textarea id="t" spellcheck="true" placeholder="Typ hier je aantekeningen…"></textarea><div id="links"></div>' +
       '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt voor het vervolgoverleg. Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
     d.close();
     var ta = d.getElementById('t'), st = d.getElementById('st'), lk = d.getElementById('links'), t = null;
     ta.value = m.minutes || ''; lk.innerHTML = linkListHtml(m.minutes);
-    function save() { t = null; return saveMinutes(m).then(function () { st.textContent = 'opgeslagen ✓'; }); }
+    function save() { t = null; return saveMinutes(m).then(function () { st.textContent = 'opgeslagen'; }); }
     ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; st.textContent = 'opslaan…'; clearTimeout(t); t = setTimeout(function () { save(); lk.innerHTML = linkListHtml(m.minutes); }, 800); });
     d.getElementById('mail').onclick = function () { (t ? (clearTimeout(t), save()) : Promise.resolve()).then(function () { mailMinutes(m); }); };
     d.getElementById('back').onclick = function () { win.close(); };
@@ -214,18 +220,18 @@
       return ok && (!q || (a.text + ' ' + (a.m ? a.m.title : 'losse actie')).toLowerCase().indexOf(q) >= 0);
     });
     if (f.show === 'snooze') list.sort(function (x, y) { return x.snooze.localeCompare(y.snooze); });
-    var h = '<div class="head"><h1>Actielijst</h1><span class="hhint">✉ Sleep een mail hierheen: het onderwerp wordt een actie</span><div class="acts"><button class="btn sm" id="adl">⤓ Download als tekstbestand</button></div></div>';
+    var h = '<div class="head"><h1>Actielijst</h1><span class="hhint">' + ic('mail') + ' Sleep een mail hierheen: het onderwerp wordt een actie</span><div class="acts"><button class="btn sm" id="adl">' + ic('download') + ' Download als tekstbestand</button></div></div>';
     h += '<section class="card"><form class="addact" id="addAct" autocomplete="off"><input id="newAct" placeholder="Nieuwe actie, bijvoorbeeld: Offerte opvragen bij de leverancier" aria-label="Nieuwe actie"><input type="date" id="newActD" title="Begindatum (mag leeg blijven)" aria-label="Begindatum"><button type="submit" class="btn pri">+ Toevoegen</button></form>' +
       '<div class="filters"><input id="aq" type="search" placeholder="Zoeken in acties of vergaderingen…" value="' + esc(f.q) + '">' +
-      '<div class="seg">' + [['open', 'Open (' + cnt.open + ')'], ['snooze', '⏰ Gesnoozed (' + cnt.snooze + ')'], ['afgerond', 'Afgerond (' + cnt.afgerond + ')'], ['alle', 'Alle (' + cnt.alle + ')']].concat(cnt.weg ? [['weg', 'Verwijderd (' + cnt.weg + ')']] : []).map(function (s) { return '<button type="button" class="' + (f.show === s[0] ? 'on' : '') + '" data-show="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div></div>';
+      '<div class="seg">' + [['open', 'Open (' + cnt.open + ')'], ['snooze', '' + ic('snooze') + ' Gesnoozed (' + cnt.snooze + ')'], ['afgerond', 'Afgerond (' + cnt.afgerond + ')'], ['alle', 'Alle (' + cnt.alle + ')']].concat(cnt.weg ? [['weg', 'Verwijderd (' + cnt.weg + ')']] : []).map(function (s) { return '<button type="button" class="' + (f.show === s[0] ? 'on' : '') + '" data-show="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div></div>';
     h += '<div class="tw"><table class="acttb"><thead><tr><th style="width:30px"></th><th>Actie</th><th>Begindatum</th><th>Vergadering</th><th style="width:150px"></th></tr></thead><tbody>';
     h += list.length ? list.map(function (a, k) {
-      var tag = a.snoozed ? '<span class="bdg snz">⏰ tot ' + esc(fmtDay(a.snooze)) + '</span>' : a.back ? '<span class="bdg back">terug van snooze</span>' : '';
+      var tag = a.snoozed ? '<span class="bdg snz">' + ic('snooze') + ' tot ' + esc(fmtDay(a.snooze)) + '</span>' : a.back ? '<span class="bdg back">terug van snooze</span>' : '';
       return '<tr class="' + (a.done ? 'done' : '') + '" data-k="' + k + '"><td><input type="checkbox" class="adone"' + (a.done ? ' checked' : '') + ' title="Afgerond"></td>' +
-        '<td>' + (a.loose && a.loose.mail ? '<button type="button" class="atext amail" title="De mail' + (a.loose.mail.atts ? ' en ' + a.loose.mail.atts + ' bijlage' + (a.loose.mail.atts === 1 ? '' : 'n') : '') + ' bekijken"><span class="mic" aria-hidden="true">✉</span>' + esc(a.text) + (a.loose.mail.atts ? ' <span class="bdg">📎 ' + a.loose.mail.atts + '</span>' : '') + '</button>' : '<span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span>') + ' ' + tag + '</td>' +
+        '<td>' + (a.loose && a.loose.mail ? '<button type="button" class="atext amail" title="De mail' + (a.loose.mail.atts ? ' en ' + a.loose.mail.atts + ' bijlage' + (a.loose.mail.atts === 1 ? '' : 'n') : '') + ' bekijken"><span class="mic" aria-hidden="true">' + ic('mail') + '</span>' + esc(a.text) + (a.loose.mail.atts ? ' <span class="bdg">' + ic('attach_file') + ' ' + a.loose.mail.atts + '</span>' : '') + '</button>' : '<span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span>') + ' ' + tag + '</td>' +
         '<td><input type="date" class="astart" value="' + esc(a.start) + '"></td>' +
         '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">' + (a.loose && a.loose.mail ? 'Uit een mail' + (a.loose.mail.from ? '<br><small>van ' + esc(a.loose.mail.from) + '</small>' : '') : 'Losse actie') + '</span>') + '</td>' +
-        '<td class="aact">' + (a.loose ? '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red aldel" title="Deze losse actie verwijderen">✕</button>' : a.hidden ? '<button type="button" class="btn sm arest">↩ Terugzetten</button>' : '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red adel" title="Van de actielijst halen (blijft in de aantekeningen staan)">✕</button>') + '</td></tr>';
+        '<td class="aact">' + (a.loose ? '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>' + ic('snooze') + ' Snooze</button><button type="button" class="link red aldel" title="Deze losse actie verwijderen">' + ic('close') + '</button>' : a.hidden ? '<button type="button" class="btn sm arest">' + ic('restore_from_trash') + ' Terugzetten</button>' : '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>' + ic('snooze') + ' Snooze</button><button type="button" class="link red adel" title="Van de actielijst halen (blijft in de aantekeningen staan)">' + ic('close') + '</button>') + '</td></tr>';
     }).join('') : '<tr><td colspan="5" class="empty">' + (all.length ? (f.show === 'snooze' ? 'Geen gesnoozede acties.' : 'Geen acties met dit filter.') : 'Nog geen acties. Typ hierboven een actie en klik op Toevoegen, sleep een mail hierheen, of begin in de aantekeningen van een vergadering een regel met !.') + '</td></tr>';
     h += '</tbody></table></div>' + (A.store.kind === 'map' ? '<p class="note">Wordt ook bijgehouden in Actielijst › Actielijst.txt</p>' : '') + '</section>';
     h += '<div class="snzmenu" id="snzmenu" hidden></div>';

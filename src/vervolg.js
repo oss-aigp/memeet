@@ -42,14 +42,14 @@
       var h = '<div class="dlg vv" role="dialog" aria-modal="true" aria-labelledby="vvT"><div class="vvhead"><div><h2 id="vvT">Besluiten, acties en meeneempunten</h2>';
       if (src) {
         var v = vervolgOf(src);
-        h += '<p class="muted">' + (ctx && ctx !== src ? 'Uit het vorige overleg: ' : '') + '<b>' + esc(src.title) + '</b>' + (src.date ? ', ' + esc(fmtLong(src.date)) + (src.start ? ' ' + esc(src.start) : '') : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div><div class="vvbody">';
+        h += '<p class="muted">' + (ctx && ctx !== src ? 'Uit het vorige overleg: ' : '') + '<b>' + esc(src.title) + '</b>' + (src.date ? ', ' + esc(fmtLong(src.date)) + (src.start ? ' ' + esc(src.start) : '') : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div><div class="vvbody">';
         h += '<h3>Besluiten</h3>' + list(v.dec.map(function (t) { return '<li>' + esc(t) + '</li>'; }), 'Geen besluiten vastgelegd.');
         h += '<h3>Acties</h3>' + list(v.acts.map(function (a) { return '<li class="vvact' + (a.done ? ' done' : '') + '"><label><input type="checkbox" data-vva="' + esc(a.id) + '"' + (a.done ? ' checked' : '') + '> <span>' + esc(a.text) + '</span></label></li>'; }), 'Geen acties vastgelegd.');
         h += '<h3>Meeneempunten</h3>' + list(v.pts.map(function (t) { return '<li>' + esc(t) + '</li>'; }), 'Geen meeneempunten vastgelegd.');
         if (!v.n) h += '<p class="muted vvtip">Begin in de aantekeningen een regel met <code>=</code> voor een besluit, <code>!</code> voor een actie of <code>&gt;</code> voor een meeneempunt; die komen dan hier.</p>';
         h += '</div><div class="dlgacts"><a class="btn sm" href="#/v/' + encodeURIComponent(src.id) + '" data-vvgo="1">Naar die vergadering</a><a class="btn sm" href="#/verslag/' + encodeURIComponent(src.id) + '" data-vvgo="1">Verslag openen</a><span class="sp"></span>';
       } else {
-        h += '<p class="muted">' + (ctx ? esc(ctx.title) : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div><div class="vvbody">' +
+        h += '<p class="muted">' + (ctx ? esc(ctx.title) : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div><div class="vvbody">' +
           '<p>Er is nog geen eerdere vergadering met de titel <b>' + esc(ctx ? ctx.title : '') + '</b> gevonden. Kies hieronder zelf de vergadering waar dit het vervolg van is.</p></div><div class="dlgacts"><span class="sp"></span>';
       }
       if (ctx) {
@@ -82,7 +82,7 @@
   /* de regel bovenaan de stukken: het vervolgdocument van de vorige keer */
   function vervolgRowHtml(m) {
     var p = prevMeeting(m); if (!p) return '';
-    return '<div class="vvrow" id="vvRow" role="button" tabindex="0" title="Besluiten, acties en meeneempunten van de vorige keer"><span class="vvic">📋</span><span class="vvtx"><b>Vorig overleg</b> · ' + esc(fmtShort(p.date)) + '<small>' + esc(vervolgSummary(vervolgOf(p))) + '</small></span></div>';
+    return '<div class="vvrow" id="vvRow" role="button" tabindex="0" title="Besluiten, acties en meeneempunten van de vorige keer"><span class="vvic">' + ic('checklist') + '</span><span class="vvtx"><b>Vorig overleg</b> · ' + esc(fmtShort(p.date)) + '<small>' + esc(vervolgSummary(vervolgOf(p))) + '</small></span></div>';
   }
   function refreshVervolgRow(m) {
     var old = $('#vvRow'), html = vervolgRowHtml(m), box = D.createElement('div'); setHTML(box, html);

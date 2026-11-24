@@ -69,10 +69,10 @@
     var cols = [['name', 'Naam'], ['date', 'Datum'], ['changed', 'Gewijzigd']];
     var h = '<div class="head"><h1>Verslagen</h1></div><section class="card"><div class="filters"><input id="rq" type="search" placeholder="Zoeken in verslagen…" value="' + esc(f.q) + '">' +
       '<label class="chk"><input type="checkbox" id="rall"' + (f.all ? ' checked' : '') + '> Ook vergaderingen zonder aantekeningen</label></div>';
-    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
+    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '' + ic('arrow_downward') + '' : '' + ic('arrow_upward') + '') : '' + ic('unfold_more') + '') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
     h += list.length ? list.map(function (m) {
       var chg = m.minutesUpdated ? new Date(m.minutesUpdated) : null, vv = vervolgOf(m);
-      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><div class="rname"><b>' + esc(m.title || 'Vergadering') + '</b>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="' + esc(vervolgSummary(vv)) + '">📋 Meeneempunten</button>' : '') + '</div></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td></tr>';
+      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><div class="rname"><b>' + esc(m.title || 'Vergadering') + '</b>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="' + esc(vervolgSummary(vv)) + '">' + ic('checklist') + ' Meeneempunten</button>' : '') + '</div></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td></tr>';
     }).join('') : '<tr><td colspan="3" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
     h += '</tbody></table></div><p class="note">' + list.length + ' verslag' + (list.length === 1 ? '' : 'en') + ' · Klik op een kolomkop om te sorteren, en op een verslag om het te bewerken.</p></section>';
     setHTML($('#main'), h);
@@ -112,8 +112,8 @@
     var ribbon = el2('div', 'ribbon rb-rep'), st = el2('span', 'edst');
     var sel = el2('select', 'rsel'); sel.title = 'Stijl';
     [['p', 'Normale tekst'], ['h1', 'Kop 1'], ['h2', 'Kop 2']].forEach(function (o) { var op = el2('option', null, o[1]); op.value = o[0]; sel.appendChild(op); });
-    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstreept (Ctrl+U)', 'u'), bUl = btn('• Lijst', 'Opsomming'), bOl = btn('1. Lijst', 'Genummerde lijst'), un = btn('↶', 'Ongedaan maken (Ctrl+Z)'), re = btn('↷', 'Opnieuw (Ctrl+Y)'), bAct = opts.actions ? btn('! Actie', 'Begin deze regel met ! zodat de regel in de Actielijst komt') : null;
-    var dlB = btn('⤓ Tekstbestand', 'Download als tekstbestand');
+    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstreept (Ctrl+U)', 'u'), bUl = btn(['format_list_bulleted', 'Lijst'], 'Opsomming'), bOl = btn(['format_list_numbered', 'Lijst'], 'Genummerde lijst'), un = btn(['undo'], 'Ongedaan maken (Ctrl+Z)'), re = btn(['redo'], 'Opnieuw (Ctrl+Y)'), bAct = opts.actions ? btn('! Actie', 'Begin deze regel met ! zodat de regel in de Actielijst komt') : null;
+    var dlB = btn(['download', 'Tekstbestand'], 'Download als tekstbestand');
     [un, re, null, sel, null, bB, bI, bU, null, bUl, bOl].concat(bAct ? [null, bAct] : []).concat([null, dlB]).forEach(function (x) { ribbon.appendChild(x || sepEl()); });
     ribbon.appendChild(el2('span', 'rsp')); ribbon.appendChild(st);
     var body = el2('div', 'edbody eb-rep'), ed = el2('div', 'docx-ed rep-ed'), foot = el2('div', 'edfoot');
@@ -203,7 +203,7 @@
   }
   function mailMinutes(m) { return mailText('Aantekeningen: ' + (m.title || 'Vergadering') + (m.date ? ' (' + fmtShort(m.date) + ')' : ''), minutesMailText(m)); }
   function renderReport(m) {
-    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">📋 Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mail</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
+    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">' + ic('checklist') + ' Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">' + ic('mail') + ' Mail</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + ic('event') + ' Naar vergadering</a><a class="btn" href="#/verslagen">' + ic('arrow_back') + ' Terug naar verslagen</a></div></div>';
     h += '<section class="card repcard"><div class="edwrap" id="repbox"></div></section>';
     setHTML($('#main'), h);
     var E = repEditor($('#repbox'), {

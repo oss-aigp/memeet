@@ -1,17 +1,18 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.2.0 -->
+<!-- MeMeet-versie: 1.3.0 -->
 <!--
-  MeMeet 1.2.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.3.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
-  en JSZip (MIT of GPL-3.0); volledige teksten in THIRD-PARTY-NOTICES.md.
+  JSZip (MIT of GPL-3.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
 -->
 <html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MeMeet</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('memeet-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4gPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTRiOGE2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGY2ZTc0Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+IDxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIiByeD0iNTYiIGZpbGw9InVybCgjZykiLz4gPGcgZmlsbD0iI2ZmZmZmZiI+IDxjaXJjbGUgY3g9IjEyOC4wIiBjeT0iNDguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iMTg0LjYiIGN5PSI3MS40IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIyMDguMCIgY3k9IjEyOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxODQuNiIgY3k9IjE4NC42IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxMjguMCIgY3k9IjIwOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSI3MS40IiBjeT0iMTg0LjYiIHI9IjEzIi8+IDxjaXJjbGUgY3g9IjQ4LjAiIGN5PSIxMjguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iNzEuNCIgY3k9IjcxLjQiIHI9IjEzIi8+IDwvZz4gPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTI4IiByPSI1MiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjk2Ii8+IDxyZWN0IHg9IjEwNiIgeT0iMTAyIiB3aWR0aD0iNDQiIGhlaWdodD0iNTQiIHJ4PSI2IiBmaWxsPSIjMGY2ZTc0Ii8+IDxyZWN0IHg9IjExMyIgeT0iMTEzIiB3aWR0aD0iMzAiIGhlaWdodD0iNSIgcng9IjIuNSIgZmlsbD0iI2ZmZmZmZiIvPiA8cmVjdCB4PSIxMTMiIHk9IjEyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiM5ZWU2ZGQiLz4gPHJlY3QgeD0iMTEzIiB5PSIxMzUiIHdpZHRoPSIyOCIgaGVpZ2h0PSI1IiByeD0iMi41IiBmaWxsPSIjOWVlNmRkIi8+IDxjaXJjbGUgY3g9IjEyOCIgY3k9IjQ4IiByPSIxMyIgZmlsbD0iI2ZmZDQwMCIvPiA8L3N2Zz4g">
 <style>
 :root{--bg:#f2f4f7;--card:#fff;--ink:#1f2a37;--mute:#667085;--line:#dde3ea;--brand:#1d4f7c;--brand2:#2f6fa7;--acc:#3a8dde;--green:#2e9e5b;--red:#c0392b;--soft:#eef3f8;--row:#f7f9fb;--warn:#fff4d6;--ok:#e6f4ea;--err:#fde2e1}
-@media (prefers-color-scheme:dark){:root{--bg:#11161d;--card:#1a212b;--ink:#e6ebf1;--mute:#98a4b3;--line:#2a3441;--brand:#16324f;--brand2:#6fa8dc;--acc:#6fb0f0;--green:#45b979;--red:#e57368;--soft:#222c38;--row:#1e2631;--warn:#3a321b;--ok:#1b3325;--err:#3d2222}}
+html[data-theme=dark]{--bg:#11161d;--card:#1a212b;--ink:#e6ebf1;--mute:#98a4b3;--line:#2a3441;--brand:#16324f;--brand2:#6fa8dc;--acc:#6fb0f0;--green:#45b979;--red:#e57368;--soft:#222c38;--row:#1e2631;--warn:#3a321b;--ok:#1b3325;--err:#3d2222}
 *{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",system-ui,-apple-system,sans-serif}
 a{color:var(--brand2)}header{display:flex;align-items:center;gap:14px;height:54px;padding:0 18px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
 .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;color:var(--brand2);text-decoration:none}.logo img{width:28px;height:28px;display:block;border-radius:7px}
@@ -155,7 +156,7 @@ main.detail .ws>.card{height:100%;max-height:none;position:static;margin-bottom:
 .rsel{height:30px;padding:2px 6px;border-radius:5px;min-width:130px;font-size:13px}
 .edfoot{display:flex;gap:12px;justify-content:space-between;align-items:center;padding:4px 12px;font-size:11.5px;color:var(--mute);border-top:1px solid var(--line);background:var(--row)}.edtip{text-align:right}
 .edbody{flex:1;overflow:auto;background:#e9ebee;padding:24px;min-height:0}
-@media (prefers-color-scheme:dark){.edbody{background:#2b3038}}
+html[data-theme=dark] .edbody{background:#2b3038}
 .docx-ed{background:#fff;color:#1f2a37;width:100%;max-width:816px;margin:0 auto;padding:72px 84px;min-height:1056px;box-shadow:0 1px 3px rgba(0,0,0,.2),0 6px 20px rgba(0,0,0,.12);font:15px/1.5 Calibri,Carlito,"Segoe UI",sans-serif;outline:none;caret-color:#2b579a}
 .docx-ed .dp{white-space:pre-wrap;margin:0 0 8px;min-height:1.2em}.docx-ed .s-h0{font-size:28px;font-weight:300;color:#1d3f6e;margin:4px 0 12px}.docx-ed .s-h1{font-size:21px;font-weight:600;color:#2f5496;margin-top:18px}.docx-ed .s-h2{font-size:17px;font-weight:600;color:#2f5496;margin-top:12px}.docx-ed .s-h3{font-size:15px;font-weight:600;color:#1f3763;margin-top:10px}
 .docx-ed .s-li{display:list-item;list-style:disc outside;margin-left:22px}
@@ -213,9 +214,9 @@ code{background:var(--soft);padding:1px 5px;border-radius:4px;font-size:12px}
    groen #39870C, oranje #E17000, rood #D52B1E. Lettertype: RO Sans als dat op de computer staat. */
 :root{--bg:#eef2f6;--card:#fff;--ink:#1b1f24;--mute:#5d6875;--line:#d8dfe7;--brand:#154273;--brand2:#01689B;--acc:#007BC7;--green:#39870C;--red:#D52B1E;--soft:#E5F2F9;--row:#f6f9fb;--warn:#fdf3d4;--ok:#e7f2df;--err:#fbe3e0;
  --lint:#154273;--hemel:#007BC7;--licht:#CCE7F4;--shadow:0 1px 2px rgba(21,66,115,.06),0 6px 20px rgba(21,66,115,.07);--radius:8px;--font:"RO Sans","Rijksoverheid Sans Text","RijksoverheidSansWebText","Segoe UI",Calibri,system-ui,sans-serif}
-@media (prefers-color-scheme:dark){:root{--bg:#0e151d;--card:#16202b;--ink:#e7edf3;--mute:#9cadbf;--line:#283544;--brand:#9fd0ef;--brand2:#6cbbe9;--acc:#2f9ae0;--soft:#1b2a39;--row:#1a2532;--warn:#3a3218;--ok:#1b3123;--err:#3c2220;--licht:#24435f;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25)}}
+html[data-theme=dark]{--bg:#0e151d;--card:#16202b;--ink:#e7edf3;--mute:#9cadbf;--line:#283544;--brand:#9fd0ef;--brand2:#6cbbe9;--acc:#2f9ae0;--soft:#1b2a39;--row:#1a2532;--warn:#3a3218;--ok:#1b3123;--err:#3c2220;--licht:#24435f;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25)}
 body{font:14.5px/1.55 var(--font);background:var(--bg) linear-gradient(180deg,rgba(204,231,244,.55),rgba(204,231,244,0) 260px) no-repeat;-webkit-font-smoothing:antialiased}
-@media (prefers-color-scheme:dark){body{background:var(--bg)}}
+html[data-theme=dark] body{background:var(--bg)}
 a{color:var(--brand2);text-underline-offset:2px}
 h1{font-size:28px;font-weight:700;color:var(--brand);letter-spacing:-.01em}
 h2{font-size:17px;font-weight:700;color:var(--brand)}
@@ -239,13 +240,13 @@ main{padding:26px 30px 40px}
 .btn.pri{background:var(--hemel);border-color:var(--hemel);color:#fff}.btn.pri:hover{background:#01689B;border-color:#01689B}
 .btn.danger{background:var(--red);border-color:var(--red)}.btn.danger:hover{background:#b3241a}
 input,select,textarea{border-radius:5px;border-color:#c5cfda}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--hemel);box-shadow:0 0 0 3px rgba(0,123,199,.18)}
-@media (prefers-color-scheme:dark){.btn{border-color:var(--line)}input,select,textarea{border-color:var(--line)}}
+html[data-theme=dark] .btn{border-color:var(--line)}html[data-theme=dark] input,html[data-theme=dark] select,html[data-theme=dark] textarea{border-color:var(--line)}
 .pill{background:var(--soft);color:var(--brand2);border-radius:12px;padding:2px 10px}
 .link{color:var(--brand2)}
 
 /* sleepvak */
 .dropbar{border:2px dashed #8FCAE7;background:rgba(229,242,249,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%23007BC7' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E  %3Crect x='5' y='10' width='30' height='22' rx='3' fill='%23fff'/%3E%3Cpath d='M6 12l14 10 14-10'/%3E%3Cpath d='M20 2v6M17 5l3 3 3-3'/%3E %3C/svg%3E") 18px center/30px no-repeat;color:var(--brand2);border-radius:var(--radius);padding:14px 18px 14px 60px;text-align:left;font-weight:500}
-@media (prefers-color-scheme:dark){.dropbar{background-color:rgba(36,67,95,.3);border-color:#2b5375}}
+html[data-theme=dark] .dropbar{background-color:rgba(36,67,95,.3);border-color:#2b5375}
 
 /* vandaag */
 .today{border-top:4px solid var(--hemel);padding-top:16px}
@@ -261,7 +262,7 @@ th:first-child{border-top-left-radius:6px}th:last-child{border-top-right-radius:
 tbody tr:nth-child(odd){background:transparent}tbody tr{transition:background .12s}tbody tr:hover{background:var(--soft)}
 td{border-bottom:1px solid var(--line)}
 .mtb tr.sel td{background:#dcedf8}
-@media (prefers-color-scheme:dark){.mtb tr.sel td{background:#1f3a52}}
+html[data-theme=dark] .mtb tr.sel td{background:#1f3a52}
 .arch{border-top:0}.archbtn{color:var(--brand)}
 
 /* meldingen en balken */
@@ -283,7 +284,7 @@ button.tl:hover{background:var(--soft)}button.tl.on:hover{background:#01689B}
 ul.tl,ul.tl:hover{background:none}.card.arch{padding:0}.archbtn{padding:16px 22px}
 tbody tr:hover .pill,.tl li:hover .pill{background:#fff}
 .welcome p{margin:0 0 12px}.welcome h1{margin:0 0 8px}.welcome .btn.pri{margin:4px 0 8px}
-@media (prefers-color-scheme:dark){tbody tr:hover .pill,.tl li:hover .pill{background:var(--card)}}
+html[data-theme=dark] tbody tr:hover .pill,html[data-theme=dark] .tl li:hover .pill{background:var(--card)}
 
 /* welkom */
 .welcome{max-width:880px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:10px 28px;align-items:center;padding:30px 34px;border-top:5px solid var(--hemel)}
@@ -309,7 +310,7 @@ tbody tr:hover .pill,.tl li:hover .pill{background:#fff}
 .qnext:hover{background:rgba(255,255,255,.22)}
 .quote.in blockquote,.quote.in figcaption{animation:qin .35s ease}
 @keyframes qin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-@media (prefers-color-scheme:dark){.quote{background:linear-gradient(100deg,#0c2747,#103459 55%,#0a4f86)}}
+html[data-theme=dark] .quote{background:linear-gradient(100deg,#0c2747,#103459 55%,#0a4f86)}
 @media (prefers-reduced-motion:reduce){.quote.in blockquote,.quote.in figcaption{animation:none}}
 
 /* begroeting links, wijsheid rechts */
@@ -355,7 +356,7 @@ tbody tr:hover .pill,.tl li:hover .pill{background:#fff}
 .np,main.detail .ws.n3 .np,main.detail .ws>.card.np{position:relative}main.detail .ws.n3 .np{top:0}.npgrip{position:absolute;left:0;top:0;bottom:0;width:7px;cursor:col-resize;z-index:3;border-left:3px solid transparent}.npgrip:hover,.npdrag .npgrip{border-left-color:var(--hemel)}
 body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .pvpages{pointer-events:none}
 .nplinks{padding:6px 12px;border-top:1px solid var(--line);max-height:120px;overflow:auto}.nplinks:empty{display:none}.nplinks .lbl{display:block;font-size:12px;font-weight:600;color:var(--mute)}.nplinks a{display:block;font-size:12.5px;word-break:break-all;padding:1px 0}
-.rep-ed a{color:#01689B;text-decoration:underline;cursor:pointer}@media (prefers-color-scheme:dark){.rep-ed a{color:#01689B}}
+.rep-ed a{color:#01689B;text-decoration:underline;cursor:pointer}html[data-theme=dark] .rep-ed a{color:#01689B}
 .pvbar.one{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding:5px 8px;gap:4px;scrollbar-width:thin}
 .pvbar.one .pvtools{flex:1 1 auto;flex-wrap:nowrap;gap:2px;min-width:0}.pvbar.one .vtabs{margin-right:6px}.pvbar.one .vtabs button{padding:3px 9px}
 .pvbar.one button.tl{padding:4px 6px;font-size:12.5px;white-space:nowrap}.pvbar.one .zl{min-width:44px}.pvbar.one .sep{margin:0 3px}.pvbar.one .cols{margin:0 3px}
@@ -524,8 +525,85 @@ input[type=checkbox],input[type=radio]{min-height:0}
 .filters .chk{margin-left:auto}.filters .chk input{flex:none;min-width:0;width:auto;height:auto}
 .card.pv{padding:0}
 .ws.n3 .np .nphead,.nphead{border-bottom:1px solid var(--line);box-shadow:none}
+/* ---- donkere modus: de schakelaar rechtsboven. Viewers, pop-ups en de aantekeningen blijven licht (wit met zwarte letters). */
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=dark] :is(.ttl,.matitle):not(:hover):not(:focus){background:transparent;border-color:transparent}
+html[data-theme=dark] :is(.card.pv,.np,.dlg,.dlgbg .dlg,.helppanel,#help,.snzmenu,.vermenu,.pvmenu,#viewer,.mapv,.nbox,.nedit){color-scheme:light;--bg:#eef2f6;--card:#fff;--ink:#1b1f24;--mute:#5d6875;--line:#d8dfe7;--brand:#154273;--brand2:#01689B;--acc:#007BC7;--green:#39870C;--red:#D52B1E;--soft:#E5F2F9;--row:#f6f9fb;--warn:#fdf3d4;--ok:#e7f2df;--err:#fbe3e0;--licht:#CCE7F4;color:var(--ink)}
+html[data-theme=dark] :is(.np,.dlg,.card.pv,.snzmenu,.vermenu,.pvmenu){background:var(--card)}
+.themebtn{margin-right:8px}
+/* knop zonder link: grijs; een klik vraagt om de link */
+.btn.join.off,.btn.ibabs.off{background:var(--soft);border-color:var(--line);color:var(--mute)}
+.btn.join.off:hover,.btn.ibabs.off:hover{border-color:var(--brand2);color:var(--brand2)}
+/* Bestanden: eigen mappen */
+.fxdh{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:14px 0 4px;padding:8px 4px 0 6px;border-top:1px solid var(--line);font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.fxdh .link{text-transform:none;letter-spacing:0;font-size:12.5px;padding:3px 4px;display:inline-flex;align-items:center;gap:4px}
+.fxdir{display:flex;align-items:center;border-radius:7px;position:relative}.fxdir .fxt{flex:1;min-width:0;display:flex;align-items:center;gap:7px}.fxdir .fxt span:not(.i){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.fxdir .fxdel{border:0;background:none;color:var(--mute);cursor:pointer;padding:2px 4px;border-radius:5px;opacity:0;flex:none}.fxdir:hover .fxdel,.fxdel:focus{opacity:1}.fxdel:hover{color:var(--red);background:var(--row)}
+.fxdir.on .fxt{background:var(--soft);font-weight:600}
+.fxdir.over{outline:2px dashed var(--hemel);outline-offset:-2px;background:var(--soft)}
+body.fxdragging .fxdir{outline:1px dashed var(--line);outline-offset:-2px}
+.fxdtip{font-size:12.5px;color:var(--mute);margin:4px 6px}
+.fxtb tbody tr[draggable=true]{cursor:default}
+/* Vandaag en Morgen: vaste kolommen voor stukken, iBabs en Deelnemen, zodat ze recht onder elkaar staan, ook als er een ontbreekt */
+.tact{display:grid;grid-template-columns:96px 70px 124px;gap:10px;align-items:center;flex:none}
+.tact>span{display:flex;align-items:center;min-height:30px}.tst{justify-content:flex-end}.tib,.tjn{justify-content:flex-start;min-width:0}
+.tact .btn.sm{width:100%}
+/* ---- iconen (Material Symbols Rounded, Apache-2.0) */
+.i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+.btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}
+.i-add{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M450-450H230q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h220v-220q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v220h220q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H510v220q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-220Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-add_comment{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M450-530v100q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-100h100q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H510v-100q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v100H350q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5h100ZM240-240%20131-131q-14%2014-32.5%206.34Q80-132.31%2080-152v-668q0-24%2018-42t42-18h680q24%200%2042%2018t18%2042v520q0%2024-18%2042t-42%2018H240Zm-26-60h606v-520H140v600l74-80Zm-74%200v-520%20520Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-arrow_back{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m274-450%20227%20227q9%209%209%2021t-9%2021q-9%209-21%209t-21-9L181-459q-5-5-7-10t-2-11q0-6%202-11t7-10l278-278q9-9%2021-9t21%209q9%209%209%2021t-9%2021L274-510h496q13%200%2021.5%208.5T800-480q0%2013-8.5%2021.5T770-450H274Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-arrow_downward{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M450-274v-496q0-13%208.5-21.5T480-800q13%200%2021.5%208.5T510-770v496l227-227q9-9%2021-9t21%209q9%209%209%2021t-9%2021L501-181q-5%205-10%207t-11%202q-6%200-11-2t-10-7L181-459q-9-9-9-21t9-21q9-9%2021-9t21%209l227%20227Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-arrow_upward{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M450-686%20223-459q-9%209-21%209t-21-9q-9-9-9-21t9-21l278-278q5-5%2010-7t11-2q6%200%2011%202t10%207l278%20278q9%209%209%2021t-9%2021q-9%209-21%209t-21-9L510-686v496q0%2013-8.5%2021.5T480-160q-13%200-21.5-8.5T450-190v-496Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-attach_file{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M728-326q0%20103-72.18%20174.5-72.17%2071.5-175%2071.5Q378-80%20305.5-151.5T233-326v-380q0-72.5%2051.5-123.25T408-880q72%200%20123.5%2050.75T583-706v360q0%2042-30%2072t-72.5%2030q-42.5%200-72.5-29.67-30-29.68-30-72.33v-340q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v340q0%2017%2012.5%2029.5t30.64%2012.5q18.14%200%2030-12.5T523-346v-360q0-48-33.5-81t-81.71-33q-48.21%200-81.5%2033.06T293-706v380q0%2078%2054.97%20132T481-140q77.92%200%20132.46-54Q668-248%20668-326v-360q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v360Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-calendar_month{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M180-80q-24%200-42-18t-18-42v-620q0-24%2018-42t42-18h65v-28q0-13.6%209-22.8%209-9.2%2023.02-9.2t23.5%209.2Q310-861.6%20310-848v28h340v-28q0-13.6%209-22.8%209-9.2%2023.02-9.2t23.5%209.2Q715-861.6%20715-848v28h65q24%200%2042%2018t18%2042v620q0%2024-18%2042t-42%2018H180Zm0-60h600v-430H180v430Zm0-490h600v-130H180v130Zm0%200v-130%20130Zm300%20230q-17%200-28.5-11.5T440-440q0-17%2011.5-28.5T480-480q17%200%2028.5%2011.5T520-440q0%2017-11.5%2028.5T480-400Zm-188.5-11.5Q280-423%20280-440t11.5-28.5Q303-480%20320-480t28.5%2011.5Q360-457%20360-440t-11.5%2028.5Q337-400%20320-400t-28.5-11.5ZM640-400q-17%200-28.5-11.5T600-440q0-17%2011.5-28.5T640-480q17%200%2028.5%2011.5T680-440q0%2017-11.5%2028.5T640-400ZM480-240q-17%200-28.5-11.5T440-280q0-17%2011.5-28.5T480-320q17%200%2028.5%2011.5T520-280q0%2017-11.5%2028.5T480-240Zm-188.5-11.5Q280-263%20280-280t11.5-28.5Q303-320%20320-320t28.5%2011.5Q360-297%20360-280t-11.5%2028.5Q337-240%20320-240t-28.5-11.5ZM640-240q-17%200-28.5-11.5T600-280q0-17%2011.5-28.5T640-320q17%200%2028.5%2011.5T680-280q0%2017-11.5%2028.5T640-240Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-check{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m378-332%20363-363q9-9%2021.5-9t21.5%209q9%209%209%2021.5t-9%2021.5L399-267q-9%209-21%209t-21-9L175-449q-9-9-8.5-21.5T176-492q9-9%2021.5-9t21.5%209l159%20160Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-checklist{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m222-299%20158-158q9-9%2021-8.5t21.39%209.5q8.61%209%208.61%2021t-9%2021L243-235q-9%209-21%209t-21-9L101-335q-9-9-9-21t9-21q9-9%2021-8.5t21%208.5l79%2078Zm0-320%20158-158q9-9%2021-8.5t21.39%209.5q8.61%209%208.61%2021t-9%2021L243-555q-9%209-21%209t-21-9L101-655q-9-9-9-21t9-21q9-9%2021-8.5t21%208.5l79%2078Zm328%20329q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h300q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H550Zm0-320q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h300q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H550Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-chevron_left{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m406-481%20177%20177q9%209%208.5%2021t-9.5%2021q-9%209-21.5%209t-21.5-9L341-460q-5-5-7-10t-2-11q0-6%202-11t7-10l199-199q9-9%2021.5-9t21.5%209q9%209%209%2021.5t-9%2021.5L406-481Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-chevron_right{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M530-481%20353-658q-9-9-8.5-21t9.5-21q9-9%2021.5-9t21.5%209l198%20198q5%205%207%2010t2%2011q0%206-2%2011t-7%2010L396-261q-9%209-21%208.5t-21-9.5q-9-9-9-21.5t9-21.5l176-176Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-close{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-438%20270-228q-9%209-21%209t-21-9q-9-9-9-21t9-21l210-210-210-210q-9-9-9-21t9-21q9-9%2021-9t21%209l210%20210%20210-210q9-9%2021-9t21%209q9%209%209%2021t-9%2021L522-480l210%20210q9%209%209%2021t-9%2021q-9%209-21%209t-21-9L480-438Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-create_new_folder{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18.5T80-220v-520q0-23%2018-41.5t42-18.5h256q12.44%200%2023.72%205t19.37%2013.09L481-740h339q23%200%2041.5%2018.5T880-680v460q0%2023-18.5%2041.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0%200v-520%20520Zm410-190v60q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-60h60q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5h-60v-60q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v60h-60q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5h60Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-dark_mode{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-120q-150%200-255-105T120-480q0-135%2079.5-229T408-830q20-5%2034-1t22%2015q8%2010%207.5%2025t-8.5%2035q-9%2023-14%2047t-5%2049q0%2090%2063%20153t153%2063q25%200%2048.5-4.5T754-461q22-8%2038-7t26%209q10%208%2013%2023t-2%2036q-27%20121-121%20200.5T480-120Zm0-60q109%200%20190-67.5T771-406q-25%2011-53.5%2016.5T660-384q-115%200-195.5-80.5T384-660q0-24%205-51.5t18-62.5q-98%2027-162.5%20109.5T180-480q0%20125%2087.5%20212.5T480-180Zm-4-297Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-delete{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M261-120q-24.75%200-42.37-17.63Q201-155.25%20201-180v-570h-11q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h158q0-13%208.63-21.5%208.62-8.5%2021.37-8.5h204q12.75%200%2021.38%208.62Q612-822.75%20612-810h158q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5h-11v570q0%2024.75-17.62%2042.37Q723.75-120%20699-120H261Zm438-630H261v570h438v-570ZM418.5-274.63q8.5-8.62%208.5-21.37v-339q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v339q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63Zm166%200q8.5-8.62%208.5-21.37v-339q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v339q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63ZM261-750v570-570Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-description{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M349-250h262q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5Zm0-170h262q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5ZM220-80q-24%200-42-18t-18-42v-680q0-24%2018-42t42-18h336q12.44%200%2023.72%205T599-862l183%20183q8%208%2013%2019.28%205%2011.28%205%2023.72v496q0%2024-18%2042t-42%2018H220Zm331-584v-156H220v680h520v-494H581q-12.75%200-21.37-8.63Q551-651.25%20551-664ZM220-820v186-186%20680-680Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-download{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36%209.11-21.36%209.39-9%2021.89-9t21.5%209l98%2099v-341q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v341l99-99q8.8-9%2020.9-8.5%2012.1.5%2021.49%209.5%208.61%209%208.61%2021.5t-9%2021.5L501-334q-5%205-10.13%207-5.14%202-11%202-5.87%200-10.87-2ZM220-160q-24%200-42-18t-18-42v-113q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v113h520v-113q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v113q0%2024-18%2042t-42%2018H220Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-edit_note{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M190-410q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h240q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H190Zm0-165q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h410q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H190Zm0-165q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h410q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H190Zm330%20550v-81q0-5.57%202-10.78%202-5.22%207-10.22l211.61-210.77q9.11-9.12%2020.25-13.18Q772-520%20783-520q12%200%2023%204.5t20%2013.5l37%2037q9%209%2013%2020t4%2022q0%2011-4.5%2022.5t-13.58%2020.62L652-169q-5%205-10.22%207-5.21%202-10.78%202h-81q-12.75%200-21.37-8.63Q520-177.25%20520-190Zm300-233-37-37%2037%2037ZM580-220h38l121-122-18-19-19-18-122%20121v38Zm141-141-19-18%2037%2037-18-19Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-event{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M528-248.18q-28-28.19-28-69Q500-358%20528.18-386q28.19-28%2069-28Q638-414%20666-385.82q28%2028.19%2028%2069Q694-276%20665.82-248q-28.19%2028-69%2028Q556-220%20528-248.18ZM180-80q-24%200-42-18t-18-42v-620q0-24%2018-42t42-18h65v-28q0-13.6%209-22.8%209-9.2%2023.02-9.2t23.5%209.2Q310-861.6%20310-848v28h340v-28q0-13.6%209-22.8%209-9.2%2023.02-9.2t23.5%209.2Q715-861.6%20715-848v28h65q24%200%2042%2018t18%2042v620q0%2024-18%2042t-42%2018H180Zm0-60h600v-430H180v430Zm0-490h600v-130H180v130Zm0%200v-130%20130Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-folder{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18.5T80-220v-520q0-23%2018-41.5t42-18.5h256q12.44%200%2023.72%205t19.37%2013.09L481-740h339q23%200%2041.5%2018.5T880-680v460q0%2023-18.5%2041.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0%200v-520%20520Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-folder_copy{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M100-120q-24.75%200-42.37-17.63Q40-155.25%2040-180v-530q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v530h710q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H100Zm120-120q-24.75%200-42.37-17.63Q160-275.25%20160-300v-520q0-24.75%2017.63-42.38Q195.25-880%20220-880h215q12.44%200%2023.72%205T478-862l62%2062h320q24.75%200%2042.38%2017.62Q920-764.75%20920-740v440q0%2024.75-17.62%2042.37Q884.75-240%20860-240H220Zm0-60h640v-440H515l-80-80H220v520Zm0%200v-520%20520Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-folder_open{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-23%200-41.5-18.5T80-220v-520q0-23%2018.5-41.5T140-800h256q12.44%200%2023.72%205t19.37%2013.09L481-740h369q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H455l-60-60H140v520l90-355q5-20%2021.83-32.5Q268.65-620%20289-620h574q29%200%2047.5%2023t10.5%2052l-88%20339q-6%2024-22%2035t-41%2011H140Zm63-60h572l84-340H287l-84%20340Zm-63-353v-167%20167Zm63%20353%2084-340-84%20340Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-format_list_bulleted{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M407-198q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h403q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H407Zm0-252q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h403q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H407Zm0-253q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h403q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H407ZM189-161q-28.05%200-48.02-19Q121-199%20121-227.5t19.5-48q19.5-19.5%2048-19.5t47.5%2019.98q19%2019.97%2019%2048.02%200%2027.23-19.39%2046.61Q216.23-161%20189-161Zm0-252q-28.05%200-48.02-19.5Q121-452%20121-480t19.98-47.5Q160.95-547%20189-547q27.23%200%2046.61%2019.5Q255-508%20255-480t-19.39%2047.5Q216.23-413%20189-413Zm-48.5-272.5Q121-705%20121-733t19.5-47.5Q160-800%20188-800t47.5%2019.5Q255-761%20255-733t-19.5%2047.5Q216-666%20188-666t-47.5-19.5Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-format_list_numbered{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M150-80q-13%200-21.5-8.5T120-110q0-13%208.5-21.5T150-140h70v-30h-30q-13%200-21.5-8.5T160-200q0-13%208.5-21.5T190-230h30v-30h-70q-13%200-21.5-8.5T120-290q0-13%208.5-21.5T150-320h90q17%200%2028.5%2011.5T280-280v40q0%2017-11.5%2028.5T240-200q17%200%2028.5%2011.5T280-160v40q0%2017-11.5%2028.5T240-80h-90Zm-7-280q-9%200-16-7t-7-16v-87q0-17%2011.5-28.5T160-510h60v-30h-70q-13%200-21.5-8.5T120-570q0-13%208.5-21.5T150-600h90q17%200%2028.5%2011.5T280-560v70q0%2017-11.5%2028.5T240-450h-60v30h70q13%200%2021.5%208.5T280-390q0%2013-8.5%2021.5T250-360H143Zm45.5-288.5Q180-657%20180-670v-150h-30q-13%200-21.5-8.5T120-850q0-13%208.5-21.5T150-880h68q9%200%2015.5%206.5T240-858v188q0%2013-8.5%2021.5T210-640q-13%200-21.5-8.5ZM399-209q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Zm0-243q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Zm0-243q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-fullscreen{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M180-180h103q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H150q-12.75%200-21.37-8.63Q120-137.25%20120-150v-133q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v103Zm600%200v-103q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v133q0%2012.75-8.62%2021.37Q822.75-120%20810-120H677q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h103ZM180-780v103q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-133q0-12.75%208.63-21.38Q137.25-840%20150-840h133q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H180Zm600%200H677q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h133q12.75%200%2021.38%208.62Q840-822.75%20840-810v133q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-103Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-fullscreen_exit{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M253-253H150q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h133q12.75%200%2021.38%208.62Q313-295.75%20313-283v133q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-103Zm454%200v103q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-133q0-12.75%208.63-21.38Q664.25-313%20677-313h133q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H707ZM253-707v-103q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v133q0%2012.75-8.62%2021.37Q295.75-647%20283-647H150q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h103Zm454%200h103q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H677q-12.75%200-21.37-8.63Q647-664.25%20647-677v-133q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v103Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-help{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M511-258.03q11-11.03%2011-27T510.97-312q-11.03-11-27-11T457-311.97q-11%2011.03-11%2027T457.03-258q11.03%2011%2027%2011T511-258.03ZM480.27-80q-82.74%200-155.5-31.5Q252-143%20197.5-197.5t-86-127.34Q80-397.68%2080-480.5t31.5-155.66Q143-709%20197.5-763t127.34-85.5Q397.68-880%20480.5-880t155.66%2031.5Q709-817%20763-763t85.5%20127Q880-563%20880-480.27q0%2082.74-31.5%20155.5Q817-252%20763-197.68q-54%2054.31-127%2086Q563-80%20480.27-80Zm.23-60Q622-140%20721-239.5t99-241Q820-622%20721.19-721T480-820q-141%200-240.5%2098.81T140-480q0%20141%2099.5%20240.5t241%2099.5Zm-.5-340Zm2.77-180Q513-660%20536-641.5q23%2018.5%2023%2047.2%200%2026.3-15.65%2045.73Q527.7-529.14%20508-512q-23%2019-40%2042.38-17%2023.39-17%2052.62%200%2011%208.4%2017.5T479-393q12%200%2019.88-8%207.87-8%2010.12-20%203-21%2016-38t30.23-30.78Q580-510%20596-537q16-27%2016-58.61%200-50.39-37.5-83.89T485.55-713Q450-713%20417-698t-54%2044q-7%2010-6.5%2021.5t9.47%2018.5q11.41%208%2023.65%205%2012.23-3%2020.38-14%2012.75-17.9%2031.88-27.45Q461-660%20482.77-660Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-info{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M504.5-288.63q8.5-8.62%208.5-21.37v-180q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v180q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63Zm-1-314.57q9.5-9.2%209.5-22.8%200-14.45-9.48-24.22-9.48-9.78-23.5-9.78t-23.52%209.78Q447-640.45%20447-626q0%2013.6%209.48%2022.8%209.48%209.2%2023.5%209.2t23.52-9.2ZM480.27-80q-82.74%200-155.5-31.5Q252-143%20197.5-197.5t-86-127.34Q80-397.68%2080-480.5t31.5-155.66Q143-709%20197.5-763t127.34-85.5Q397.68-880%20480.5-880t155.66%2031.5Q709-817%20763-763t85.5%20127Q880-563%20880-480.27q0%2082.74-31.5%20155.5Q817-252%20763-197.68q-54%2054.31-127%2086Q563-80%20480.27-80Zm.23-60Q622-140%20721-239.5t99-241Q820-622%20721.19-721T480-820q-141%200-240.5%2098.81T140-480q0%20141%2099.5%20240.5t241%2099.5Zm-.5-340Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-ink_eraser{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M678-220h173q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H618l60-60Zm-486%2060q-5.91%200-11.46-2-5.54-2-10.54-7l-72-75q-18-17-17.5-41.5T97-327l458-498q16-17%2040.57-17%2024.56%200%2041.43%2017l205%20215q17%2017%2018%2042t-16%2042L512-170q-4.55%205-10.24%207.5T490-160H192Zm288-60%20324-352-207-217-455%20503%2064%2066h274Zm0-260Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-ink_highlighter{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M554-407%20439-522%20217-300l115%20115%20222-222Zm-72-158%20115%20115%20213-213-115-115-213%20213Zm-64-21%20200%20200-234%20234q-19%2019-52.5%2019T279-152l-11-11-25%2025q-8%208-19.5%2013t-23.5%205h-94q-10%200-13.5-9.5T96-146l94-94-4-4q-22-22-21.5-55.5T187-355l231-231Zm0%200%20237-237q17-17%2043-17t43%2017l112%20112q17%2017%2016.5%2045.5T852-620L618-386%20418-586Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-keyboard_arrow_down{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M469-358q-5-2-10-7L261-563q-9-9-8.5-21.5T262-606q9-9%2021.5-9t21.5%209l175%20176%20176-176q9-9%2021-8.5t21%209.5q9%209%209%2021.5t-9%2021.5L501-365q-5%205-10%207t-11%202q-6%200-11-2Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-light_mode{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M579-380.76q41-40.77%2041-99Q620-538%20579.24-579q-40.77-41-99-41Q422-620%20381-579.24q-41%2040.77-41%2099Q340-422%20380.76-381q40.77%2041%2099%2041Q538-340%20579-380.76ZM338.5-338.5Q280-397%20280-480t58.5-141.5Q397-680%20480-680t141.5%2058.5Q680-563%20680-480t-58.5%20141.5Q563-280%20480-280t-141.5-58.5ZM70-450q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32Q57.25-510%2070-510h100q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H70Zm720%200q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h100q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H790ZM458.5-768.63Q450-777.25%20450-790v-100q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v100q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63Zm0%20720Q450-57.25%20450-70v-100q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v100q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63ZM240-678l-57-56q-9-9-8.63-21.6.37-12.61%208.53-21.5%208.89-8.9%2021.5-8.9%2012.6%200%2021.6%209l56%2057q8%209%208%2021t-8%2020.5q-8%208.5-20.5%208.5t-21.5-8Zm494%20495-56-57q-8-9-8-21.38%200-12.37%208.5-20.62%208.5-9%2020.5-9t21%209l57%2056q9%209%208.63%2021.6-.37%2012.61-8.53%2021.5-8.89%208.9-21.5%208.9-12.6%200-21.6-9Zm-56-495q-9-9-9-21t9-21l56-57q9-9%2021.6-8.63%2012.61.37%2021.5%208.53%208.9%208.89%208.9%2021.5%200%2012.6-9%2021.6l-57%2056q-8%208-20.36%208-12.37%200-21.64-8ZM182.9-182.9q-8.9-8.89-8.9-21.5%200-12.6%209-21.6l57-56q8.8-9%2020.9-9%2012.1%200%2020.71%209%209.39%209%209.39%2021t-9%2021l-56%2057q-9%209-21.6%208.63-12.61-.37-21.5-8.53ZM480-480Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-link{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M280-280q-83%200-141.5-58.5T80-480q0-83%2058.5-141.5T280-680h140q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H280q-58.33%200-99.17%2040.76-40.83%2040.77-40.83%2099Q140-422%20180.83-381q40.84%2041%2099.17%2041h140q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H280Zm75-170q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h250q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H355Zm185%20170q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h140q58.33%200%2099.17-40.76%2040.83-40.77%2040.83-99Q820-538%20779.17-579q-40.84-41-99.17-41H540q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h140q83%200%20141.5%2058.5T880-480q0%2083-58.5%20141.5T680-280H540Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-mail{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18t-18-42v-520q0-24%2018-42t42-18h680q24%200%2042%2018t18%2042v520q0%2024-18%2042t-42%2018H140Zm680-525L496-473q-4%202-7.5%203.5T480-468q-5%200-8.5-1.5T464-473L140-685v465h680v-465ZM480-522l336-218H145l335%20218ZM140-685v7-39.32.73V-740v23-.91V-678v-7%20465-465Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-match_case{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m244-381-37%20105q-2%207-8.5%2011.5T184-260q-13%200-20-10t-2-22l143-392q3-8%209-12t14-4h19q8%200%2014%204t9%2012l144%20392q5%2012-2.5%2022T491-260q-8%200-14.5-4t-8.5-12l-37-105H244Zm16-44h155l-77-217h-2l-76%20217Zm406%20175q-51%200-83.5-26T550-346q0-47%2035.5-75.5T678-450q26%200%2048.5%204.5T765-433v-18q0-38-20.5-58.5T685-530q-17%200-34%205t-31%2016q-8%206-16%203.5t-13-9.5q-5-7-3.5-15.5T598-545q20-13%2042-19t45-6q62%200%2093.5%2031t31.5%2093v164q0%209-6.5%2015.5T788-260q-9%200-15.5-6.5T766-282v-20h-4q-16%2026-43.5%2039T666-250Zm0-38q36%200%2068-30t32-76q-16-8-38-13t-43-5q-42%200-65.5%2017.5T596-346q0%2026%2020.5%2042t49.5%2016Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-more_horiz{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M207.86-432Q188-432%20174-446.14t-14-34Q160-500%20174.14-514t34-14Q228-528%20242-513.86t14%2034Q256-460%20241.86-446t-34%2014Zm272%200Q460-432%20446-446.14t-14-34Q432-500%20446.14-514t34-14Q500-528%20514-513.86t14%2034Q528-460%20513.86-446t-34%2014Zm272%200Q732-432%20718-446.14t-14-34Q704-500%20718.14-514t34-14Q772-528%20786-513.86t14%2034Q800-460%20785.86-446t-34%2014Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-open_in_new{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M180-120q-24%200-42-18t-18-42v-600q0-24%2018-42t42-18h249q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H180v600h600v-249q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v249q0%2024-18%2042t-42%2018H180Zm600-617L403-360q-9%209-21%208.5t-21-9.5q-9-9-9-21t9-21l377-377H549q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h261q12.75%200%2021.38%208.62Q840-822.75%20840-810v261q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-188Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-redo{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M686-584H391q-70%200-120.5%2046.5T220-422q0%2069%2050.5%20115.5T391-260h280q13%200%2021.5%208.5T701-230q0%2013-8.5%2021.5T671-200H392q-95%200-163.5-64T160-422q0-94%2068.5-158T392-644h294l-93-93q-9-9-9-21t9-21q9-9%2021-9t21%209l144%20144q5%205%207%2010t2%2011q0%206-2%2011t-7%2010L635-449q-9%209-21%209t-21-9q-9-9-9-21t9-21l93-93Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-refresh{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-160q-133%200-226.5-93.5T160-480q0-133%2093.5-226.5T480-800q85%200%20149%2034.5T740-671v-99q0-13%208.5-21.5T770-800q13%200%2021.5%208.5T800-770v194q0%2013-8.5%2021.5T770-546H576q-13%200-21.5-8.5T546-576q0-13%208.5-21.5T576-606h138q-38-60-97-97t-137-37q-109%200-184.5%2075.5T220-480q0%20109%2075.5%20184.5T480-220q75%200%20140-39.5T717-366q5-11%2016.5-16.5t22.5-.5q12%205%2016%2016.5t-1%2023.5q-39%2084-117.5%20133.5T480-160Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-restore_from_trash{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M261-120q-24.75%200-42.37-17.63Q201-155.25%20201-180v-570h-11q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h158q0-13%208.63-21.5%208.62-8.5%2021.37-8.5h204q12.75%200%2021.38%208.62Q612-822.75%20612-810h158q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5h-11v570q0%2024.75-17.62%2042.37Q723.75-120%20699-120H261Zm438-630H261v570h438v-570Zm-438%200v570-570Zm189%20215v166q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-166l59%2063q8.5%209%2021.25%209t21.75-9q9-9%209-21t-9-21L501-626q-9-9-21-9t-21%209L348-514q-8%209-8.5%2021.1-.5%2012.1%208.5%2020.9%209%209%2021.5%208.5T391-473l59-62Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-save{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M180-120q-24%200-42-18t-18-42v-600q0-24%2018-42t42-18h478q12.44%200%2023.72%205T701-822l121%20121q8%208%2013%2019.28%205%2011.28%205%2023.72v478q0%2024-18%2042t-42%2018H180Zm600-536L656-780H180v600h600v-476ZM553.5-275.26q30.5-30.27%2030.5-73.5%200-43.24-30.26-73.74-30.27-30.5-73.5-30.5-43.24%200-73.74%2030.26-30.5%2030.27-30.5%2073.5%200%2043.24%2030.26%2073.74%2030.27%2030.5%2073.5%2030.5%2043.24%200%2073.74-30.26ZM263-584h298q12.75%200%2021.38-8.63Q591-601.25%20591-614v-83q0-12.75-8.62-21.38Q573.75-727%20561-727H263q-12.75%200-21.37%208.62Q233-709.75%20233-697v83q0%2012.75%208.63%2021.37Q250.25-584%20263-584Zm-83-72v476-600%20124Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-settings{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M421-80q-14%200-25-9t-13-23l-15-94q-19-7-40-19t-37-25l-86%2040q-14%206-28%201.5T155-226L97-330q-8-13-4.5-27t15.5-23l80-59q-2-9-2.5-20.5T185-480q0-9%20.5-20.5T188-521l-80-59q-12-9-15.5-23t4.5-27l58-104q8-13%2022-17.5t28%201.5l86%2040q16-13%2037-25t40-18l15-95q2-14%2013-23t25-9h118q14%200%2025%209t13%2023l15%2094q19%207%2040.5%2018.5T669-710l86-40q14-6%2027.5-1.5T804-734l59%20104q8%2013%204.5%2027.5T852-580l-80%2057q2%2010%202.5%2021.5t.5%2021.5q0%2010-.5%2021t-2.5%2021l80%2058q12%208%2015.5%2022.5T863-330l-58%20104q-8%2013-22%2017.5t-28-1.5l-86-40q-16%2013-36.5%2025.5T592-206l-15%2094q-2%2014-13%2023t-25%209H421Zm15-60h88l14-112q33-8%2062.5-25t53.5-41l106%2046%2040-72-94-69q4-17%206.5-33.5T715-480q0-17-2-33.5t-7-33.5l94-69-40-72-106%2046q-23-26-52-43.5T538-708l-14-112h-88l-14%20112q-34%207-63.5%2024T306-642l-106-46-40%2072%2094%2069q-4%2017-6.5%2033.5T245-480q0%2017%202.5%2033.5T254-413l-94%2069%2040%2072%20106-46q24%2024%2053.5%2041t62.5%2025l14%20112Zm44-210q54%200%2092-38t38-92q0-54-38-92t-92-38q-54%200-92%2038t-38%2092q0%2054%2038%2092t92%2038Zm0-130Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-snooze{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m452-381%20120-136%204-10v-18q0-10.83-7.08-17.92Q561.83-570%20551-570H408q-10.83%200-17.92%207.12-7.08%207.11-7.08%2018%200%2010.88%207.08%2017.88%207.09%207%2017.92%207h101L387-382l-4%2010v16q0%2010.83%207.08%2017.92Q397.17-331%20408-331h143q10.83%200%2017.92-7.12%207.08-7.11%207.08-18%200-10.88-7.08-17.88-7.09-7-17.92-7h-99ZM339.5-110q-65.5-28-114-76.5t-77-114Q120-366%20120-440.73q0-74.74%2028.5-140Q177-646%20225.5-695t114-77Q405-800%20479-800t139.5%2028Q684-744%20733-695t77%20114.27q28%2065.26%2028%20140%200%2074.73-28%20140.23-28%2065.5-77%20114T618.5-110Q553-82%20479-82t-139.5-28ZM479-439ZM71-688q-9-9-8.5-21t9.5-21l121-117q9-8%2021.5-7.5T235-846q9%209%208.5%2021t-9.5%2021L113-687q-9%208-21.5%207.5T71-688Zm816%200q-8%208-20.5%208.5T845-687L724-804q-9-8-9.5-20.5T723-846q8-8%2020.5-8.5T765-847l121%20117q9%208%209.5%2020.5T887-688ZM479.04-142Q604-142%20691-229.04q87-87.05%2087-212Q778-566%20690.96-653q-87.05-87-212-87Q354-740%20267-652.96q-87%2087.05-87%20212Q180-316%20267.04-229q87.05%2087%20212%2087Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-task_alt{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-80q-85%200-158-30.5T195-195q-54-54-84.5-127T80-480q0-84%2030.5-157T195-764q54-54%20127-85t158-31q60%200%20117%2017.5T704-811q11%207%2013.5%2019t-5.5%2022q-8%2010-20%2011t-23-6q-42-27-90-41t-99-14q-145%200-242.5%2097.5T140-480q0%20145%2097.5%20242.5T480-140q145%200%20242.5-97.5T820-480q0-19-1.5-37t-5.5-35q-2-13%204-24t18-13q13-3%2024%204.5t13%2020.5q4%2020%206%2041t2%2043q0%2085-31%20158t-85%20127q-54%2054-127%2084.5T480-80Zm-59-309%20392-392q9-9%2022-9t23%209q10%2010%2010%2023t-10%2023L442-319q-9%209-21%209t-21-9L278-442q-9-9-8.5-22.5T279-487q9-9%2022.5-9t22.5%209l97%2098Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-undo{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M289-200q-13%200-21.5-8.5T259-230q0-13%208.5-21.5T289-260h280q70%200%20120.5-46.5T740-422q0-69-50.5-115.5T569-584H274l93%2093q9%209%209%2021t-9%2021q-9%209-21%209t-21-9L181-593q-5-5-7-10t-2-11q0-6%202-11t7-10l144-144q9-9%2021-9t21%209q9%209%209%2021t-9%2021l-93%2093h294q95%200%20163.5%2064T800-422q0%2094-68.5%20158T568-200H289Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-unfold_more{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m480-208%20114-114q9.13-9%2022.07-9%2012.93%200%2021.93%209.1%209%209.11%209%2022%200%2012.9-9%2021.9L501-141q-5%205-10.13%207-5.14%202-11%202-5.87%200-10.87-2-5-2-10-7L322-278q-9-9.13-9-22.07%200-12.93%209.1-21.93%209.11-9%2022-9%2012.9%200%2021.9%209l114%20114Zm0-540L366-634q-9.13%209-22.07%209-12.93%200-21.93-9.1-9-9.11-9-22%200-12.9%209-21.9l137-137q5-5%2010.13-7%205.14-2%2011-2%205.87%200%2010.87%202%205%202%2010%207l137%20137q9%209.13%209%2022.07%200%2012.93-9.1%2021.93-9.11%209-22%209-12.9%200-21.9-9L480-748Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-upload_file{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M452-403v171q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-171l61%2061q3%203%2015-2t22.5-9q10.5-4%2014.5-3.5T615-342q9-9%208.5-21t-9.5-21L501-494q-5-5-10.13-7-5.14-2-11-2-5.87%200-10.87%202-5%202-10%207L347-382q-9%209-9%2021t9%2021.39q9%208.61%2021%208.61t21-9l63-63ZM220-80q-24%200-42-18t-18-42v-680q0-24%2018-42t42-18h336q12.44%200%2023.72%205T599-862l183%20183q8%208%2013%2019.28%205%2011.28%205%2023.72v496q0%2024-18%2042t-42%2018H220Zm331-584v-156H220v680h520v-494H581q-12.75%200-21.37-8.63Q551-651.25%20551-664ZM220-820v186-186%20680-680Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-videocam{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18t-18-42v-520q0-24%2018-42t42-18h520q24%200%2042%2018t18%2042v215l134-134q7-7%2016.5-3.46T880-649v338q0%209.92-9.5%2013.46Q861-294%20854-301L720-435v215q0%2024-18%2042t-42%2018H140Zm0-60h520v-520H140v520Zm0%200v-520%20520Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-visibility{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M600.5-379.62q49.5-49.62%2049.5-120.5T600.38-620.5Q550.76-670%20479.88-670T359.5-620.38Q310-570.76%20310-499.88t49.62%20120.38q49.62%2049.5%20120.5%2049.5t120.38-49.62Zm-200-41.12q-32.5-32.73-32.5-79.5%200-46.76%2032.74-79.26%2032.73-32.5%2079.5-32.5%2046.76%200%2079.26%2032.74%2032.5%2032.73%2032.5%2079.5%200%2046.76-32.74%2079.26-32.73%2032.5-79.5%2032.5-46.76%200-79.26-32.74ZM234.5-276Q124-352%2057-470q-4-7.13-6-14.65-2-7.52-2-15.43%200-7.92%202-15.38%202-7.47%206-14.54%2067-118%20177.5-194T480-800q135%200%20245.5%2076T903-530q4%207.12%206%2014.65%202%207.52%202%2015.43%200%207.92-2%2015.38-2%207.47-6%2014.54-67%20118-177.5%20194T480-200q-135%200-245.5-76ZM480-500Zm222.5%20174.5Q804-391%20857-500q-53-109-154.33-174.5Q601.34-740%20480.17-740T257.5-674.5Q156-609%20102-500q54%20109%20155.33%20174.5Q358.66-260%20479.83-260t222.67-65.5Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-zoom_in{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M346-556h-52q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h52v-51q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v51h51q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5h-51v52q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-52Zm32%20227q-108.16%200-183.08-75Q120-479%20120-585t75-181q75-75%20181.5-75t181%2075Q632-691%20632-584.85%20632-542%20618-502q-14%2040-42%2075l242%20240q9%208.56%209%2021.78T818-143q-9%209-22.22%209-13.22%200-21.78-9L533-384q-30%2026-69.96%2040.5Q423.08-329%20378-329Zm-1-60q81.25%200%20138.13-57.5Q572-504%20572-585t-56.87-138.5Q458.25-781%20377-781q-82.08%200-139.54%2057.5Q180-666%20180-585t57.46%20138.5Q294.92-389%20377-389Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-zoom_out{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M305-556q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h141q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H305Zm73%20227q-108.16%200-183.08-75Q120-479%20120-585t75-181q75-75%20181.5-75t181%2075Q632-691%20632-584.85%20632-542%20618-502q-14%2040-42%2075l242%20240q9%208.56%209%2021.78T818-143q-9%209-22.22%209-13.22%200-21.78-9L533-384q-30%2026-69.96%2040.5Q423.08-329%20378-329Zm-1-60q81.25%200%20138.13-57.5Q572-504%20572-585t-56.87-138.5Q458.25-781%20377-781q-82.08%200-139.54%2057.5Q180-666%20180-585t57.46%20138.5Q294.92-389%20377-389Z%22%2F%3E%3C%2Fsvg%3E")}
 </style></head><body>
-<header><a class="logo" href="#/"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4gPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTRiOGE2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGY2ZTc0Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+IDxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIiByeD0iNTYiIGZpbGw9InVybCgjZykiLz4gPGcgZmlsbD0iI2ZmZmZmZiI+IDxjaXJjbGUgY3g9IjEyOC4wIiBjeT0iNDguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iMTg0LjYiIGN5PSI3MS40IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIyMDguMCIgY3k9IjEyOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxODQuNiIgY3k9IjE4NC42IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxMjguMCIgY3k9IjIwOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSI3MS40IiBjeT0iMTg0LjYiIHI9IjEzIi8+IDxjaXJjbGUgY3g9IjQ4LjAiIGN5PSIxMjguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iNzEuNCIgY3k9IjcxLjQiIHI9IjEzIi8+IDwvZz4gPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTI4IiByPSI1MiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjk2Ii8+IDxyZWN0IHg9IjEwNiIgeT0iMTAyIiB3aWR0aD0iNDQiIGhlaWdodD0iNTQiIHJ4PSI2IiBmaWxsPSIjMGY2ZTc0Ii8+IDxyZWN0IHg9IjExMyIgeT0iMTEzIiB3aWR0aD0iMzAiIGhlaWdodD0iNSIgcng9IjIuNSIgZmlsbD0iI2ZmZmZmZiIvPiA8cmVjdCB4PSIxMTMiIHk9IjEyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiM5ZWU2ZGQiLz4gPHJlY3QgeD0iMTEzIiB5PSIxMzUiIHdpZHRoPSIyOCIgaGVpZ2h0PSI1IiByeD0iMi41IiBmaWxsPSIjOWVlNmRkIi8+IDxjaXJjbGUgY3g9IjEyOCIgY3k9IjQ4IiByPSIxMyIgZmlsbD0iI2ZmZDQwMCIvPiA8L3N2Zz4g" alt="" width="28" height="28">MeMeet</a><div id="side" class="topbar"></div><button type="button" class="helpbtn" id="helpBtn" title="Help bij deze pagina (F1)" aria-label="Help bij deze pagina">?</button></header>
+<header><a class="logo" href="#/"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4gPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTRiOGE2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGY2ZTc0Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+IDxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIiByeD0iNTYiIGZpbGw9InVybCgjZykiLz4gPGcgZmlsbD0iI2ZmZmZmZiI+IDxjaXJjbGUgY3g9IjEyOC4wIiBjeT0iNDguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iMTg0LjYiIGN5PSI3MS40IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIyMDguMCIgY3k9IjEyOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxODQuNiIgY3k9IjE4NC42IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxMjguMCIgY3k9IjIwOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSI3MS40IiBjeT0iMTg0LjYiIHI9IjEzIi8+IDxjaXJjbGUgY3g9IjQ4LjAiIGN5PSIxMjguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iNzEuNCIgY3k9IjcxLjQiIHI9IjEzIi8+IDwvZz4gPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTI4IiByPSI1MiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjk2Ii8+IDxyZWN0IHg9IjEwNiIgeT0iMTAyIiB3aWR0aD0iNDQiIGhlaWdodD0iNTQiIHJ4PSI2IiBmaWxsPSIjMGY2ZTc0Ii8+IDxyZWN0IHg9IjExMyIgeT0iMTEzIiB3aWR0aD0iMzAiIGhlaWdodD0iNSIgcng9IjIuNSIgZmlsbD0iI2ZmZmZmZiIvPiA8cmVjdCB4PSIxMTMiIHk9IjEyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiM5ZWU2ZGQiLz4gPHJlY3QgeD0iMTEzIiB5PSIxMzUiIHdpZHRoPSIyOCIgaGVpZ2h0PSI1IiByeD0iMi41IiBmaWxsPSIjOWVlNmRkIi8+IDxjaXJjbGUgY3g9IjEyOCIgY3k9IjQ4IiByPSIxMyIgZmlsbD0iI2ZmZDQwMCIvPiA8L3N2Zz4g" alt="" width="28" height="28">MeMeet</a><div id="side" class="topbar"></div><button type="button" class="helpbtn themebtn" id="themeBtn" role="switch" aria-checked="false" title="Donkere modus aan of uit" aria-label="Donkere modus"><span class="i i-dark_mode"></span></button><button type="button" class="helpbtn" id="helpBtn" title="Help bij deze pagina (F1)" aria-label="Help bij deze pagina"><span class="i i-help"></span></button></header>
 <div class="wrap"><main id="main"></main></div>
 <div id="overlay"><div id="ovText">Laat los om een vergadering aan te maken</div></div>
 <div id="toast"></div>
@@ -709,6 +787,11 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     } catch (e) { return String(h).replace(/<[^>]+>/g, ' '); }
   }
 
+
+  /* Iconen: Material Symbols Rounded (Google, Apache-2.0). De vorm staat als CSS-masker in de stijl (zie scripts/build.js),
+     zodat de kleur meegaat met de tekst. ic(naam) geeft de HTML, icEl(naam) een element. */
+  function ic(n, cls) { return '<span class="i i-' + n + (cls ? ' ' + cls : '') + '" aria-hidden="true"></span>'; }
+  function icEl(n, cls) { var s = (D || document).createElement('span'); s.className = 'i i-' + n + (cls ? ' ' + cls : ''); s.setAttribute('aria-hidden', 'true'); return s; }
 
   /* HTML zetten zonder innerHTML (werkt ook bij strenge CSP / Trusted Types) */
   var VOID = { input: 1, br: 1, img: 1, hr: 1 };
@@ -2315,7 +2398,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   var XMLNS = 'http://www.w3.org/XML/1998/namespace', UNDO_MAX = 20;
   function ser(x) { return new XMLSerializer().serializeToString(x); }
   function el2(tag, cls, txt) { var e = D.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
-  function btn(label, title, cls) { var b = el2('button', 'rb' + (cls ? ' ' + cls : ''), label); b.type = 'button'; if (title) b.title = title; b.addEventListener('mousedown', function (e) { e.preventDefault(); }); return b; }
+  /* label: tekst, of [icoon, tekst] met een icoon uit Material Symbols */
+  function btn(label, title, cls) { var b = el2('button', 'rb' + (cls ? ' ' + cls : ''), typeof label === 'string' ? label : null); if (typeof label !== 'string') { b.appendChild(icEl(label[0])); if (label[1]) b.appendChild(D.createTextNode(' ' + label[1])); } b.type = 'button'; if (title) b.title = title; b.addEventListener('mousedown', function (e) { e.preventDefault(); }); return b; }
   function sepEl() { return el2('span', 'rsep'); }
   function blockText(div) {
     var o = '';
@@ -2484,8 +2568,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     // --- lint
     var tools = el2('div', 'rgroup'), selSt = el2('select', 'rsel'); selSt.title = 'Stijl';
     [['p', 'Normaal'], ['h0', 'Titel'], ['h1', 'Kop 1'], ['h2', 'Kop 2'], ['h3', 'Kop 3'], ['li', '• Opsomming']].forEach(function (o) { var op = el2('option', null, o[1]); op.value = o[0]; selSt.appendChild(op); });
-    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstrepen (Ctrl+U)', 'u'), bL = btn('•≡', 'Opsomming');
-    var al = {}; [['left', '⯇≡', 'Links uitlijnen'], ['center', '≡', 'Centreren'], ['right', '≡⯈', 'Rechts uitlijnen'], ['justify', '☰', 'Uitvullen']].forEach(function (a) { al[a[0]] = btn(a[1], a[2], 'al'); });
+    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstrepen (Ctrl+U)', 'u'), bL = btn(['format_list_bulleted'], 'Opsomming');
+    var al = {}; [['left', ['format_align_left'], 'Links uitlijnen'], ['center', ['format_align_center'], 'Centreren'], ['right', ['format_align_right'], 'Rechts uitlijnen'], ['justify', ['format_align_justify'], 'Uitvullen']].forEach(function (a) { al[a[0]] = btn(a[1], a[2], 'al'); });
     tools.appendChild(selSt); tools.appendChild(sepEl()); [bB, bI, bU].forEach(function (b) { tools.appendChild(b); }); tools.appendChild(sepEl()); tools.appendChild(bL); tools.appendChild(sepEl()); Object.keys(al).forEach(function (k) { tools.appendChild(al[k]); });
     var hist = History(function () { return { h: root.innerHTML, c: caretPath(root) }; }, function (s) { root.innerHTML = s.h; root.focus(); setCaretPath(root, s.c); onDirty(); refresh(); }, function () { api.onState && api.onState(); });
     function applyStyle(st) { var bl = selectedBlocks(root); if (!bl.length) return; hist.push(); bl.forEach(function (d) { ['p', 'h0', 'h1', 'h2', 'h3', 'li'].forEach(function (k) { d.classList.remove('s-' + k); }); d.dataset.st = st; d.classList.add('s-' + st); d.style.marginLeft = st === 'li' ? '22px' : ''; }); onDirty(); refresh(); }
@@ -2792,7 +2876,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   async function mountEditor(m, f, box, done) {
     setHTML(box, '<div class="pvmsg">Bestand openen…</div>');
     var ext = (f.name.split('.').pop() || '').toLowerCase(), ed, dirty = false;
-    var ribbon = el2('div', 'ribbon rb-' + ext), save = btn('💾 Opslaan', 'Opslaan (Ctrl+S)', 'save'), un = btn('↶', 'Ongedaan maken (Ctrl+Z)'), re = btn('↷', 'Opnieuw (Ctrl+Y)'), st = el2('span', 'edst');
+    var ribbon = el2('div', 'ribbon rb-' + ext), save = btn(['save', 'Opslaan'], 'Opslaan (Ctrl+S)', 'save'), un = btn(['undo'], 'Ongedaan maken (Ctrl+Z)'), re = btn(['redo'], 'Opnieuw (Ctrl+Y)'), st = el2('span', 'edst');
     var foot = el2('div', 'edfoot'), fl = el2('span'), fr = el2('span', 'edtip', 'Liever in Word, Excel of PowerPoint zelf? Download via ⤓ en sleep het bestand met dezelfde naam terug.');
     save.disabled = true;
     function stateBtns() { un.disabled = !ed.canUndo(); re.disabled = !ed.canRedo(); fl.textContent = ed.kind + ' · ' + ed.status(); }
@@ -2937,7 +3021,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function renderNotes(m) {
     var np = $('#np'); if (!np) return;
     npWidth();
-    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mail</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">⧉ Apart venster</button>') + '</div>';
+    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail">' + ic('mail') + ' Mail</button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm">' + ic('open_in_new') + ' Apart venster</button>') + '</div>';
     if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); bindGrip(); return; }
     if (npPopped(m)) {
       setHTML(np, h + '<div class="pvmsg">De aantekeningen staan in een apart venster.<br><button type="button" class="btn sm" id="npfocus">Naar het venster</button> <button type="button" class="btn sm" id="npback">Terugzetten in MeMeet</button></div>');
@@ -2947,7 +3031,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
     setHTML(np, h);
     var ta = $('#npt'), t;
-    function queue() { var st = $('#npst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = '✓'; s2.title = 'Opgeslagen'; s2.className = 'npst ok'; } }, 800); }
+    function queue() { var st = $('#npst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { setHTML(s2, ic('check')); s2.title = 'Opgeslagen'; s2.className = 'npst ok'; } }, 800); }
     ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; queue(); });
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
@@ -2969,7 +3053,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     g.ondblclick = function () { try { localStorage.removeItem('memeet-npw'); } catch (e) {} npWidth(); };
   }
   /* aantekeningen in een apart browservenster, rechts op het scherm */
-  var POP_CSS = ':root{--bg:#fff;--ink:#1b1f24;--mute:#5d6875;--line:#d8dfe7;--soft:#E5F2F9}@media (prefers-color-scheme:dark){:root{--bg:#16202b;--ink:#e7edf3;--mute:#9cadbf;--line:#283544;--soft:#1b2a39}}' +
+  var POP_CSS = ':root{--bg:#fff;--ink:#1b1f24;--mute:#5d6875;--line:#d8dfe7;--soft:#E5F2F9}' + /* de aantekeningen blijven altijd licht, ook in de donkere modus */
     '*{box-sizing:border-box}html,body{margin:0;height:100%}body{display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font:14px/1.5 "RO Sans","Segoe UI",system-ui,sans-serif}' +
     'header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(90deg,#123a66,#154273 60%,#1a5189);color:#fff;border-bottom:3px solid #007BC7}' +
     'header .t{flex:1;min-width:0}header b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}header small{color:#cfe5f4;font-size:12px}' +
@@ -2979,6 +3063,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     '#links{border-top:1px solid var(--line);padding:6px 12px;max-height:30vh;overflow:auto}#links:empty{display:none}#links .lbl{display:block;font-size:12px;font-weight:600;color:var(--mute)}#links a{display:block;color:#01689B;word-break:break-all;font-size:13px;padding:2px 0}' +
     'footer{padding:6px 12px;font-size:12px;color:var(--mute);border-top:1px solid var(--line);background:var(--soft)}';
   function npPopWidth() { return Math.max(360, Math.min(560, Math.round(screen.availWidth * 0.3))); }
+  /* de stijl van een paar iconen, voor het aparte venster (dat heeft de stijl van MeMeet niet) */
+  function icCss(names) {
+    var o = '';
+    Array.prototype.forEach.call(D.styleSheets, function (sh) { try { Array.prototype.forEach.call(sh.cssRules, function (r) { if (r.selectorText === '.i' || names.some(function (n) { return r.selectorText === '.i-' + n; })) o += r.cssText; }); } catch (e) {} });
+    return o;
+  }
   function popNotes(m) {
     var w = npPopWidth(), hgt = screen.availHeight, left = (screen.availLeft || 0) + screen.availWidth - w, top = screen.availTop || 0;
     var win = W.open('', 'memeet-aantekeningen', 'popup=yes,width=' + w + ',height=' + hgt + ',left=' + left + ',top=' + top);
@@ -2986,15 +3076,15 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (A.npWin && A.npWin !== win) { try { A.npWin.close(); } catch (e) {} }
     A.npWin = win; A.npWinMid = m.id;
     var d = win.document;
-    d.open(); d.write('<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Aantekeningen: ' + esc(m.title || 'Vergadering') + '</title><style>' + POP_CSS + '</style></head><body>' +
+    d.open(); d.write('<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Aantekeningen: ' + esc(m.title || 'Vergadering') + '</title><style>' + POP_CSS + icCss(['mail', 'arrow_back']) + '</style></head><body>' +
       '<header><div class="t"><b>' + esc(m.title || 'Vergadering') + '</b><small>' + esc(m.date ? fmtLong(m.date) : '') + (m.start ? ', ' + esc(m.start) : '') + '</small></div><span id="st"></span>' +
-      '<button id="mail" title="Het verslag mailen">✉ Mail</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
+      '<button id="mail" title="Het verslag mailen">' + ic('mail') + ' Mail</button><button id="back" title="Terugzetten in MeMeet">' + ic('arrow_back') + ' Terug</button></header>' +
       '<textarea id="t" spellcheck="true" placeholder="Typ hier je aantekeningen…"></textarea><div id="links"></div>' +
       '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt voor het vervolgoverleg. Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
     d.close();
     var ta = d.getElementById('t'), st = d.getElementById('st'), lk = d.getElementById('links'), t = null;
     ta.value = m.minutes || ''; lk.innerHTML = linkListHtml(m.minutes);
-    function save() { t = null; return saveMinutes(m).then(function () { st.textContent = 'opgeslagen ✓'; }); }
+    function save() { t = null; return saveMinutes(m).then(function () { st.textContent = 'opgeslagen'; }); }
     ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; st.textContent = 'opslaan…'; clearTimeout(t); t = setTimeout(function () { save(); lk.innerHTML = linkListHtml(m.minutes); }, 800); });
     d.getElementById('mail').onclick = function () { (t ? (clearTimeout(t), save()) : Promise.resolve()).then(function () { mailMinutes(m); }); };
     d.getElementById('back').onclick = function () { win.close(); };
@@ -3045,18 +3135,18 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       return ok && (!q || (a.text + ' ' + (a.m ? a.m.title : 'losse actie')).toLowerCase().indexOf(q) >= 0);
     });
     if (f.show === 'snooze') list.sort(function (x, y) { return x.snooze.localeCompare(y.snooze); });
-    var h = '<div class="head"><h1>Actielijst</h1><span class="hhint">✉ Sleep een mail hierheen: het onderwerp wordt een actie</span><div class="acts"><button class="btn sm" id="adl">⤓ Download als tekstbestand</button></div></div>';
+    var h = '<div class="head"><h1>Actielijst</h1><span class="hhint">' + ic('mail') + ' Sleep een mail hierheen: het onderwerp wordt een actie</span><div class="acts"><button class="btn sm" id="adl">' + ic('download') + ' Download als tekstbestand</button></div></div>';
     h += '<section class="card"><form class="addact" id="addAct" autocomplete="off"><input id="newAct" placeholder="Nieuwe actie, bijvoorbeeld: Offerte opvragen bij de leverancier" aria-label="Nieuwe actie"><input type="date" id="newActD" title="Begindatum (mag leeg blijven)" aria-label="Begindatum"><button type="submit" class="btn pri">+ Toevoegen</button></form>' +
       '<div class="filters"><input id="aq" type="search" placeholder="Zoeken in acties of vergaderingen…" value="' + esc(f.q) + '">' +
-      '<div class="seg">' + [['open', 'Open (' + cnt.open + ')'], ['snooze', '⏰ Gesnoozed (' + cnt.snooze + ')'], ['afgerond', 'Afgerond (' + cnt.afgerond + ')'], ['alle', 'Alle (' + cnt.alle + ')']].concat(cnt.weg ? [['weg', 'Verwijderd (' + cnt.weg + ')']] : []).map(function (s) { return '<button type="button" class="' + (f.show === s[0] ? 'on' : '') + '" data-show="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div></div>';
+      '<div class="seg">' + [['open', 'Open (' + cnt.open + ')'], ['snooze', '' + ic('snooze') + ' Gesnoozed (' + cnt.snooze + ')'], ['afgerond', 'Afgerond (' + cnt.afgerond + ')'], ['alle', 'Alle (' + cnt.alle + ')']].concat(cnt.weg ? [['weg', 'Verwijderd (' + cnt.weg + ')']] : []).map(function (s) { return '<button type="button" class="' + (f.show === s[0] ? 'on' : '') + '" data-show="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div></div>';
     h += '<div class="tw"><table class="acttb"><thead><tr><th style="width:30px"></th><th>Actie</th><th>Begindatum</th><th>Vergadering</th><th style="width:150px"></th></tr></thead><tbody>';
     h += list.length ? list.map(function (a, k) {
-      var tag = a.snoozed ? '<span class="bdg snz">⏰ tot ' + esc(fmtDay(a.snooze)) + '</span>' : a.back ? '<span class="bdg back">terug van snooze</span>' : '';
+      var tag = a.snoozed ? '<span class="bdg snz">' + ic('snooze') + ' tot ' + esc(fmtDay(a.snooze)) + '</span>' : a.back ? '<span class="bdg back">terug van snooze</span>' : '';
       return '<tr class="' + (a.done ? 'done' : '') + '" data-k="' + k + '"><td><input type="checkbox" class="adone"' + (a.done ? ' checked' : '') + ' title="Afgerond"></td>' +
-        '<td>' + (a.loose && a.loose.mail ? '<button type="button" class="atext amail" title="De mail' + (a.loose.mail.atts ? ' en ' + a.loose.mail.atts + ' bijlage' + (a.loose.mail.atts === 1 ? '' : 'n') : '') + ' bekijken"><span class="mic" aria-hidden="true">✉</span>' + esc(a.text) + (a.loose.mail.atts ? ' <span class="bdg">📎 ' + a.loose.mail.atts + '</span>' : '') + '</button>' : '<span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span>') + ' ' + tag + '</td>' +
+        '<td>' + (a.loose && a.loose.mail ? '<button type="button" class="atext amail" title="De mail' + (a.loose.mail.atts ? ' en ' + a.loose.mail.atts + ' bijlage' + (a.loose.mail.atts === 1 ? '' : 'n') : '') + ' bekijken"><span class="mic" aria-hidden="true">' + ic('mail') + '</span>' + esc(a.text) + (a.loose.mail.atts ? ' <span class="bdg">' + ic('attach_file') + ' ' + a.loose.mail.atts + '</span>' : '') + '</button>' : '<span class="atext" title="Klik om te bewerken">' + esc(a.text) + '</span>') + ' ' + tag + '</td>' +
         '<td><input type="date" class="astart" value="' + esc(a.start) + '"></td>' +
         '<td>' + (a.m ? '<a href="#/v/' + encodeURIComponent(a.m.id) + '">' + esc(a.m.title) + '</a><br><small class="muted">' + esc(fmtShort(a.m.date)) + '</small>' : '<span class="muted">' + (a.loose && a.loose.mail ? 'Uit een mail' + (a.loose.mail.from ? '<br><small>van ' + esc(a.loose.mail.from) + '</small>' : '') : 'Losse actie') + '</span>') + '</td>' +
-        '<td class="aact">' + (a.loose ? '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red aldel" title="Deze losse actie verwijderen">✕</button>' : a.hidden ? '<button type="button" class="btn sm arest">↩ Terugzetten</button>' : '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>⏰ Snooze</button><button type="button" class="link red adel" title="Van de actielijst halen (blijft in de aantekeningen staan)">✕</button>') + '</td></tr>';
+        '<td class="aact">' + (a.loose ? '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>' + ic('snooze') + ' Snooze</button><button type="button" class="link red aldel" title="Deze losse actie verwijderen">' + ic('close') + '</button>' : a.hidden ? '<button type="button" class="btn sm arest">' + ic('restore_from_trash') + ' Terugzetten</button>' : '<button type="button" class="btn sm asnz"' + (a.done ? ' disabled' : '') + '>' + ic('snooze') + ' Snooze</button><button type="button" class="link red adel" title="Van de actielijst halen (blijft in de aantekeningen staan)">' + ic('close') + '</button>') + '</td></tr>';
     }).join('') : '<tr><td colspan="5" class="empty">' + (all.length ? (f.show === 'snooze' ? 'Geen gesnoozede acties.' : 'Geen acties met dit filter.') : 'Nog geen acties. Typ hierboven een actie en klik op Toevoegen, sleep een mail hierheen, of begin in de aantekeningen van een vergadering een regel met !.') + '</td></tr>';
     h += '</tbody></table></div>' + (A.store.kind === 'map' ? '<p class="note">Wordt ook bijgehouden in Actielijst › Actielijst.txt</p>' : '') + '</section>';
     h += '<div class="snzmenu" id="snzmenu" hidden></div>';
@@ -3161,8 +3251,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var sent = x.mail.sent ? new Date(x.mail.sent) : null;
     var sub = [x.mail.from ? 'Van ' + x.mail.from : '', sent && !isNaN(sent) ? sent.toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }) : ''].filter(Boolean).join(' · ');
     setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-label="Actie uit een mail">' +
-      '<div class="mahead"><span class="maic" aria-hidden="true">✉</span><div class="mattl"><input id="maT" class="matitle" value="' + esc(x.text) + '" aria-label="Tekst van de actie" title="Tekst van de actie; je kunt hem hier aanpassen"><small class="muted">' + esc(sub) + '</small></div>' +
-      '<button type="button" class="btn sm" id="maDl" title="Het geselecteerde bestand downloaden">⤓ Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div>' +
+      '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('mail') + '</span><div class="mattl"><input id="maT" class="matitle" value="' + esc(x.text) + '" aria-label="Tekst van de actie" title="Tekst van de actie; je kunt hem hier aanpassen"><small class="muted">' + esc(sub) + '</small></div>' +
+      '<button type="button" class="btn sm" id="maDl" title="Het geselecteerde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="mabody"><ul class="malist" id="maList"><li class="muted">Mail wordt gelezen…</li></ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
     D.body.appendChild(bg);
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
@@ -3176,7 +3266,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (!$('#maDlg')) return;
     MA.items = items;
     setHTML($('#maList', bg), items.map(function (it, i) {
-      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '✉' : '📎') : '✉') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob.size || 0)) + '</small>' : '') + '</button></li>';
+      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '' + ic('mail') + '' : '' + ic('attach_file') + '') : '' + ic('mail') + '') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob.size || 0)) + '</small>' : '') + '</button></li>';
     }).join('') + (items.length > 1 ? '' : '<li class="muted manone">Geen bijlagen</li>'));
     $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); }; });
     $('#maDl', bg).onclick = function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob, it.name); };
@@ -3191,7 +3281,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var out = null;
     try { var r = await convertToPdf(it.name, it.type, it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
     if (tok !== MA.tok) return;
-    if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">⤓ Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
+    if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">' + ic('download') + ' Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
     var pdf;
     try { pdf = await W.pdfjsLib.getDocument(pdfOpts(new Uint8Array(await out.arrayBuffer()))).promise; }
     catch (e) { if (tok === MA.tok) setHTML(pv, '<div class="pvmsg">Dit bestand kan niet worden getoond (' + esc(e.message || e) + ').</div>'); return; }
@@ -3280,10 +3370,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var cols = [['name', 'Naam'], ['date', 'Datum'], ['changed', 'Gewijzigd']];
     var h = '<div class="head"><h1>Verslagen</h1></div><section class="card"><div class="filters"><input id="rq" type="search" placeholder="Zoeken in verslagen…" value="' + esc(f.q) + '">' +
       '<label class="chk"><input type="checkbox" id="rall"' + (f.all ? ' checked' : '') + '> Ook vergaderingen zonder aantekeningen</label></div>';
-    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
+    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '' + ic('arrow_downward') + '' : '' + ic('arrow_upward') + '') : '' + ic('unfold_more') + '') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
     h += list.length ? list.map(function (m) {
       var chg = m.minutesUpdated ? new Date(m.minutesUpdated) : null, vv = vervolgOf(m);
-      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><div class="rname"><b>' + esc(m.title || 'Vergadering') + '</b>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="' + esc(vervolgSummary(vv)) + '">📋 Meeneempunten</button>' : '') + '</div></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td></tr>';
+      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><div class="rname"><b>' + esc(m.title || 'Vergadering') + '</b>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="' + esc(vervolgSummary(vv)) + '">' + ic('checklist') + ' Meeneempunten</button>' : '') + '</div></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td></tr>';
     }).join('') : '<tr><td colspan="3" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
     h += '</tbody></table></div><p class="note">' + list.length + ' verslag' + (list.length === 1 ? '' : 'en') + ' · Klik op een kolomkop om te sorteren, en op een verslag om het te bewerken.</p></section>';
     setHTML($('#main'), h);
@@ -3323,8 +3413,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var ribbon = el2('div', 'ribbon rb-rep'), st = el2('span', 'edst');
     var sel = el2('select', 'rsel'); sel.title = 'Stijl';
     [['p', 'Normale tekst'], ['h1', 'Kop 1'], ['h2', 'Kop 2']].forEach(function (o) { var op = el2('option', null, o[1]); op.value = o[0]; sel.appendChild(op); });
-    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstreept (Ctrl+U)', 'u'), bUl = btn('• Lijst', 'Opsomming'), bOl = btn('1. Lijst', 'Genummerde lijst'), un = btn('↶', 'Ongedaan maken (Ctrl+Z)'), re = btn('↷', 'Opnieuw (Ctrl+Y)'), bAct = opts.actions ? btn('! Actie', 'Begin deze regel met ! zodat de regel in de Actielijst komt') : null;
-    var dlB = btn('⤓ Tekstbestand', 'Download als tekstbestand');
+    var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstreept (Ctrl+U)', 'u'), bUl = btn(['format_list_bulleted', 'Lijst'], 'Opsomming'), bOl = btn(['format_list_numbered', 'Lijst'], 'Genummerde lijst'), un = btn(['undo'], 'Ongedaan maken (Ctrl+Z)'), re = btn(['redo'], 'Opnieuw (Ctrl+Y)'), bAct = opts.actions ? btn('! Actie', 'Begin deze regel met ! zodat de regel in de Actielijst komt') : null;
+    var dlB = btn(['download', 'Tekstbestand'], 'Download als tekstbestand');
     [un, re, null, sel, null, bB, bI, bU, null, bUl, bOl].concat(bAct ? [null, bAct] : []).concat([null, dlB]).forEach(function (x) { ribbon.appendChild(x || sepEl()); });
     ribbon.appendChild(el2('span', 'rsp')); ribbon.appendChild(st);
     var body = el2('div', 'edbody eb-rep'), ed = el2('div', 'docx-ed rep-ed'), foot = el2('div', 'edfoot');
@@ -3414,7 +3504,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   function mailMinutes(m) { return mailText('Aantekeningen: ' + (m.title || 'Vergadering') + (m.date ? ' (' + fmtShort(m.date) + ')' : ''), minutesMailText(m)); }
   function renderReport(m) {
-    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">📋 Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mail</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
+    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">' + ic('checklist') + ' Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">' + ic('mail') + ' Mail</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + ic('event') + ' Naar vergadering</a><a class="btn" href="#/verslagen">' + ic('arrow_back') + ' Terug naar verslagen</a></div></div>';
     h += '<section class="card repcard"><div class="edwrap" id="repbox"></div></section>';
     setHTML($('#main'), h);
     var E = repEditor($('#repbox'), {
@@ -3473,14 +3563,14 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       var h = '<div class="dlg vv" role="dialog" aria-modal="true" aria-labelledby="vvT"><div class="vvhead"><div><h2 id="vvT">Besluiten, acties en meeneempunten</h2>';
       if (src) {
         var v = vervolgOf(src);
-        h += '<p class="muted">' + (ctx && ctx !== src ? 'Uit het vorige overleg: ' : '') + '<b>' + esc(src.title) + '</b>' + (src.date ? ', ' + esc(fmtLong(src.date)) + (src.start ? ' ' + esc(src.start) : '') : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div><div class="vvbody">';
+        h += '<p class="muted">' + (ctx && ctx !== src ? 'Uit het vorige overleg: ' : '') + '<b>' + esc(src.title) + '</b>' + (src.date ? ', ' + esc(fmtLong(src.date)) + (src.start ? ' ' + esc(src.start) : '') : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div><div class="vvbody">';
         h += '<h3>Besluiten</h3>' + list(v.dec.map(function (t) { return '<li>' + esc(t) + '</li>'; }), 'Geen besluiten vastgelegd.');
         h += '<h3>Acties</h3>' + list(v.acts.map(function (a) { return '<li class="vvact' + (a.done ? ' done' : '') + '"><label><input type="checkbox" data-vva="' + esc(a.id) + '"' + (a.done ? ' checked' : '') + '> <span>' + esc(a.text) + '</span></label></li>'; }), 'Geen acties vastgelegd.');
         h += '<h3>Meeneempunten</h3>' + list(v.pts.map(function (t) { return '<li>' + esc(t) + '</li>'; }), 'Geen meeneempunten vastgelegd.');
         if (!v.n) h += '<p class="muted vvtip">Begin in de aantekeningen een regel met <code>=</code> voor een besluit, <code>!</code> voor een actie of <code>&gt;</code> voor een meeneempunt; die komen dan hier.</p>';
         h += '</div><div class="dlgacts"><a class="btn sm" href="#/v/' + encodeURIComponent(src.id) + '" data-vvgo="1">Naar die vergadering</a><a class="btn sm" href="#/verslag/' + encodeURIComponent(src.id) + '" data-vvgo="1">Verslag openen</a><span class="sp"></span>';
       } else {
-        h += '<p class="muted">' + (ctx ? esc(ctx.title) : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div><div class="vvbody">' +
+        h += '<p class="muted">' + (ctx ? esc(ctx.title) : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div><div class="vvbody">' +
           '<p>Er is nog geen eerdere vergadering met de titel <b>' + esc(ctx ? ctx.title : '') + '</b> gevonden. Kies hieronder zelf de vergadering waar dit het vervolg van is.</p></div><div class="dlgacts"><span class="sp"></span>';
       }
       if (ctx) {
@@ -3513,7 +3603,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   /* de regel bovenaan de stukken: het vervolgdocument van de vorige keer */
   function vervolgRowHtml(m) {
     var p = prevMeeting(m); if (!p) return '';
-    return '<div class="vvrow" id="vvRow" role="button" tabindex="0" title="Besluiten, acties en meeneempunten van de vorige keer"><span class="vvic">📋</span><span class="vvtx"><b>Vorig overleg</b> · ' + esc(fmtShort(p.date)) + '<small>' + esc(vervolgSummary(vervolgOf(p))) + '</small></span></div>';
+    return '<div class="vvrow" id="vvRow" role="button" tabindex="0" title="Besluiten, acties en meeneempunten van de vorige keer"><span class="vvic">' + ic('checklist') + '</span><span class="vvtx"><b>Vorig overleg</b> · ' + esc(fmtShort(p.date)) + '<small>' + esc(vervolgSummary(vervolgOf(p))) + '</small></span></div>';
   }
   function refreshVervolgRow(m) {
     var old = $('#vvRow'), html = vervolgRowHtml(m), box = D.createElement('div'); setHTML(box, html);
@@ -3529,6 +3619,20 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
 
   /* ================================================================== tabblad Bestanden (alleen lezen) */
   var FX = { folder: '', q: '', f: {}, sort: { k: 'date', d: -1 }, sel: {}, items: null, loading: false, group: true, showHidden: false };
+  /* Eigen mappen: een indeling binnen MeMeet. Je sleept bestanden naar een map; de bestanden zelf blijven bij hun vergadering.
+     fxDirs: [{ id, name }], fxIn: { bestand-id: map-id }. In FX.folder staat een eigen map als '@' + id. */
+  function fxDirs() { return A.data.fxDirs || (A.data.fxDirs = []); }
+  function fxIn() { return A.data.fxIn || (A.data.fxIn = {}); }
+  function fxDir(id) { return fxDirs().filter(function (d) { return d.id === id; })[0]; }
+  async function newFxDir() {
+    var n = prompt('Naam van de nieuwe map:', ''); if (n === null) return null; n = n.trim().slice(0, 60); if (!n) return null;
+    var d = { id: uid(), name: n }; fxDirs().push(d); fxDirs().sort(function (a, b) { return a.name.localeCompare(b.name, 'nl', { numeric: true }); });
+    await persist(); return d;
+  }
+  async function putInDir(ids, dirId) {
+    var map = fxIn(), n = 0; ids.forEach(function (id) { if (dirId) { if (map[id] !== dirId) n++; map[id] = dirId; } else if (map[id]) { delete map[id]; n++; } });
+    await persist(); return n;
+  }
   function fxHidden() { return A.data.fxHidden || (A.data.fxHidden = {}); } /* uit het overzicht verwijderd; het bestand zelf blijft in de vergadering */
   var TOPS = ['Vergaderingen']; /* aantekeningen, actielijst en originele mails staan niet in dit overzicht */
   function extOf(n) { var m = /\.([^.]+)$/.exec(n || ''); return m ? m[1].toLowerCase() : ''; }
@@ -3577,7 +3681,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function fxShown(it, k) { if (k === 'date') return it.m && it.m.date ? fmtShort(it.m.date) : ''; if (k === 'size') return it.size ? kb(it.size) : ''; if (k === 'mod') return fmtDT(it.mod); return String(fxVal(it, k)); }
   function fxFiltered(src) {
     var q = FX.q.trim().toLowerCase(), list = src.filter(function (it) {
-      if (FX.folder) { var fp = it.top + (it.sub ? '/' + it.sub : ''); if (fp !== FX.folder && fp.indexOf(FX.folder + '/') !== 0) return false; }
+      if (FX.folder && FX.folder.charAt(0) === '@') { if (fxIn()[it.id] !== FX.folder.slice(1)) return false; }
+      else if (FX.folder) { var fp = it.top + (it.sub ? '/' + it.sub : ''); if (fp !== FX.folder && fp.indexOf(FX.folder + '/') !== 0) return false; }
       if (q && (it.name + ' ' + meetLabel(it) + ' ' + it.kind).toLowerCase().indexOf(q) < 0) return false;
       for (var k in FX.f) { var v = FX.f[k]; if (!v) continue; var col = FXCOLS.filter(function (c) { return c[0] === k; })[0]; if (col && col[2] === 'select') { if (String(fxVal(it, k)) !== v) return false; } else if (fxShown(it, k).toLowerCase().indexOf(v.toLowerCase()) < 0) return false; }
       return true;
@@ -3608,7 +3713,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var vs = it.vers || [it], h = '<div class="vhead">' + esc(it.name.replace(/\.[^.]*$/, '')) + '<small>' + vs.length + ' versie' + (vs.length === 1 ? '' : 's') + '</small></div>';
     h += vs.map(function (v, i) {
       return '<div class="vrow"><span class="fic">' + esc(v.ext.slice(0, 4).toUpperCase() || '—') + '</span><span class="vn" title="' + esc(v.name) + '">' + esc(v.name) + '<small>' + esc(VER_LABEL[v.kind] || v.kind) + (v.size ? ' · ' + esc(kb(v.size)) : '') + ' · ' + esc(fmtDT(v.mod)) + '</small></span>' +
-        '<button type="button" class="link" data-vo="' + i + '" title="Openen">👁</button><button type="button" class="btn sm" data-vmail="' + i + '" title="Deze versie mailen">✉ Mailen</button><button type="button" class="btn sm" data-vd="' + i + '" title="Deze versie downloaden">⤓ Download</button></div>';
+        '<button type="button" class="link" data-vo="' + i + '" title="Openen">' + ic('visibility') + '</button><button type="button" class="btn sm" data-vmail="' + i + '" title="Deze versie mailen">' + ic('mail') + ' Mailen</button><button type="button" class="btn sm" data-vd="' + i + '" title="Deze versie downloaden">' + ic('download') + ' Download</button></div>';
     }).join('');
     setHTML(menu, h); menu.hidden = false;
     var w = menu.offsetWidth, hh = menu.offsetHeight;
@@ -3630,23 +3735,31 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var all = FX.items.filter(function (it) { return FX.showHidden ? !!hid[it.id] : !hid[it.id]; }), flat = fxFiltered(all), list = FX.group ? groupItems(flat) : (flat.forEach(function (it) { it.vers = [it]; }), flat);
     // mappenboom
     var tree = {}; all.forEach(function (it) { var t = tree[it.top] || (tree[it.top] = { n: 0, subs: {} }); t.n++; if (it.sub) { var s0 = it.sub.split('/')[0]; t.subs[s0] = t.subs[s0] || { n: 0, label: it.top === 'Vergaderingen' && it.m ? (it.m.date ? fmtShort(it.m.date) + ' ' : '') + it.m.title : s0 }; t.subs[s0].n++; } });
-    var th = '<button type="button" class="fxt' + (!FX.folder ? ' on' : '') + '" data-folder="">🗂 Alle bestanden <small>' + all.length + '</small></button>';
+    var th = '<button type="button" class="fxt' + (!FX.folder ? ' on' : '') + '" data-folder="">' + ic('folder_copy') + ' Alle bestanden <small>' + all.length + '</small></button>';
     TOPS.forEach(function (t) {
       var node = tree[t] || { n: 0, subs: {} }, open = FX.folder === t || FX.folder.indexOf(t + '/') === 0;
-      th += '<button type="button" class="fxt top' + (FX.folder === t ? ' on' : '') + '" data-folder="' + t + '">' + (t === 'Vergaderingen' ? '📁' : t === 'Aantekeningen' ? '📝' : t === 'Actielijst' ? '✅' : '📁') + ' ' + t + ' <small>' + node.n + '</small></button>';
+      th += '<button type="button" class="fxt top' + (FX.folder === t ? ' on' : '') + '" data-folder="' + t + '">' + (t === 'Vergaderingen' ? '' + ic('folder') + '' : t === 'Aantekeningen' ? '' + ic('description') + '' : t === 'Actielijst' ? '' + ic('task_alt') + '' : '' + ic('folder') + '') + ' ' + t + ' <small>' + node.n + '</small></button>';
       if (open) Object.keys(node.subs).sort().reverse().forEach(function (s0) { var key = t + '/' + s0; th += '<button type="button" class="fxt sub' + (FX.folder === key ? ' on' : '') + '" data-folder="' + esc(key) + '" title="' + esc(node.subs[s0].label) + '"><span>' + esc(node.subs[s0].label) + '</span><small>' + node.subs[s0].n + '</small></button>'; });
     });
+    /* eigen mappen: hier sleep je bestanden naartoe */
+    if (FX.folder.charAt(0) === '@' && !fxDir(FX.folder.slice(1))) FX.folder = '';
+    var inMap = fxIn(), dirN = {}; all.forEach(function (it) { var d = inMap[it.id]; if (d) dirN[d] = (dirN[d] || 0) + 1; });
+    th += '<div class="fxdh"><span>Mijn mappen</span><button type="button" class="link" id="fxnew" title="Een eigen map maken om bestanden te ordenen">' + ic('create_new_folder') + ' Nieuwe map</button></div>';
+    th += fxDirs().length ? fxDirs().map(function (d) {
+      return '<div class="fxdir' + (FX.folder === '@' + d.id ? ' on' : '') + '" data-dir="' + esc(d.id) + '"><button type="button" class="fxt" data-folder="@' + esc(d.id) + '" title="' + esc(d.name) + ' (dubbelklik om de naam te wijzigen)">' + ic(FX.folder === '@' + d.id ? 'folder_open' : 'folder') + '<span>' + esc(d.name) + '</span><small>' + (dirN[d.id] || 0) + '</small></button><button type="button" class="fxdel" data-deldir="' + esc(d.id) + '" title="Map weghalen (de bestanden blijven staan)" aria-label="Map ' + esc(d.name) + ' weghalen">' + ic('close') + '</button></div>';
+    }).join('') : '<p class="fxdtip">Maak een map en sleep er bestanden naartoe.</p>';
     var opts = {}; ['kind', 'ext'].forEach(function (k) { var set = {}; all.forEach(function (it) { set[fxVal(it, k)] = 1; }); opts[k] = Object.keys(set).filter(Boolean).sort(); });
     var nSel = Object.keys(FX.sel).length;
-    var h = '<div class="head"><h1>Bestanden</h1><div class="acts"><button class="btn" id="fxre" title="Opnieuw inlezen">↻ Vernieuwen</button></div></div>';
+    var h = '<div class="head"><h1>Bestanden</h1><div class="acts"><button class="btn" id="fxre" title="Opnieuw inlezen">' + ic('refresh') + ' Vernieuwen</button></div></div>';
     h += '<div class="fx-wrap"><nav class="card fxtree">' + th + '</nav><section class="card fxmain">';
     h += '<div class="fxbar"><input type="search" id="fxq" placeholder="Zoeken in bestandsnamen en vergaderingen…" value="' + esc(FX.q) + '">' +
       '<span class="fxsel">' + (nSel ? nSel + ' geselecteerd' : '') + '</span>' +
-      '<button class="btn sm" data-fa="open"' + (nSel ? '' : ' disabled') + '>👁 Openen</button><button class="btn sm" data-fa="dl"' + (nSel ? '' : ' disabled') + '>⤓ Downloaden</button><button class="btn sm" data-fa="mail"' + (nSel ? '' : ' disabled') + '>✉ Mailen</button>' +
-      (FX.showHidden ? '<button class="btn sm" data-fa="restore"' + (nSel ? '' : ' disabled') + ' title="Weer tonen in het overzicht">↩ Terugzetten</button>' : '<button class="btn sm" data-fa="hide"' + (nSel ? '' : ' disabled') + ' title="Alleen uit dit overzicht halen. Het bestand blijft in de vergadering.">🗑 Verwijderen</button>') + '</div>';
-    if (nHid) h += '<div class="fxhid">' + (FX.showHidden ? 'Je ziet de bestanden die uit het overzicht zijn verwijderd. <button type="button" class="link" id="fxhid">‹ Terug naar alle bestanden</button>' : '<button type="button" class="link" id="fxhid">Verwijderd (' + nHid + ') tonen</button>') + '</div>';
+      '<button class="btn sm" data-fa="open"' + (nSel ? '' : ' disabled') + '>' + ic('visibility') + ' Openen</button><button class="btn sm" data-fa="dl"' + (nSel ? '' : ' disabled') + '>' + ic('download') + ' Downloaden</button><button class="btn sm" data-fa="mail"' + (nSel ? '' : ' disabled') + '>' + ic('mail') + ' Mailen</button>' +
+      (FX.showHidden ? '<button class="btn sm" data-fa="restore"' + (nSel ? '' : ' disabled') + ' title="Weer tonen in het overzicht">' + ic('restore_from_trash') + ' Terugzetten</button>' : '<button class="btn sm" data-fa="hide"' + (nSel ? '' : ' disabled') + ' title="Alleen uit dit overzicht halen. Het bestand blijft in de vergadering.">' + ic('delete') + ' Verwijderen</button>') + '</div>';
+    if (FX.folder.charAt(0) === '@') h += '<div class="fxhid">' + ic('folder_open') + ' Map <b>' + esc(fxDir(FX.folder.slice(1)).name) + '</b> <button type="button" class="link" data-fa="unfile"' + (nSel ? '' : ' disabled') + '>Geselecteerde bestanden uit deze map halen</button></div>';
+    if (nHid) h += '<div class="fxhid">' + (FX.showHidden ? 'Je ziet de bestanden die uit het overzicht zijn verwijderd. <button type="button" class="link" id="fxhid">' + ic('chevron_left') + ' Terug naar alle bestanden</button>' : '<button type="button" class="link" id="fxhid">Verwijderd (' + nHid + ') tonen</button>') + '</div>';
     h += '<div class="tw fxtw"><table class="fxtb"><thead><tr><th class="cb"><input type="checkbox" id="fxall"' + (list.length && list.every(function (it) { return FX.sel[it.id]; }) ? ' checked' : '') + ' title="Alles selecteren"></th>' +
-      FXCOLS.map(function (c) { var on = FX.sort.k === c[0]; return '<th class="c-' + c[0] + (on ? ' on' : '') + '" data-fs="' + c[0] + '">' + c[1] + '<i>' + (on ? (FX.sort.d < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '<th class="c-go">Ga naar</th><th></th></tr>';
+      FXCOLS.map(function (c) { var on = FX.sort.k === c[0]; return '<th class="c-' + c[0] + (on ? ' on' : '') + '" data-fs="' + c[0] + '">' + c[1] + '<i>' + (on ? (FX.sort.d < 0 ? '' + ic('arrow_downward') + '' : '' + ic('arrow_upward') + '') : '' + ic('unfold_more') + '') + '</i></th>'; }).join('') + '<th class="c-go">Ga naar</th><th></th></tr>';
     h += '<tr class="fltr"><th></th>' + FXCOLS.map(function (c) {
       var v = FX.f[c[0]] || '';
       if (c[2] === 'select') return '<th><select data-ff="' + c[0] + '"><option value="">Alle</option>' + opts[c[0]].map(function (o) { return '<option' + (o === v ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select></th>';
@@ -3654,16 +3767,39 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       return '<th><input data-ff="' + c[0] + '" value="' + esc(v) + '" placeholder="filter"></th>';
     }).join('') + '<th></th><th></th></tr></thead><tbody>';
     h += list.length ? list.map(function (it, i) {
-      return '<tr data-fi="' + i + '" class="' + (FX.sel[it.id] ? 'sel' : '') + '"><td class="cb"><input type="checkbox"' + (FX.sel[it.id] ? ' checked' : '') + '></td>' +
-        '<td class="c-name">' + esc(it.name) + (it.vers.length > 1 ? ' <button type="button" class="vbadge" data-vm="1" title="Versies tonen (of klik met de rechtermuisknop)">' + it.vers.length + ' versies ▾</button>' : '') + '</td>' +
+      return '<tr data-fi="' + i + '" draggable="true" class="' + (FX.sel[it.id] ? 'sel' : '') + '"><td class="cb"><input type="checkbox"' + (FX.sel[it.id] ? ' checked' : '') + '></td>' +
+        '<td class="c-name">' + esc(it.name) + (it.vers.length > 1 ? ' <button type="button" class="vbadge" data-vm="1" title="Versies tonen (of klik met de rechtermuisknop)">' + it.vers.length + ' versies ' + ic('keyboard_arrow_down') + '</button>' : '') + '</td>' +
         '<td class="c-date">' + esc(fxShown(it, 'date')) + '</td>' +
         '<td class="c-ext">' + esc(it.vers.map(function (v) { return v.ext.toUpperCase(); }).filter(function (e, i, a) { return a.indexOf(e) === i; }).join(', ')) + '</td><td class="c-size">' + esc(fxShown(it, 'size')) + '</td>' +
-        '<td class="c-go">' + (it.m ? '<button type="button" class="btn sm go" data-go="1" title="Open de vergadering' + (it.kind === 'Stuk' || it.kind === 'PDF-versie' || it.kind === 'Vorige versie' ? ' met dit stuk in de viewer' : '') + '">Vergadering ›</button>' : '') + '</td><td class="fxact"><button class="link" data-ra="open" title="Openen">👁</button><button class="link" data-ra="dl" title="Downloaden">⤓</button><button class="link" data-ra="mail" title="Mailen">✉</button>' + (FX.showHidden ? '<button class="link" data-ra="restore" title="Terugzetten in het overzicht">↩</button>' : '<button class="link" data-ra="hide" title="Uit het overzicht verwijderen (blijft in de vergadering)">🗑</button>') + '</td></tr>';
+        '<td class="c-go">' + (it.m ? '<button type="button" class="btn sm go" data-go="1" title="Open de vergadering' + (it.kind === 'Stuk' || it.kind === 'PDF-versie' || it.kind === 'Vorige versie' ? ' met dit stuk in de viewer' : '') + '">Vergadering ' + ic('chevron_right') + '</button>' : '') + '</td><td class="fxact"><button class="link" data-ra="open" title="Openen">' + ic('visibility') + '</button><button class="link" data-ra="dl" title="Downloaden">' + ic('download') + '</button><button class="link" data-ra="mail" title="Mailen">' + ic('mail') + '</button>' + (FX.showHidden ? '<button class="link" data-ra="restore" title="Terugzetten in het overzicht">' + ic('restore_from_trash') + '</button>' : '<button class="link" data-ra="hide" title="Uit het overzicht verwijderen (blijft in de vergadering)">' + ic('delete') + '</button>') + '</td></tr>';
     }).join('') : '<tr><td colspan="' + (FXCOLS.length + 3) + '" class="empty">' + (all.length ? 'Geen bestanden met deze zoekopdracht of filters.' : 'Nog geen bestanden.') + '</td></tr>';
-    h += '</tbody></table></div><p class="note">' + list.length + (FX.group ? ' regels (' + flat.length + ' bestanden)' : ' van ' + all.length + ' bestanden') + ' · alleen lezen · dubbelklik om te openen · rechtermuisknop toont de versies</p></section></div>';
+    h += '</tbody></table></div><p class="note">' + list.length + (FX.group ? ' regels (' + flat.length + ' bestanden)' : ' van ' + all.length + ' bestanden') + ' · alleen lezen · dubbelklik om te openen · rechtermuisknop toont de versies · sleep naar een map om te ordenen</p></section></div>';
     h += '<div class="vermenu" id="vermenu" hidden></div>';
     setHTML(main, h);
-    $$('[data-folder]').forEach(function (b) { b.onclick = function () { FX.folder = b.dataset.folder; renderFiles(); }; });
+    $$('[data-folder]').forEach(function (b) { b.onclick = function () { FX.folder = b.dataset.folder; FX.sel = {}; renderFiles(); }; });
+    $('#fxnew').onclick = async function () { var d = await newFxDir(); if (d) { toast('Map "' + d.name + '" gemaakt. Sleep er bestanden naartoe.', 'ok'); renderFiles(); } };
+    $$('.fxdir [data-folder]').forEach(function (b) { b.ondblclick = async function () { var d = fxDir(b.dataset.folder.slice(1)), n = prompt('Nieuwe naam van de map:', d.name); if (n === null || !n.trim()) return; d.name = n.trim().slice(0, 60); await persist(); renderFiles(); }; });
+    $$('[data-deldir]').forEach(function (b) { b.onclick = async function (e) {
+      e.stopPropagation(); var d = fxDir(b.dataset.deldir); if (!confirm('Map "' + d.name + '" weghalen?\n\nDe bestanden blijven gewoon staan onder Alle bestanden en bij hun vergadering.')) return;
+      A.data.fxDirs = fxDirs().filter(function (x) { return x !== d; }); var map = fxIn(); Object.keys(map).forEach(function (k) { if (map[k] === d.id) delete map[k]; });
+      if (FX.folder === '@' + d.id) FX.folder = ''; await persist(); renderFiles();
+    }; });
+    /* bestanden naar een eigen map slepen: de geselecteerde regels, of alleen de regel die je sleept */
+    var DT = 'text/x-memeet-bestanden';
+    function dragIds(tr) { var it = list[+tr.dataset.fi], picked = FX.sel[it.id] ? list.filter(function (x) { return FX.sel[x.id]; }) : [it]; return [].concat.apply([], picked.map(function (x) { return (x.vers || [x]).map(function (v) { return v.id; }); })); }
+    $$('.fxtb tbody tr[data-fi]').forEach(function (tr) {
+      tr.addEventListener('dragstart', function (e) { var ids = dragIds(tr); e.dataTransfer.setData(DT, JSON.stringify(ids)); e.dataTransfer.effectAllowed = 'move'; var n = list.filter(function (x) { return FX.sel[x.id]; }).length; FX.dragN = FX.sel[list[+tr.dataset.fi].id] ? n : 1; D.body.classList.add('fxdragging'); });
+      tr.addEventListener('dragend', function () { D.body.classList.remove('fxdragging'); $$('.fxdir.over').forEach(function (x) { x.classList.remove('over'); }); });
+    });
+    $$('.fxdir').forEach(function (el) {
+      el.addEventListener('dragover', function (e) { if (Array.prototype.indexOf.call(e.dataTransfer.types, DT) < 0) return; e.preventDefault(); e.dataTransfer.dropEffect = 'move'; el.classList.add('over'); });
+      el.addEventListener('dragleave', function () { el.classList.remove('over'); });
+      el.addEventListener('drop', async function (e) {
+        var raw = e.dataTransfer.getData(DT); if (!raw) return; e.preventDefault(); e.stopPropagation(); el.classList.remove('over'); D.body.classList.remove('fxdragging');
+        var d = fxDir(el.dataset.dir); await putInDir(JSON.parse(raw), d.id);
+        var n = FX.dragN || 1; toast((n === 1 ? '1 bestand' : n + ' bestanden') + ' in de map "' + d.name + '" gezet.', 'ok'); renderFiles();
+      });
+    });
     $('#fxre').onclick = function () { renderFiles(true); };
     var qi = $('#fxq'); qi.oninput = function () { FX.q = qi.value; var p = qi.selectionStart; renderFiles(); var n = $('#fxq'); n.focus(); n.setSelectionRange(p, p); };
     $$('[data-fs]').forEach(function (t) { t.onclick = function () { var k = t.dataset.fs; FX.sort = { k: k, d: FX.sort.k === k ? -FX.sort.d : (k === 'mod' || k === 'date' || k === 'size' ? -1 : 1) }; renderFiles(); }; });
@@ -3689,6 +3825,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     });
     $$('[data-fa]').forEach(function (b) { b.onclick = function (e) {
       e.stopPropagation(); var a = b.dataset.fa, picked = list.filter(function (it) { return FX.sel[it.id]; });
+      if (a === 'unfile') { putInDir([].concat.apply([], picked.map(function (it) { return it.vers.map(function (v) { return v.id; }); })), null).then(function () { toast((picked.length === 1 ? '1 bestand' : picked.length + ' bestanden') + ' uit de map gehaald. Ze staan nog onder Alle bestanden.', 'ok'); FX.sel = {}; renderFiles(); }); return; }
       fileAction(a, a === 'hide' || a === 'restore' ? [].concat.apply([], picked.map(function (it) { return it.vers; })) : picked, b);
     }; });
     var hb = $('#fxhid'); if (hb) hb.onclick = function () { FX.showHidden = !FX.showHidden; FX.sel = {}; renderFiles(); };
@@ -3750,7 +3887,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     '<li>Kopieer de <b>hele map <code>memeet-data</code></b>, mét het bestand <code>memeet.json</code> erin, naar bijvoorbeeld OneDrive, een netwerkschijf of een USB-stick.</li></ol>' +
     '<p><code>memeet.json</code> is het register van MeMeet: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen in de PDF\'s. Zonder dat bestand zijn alleen de losse stukken terug te halen.</p>' +
     '<h3>Back-up terugzetten</h3><ol><li>Zet de gekopieerde map <code>memeet-data</code> terug, bijvoorbeeld in <code>Documenten\\MeMeet</code>.</li>' +
-    '<li>Open MeMeet, klik rechtsboven op <b>📁 Wijzig datamap</b> en kies die map <code>memeet-data</code>.</li></ol>' +
+    '<li>Open MeMeet, klik rechtsboven op <b>' + ic('folder') + ' Wijzig datamap</b> en kies die map <code>memeet-data</code>.</li></ol>' +
     '<p class="muted">Losse vergadermappen terugkopiëren in <code>Vergaderingen</code> werkt niet: MeMeet werkt vanuit <code>memeet.json</code>. Zet altijd de hele map terug.</p>';
 
   var GITHUB = 'https://github.com/oss-aigp/memeet', GITHUB_DL = 'https://github.com/oss-aigp/memeet/blob/main/dist/MeMeet.html';
@@ -3804,9 +3941,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     '<h3>Zo werkt het</h3><ol><li><b>Vergaderingen maken</b>: sleep een mail of uitnodiging erin, of lees met <b>Importeer weekagenda</b> je Outlook-agenda in. Titel, datum, tijd, locatie, vergaderlink, iBabs-link en bijlagen worden overgenomen.</li>' +
     '<li><b>Stukken</b>: elk stuk blijft in zijn eigen formaat (Word, Excel, PowerPoint, PDF, afbeeldingen, mails). Een zip wordt uitgepakt; bij een mail komen de bijlagen als losse stukken erachter. De viewer toont ze allemaal; daarin kun je zoeken, markeren en opmerkingen maken. Bij Bewerken pas je het origineel aan.</li>' +
     '<li><b>Vergaderen</b>: met <b>Deelnemen</b> open je de online vergadering, met <b>iBabs</b> de stukken in iBabs, en rechts maak je aantekeningen. Regels die met <code>!</code> beginnen, worden acties; met <code>=</code> besluiten; met <code>&gt;</code> meeneempunten voor het vervolgoverleg.</li>' +
-    '<li><b>Afronden</b>: verslagen en acties vind je terug in de tabbladen <b>Verslagen</b> en <b>Actielijst</b>. Bij het volgende overleg met dezelfde titel staan de besluiten, acties en meeneempunten van de vorige keer klaar onder <b>📋 Meeneempunten</b>.</li>' +
+    '<li><b>Afronden</b>: verslagen en acties vind je terug in de tabbladen <b>Verslagen</b> en <b>Actielijst</b>. Bij het volgende overleg met dezelfde titel staan de besluiten, acties en meeneempunten van de vorige keer klaar onder <b>' + ic('checklist') + ' Meeneempunten</b>.</li>' +
     '<li><b>Terugvinden</b>: in <b>Bestanden</b> staan alle stukken, met versies, en kun je ze openen, downloaden en mailen.</li></ol>' +
     '<h3>Waar staat wat?</h3><pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html      de app\n  MeMeet.ico       het icoon\n  memeet-data\\     je gegevens\n    Vergaderingen\\  per vergadering de stukken\n    Aantekeningen\\  de verslagen als .txt\n    Actielijst\\     Actielijst.txt\n    memeet.json     het register</pre>' +
+    '<h3>Rechtsboven</h3><ul><li><b>' + ic('folder') + ' Wijzig datamap</b>: kies waar MeMeet je gegevens bewaart.</li><li>' + ic('dark_mode') + ' / ' + ic('light_mode') + ' zet de <b>donkere modus</b> aan of uit. MeMeet onthoudt je keuze; zonder keuze volgt MeMeet de instelling van Windows. De viewer, de pop-ups en de aantekeningen blijven altijd wit met zwarte letters, zodat stukken en tekst er hetzelfde uitzien.</li><li>' + ic('help') + ' opent deze help (of druk op F1).</li></ul>' +
     '<h3>Tabbladen</h3><ul><li><b>Vergaderingen</b>: vandaag, morgen, volgende vergaderingen en het archief.</li><li><b>Verslagen</b>: alle aantekeningen als verslag, met een Word-achtige editor, en per vergadering de besluiten, acties en meeneempunten.</li><li><b>Actielijst</b>: alle acties uit vergaderingen en losse acties, met toevoegen, afvinken, snoozen en een begindatum.</li><li><b>Bestanden</b>: een verkenner met alle stukken.</li></ul>' +
     '<p>De volledige handleiding staat in de <a href="' + GITHUB + '#readme" target="_blank" rel="noopener">README op GitHub</a>.</p>' +
     '<h3>Licentie</h3><p>MeMeet is open source onder de <a href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32017D0863" target="_blank" rel="noopener">European Union Public Licence 1.2</a> (EUPL), ook in het Nederlands. MeMeet bevat pdf.js (Apache 2.0), pdf-lib en JSZip (MIT); zie <code>THIRD-PARTY-NOTICES.md</code> op GitHub.</p>';
@@ -3819,57 +3957,58 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail eerst naar het bureaublad en dan naar MeMeet, of gebruik <b>Mail importeren…</b>.</li>' +
       '<li>Meerdere mails tegelijk slepen maakt meerdere vergaderingen in één keer.</li>' +
       '<li>Bij een <b>terugkerende afspraak</b> krijgt de vergadering de datum en tijd van de eerstvolgende keer.</li>' +
-      '<li><b>📅 Importeer weekagenda</b> leest je hele Outlook-agenda van de komende dagen in één keer in.</li>' +
-      '<li><b>+ Nieuwe vergadering</b> maakt een lege vergadering die je zelf invult.</li></ul>' +
-      '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>↻</b> zie je een andere.</p>' +
+      '<li><b>' + ic('calendar_month') + ' Importeer weekagenda</b> leest je hele Outlook-agenda van de komende dagen in één keer in.</li>' +
+      '<li><b>' + ic('add') + ' Nieuwe vergadering</b> maakt een lege vergadering die je zelf invult.</li></ul>' +
+      '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>' + ic('refresh') + '</b> zie je een andere.</p>' +
       '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
-      '<li>Vandaag en Morgen kun je in- en uitklappen met <b>weergeven</b>/<b>verbergen</b>; in de kop zie je hoeveel vergaderingen er zijn. Vandaag is na 20:30 standaard ingeklapt, Morgen staat standaard open.</li></ul>' +
-      '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten zijn standaard ingeklapt. Klik op de kop of op <b>weergeven</b>.</li>' +
+      '<li>Alle onderdelen (Vandaag, Morgen, Volgende vergaderingen en Archief) staan open. Met <b>verbergen</b> klap je er een in; als je MeMeet opnieuw opent, staat alles weer open. In de kop zie je hoeveel vergaderingen er zijn.</li></ul>' +
+      '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten staan standaard open. Klik op de kop of op <b>verbergen</b> om er een in te klappen.</li>' +
       '<li>Volgende vergaderingen begint bij overmorgen. Het Archief bevat de vergaderingen die geweest zijn.</li>' +
       '<li>Klik op een kolomkop om te sorteren. Met het zoekvak zoek je op titel, locatie, namen en aantekeningen; met het keuzemenu kies je een jaar.</li></ul>' +
-      '<h3>Vergaderingen verwijderen</h3><ul><li>Vink vergaderingen aan (of het vinkje in de kop voor de hele lijst). Onderaan verschijnt een balk met <b>🗑 Verwijderen</b>.</li>' +
+      '<h3>Vergaderingen verwijderen</h3><ul><li>Vink vergaderingen aan (of het vinkje in de kop voor de hele lijst). Onderaan verschijnt een balk met <b>' + ic('delete') + ' Verwijderen</b>.</li>' +
       '<li>Daarbij wordt alles gewist wat erbij hoort: de map met stukken, de originele mail, gewijzigde versies, de aantekeningen en de acties. Dit kun je niet ongedaan maken.</li></ul>' },
     meeting: { t: 'Een vergadering', h:
-      '<h3>Gegevens</h3><ul><li>Titel, datum, tijd, locatie, Deelnemen en de iBabs-link staan samen op één regel bovenaan, zodat er zoveel mogelijk ruimte is voor de stukken. Is het venster te smal, dan krijgt die regel een schuifbalk; hij valt nooit over twee regels. Wijzig je iets, dan wordt het vanzelf bewaard (je ziet even <i>opgeslagen ✓</i>). Alleen een nieuwe vergadering heeft een knop <b>Opslaan</b>.</li>' +
-      '<li><b>Deelnemen</b> opent de vergaderlink (Teams, Zoom …) uit de uitnodiging. Met <b>🔗</b> ernaast voeg je een vergaderlink toe of wijzig je hem; laat je het vak leeg, dan gaat de link weg.</li>' +
-      '<li>De <b>iBabs-link</b> is een eigen veld, apart van de vergaderlink. MeMeet vult hem vanzelf als de uitnodiging een link naar iBabs bevat (bij inslepen en bij de weekimport). Je kunt hem ook zelf plakken of wijzigen. Opent Deelnemen bij een oudere vergadering iBabs, haal de link dan met 🔗 weg en plak hem bij iBabs-link.</li></ul>' +
+      '<h3>Gegevens</h3><ul><li>Titel, datum, tijd, locatie, Deelnemen en de iBabs-link staan samen op één regel bovenaan, zodat er zoveel mogelijk ruimte is voor de stukken. Is het venster te smal, dan krijgt die regel een schuifbalk; hij valt nooit over twee regels. Wijzig je iets, dan wordt het vanzelf bewaard (je ziet even <i>opgeslagen ' + ic('check') + '</i>). Alleen een nieuwe vergadering heeft een knop <b>Opslaan</b>.</li>' +
+      '<li><b>Deelnemen</b> opent de vergaderlink (Teams, Zoom …) uit de uitnodiging. Met <b>' + ic('link') + '</b> ernaast voeg je een vergaderlink toe of wijzig je hem; laat je het vak leeg, dan gaat de link weg.</li>' +
+      '<li>De <b>iBabs-link</b> staat apart van de vergaderlink. MeMeet vult hem vanzelf als de uitnodiging een link naar iBabs bevat (bij inslepen en bij de weekimport). Is er een iBabs-link, dan is de knop <b>iBabs</b> oranje; zonder link is hij grijs. Met ' + ic('link') + ' naast iBabs plak of wijzig je de link (een klik op de grijze knop doet hetzelfde); laat je het vak leeg, dan gaat de link weg. Zo werkt het ook bij <b>Deelnemen</b>: grijs zonder vergaderlink, en ' + ic('link') + ' ernaast om hem te plakken.</li>' +
+      '<li>Opent Deelnemen bij een oudere vergadering iBabs, haal de link dan met ' + ic('link') + ' naast Deelnemen weg en plak hem met ' + ic('link') + ' naast iBabs.</li></ul>' +
       '<h3>iBabs</h3><ul><li><b>iBabs</b> opent de vergadering in iBabs in een eigen tabblad. Klik je bij een andere vergadering, dan laadt die in hetzelfde tabblad. Wil je iBabs en MeMeet naast elkaar, sleep dat tabblad dan los naar een eigen venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
       '<li>iBabs kan niet in MeMeet zelf worden getoond: iBabs staat dat niet toe.</li></ul>' +
       '<h3>Stukken</h3><ul><li>Sleep documenten op de vergadering, of klik op het vak <i>Sleep documenten of een mail hierheen</i> om ze te kiezen. Elk stuk blijft in zijn eigen formaat; MeMeet maakt er geen PDF van. De viewer toont Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails.</li>' +
       '<li>Een <b>zip</b> wordt uitgepakt: de bestanden erin worden losse stukken.</li>' +
       '<li>Sleep je een <b>mail met bijlagen</b> op de vergadering, dan kies je: <b>alleen de mail</b>, of <b>de mail én de bijlagen</b>, elk als apart stuk. Zit er in de mail weer een mail met bijlagen, dan komen die er ook apart bij.</li>' +
       '<li><b>Volgorde</b>: sleep een stuk omhoog of omlaag. Met <b>Ctrl+klik</b> selecteer je meer stukken, met <b>Shift+klik</b> een reeks; sleep je er een, dan gaan ze allemaal mee.</li>' +
-      '<li>Elk stuk staat op één regel, met rechts <b>✕</b> om het te verwijderen. Bijzonderheden (een eigen PDF-versie, een bestand dat de viewer niet kan tonen, het aantal aantekeningen) zie je als je met de muis op de naam gaat. Het origineel download je via <b>⋯</b> in de viewer.</li>' +
+      '<li>Elk stuk staat op één regel, met rechts <b>' + ic('close') + '</b> om het te verwijderen. Bijzonderheden (een eigen PDF-versie, een bestand dat de viewer niet kan tonen, het aantal aantekeningen) zie je als je met de muis op de naam gaat. Het origineel download je via <b>' + ic('more_horiz') + '</b> in de viewer.</li>' +
       '<li>Maak de kolom met stukken <b>breder of smaller</b> door de rand rechts ervan te verslepen (dubbelklik: standaardbreedte).</li>' +
       '<li>Sleep je een bestand met <b>dezelfde naam</b> erop, dan vraagt MeMeet of de oude versie vervangen moet worden.</li>' +
-      '<li>Een stuk dat de viewer niet kan tonen (bijvoorbeeld een oud .doc-bestand) download je via <b>⋯</b> › <i>Origineel downloaden</i> en open je in Word. Wil je het in de viewer zien, sla het dan in Word op als PDF en sleep die PDF met dezelfde naam erop: MeMeet vraagt dan of het de PDF-versie is.</li></ul>' +
-      '<h3>📋 Meeneempunten: het vorige overleg</h3><ul><li>Heeft deze vergadering een eerdere vergadering met dezelfde titel (datums en nummers in de titel tellen niet mee), dan staat bovenaan de stukken <b>Vorig overleg</b>, met het aantal besluiten, acties en meeneempunten van toen.</li>' +
-      '<li>Klik erop, of op <b>📋 Meeneempunten</b>, voor een popup met de besluiten (<code>=</code>), acties (<code>!</code>) en meeneempunten (<code>&gt;</code>) uit de aantekeningen van die vergadering. Een actie vink je daar af. <b>Esc</b> sluit de popup.</li>' +
+      '<li>Een stuk dat de viewer niet kan tonen (bijvoorbeeld een oud .doc-bestand) download je via <b>' + ic('more_horiz') + '</b> › <i>Origineel downloaden</i> en open je in Word. Wil je het in de viewer zien, sla het dan in Word op als PDF en sleep die PDF met dezelfde naam erop: MeMeet vraagt dan of het de PDF-versie is.</li></ul>' +
+      '<h3>' + ic('checklist') + ' Meeneempunten: het vorige overleg</h3><ul><li>Heeft deze vergadering een eerdere vergadering met dezelfde titel (datums en nummers in de titel tellen niet mee), dan staat bovenaan de stukken <b>Vorig overleg</b>, met het aantal besluiten, acties en meeneempunten van toen.</li>' +
+      '<li>Klik erop, of op <b>' + ic('checklist') + ' Meeneempunten</b>, voor een popup met de besluiten (<code>=</code>), acties (<code>!</code>) en meeneempunten (<code>&gt;</code>) uit de aantekeningen van die vergadering. Een actie vink je daar af. <b>Esc</b> sluit de popup.</li>' +
       '<li>Klopt de koppeling niet, kies dan onderin de popup bij <b>Vervolg van</b> zelf de juiste vergadering, of <i>Geen vorige vergadering</i>.</li></ul>' +
       '<h3>De viewer (tabblad Bekijken)</h3><ul>' +
       '<li><b>Tekst</b>: tekst selecteren en kopiëren (Ctrl+C).</li>' +
       '<li><b>Markeren</b>: selecteer tekst; die wordt geel of groen gemarkeerd. Kies de kleur met de bolletjes.</li>' +
       '<li><b>Opmerking</b>: klik op een woord en typ. De opmerking komt in de rechtermarge; Ctrl+Enter is klaar.</li>' +
       '<li><b>Gum</b>: klik op een markering of opmerking om hem weg te halen.</li>' +
-      '<li><b>↶ ↷</b>: ongedaan maken en opnieuw, tot 20 stappen (Ctrl+Z en Ctrl+Y).</li>' +
+      '<li><b>' + ic('undo') + ' ' + ic('redo') + '</b>: ongedaan maken en opnieuw, tot 20 stappen (Ctrl+Z en Ctrl+Y).</li>' +
       '<li><b>Zoeken</b>: Ctrl+F, daarna Enter voor de volgende treffer en Shift+Enter voor de vorige.</li>' +
       '<li>Een stuk dat geen PDF is, toont de viewer als weergave van het origineel; de opmaak kan iets afwijken, het bestand zelf blijft ongewijzigd. Een melding over het stuk staat achter het rondje <b>i</b>.</li>' +
-      '<li>Alle knoppen boven het stuk staan op één regel. Is de kolom smal, dan tonen ze alleen een symbool (Aa = tekst, 🖍 = markeren, 💬 = opmerking, ⌫ = gum); wijs een knop aan voor de naam.</li>' +
+      '<li>Alle knoppen boven het stuk staan op één regel. Is de kolom smal, dan tonen ze alleen een symbool (Aa = tekst, ' + ic('ink_highlighter') + ' = markeren, ' + ic('add_comment') + ' = opmerking, ' + ic('ink_eraser') + ' = gum); wijs een knop aan voor de naam.</li>' +
       '<li><b>− 100% +</b>: kleiner en groter. Klik op het percentage om de pagina weer passend te maken.</li>' +
       '<li><b>Vierkantje met hoekjes</b>: de viewer vergroten tot het hele venster. Nog eens klikken of Esc maakt hem weer klein.</li>' +
-      '<li><b>⋯</b>: het stuk als PDF downloaden met je aantekeningen, alle aantekeningen wissen, het origineel downloaden of de weergave in een nieuw tabblad openen.</li></ul>' +
+      '<li><b>' + ic('more_horiz') + '</b>: het stuk als PDF downloaden met je aantekeningen, alle aantekeningen wissen, het origineel downloaden of de weergave in een nieuw tabblad openen.</li></ul>' +
       '<h3>Bewerken</h3><ul><li>Het tabblad <b>Bewerken</b> boven de viewer past het originele bestand aan.</li>' +
       '<li>Word: stijlen, vet, cursief, onderstrepen, opsomming en uitlijnen. Excel: typ in een cel; Enter, Tab en de pijltjes bewegen, F2 past een cel aan, Delete wist, met = begin je een formule. PowerPoint: klik in een tekstvak op de dia.</li>' +
       '<li>Opslaan met <b>💾 Opslaan</b> of Ctrl+S. De eerste keer bewaart MeMeet een kopie "(oorspronkelijk)". De viewer toont daarna de nieuwe versie.</li>' +
-      '<li>Liever in Office zelf? Download het stuk via <b>⋯</b> › <i>Origineel downloaden</i>, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
+      '<li>Liever in Office zelf? Download het stuk via <b>' + ic('more_horiz') + '</b> › <i>Origineel downloaden</i>, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
       '<h3>Aantekeningen en acties</h3><ul><li>Rechts staat altijd de kolom <b>Aantekeningen</b>. Alles wordt vanzelf bewaard en ook als tekstbestand in de map Aantekeningen gezet.</li>' +
       '<li>Een regel die begint met <code>!</code> wordt een actie, bijvoorbeeld <code>! Jan stuurt de notitie rond</code>. Die staat daarna in de Actielijst.</li>' +
-      '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>✉ Mail</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
-      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor het vervolgoverleg, bijvoorbeeld <code>&gt; begroting opnieuw bespreken</code>. Bij de volgende vergadering met dezelfde titel staat het klaar onder <b>📋 Meeneempunten</b>. Meeneempunten zijn privé: ze gaan niet mee met ✉ Mail.</li>' +
+      '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>' + ic('mail') + ' Mail</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
+      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor het vervolgoverleg, bijvoorbeeld <code>&gt; begroting opnieuw bespreken</code>. Bij de volgende vergadering met dezelfde titel staat het klaar onder <b>' + ic('checklist') + ' Meeneempunten</b>. Meeneempunten zijn privé: ze gaan niet mee met ' + ic('mail') + ' Mail.</li>' +
       '<li>Je regels blijven staan zoals je ze typt, ook in het tekstbestand.</li>' +
       '<li>Maak de kolom <b>breder of smaller</b> door de linkerrand te verslepen (dubbelklik: standaardbreedte).</li>' +
-      '<li><b>⧉ Apart venster</b> zet de aantekeningen in een eigen venster rechts op je scherm. Dat kun je los verschuiven en naast andere programma\'s zetten. Met <b>⇤ Terug</b> of door het venster te sluiten, staan ze weer in MeMeet.</li></ul>' +
-      '<h3>Verwijderen</h3><ul><li>De <b>prullenbak 🗑</b> bovenaan wist de vergadering met al haar stukken. Je aantekeningen blijven in de map Aantekeningen staan.</li></ul>' },
+      '<li><b>' + ic('open_in_new') + ' Apart venster</b> zet de aantekeningen in een eigen venster rechts op je scherm. Dat kun je los verschuiven en naast andere programma\'s zetten. Met <b>' + ic('arrow_back') + ' Terug</b> of door het venster te sluiten, staan ze weer in MeMeet.</li></ul>' +
+      '<h3>Verwijderen</h3><ul><li>De <b>prullenbak ' + ic('delete') + '</b> bovenaan wist de vergadering met al haar stukken. Je aantekeningen blijven in de map Aantekeningen staan.</li></ul>' },
     reports: { t: 'Verslagen', h:
       '<p>Alle aantekeningen van je vergaderingen op een rij, als verslagen.</p><ul>' +
       '<li>Sorteer op naam, vergaderdatum of datum gewijzigd door op de kolomkop te klikken. Zoek met het zoekvak in titels en tekst.</li>' +
@@ -3877,27 +4016,28 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Klik op een verslag om het te bewerken in een Word-achtige editor: koppen, vet, cursief, onderstreept en lijsten. Wijzigingen worden vanzelf bewaard.</li>' +
       '<li>Een webadres (https://… of www.…) wordt vanzelf een link. Klik erop om hem in een nieuw tabblad te openen.</li>' +
       '<li>Regels die met <code>!</code> beginnen, zijn acties en staan ook in de Actielijst. Regels met <code>=</code> zijn besluiten; regels met <code>&gt;</code> zijn meeneempunten voor het vervolgoverleg.</li>' +
-      '<li>Achter de titel van een vergadering staat rechts <b>📋 Meeneempunten</b> als er besluiten, acties of meeneempunten zijn (de Besluiten, acties en meeneempunten; met de muis erop zie je hoeveel). Klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>📋 Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>📋 Meeneempunten</b>.</li>' +
-      '<li><b>✉ Mail</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
+      '<li>Achter de titel van een vergadering staat rechts <b>' + ic('checklist') + ' Meeneempunten</b> als er besluiten, acties of meeneempunten zijn (de Besluiten, acties en meeneempunten; met de muis erop zie je hoeveel). Klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>' + ic('checklist') + ' Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>' + ic('checklist') + ' Meeneempunten</b>.</li>' +
+      '<li><b>' + ic('mail') + ' Mail</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
       '<li>Elk verslag staat ook als tekstbestand in de map <code>memeet-data\\Aantekeningen</code>, als <code>jjjjmmdd Titel.txt</code>. Pas die bestanden niet buiten MeMeet aan: MeMeet schrijft ze opnieuw bij de volgende wijziging.</li></ul>' },
     actions: { t: 'Actielijst', h:
       '<p>Alle acties: uit de aantekeningen van vergaderingen, en losse acties die je hier zelf toevoegt.</p><ul>' +
-      '<li><b>Losse actie toevoegen</b>: typ de actie in het vak bovenaan, kies eventueel een begindatum, en klik op <b>+ Toevoegen</b> of druk op Enter. Klik op de tekst om hem te wijzigen; <b>✕</b> verwijdert een losse actie.</li>' +
+      '<li><b>Losse actie toevoegen</b>: typ de actie in het vak bovenaan, kies eventueel een begindatum, en klik op <b>+ Toevoegen</b> of druk op Enter. Klik op de tekst om hem te wijzigen; <b>' + ic('close') + '</b> verwijdert een losse actie.</li>' +
       '<li><b>Actie uit een vergadering</b>: begin in de aantekeningen een regel met <code>!</code>. Wijzig je de tekst hier, dan verandert de regel in de aantekeningen mee.</li>' +
-      '<li>Met de knoppen bovenaan kies je wat je ziet: <b>Open</b>, <b>⏰ Gesnoozed</b>, <b>Afgerond</b>, <b>Alle</b>, en <b>Verwijderd</b> als je acties van de lijst hebt gehaald.</li>' +
+      '<li>Met de knoppen bovenaan kies je wat je ziet: <b>Open</b>, <b>' + ic('snooze') + ' Gesnoozed</b>, <b>Afgerond</b>, <b>Alle</b>, en <b>Verwijderd</b> als je acties van de lijst hebt gehaald.</li>' +
       '<li>Klik op de tekst om een actie te bewerken. Vink hem af als hij klaar is.</li>' +
-      '<li><b>Mail als actie</b>: sleep een mail uit Outlook naar de Actielijst. Het onderwerp wordt de actie, met ✉ ervoor (en 📎 met het aantal bijlagen). Klik op zo\'n actie: een viewer toont de mail, en links de bijlagen die je aanklikt om ze te bekijken. Bovenin pas je de tekst van de actie aan; <b>⤓ Download</b> bewaart het bestand dat je ziet. <b>Esc</b> sluit de viewer. Verwijder je de actie, dan gaat de bewaarde mail ook weg.</li>' +
-      '<li><b>⏰ Snoozen</b> verbergt een actie tot morgen, overmorgen, volgende week of een datum die je kiest. Daarna staat hij weer bij Open.</li>' +
+      '<li><b>Mail als actie</b>: sleep een mail uit Outlook naar de Actielijst. Het onderwerp wordt de actie, met ' + ic('mail') + ' ervoor (en ' + ic('attach_file') + ' met het aantal bijlagen). Klik op zo\'n actie: een viewer toont de mail, en links de bijlagen die je aanklikt om ze te bekijken. Bovenin pas je de tekst van de actie aan; <b>' + ic('download') + ' Download</b> bewaart het bestand dat je ziet. <b>Esc</b> sluit de viewer. Verwijder je de actie, dan gaat de bewaarde mail ook weg.</li>' +
+      '<li><b>' + ic('snooze') + ' Snoozen</b> verbergt een actie tot morgen, overmorgen, volgende week of een datum die je kiest. Daarna staat hij weer bij Open.</li>' +
       '<li>Een <b>begindatum</b> zegt vanaf wanneer je met een actie aan de slag gaat.</li>' +
       '<li><b>Van de lijst halen</b> verwijdert de actie uit dit overzicht; de regel blijft in de aantekeningen staan. Onder Verwijderd zet je hem terug.</li>' +
       '<li>Klik op de vergadering om ernaartoe te gaan. De actielijst staat ook als <code>Actielijst.txt</code> in de map Actielijst; mails die je als actie hebt toegevoegd, staan in <code>Actielijst\\Mails</code>.</li></ul>' },
     files: { t: 'Bestanden', h:
       '<p>Een verkenner met alle stukken uit je datamap. Je kunt hier bestanden bekijken, downloaden en mailen, maar niet bewerken.</p><ul>' +
-      '<li>Links kies je een map, of <b>Alle bestanden</b>. Zoek met het zoekvak en filter per kolom.</li>' +
+      '<li>Links kies je een map, of <b>Alle bestanden</b> (dat is de standaard). Zoek met het zoekvak en filter per kolom.</li>' +
+      '<li><b>Mijn mappen</b>: met <b>' + ic('create_new_folder') + ' Nieuwe map</b> maak je een eigen map. Sleep bestanden (één regel, of alle geselecteerde regels) naar die map om ze te ordenen; klik op de map om alleen die bestanden te zien. Dubbelklik op een map om de naam te wijzigen, ' + ic('close') + ' haalt de map weg. Met <b>Geselecteerde bestanden uit deze map halen</b> haal je bestanden er weer uit. De mappen zijn een indeling binnen MeMeet: de bestanden zelf blijven bij hun vergadering en staan altijd onder Alle bestanden.</li>' +
       '<li>Hetzelfde stuk in een ander formaat of een vorige versie (PDF-versie, "(oorspronkelijk)") staat op één regel. Klik met de rechtermuisknop of op <b>versies</b> om alle versies te zien, elk met openen, mailen en downloaden.</li>' +
-      '<li>Dubbelklik of <b>👁</b> opent een bestand, <b>⤓</b> downloadt het, <b>✉</b> maakt een conceptmail met het bestand als bijlage: open het gedownloade bestand en Outlook start een nieuwe mail.</li>' +
+      '<li>Dubbelklik of <b>' + ic('visibility') + '</b> opent een bestand, <b>' + ic('download') + '</b> downloadt het, <b>' + ic('mail') + '</b> maakt een conceptmail met het bestand als bijlage: open het gedownloade bestand en Outlook start een nieuwe mail.</li>' +
       '<li><b>Vergadering ›</b> opent de bijbehorende vergadering, met het stuk in de viewer.</li>' +
-      '<li><b>🗑 Verwijderen</b> haalt een bestand alleen uit dit overzicht; in de vergadering blijft het staan. Met <b>Verwijderd tonen</b> en <b>↩ Terugzetten</b> haal je het terug.</li>' +
+      '<li><b>' + ic('delete') + ' Verwijderen</b> haalt een bestand alleen uit dit overzicht; in de vergadering blijft het staan. Met <b>Verwijderd tonen</b> en <b>' + ic('restore_from_trash') + ' Terugzetten</b> haal je het terug.</li>' +
       '<li>Selecteer meerdere bestanden met de vinkjes (of Ctrl+klik) om ze in één keer te openen, downloaden, mailen of verwijderen.</li></ul>' },
     week: { t: 'Weekagenda importeren', h:
       '<p>Je Outlook-agenda van de komende dagen in één keer inlezen als vergaderingen.</p>' +
@@ -3906,7 +4046,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<p>Sneller: zet de opdracht <b>Opslaan als agenda</b> in de werkbalk Snelle toegang. Hoe dat gaat, staat onderaan de pagina.</p>' +
       '<h3>2. Inlezen en kiezen</h3><ul><li>Kies het .ics-bestand of sleep het in MeMeet. Je ziet eerst een lijst: <b>Nieuw</b>, <b>Bijwerken</b> of <b>Staat er al</b>.</li>' +
       '<li>Klik op een regel om hem aan of uit te zetten en klik op <b>Importeer geselecteerde</b>. Wat je uitvinkt, staat de volgende keer ook uit.</li>' +
-      '<li>Blokken, reistijd, uitloop en korte afspraken direct naast een andere vergadering worden overgeslagen. Met <b>⚙ Niet importeren…</b> beheer je de trefwoorden en minuten, en geef je eerder uitgevinkte titels weer vrij.</li>' +
+      '<li>Blokken, reistijd, uitloop en korte afspraken direct naast een andere vergadering worden overgeslagen. Met <b>' + ic('settings') + ' Niet importeren…</b> beheer je de trefwoorden en minuten, en geef je eerder uitgevinkte titels weer vrij.</li>' +
       '<li>Hele-dag-afspraken, geannuleerde afspraken, afspraken die geweest zijn en afspraken zonder titel worden niet geïmporteerd.</li></ul>' +
       '<h3>Wat er gebeurt</h3><ul><li>Elke afspraak wordt een vergadering met datum, tijd, locatie, vergaderlink en genodigden (de organisator vooraan). Een link naar iBabs in de tekst van de afspraak komt in het veld iBabs-link; een import zonder iBabs-link laat een bestaande of zelf geplakte link staan.</li>' +
       '<li>Bijlagen worden stukken, in hun eigen formaat. Een mail als bijlage blijft een mail; zijn bijlagen komen er als losse stukken achter. Een zip wordt uitgepakt.</li>' +
@@ -3934,7 +4074,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if ($('#helpPanel')) { closeHelp(); return; }
     var k = helpTopic(), bg = D.createElement('div'), p = D.createElement('aside');
     bg.className = 'helpbg'; bg.id = 'helpBg'; p.className = 'helppanel'; p.id = 'helpPanel'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-labelledby', 'helpT');
-    setHTML(p, '<div class="helphead"><span class="helpq">?</span><h2 id="helpT">Help</h2><button type="button" class="helpx" id="helpX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div>' +
+    setHTML(p, '<div class="helphead"><span class="helpq">' + ic('help') + '</span><h2 id="helpT">Help</h2><button type="button" class="helpx" id="helpX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="helptabs" role="tablist"><button type="button" role="tab" data-tab="page">' + esc(HELP[k].t) + '</button><button type="button" role="tab" data-tab="faq">Veelgestelde vragen</button><button type="button" role="tab" data-tab="about">Hoe werkt MeMeet</button></div>' +
       '<div class="helpbody" id="helpBody"></div><div class="helpfoot">MeMeet ' + esc(memeetVersion()) + ' · EUPL-1.2 · <a href="' + GITHUB + '" target="_blank" rel="noopener">GitHub</a></div>');
     D.body.appendChild(bg); D.body.appendChild(p);
@@ -4379,7 +4519,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var shown = plan.items.filter(function (p) { return !p.minor; }), act = shown.filter(function (p) { return p.status !== 'ongewijzigd'; }), nOn = act.filter(function (p) { return p.on; }).length;
     var skip = []; if (plan.skipDay) skip.push(plan.skipDay + ' hele-dag-afspraak' + (plan.skipDay === 1 ? '' : 'en')); if (plan.skipCan) skip.push(plan.skipCan + ' geannuleerd'); if (plan.skipNoTitle) skip.push(plan.skipNoTitle + ' zonder titel' + (plan.skipPriv ? ' (privé: vink in Outlook bij Meer opties ook Details van privé-items opnemen aan)' : ''));
     var nMinor = plan.items.filter(function (p) { return p.minor; }).length;
-    var h = '<section class="card wkplan"><div class="wkhead"><h2>Kies wat je wilt importeren</h2><button type="button" class="btn sm" id="wkIgn">⚙ Niet importeren…</button></div><p class="muted">' + esc(plan.names.join(', ')) + ' · ' + shown.length + ' afspra' + (shown.length === 1 ? 'ak' : 'ken') + (skip.length ? ' · niet getoond: ' + skip.join(', ') : '') +
+    var h = '<section class="card wkplan"><div class="wkhead"><h2>Kies wat je wilt importeren</h2><button type="button" class="btn sm" id="wkIgn">' + ic('settings') + ' Niet importeren…</button></div><p class="muted">' + esc(plan.names.join(', ')) + ' · ' + shown.length + ' afspra' + (shown.length === 1 ? 'ak' : 'ken') + (skip.length ? ' · niet getoond: ' + skip.join(', ') : '') +
       '. Vink uit wat je niet wilt importeren. Wat je uitvinkt, staat de volgende keer ook uit.</p>';
     if (nMinor) h += '<p class="wklegend">' + nMinor + ' afspra' + (nMinor === 1 ? 'ak wordt' : 'ken worden') + ' overgeslagen (blokken, reistijd, uitloop of korte afspraken direct naast een andere vergadering). <button type="button" class="link" id="wkShowMin">' + (plan.showMinor ? 'Verbergen' : 'Toon welke') + '</button></p>' + (plan.showMinor ? '<ul class="wkmin">' + plan.items.filter(function (p) { return p.minor; }).map(function (p) { return '<li>' + esc(fmtShort(p.date)) + ' ' + esc((p.r.start || '') + (p.r.end ? '–' + p.r.end : '')) + ' <b>' + esc(p.title) + '</b> <span class="muted">(' + esc(p.minor) + ')</span></li>'; }).join('') + '</ul>' : '');
     h += '<div class="tw"><table class="wkt"><thead><tr><th class="cb"><input type="checkbox" id="wkall" title="Alles aan of uit"' + (act.length && nOn === act.length ? ' checked' : '') + '></th><th>Datum</th><th>Tijd</th><th>Afspraak</th><th>Locatie</th><th>Bijlagen</th><th>Status</th></tr></thead><tbody>';
@@ -4387,7 +4527,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       if (p.minor) return '';
       var r = p.r, dim = p.status === 'ongewijzigd';
       return '<tr data-wk="' + i + '" class="' + (dim ? 'dim' : p.on ? 'sel' : 'off') + (p.minor ? ' minor' : '') + '"' + (p.minor ? ' title="Waarschijnlijk geen vergadering: ' + esc(p.minor) + '"' : '') + '><td class="cb">' + (dim ? '' : '<input type="checkbox"' + (p.on ? ' checked' : '') + '>') + '</td><td>' + esc(fmtShort(p.date)) + '</td><td>' + esc((r.start || '') + (r.end ? '–' + r.end : '')) + '</td><td><b>' + esc(p.title) + '</b></td><td>' + esc(r.location || '') + '</td>' +
-        '<td>' + (p.atts.length ? '<span title="' + esc(p.atts.map(function (a) { return attTarget(a); }).join('\n')) + '">📎 ' + p.atts.length + '</span>' : '') + '</td>' +
+        '<td>' + (p.atts.length ? '<span title="' + esc(p.atts.map(function (a) { return attTarget(a); }).join('\n')) + '">' + ic('attach_file') + ' ' + p.atts.length + '</span>' : '') + '</td>' +
         '<td><span class="pill' + (dim ? ' grey' : '') + '">' + (p.status === 'nieuw' ? 'Nieuw' : p.status === 'bijwerken' ? 'Bijwerken' : 'Staat er al') + '</span></td></tr>';
     }).join('') + '</tbody></table></div>';
     h += '<div class="wkacts"><button type="button" class="btn pri" id="wkGo"' + (nOn ? '' : ' disabled') + '>Importeer geselecteerde (' + nOn + ')</button><button type="button" class="btn" id="wkCancel">Annuleren</button></div></section>';
@@ -4415,10 +4555,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       var skipT = Object.keys(A.data.icsSkip || {}).sort();
       setHTML(dlg, '<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT"><h2 id="dlgT">Niet importeren</h2>' +
         '<p class="muted">Afspraken met een van deze woorden in de titel worden overgeslagen. Hoofdletters maken niet uit.</p>' +
-        '<div class="chips">' + (g.words.length ? g.words.map(function (w, i) { return '<span class="chip">' + esc(w) + '<button type="button" data-rmw="' + i + '" title="Verwijderen" aria-label="' + esc(w) + ' verwijderen">✕</button></span>'; }).join('') : '<span class="muted">Geen trefwoorden.</span>') + '</div>' +
+        '<div class="chips">' + (g.words.length ? g.words.map(function (w, i) { return '<span class="chip">' + esc(w) + '<button type="button" data-rmw="' + i + '" title="Verwijderen" aria-label="' + esc(w) + ' verwijderen">' + ic('close') + '</button></span>'; }).join('') : '<span class="muted">Geen trefwoorden.</span>') + '</div>' +
         '<form class="addw" id="addW"><input id="newW" placeholder="Nieuw trefwoord, bijv. Lunch of Focustijd" autocomplete="off"><button type="submit" class="btn sm">Toevoegen</button></form>' +
         '<label class="chk2"><input type="checkbox" id="shortOn"' + (g.shortOn ? ' checked' : '') + '> Ook afspraken van <input type="number" id="shortMin" min="5" max="60" step="5" value="' + g.shortMin + '"> minuten of korter overslaan als ze direct voor of na een andere vergadering liggen</label>' +
-        (skipT.length ? '<h3>Eerder uitgevinkt</h3><p class="muted">Deze titels staan bij een volgende import standaard uit. Haal ze hier weg om ze weer aan te zetten.</p><div class="chips">' + skipT.map(function (t) { return '<span class="chip grey">' + esc(t) + '<button type="button" data-rmt="' + esc(t) + '" title="Weghalen">✕</button></span>'; }).join('') + '</div>' : '') +
+        (skipT.length ? '<h3>Eerder uitgevinkt</h3><p class="muted">Deze titels staan bij een volgende import standaard uit. Haal ze hier weg om ze weer aan te zetten.</p><div class="chips">' + skipT.map(function (t) { return '<span class="chip grey">' + esc(t) + '<button type="button" data-rmt="' + esc(t) + '" title="Weghalen">' + ic('close') + '</button></span>'; }).join('') + '</div>' : '') +
         '<div class="dlgacts"><button type="button" class="btn" id="dlgReset">Standaard herstellen</button><span class="sp"></span><button type="button" class="btn pri" id="dlgClose">Klaar</button></div></div>');
       $$('[data-rmw]', dlg).forEach(function (b) { b.onclick = function () { g.words.splice(+b.dataset.rmw, 1); changed(); }; });
       $$('[data-rmt]', dlg).forEach(function (b) { b.onclick = function () { delete A.data.icsSkip[b.dataset.rmt]; changed(); }; });
@@ -4513,7 +4653,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var nOpen = A.store ? openCount() : 0;
     h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
     if (A.store) {
-      h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">📁 Wijzig datamap</button>';
+      h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">' + ic('folder') + ' Wijzig datamap</button>';
     }
     setHTML(s, h);
     var cs = $('#chgStore', s); if (cs) cs.onclick = chooseFolder;
@@ -4526,7 +4666,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<ol class="steps"><li><b>Geef MeMeet een vaste plek</b>: zet <code>MeMeet.html</code> in <b>Documenten\\MeMeet</b>' + (here ? ' <span class="muted">(nu: ' + esc(here) + ')</span>' : '') + '.</li>' +
       '<li><b>Kies de datamap</b>: klik hieronder en kies de map <b>MeMeet</b> waar dit bestand in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan en zet er het icoon naast.</li>' +
       '<li><b>Maak een snelkoppeling</b> op je bureaublad en in de taakbalk, met <code>C:\\Windows\\explorer.exe</code> ervoor. Hoe dat stap voor stap gaat, laat MeMeet je zien na het kiezen van de map.</li></ol>' +
-      (fsOk ? '<p><button class="btn pri" id="pickDir">📁 Datamap kiezen…</button> <a class="btn" href="#/installatie">Uitgebreide uitleg</a></p>' : '<p class="note">Deze browser kan geen map op je computer gebruiken. Open MeMeet in Microsoft Edge of Google Chrome.</p>') +
+      (fsOk ? '<p><button class="btn pri" id="pickDir">' + ic('folder') + ' Datamap kiezen…</button> <a class="btn" href="#/installatie">Uitgebreide uitleg</a></p>' : '<p class="note">Deze browser kan geen map op je computer gebruiken. Open MeMeet in Microsoft Edge of Google Chrome.</p>') +
       '<p class="note"><b>Back-up:</b> kopieer af en toe de hele map <b>memeet-data</b>, mét het bestand <b>memeet.json</b> erin, naar bijvoorbeeld OneDrive of een netwerkschijf. Terugzetten doe je door die map weer als datamap te kiezen. Meer uitleg vind je onder de knop <b>?</b> rechtsboven.</p>' +
       '<p class="note">Mag je geen map kiezen? <button class="link" id="useIdb">Bewaar alles in de browser</button> (alleen op deze computer, zonder bestanden).</p>' +
       (A.hadDir ? '<button class="btn" id="recon">Verder met de vorige map</button>' : '') + '</div>');
@@ -4563,7 +4703,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       (A.store && A.store.kind === 'map' ? '<p class="okline">✓ De gegevens staan in de map <b>' + esc(A.store.name) + '</b>.</p>' : A.store ? '<p>De gegevens worden nu in de browser bewaard. Wil je ze in een map op je computer? Klik dan op <b>Datamap kiezen</b>.</p>' : '') +
       '<p>Klik op <b>Datamap kiezen</b> en kies de map <b>MeMeet</b> waar <code>MeMeet.html</code> in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan, met de submappen <b>Vergaderingen</b>, <b>Aantekeningen</b> en <b>Actielijst</b>, en zet het icoon <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</p>' +
       '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    memeet.json</pre>' +
-      '<p><button class="btn' + (A.store && A.store.kind === 'map' ? '' : ' pri') + '" id="insPick">📁 Datamap kiezen…</button></p></section>';
+      '<p><button class="btn' + (A.store && A.store.kind === 'map' ? '' : ' pri') + '" id="insPick">' + ic('folder') + ' Datamap kiezen…</button></p></section>';
     h += '<section class="card wk"><h2>3. Snelkoppeling op het bureaublad en in de taakbalk</h2>' +
       '<p>De snelkoppeling start <code>explorer.exe</code> met MeMeet als bestand. Omdat het doel een programma is, kun je hem daarna ook naar de taakbalk slepen.</p><ol>' +
       '<li>Klik met de rechtermuisknop op een lege plek op het bureaublad en kies <b>Nieuw</b> › <b>Snelkoppeling</b>.</li>' +
@@ -4605,7 +4745,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var t = todayIso(), ms = A.data.meetings;
     var today = ms.filter(function (m) { return m.date === t; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
     function dayList(arr) { return '<ul class="tl">' + arr.map(function (m) {
-        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tjn">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen venster">iBabs</button>' : '') + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">Deelnemen</a>' : '') + '</span></span></li>';
+        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tib">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen tabblad">iBabs</button>' : '') + '</span><span class="tjn">' + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">' + ic('videocam') + ' Deelnemen</a>' : '') + '</span></span></li>';
       }).join('') + '</ul>'; }
     var tm0 = new Date(); tm0.setDate(tm0.getDate() + 1); var tmw = tm0.getFullYear() + '-' + pad(tm0.getMonth() + 1) + '-' + pad(tm0.getDate());
     var tomorrow = ms.filter(function (m) { return m.date === tmw; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
@@ -4622,41 +4762,44 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var hr = new Date().getHours(), greet = hr < 6 ? 'Goedenacht' : hr < 12 ? 'Goedemorgen' : hr < 18 ? 'Goedemiddag' : 'Goedenavond';
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
-    var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">↻</button></section>';
-    h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">📅 Importeer weekagenda</a><button class="btn" id="imp">Mail importeren…</button><a class="btn pri" href="#/nieuw" id="new">+ Nieuwe vergadering</a></div></div>';
+    var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
+    h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><button class="btn" id="imp">' + ic('upload_file') + ' Mail importeren…</button><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
-    if (A.showToday == null || A.showTodayDay !== t + (late ? 'L' : '')) { A.showToday = !late; A.showTodayDay = t + (late ? 'L' : ''); } /* standaard open, na 20:30 standaard dicht */
-    h += '<section class="card today arch"><button type="button" class="archbtn daybtn" id="tdy" aria-expanded="' + (A.showToday ? 'true' : 'false') + '"><span>' + (!today.length ? '' : A.showToday ? '▾' : '▸') + '</span> Vandaag <span class="muted">' + esc(fmtLong(t)) + ' · ' + (today.length ? today.length + ' vergadering' + (today.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (today.length ? '<span class="link">' + (A.showToday ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>';
+    /* alle vier de onderdelen (vandaag, morgen, volgende, archief) staan standaard open; dichtklappen geldt tot je MeMeet opnieuw opent */
+    if (A.showToday == null) A.showToday = true;
+    h += '<section class="card today arch"><button type="button" class="archbtn daybtn" id="tdy" aria-expanded="' + (A.showToday ? 'true' : 'false') + '"><span>' + (!today.length ? '' : A.showToday ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Vandaag <span class="muted">' + esc(fmtLong(t)) + ' · ' + (today.length ? today.length + ' vergadering' + (today.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (today.length ? '<span class="link">' + (A.showToday ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>';
     if (!A.showToday) { /* ingeklapt */ }
     else if (today.length) {
       h += dayList(today);
     } /* geen vergaderingen vandaag: niets eronder (de kop zegt het al) */
     h += '</section>';
     if (A.showTomorrow == null) A.showTomorrow = true; /* standaard open */
-    h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '▾' : '▸') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
+    h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
       (A.showTomorrow && tomorrow.length ? dayList(tomorrow) : '') + '</section>';
+    if (A.showUp == null) A.showUp = true;
+    if (A.showArch == null) A.showArch = true;
     var showF = A.showUp || A.showArch || q || f.year;
     if (showF) h += '<section class="card fcard"><div class="filters"><input id="q" type="search" placeholder="Zoeken op titel, locatie, namen of aantekeningen…" value="' + esc(f.q) + '">' +
       '<select id="fYear"><option value="">Alle jaren</option>' + Object.keys(years).sort().reverse().map(function (y) { return '<option' + (f.year === y ? ' selected' : '') + '>' + y + '</option>'; }).join('') + '</select></div></section>';
     var cols = [['title', 'Titel'], ['date', 'Datum'], ['start', 'Start'], ['end', 'Eind'], ['location', 'Locatie'], ['files', 'Stukken']];
     var hs = A.hsel || (A.hsel = {}); Object.keys(hs).forEach(function (id) { if (!byId(id)) delete hs[id]; });
     var nSel = Object.keys(hs).length;
-    h += '<div class="bulkbar" id="bulkbar"' + (nSel ? '' : ' hidden') + '><b id="bulkN"></b><button type="button" class="btn sm danger" id="bulkDel">🗑 Verwijderen</button><button type="button" class="link" id="bulkClr">Selectie opheffen</button></div>';
+    h += '<div class="bulkbar" id="bulkbar"' + (nSel ? '' : ' hidden') + '><b id="bulkN"></b><button type="button" class="btn sm danger" id="bulkDel">' + ic('delete') + ' Verwijderen</button><button type="button" class="link" id="bulkClr">Selectie opheffen</button></div>';
     function tbl(rows, empty, arch) {
       rows = sorted(rows, arch);
       var allOn = rows.length && rows.every(function (m) { return hs[m.id]; });
-      var o = '<div class="tw"><table class="mtb"><thead><tr><th class="cb"><input type="checkbox" data-all="' + (arch ? 'arch' : 'up') + '" title="Alles in deze lijst selecteren"' + (allOn ? ' checked' : '') + '></th>' + cols.map(function (c) { var on = A.sort.key === c[0], dn = A.sort.dir * (arch && c[0] === 'date' ? -1 : 1) < 0; return '<th class="c-' + c[0] + (on ? ' on' : '') + '" data-sort="' + c[0] + '">' + c[1] + '<i>' + (on ? (dn ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
+      var o = '<div class="tw"><table class="mtb"><thead><tr><th class="cb"><input type="checkbox" data-all="' + (arch ? 'arch' : 'up') + '" title="Alles in deze lijst selecteren"' + (allOn ? ' checked' : '') + '></th>' + cols.map(function (c) { var on = A.sort.key === c[0], dn = A.sort.dir * (arch && c[0] === 'date' ? -1 : 1) < 0; return '<th class="c-' + c[0] + (on ? ' on' : '') + '" data-sort="' + c[0] + '">' + c[1] + '<i>' + (on ? (dn ? '' + ic('arrow_downward') + '' : '' + ic('arrow_upward') + '') : '' + ic('unfold_more') + '') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
       o += rows.length ? rows.map(function (m) { return row(m, cols.map(function (c) { return c[0]; })).replace('<tr data-id="' + esc(m.id) + '">', '<tr data-id="' + esc(m.id) + '"' + (hs[m.id] ? ' class="sel"' : '') + '><td class="cb"><input type="checkbox" data-hs="' + esc(m.id) + '"' + (hs[m.id] ? ' checked' : '') + '></td>'); }).join('') : '<tr><td colspan="7" class="empty">' + empty + '</td></tr>';
       return o + '</tbody></table></div>';
     }
     var upcoming = list.filter(function (m) { return !m.date || m.date > tmw; }), past = list.filter(function (m) { return m.date && m.date < t; });
     A.hlists = { up: sorted(upcoming), arch: sorted(past, true) };
-    h += '<section class="card arch upc"><button type="button" class="archbtn" id="upc" aria-expanded="' + (A.showUp ? 'true' : 'false') + '"><span>' + (A.showUp ? '▾' : '▸') + '</span> Volgende vergaderingen <span class="muted">' + upcoming.length + ' vergadering' + (upcoming.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showUp ? 'verbergen' : 'weergeven') + '</span></button>';
+    h += '<section class="card arch upc"><button type="button" class="archbtn" id="upc" aria-expanded="' + (A.showUp ? 'true' : 'false') + '"><span>' + (A.showUp ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Volgende vergaderingen <span class="muted">' + upcoming.length + ' vergadering' + (upcoming.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showUp ? 'verbergen' : 'weergeven') + '</span></button>';
     if (A.showUp) h += '<div class="upbody">' + tbl(upcoming, ms.length ? (past.length ? 'Geen komende vergaderingen' + (q || f.year ? ' met deze filters' : '') + '. Eerdere vergaderingen staan in het archief.' : 'Geen vergaderingen gevonden met deze filters.') : 'Nog geen vergaderingen. Sleep een mail naar dit venster om te beginnen.');
     if (A.showUp) h += '<p class="note">Klik op een kolomkop om te sorteren.</p></div>';
     h += '</section>';
-    h += '<section class="card arch"><button type="button" class="archbtn" id="arch"><span>' + (A.showArch ? '▾' : '▸') + '</span> Archief <span class="muted">' + past.length + ' eerdere vergadering' + (past.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showArch ? 'verbergen' : 'weergeven') + '</span></button>';
+    h += '<section class="card arch"><button type="button" class="archbtn" id="arch"><span>' + (A.showArch ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Archief <span class="muted">' + past.length + ' eerdere vergadering' + (past.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showArch ? 'verbergen' : 'weergeven') + '</span></button>';
     if (A.showArch) h += tbl(past, 'Geen eerdere vergaderingen' + (q || f.year ? ' met deze filters' : '') + '.', true);
     h += '</section>';
     setHTML($('#main'), h);
@@ -4722,10 +4865,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     h += '<form class="card meta mline" id="frm" autocomplete="off"><input class="ttl" name="title" required placeholder="Titel van de vergadering" title="Titel" value="' + esc(m.title) + '">' +
       '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
-      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">🔗</button></span>' +
-      '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen tabblad"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button></span>' +
-      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">🗑</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">Terug</a></span></form>';
-    h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">📋 Meeneempunten</button>') + '</span></div>';
+      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">' + ic('link') + '</button></span>' +
+      '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button><button type="button" class="btn sm icon" id="ibEd" aria-label="iBabs-link">' + ic('link') + '</button></span>' +
+      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">' + ic('delete') + '</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">' + ic('arrow_back') + ' Terug</a></span></form>';
+    h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">' + ic('checklist') + ' Meeneempunten</button>') + '</span></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
     if (!isNew) h += vervolgRowHtml(m);
     var dsel = isNew ? {} : docSel(m);
@@ -4739,7 +4882,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
            het origineel downloaden via ⋯ in de viewer. */
         var na = annCount(f.ann), tip = f.name + (f.conv === 'vervangen' ? '\nDe viewer toont de PDF-versie die je erbij hebt gezet.' : '') + (!canView(f.name, f.type) ? '\nDit bestandstype kan de viewer niet tonen; download het origineel via ⋯ in de viewer.' : '') + (na ? '\n' + na + ' aantekening' + (na === 1 ? '' : 'en') + ' in dit stuk.' : '');
         h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(tip) + '">' + esc(f.name) + '</span>' +
-          '<button type="button" class="link red rmx" data-rm="' + i + '" title="Verwijderen" aria-label="' + esc(f.name) + ' verwijderen">✕</button></div></li>';
+          '<button type="button" class="link red rmx" data-rm="' + i + '" title="Verwijderen" aria-label="' + esc(f.name) + ' verwijderen">' + ic('close') + '</button></div></li>';
       }
     });
     if (!list.length) h += '<li class="muted empty">Nog geen stukken.</li>';
@@ -4770,7 +4913,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       if (isNew) return; readForm();
       if (!m.title) { toast('Vul een titel in.', 'warn'); return; }
       m.updated = new Date().toISOString(); await persist(); renderSide();
-      var st = $('#svst'); if (st) { st.textContent = 'opgeslagen ✓'; clearTimeout(autoSave.t); autoSave.t = setTimeout(function () { var s2 = $('#svst'); if (s2) s2.textContent = ''; }, 1800); }
+      var st = $('#svst'); if (st) { setHTML(st, 'opgeslagen ' + ic('check')); clearTimeout(autoSave.t); autoSave.t = setTimeout(function () { var s2 = $('#svst'); if (s2) s2.textContent = ''; }, 1800); }
     }
     if (!isNew) $$('[name]', frm).forEach(function (x) { if (x.name !== 'link' && x.name !== 'ibabs') x.addEventListener('change', autoSave); });
     var del = $('#del'); if (del) del.onclick = async function () {
@@ -4793,19 +4936,29 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });
     bindFolders($('#main'));
-    /* vergaderlink: geen invoervak meer (de link komt uit de uitnodiging); met 🔗 voeg je hem toe of wijzig je hem */
-    var jb = $('#joinBtn'), le = $('#linkEd');
-    function upd() { var ok = /^https?:\/\//i.test(m.link || ''); jb.hidden = !ok; jb.href = ok ? m.link : '#'; le.title = ok ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)'; }
-    le.onclick = async function () {
-      var v = prompt('Vergaderlink (Teams, Zoom of een andere link).\nLaat het vak leeg om de link weg te halen.', m.link || ''); if (v === null) return;
-      v = v.trim(); if (v && !/^https?:\/\//i.test(v)) { toast('Dat is geen geldige link: hij moet met https:// beginnen.', 'warn'); return; }
-      m.link = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? 'Vergaderlink bewaard.' : 'Vergaderlink weggehaald.', 'ok'); }
-    };
-    /* iBabs-link: de knoppen verschijnen zodra er een link staat; een gewijzigde link wordt meteen bewaard, net als de vergaderlink */
-    var ib = $('[name=ibabs]', frm), ibB = $('#ibBtn');
-    function updIb() { ibB.hidden = !/^https?:\/\//i.test(ib.value.trim()); }
-    ib.addEventListener('input', updIb); ib.addEventListener('change', async function () { readForm(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); } });
-    ibB.onclick = function () { readForm(); openIbabs(m); };
+    /* Vergaderlink en iBabs-link: geen invoervakken. Zonder link is de knop grijs; met het link-icoon ernaast (of een klik op de
+       grijze knop) plak je de link. Een leeg vak haalt de link weg. Een bestaande vergadering wordt meteen bewaard. */
+    var jb = $('#joinBtn'), le = $('#linkEd'), ibB = $('#ibBtn'), ibE = $('#ibEd');
+    function isUrl(v) { return /^https?:\/\//i.test(String(v || '').trim()); }
+    function upd() {
+      var ok = isUrl(m.link); jb.classList.toggle('off', !ok); jb.href = ok ? m.link : '#';
+      jb.title = ok ? 'Deelnemen aan de online vergadering' : 'Nog geen vergaderlink. Klik om er een te plakken.';
+      le.title = ok ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)';
+      var oi = isUrl(m.ibabs); ibB.classList.toggle('off', !oi);
+      ibB.title = oi ? 'De stukken in iBabs openen, in een eigen tabblad' : 'Nog geen iBabs-link. Klik om er een te plakken.';
+      ibE.title = oi ? 'iBabs-link wijzigen' : 'iBabs-link toevoegen';
+    }
+    async function askLink(key, what, hint) {
+      var v = prompt(what + (hint ? ' (' + hint + ')' : '') + '.\nLaat het vak leeg om de link weg te halen.', m[key] || ''); if (v === null) return false;
+      v = v.trim(); if (v && !isUrl(v)) { toast('Dat is geen geldige link: hij moet met https:// beginnen.', 'warn'); return false; }
+      m[key] = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? what + ' bewaard.' : what + ' weggehaald.', 'ok'); }
+      return true;
+    }
+    le.onclick = function () { askLink('link', 'Vergaderlink', 'Teams, Zoom of een andere link'); };
+    ibE.onclick = function () { askLink('ibabs', 'iBabs-link', 'de link naar de vergadering in iBabs'); };
+    jb.addEventListener('click', function (e) { if (!isUrl(m.link)) { e.preventDefault(); le.click(); } });
+    ibB.onclick = function () { readForm(); if (!isUrl(m.ibabs)) { ibE.click(); return; } openIbabs(m); };
+    upd();
     if (!isNew && m.link === undefined && m.source && m.source.file) {
       A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m) { upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });
     }
@@ -4948,18 +5101,18 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   /* ------------------------------------------------------------- viewer met aantekeningen (pdf.js) */
   var PV = { tok: 0, tool: 'select', colors: { mark: '#ffd400' }, noteColor: '#e8590c', scale: 1, fit: true, q: '' };
   var SVGNS = 'http://www.w3.org/2000/svg';
-  var TOOLS = [['select', 'Tekst', 'Tekst selecteren en kopiëren', 'Aa'], ['mark', 'Markeren', 'Selecteer tekst; die wordt dan gemarkeerd', '🖍'], ['note', 'Opmerking', 'Klik op een woord om er een opmerking bij te zetten', '💬'], ['erase', 'Gum', 'Klik op een markering of opmerking om die te verwijderen', '⌫']];
+  var TOOLS = [['select', 'Tekst', 'Tekst selecteren en kopiëren', ic('match_case')], ['mark', 'Markeren', 'Selecteer tekst; die wordt dan gemarkeerd', '' + ic('ink_highlighter') + ''], ['note', 'Opmerking', 'Klik op een woord om er een opmerking bij te zetten', '' + ic('add_comment') + ''], ['erase', 'Gum', 'Klik op een markering of opmerking om die te verwijderen', '' + ic('ink_eraser') + '']];
   var COLORS = ['#ffd400', '#7ee081'];
   var MARGIN = 170;
   function isNote(s) { return s.t === 'note' || s.t === 'text'; }
   function hasNotes(ann) { return Object.keys(ann || {}).some(function (k) { return (ann[k] || []).some(isNote); }); }
   async function draftPdf(f) { if (f._pdf === undefined) { var r = await convertToPdf(f.name, f.type, f.blob); f._pdf = r ? new Blob([r.bytes], { type: 'application/pdf' }) : null; } return f._pdf; }
   function maxLabel() { return A.pvMax ? 'Verkleinen (Esc)' : 'Vergroten tot volledig venster'; }
-  function maxBtn() { return '<button type="button" class="tl mx' + (A.pvMax ? ' on' : '') + '" data-act="max" title="' + maxLabel() + '" aria-label="' + maxLabel() + '"><span class="mxi"></span></button>'; }
+  function maxBtn() { return '<button type="button" class="tl mx' + (A.pvMax ? ' on' : '') + '" data-act="max" title="' + maxLabel() + '" aria-label="' + maxLabel() + '">' + ic(A.pvMax ? 'fullscreen_exit' : 'fullscreen') + '</button>'; }
   function pvMax(on) {
     var el = $('#pv'); A.pvMax = !!on; if (!el) return;
     el.classList.toggle('max', A.pvMax);
-    var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); }
+    var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); setHTML(b, ic(A.pvMax ? 'fullscreen_exit' : 'fullscreen')); }
     requestAnimationFrame(function () { if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } });
   }
   /* Ingescande PDF's gebruiken vaak CCITT-fax, JBIG2 of JPEG 2000 voor de pagina-afbeelding. pdf.js pakt die uit met WebAssembly
@@ -4990,22 +5143,22 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var editMode = PV.mode === 'edit' && !isNew && canEdit(f);
     var tabs = !isNew && canEdit(f) ? '<div class="vtabs"><button type="button" data-mode="pdf" class="' + (editMode ? '' : 'on') + '">Bekijken</button><button type="button" data-mode="edit" class="' + (editMode ? 'on' : '') + '" title="Het originele bestand bewerken">Bewerken</button></div>' : '';
     if (editMode) {
-      setHTML(el, '<div class="pvbar"><div class="pvt">' + tabs + '<b class="pvname" title="' + esc(f.name) + '">' + (i + 1) + '. ' + esc(f.name) + '</b></div><div class="pvtools"><button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + '>‹</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + '>›</button><button type="button" class="tl" data-act="orig" title="Origineel downloaden">⤓</button>' + maxBtn() + '</div></div><div class="edwrap" id="edw"></div>');
+      setHTML(el, '<div class="pvbar"><div class="pvt">' + tabs + '<b class="pvname" title="' + esc(f.name) + '">' + (i + 1) + '. ' + esc(f.name) + '</b></div><div class="pvtools"><button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button><button type="button" class="tl" data-act="orig" title="Origineel downloaden">' + ic('download') + '</button>' + maxBtn() + '</div></div><div class="edwrap" id="edw"></div>');
       $$('[data-mode]', el).forEach(function (b) { b.onclick = function () { switchMode(m, i, b.dataset.mode); }; });
       $$('[data-act]', el).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); pvAct(b.dataset.act, m, i); }; });
       A.edCtl = await mountEditor(m, f, $('#edw'), function () { renderDocList(m); });
       return;
     }
     var hint = !editable ? 'Sla de vergadering eerst op. Daarna kun je markeren en opmerkingen maken.' : !/\.pdf$/i.test(f.name) && !(f.pdf && f.conv === 'vervangen') ? 'Weergave van het origineel (' + ((/\.([^.]+)$/.exec(f.name) || ['', '?'])[1]).toUpperCase() + '). De opmaak kan iets afwijken; het bestand zelf blijft ongewijzigd.' : '';
-    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">i</span>' : '') + '<span class="pvst" id="pvst"></span>';
+    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">' + ic('info') + '</span>' : '') + '<span class="pvst" id="pvst"></span>';
     TOOLS.forEach(function (t) { hb += '<button type="button" class="tl' + (PV.tool === t[0] ? ' on' : '') + '" data-tool="' + t[0] + '" title="' + t[1] + ': ' + t[2] + '"' + (!editable && t[0] !== 'select' ? ' disabled' : '') + '><span class="tic">' + t[3] + '</span><span class="tlb">' + t[1] + '</span></button>'; });
     hb += '<span class="cols" id="pvcols">' + COLORS.map(function (c) { return '<button type="button" class="col" data-color="' + c + '" title="Kleur" style="--c:' + c + '"></button>'; }).join('') + '</span>';
-    hb += '<button type="button" class="tl" data-act="undo" title="Ongedaan maken (Ctrl+Z)"' + (editable ? '' : ' disabled') + '>↶</button><button type="button" class="tl" data-act="redo" title="Opnieuw (Ctrl+Y)"' + (editable ? '' : ' disabled') + '>↷</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="zout" title="Kleiner">−</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Groter">+</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + '>‹</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + '>›</button>';
-    hb += maxBtn() + '<button type="button" class="tl" data-act="more" title="Meer">⋯</button><div class="pvmenu" id="pvmenu" hidden>' +
+    hb += '<button type="button" class="tl" data-act="undo" title="Ongedaan maken (Ctrl+Z)"' + (editable ? '' : ' disabled') + '>' + ic('undo') + '</button><button type="button" class="tl" data-act="redo" title="Opnieuw (Ctrl+Y)"' + (editable ? '' : ' disabled') + '>' + ic('redo') + '</button><span class="sep"></span>';
+    hb += '<button type="button" class="tl" data-act="zout" title="Kleiner" aria-label="Kleiner">' + ic('zoom_out') + '</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Groter" aria-label="Groter">' + ic('zoom_in') + '</button><span class="sep"></span>';
+    hb += '<button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button>';
+    hb += maxBtn() + '<button type="button" class="tl" data-act="more" title="Meer">' + ic('more_horiz') + '</button><div class="pvmenu" id="pvmenu" hidden>' +
       (editable ? '<button type="button" data-act="dlann">PDF met aantekeningen downloaden</button><button type="button" data-act="clear">Alle aantekeningen in dit stuk wissen</button>' : '') +
-      '<button type="button" data-act="orig">Origineel downloaden</button><button type="button" data-act="tab">PDF openen in nieuw tabblad</button></div><span class="sp"></span><span class="srch"><input id="pvq" type="search" placeholder="Zoeken in PDF (Ctrl+F)" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)">‹</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)">›</button></span></div></div>';
+      '<button type="button" data-act="orig">Origineel downloaden</button><button type="button" data-act="tab">PDF openen in nieuw tabblad</button></div><span class="sp"></span><span class="srch"><input id="pvq" type="search" placeholder="Zoeken in PDF (Ctrl+F)" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)" aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)" aria-label="Volgende">' + ic('chevron_right') + '</button></span></div></div>';
     hb += '<div class="pvpages" id="pvp"><div class="pvmsg">Stuk wordt klaargemaakt…</div></div>';
     setHTML(el, hb);
     $$('[data-color]', el).forEach(function (b) { b.onclick = function () { if (PV.tool !== 'mark' && PV.tool !== 'note') setTool('mark'); PV.colors[PV.tool] = b.dataset.color; markColor(); }; });
@@ -5188,7 +5341,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       if (n.s.w) { var w1 = toVp(p, n.s.w[0], n.s.w[1]), w2 = toVp(p, n.s.w[2], n.s.w[3]); n.wx1 = Math.min(w1[0], w2[0]); n.wx2 = Math.max(w1[0], w2[0]); n.wy = Math.max(w1[1], w2[1]) + 1; n.ay = n.wy; n.ax = n.wx2; }
       var bx = D.createElement('div'); bx.className = 'nbox'; bx.style.fontSize = fs + 'px'; bx.style.borderLeftColor = n.s.c || PV.noteColor; bx.dataset.i = n.i;
       var tx = D.createElement('div'); tx.className = 'ntx'; tx.textContent = n.s.txt; bx.appendChild(tx);
-      if (PV.editable) { var x = D.createElement('button'); x.type = 'button'; x.className = 'nx'; x.title = 'Opmerking verwijderen'; x.textContent = '×'; bx.appendChild(x); x.onclick = function (e) { e.stopPropagation(); commit(p, function (arr) { arr.splice(n.i, 1); }); }; }
+      if (PV.editable) { var x = D.createElement('button'); x.type = 'button'; x.className = 'nx'; x.title = 'Opmerking verwijderen'; x.appendChild(icEl('close')); bx.appendChild(x); x.onclick = function (e) { e.stopPropagation(); commit(p, function (arr) { arr.splice(n.i, 1); }); }; }
       bx.addEventListener('click', function () { if (!PV.editable) return; if (PV.tool === 'erase') { commit(p, function (arr) { arr.splice(n.i, 1); }); return; } noteEditor(p, n.i, null); });
       bx.addEventListener('mouseenter', function () { var l = svg.querySelector('[data-n="' + n.i + '"]'); if (l) l.classList.add('on'); });
       bx.addEventListener('mouseleave', function () { var l = svg.querySelector('[data-n="' + n.i + '"]'); if (l) l.classList.remove('on'); });
@@ -5216,7 +5369,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     clearTimeout(PV.saveT);
     var m = PV.m;
     PV.saveT = setTimeout(async function () {
-      try { m.updated = new Date().toISOString(); await persist(); var s2 = $('#pvst'); if (s2) s2.textContent = 'opgeslagen ✓'; refreshAnnBadge(); }
+      try { m.updated = new Date().toISOString(); await persist(); var s2 = $('#pvst'); if (s2) setHTML(s2, 'opgeslagen ' + ic('check')); refreshAnnBadge(); }
       catch (e) { toast('Aantekeningen opslaan mislukt: ' + (e.message || e), 'err'); }
     }, 600);
   }
@@ -5225,7 +5378,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var b = $('.bdg.ann', li), n = annCount(PV.ann);
     if (!n) { if (b) b.remove(); return; }
     if (!b) { b = D.createElement('span'); b.className = 'bdg ann'; b.title = 'Aantekeningen'; li.insertBefore(b, $('.sp', li)); }
-    b.textContent = '✎ ' + n;
+    b.textContent = ''; b.appendChild(icEl('edit_note')); b.appendChild(D.createTextNode(' ' + n));
   }
   function commit(p, fn) {
     snapshot(); var arr = PV.ann[p.n] || (PV.ann[p.n] = []); fn(arr); if (!arr.length) delete PV.ann[p.n];
@@ -5349,10 +5502,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var old = $('#dlbar'); if (old) { clearTimeout(old._t); old._close(); }
     var bar = D.createElement('div'); bar.id = 'dlbar'; bar.setAttribute('role', 'status');
     var tx = D.createElement('div'); tx.className = 'dlt';
-    var nm = D.createElement('b'); nm.textContent = '⤓ ' + name; var sub = D.createElement('span'); sub.textContent = 'Staat het niet in je Downloads?';
+    var nm = D.createElement('b'); nm.appendChild(icEl('download')); nm.appendChild(D.createTextNode(' ' + name)); var sub = D.createElement('span'); sub.textContent = 'Staat het niet in je Downloads?';
     tx.appendChild(nm); tx.appendChild(sub);
     var again = D.createElement('button'); again.type = 'button'; again.className = 'btn sm'; again.textContent = 'Opnieuw downloaden';
-    var x = D.createElement('button'); x.type = 'button'; x.className = 'dlx'; x.title = 'Sluiten'; x.textContent = '✕';
+    var x = D.createElement('button'); x.type = 'button'; x.className = 'dlx'; x.title = 'Sluiten'; x.setAttribute('aria-label', 'Sluiten'); x.appendChild(icEl('close'));
     bar.appendChild(tx); bar.appendChild(again); bar.appendChild(x); D.body.appendChild(bar);
     bar._close = function () { if (bar.parentNode) bar.parentNode.removeChild(bar); setTimeout(function () { URL.revokeObjectURL(u); }, 60000); };
     again.onclick = function () { dlFire(u, name); clearTimeout(bar._t); bar._t = setTimeout(bar._close, 25000); };
@@ -5377,6 +5530,21 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     $('#pickDocs').onchange = function () { var f = this.files; if (f.length) handleDrop(f); this.value = ''; };
   }
   migrateLocalPrefs();
+  /* donkere modus: de schakelaar rechtsboven. Zonder eigen keuze volgt MeMeet de instelling van Windows. */
+  function curTheme() { return D.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'; }
+  function setTheme(t, save) {
+    D.documentElement.dataset.theme = t;
+    var b = $('#themeBtn'); if (b) { var dk = t === 'dark'; b.setAttribute('aria-checked', dk ? 'true' : 'false'); b.title = dk ? 'Lichte modus' : 'Donkere modus'; setHTML(b, ic(dk ? 'light_mode' : 'dark_mode')); }
+    if (save) { try { localStorage.setItem('memeet-theme', t); } catch (e) {} }
+  }
+  function initTheme() {
+    var saved = null; try { saved = localStorage.getItem('memeet-theme'); } catch (e) {}
+    var mq = W.matchMedia ? W.matchMedia('(prefers-color-scheme: dark)') : null;
+    setTheme(saved || (mq && mq.matches ? 'dark' : 'light'), false);
+    if (mq && mq.addEventListener) mq.addEventListener('change', function (e) { var s = null; try { s = localStorage.getItem('memeet-theme'); } catch (er) {} if (!s) setTheme(e.matches ? 'dark' : 'light', false); });
+    var b = $('#themeBtn'); if (b) b.onclick = function () { setTheme(curTheme() === 'dark' ? 'light' : 'dark', true); };
+  }
+  initTheme();
   A.notesOpen = true; /* de kolom Aantekeningen staat altijd open */
   W.addEventListener('hashchange', function () { if (A.flushNotes) { try { A.flushNotes(); } catch (e) {} A.flushNotes = null; } });
   W.addEventListener('beforeunload', function (e) { if (A.npWin && !A.npWin.closed) { try { A.npWin.close(); } catch (er) {} } if (A.flushNotes) A.flushNotes(); if (A.edCtl && A.edCtl.isDirty()) { e.preventDefault(); e.returnValue = ''; } });

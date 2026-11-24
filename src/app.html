@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MeMeet</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('memeet-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="__ICON_URI__">
 <style>
 :root{--bg:#f2f4f7;--card:#fff;--ink:#1f2a37;--mute:#667085;--line:#dde3ea;--brand:#1d4f7c;--brand2:#2f6fa7;--acc:#3a8dde;--green:#2e9e5b;--red:#c0392b;--soft:#eef3f8;--row:#f7f9fb;--warn:#fff4d6;--ok:#e6f4ea;--err:#fde2e1}
@@ -517,8 +518,35 @@ input[type=checkbox],input[type=radio]{min-height:0}
 .filters .chk{margin-left:auto}.filters .chk input{flex:none;min-width:0;width:auto;height:auto}
 .card.pv{padding:0}
 .ws.n3 .np .nphead,.nphead{border-bottom:1px solid var(--line);box-shadow:none}
+/* ---- donkere modus: de schakelaar rechtsboven. Viewers, pop-ups en de aantekeningen blijven licht (wit met zwarte letters). */
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=dark] :is(.ttl,.matitle):not(:hover):not(:focus){background:transparent;border-color:transparent}
+html[data-theme=dark] :is(.card.pv,.np,.dlg,.dlgbg .dlg,.helppanel,#help,.snzmenu,.vermenu,.pvmenu,#viewer,.mapv,.nbox,.nedit){color-scheme:light;--bg:#eef2f6;--card:#fff;--ink:#1b1f24;--mute:#5d6875;--line:#d8dfe7;--brand:#154273;--brand2:#01689B;--acc:#007BC7;--green:#39870C;--red:#D52B1E;--soft:#E5F2F9;--row:#f6f9fb;--warn:#fdf3d4;--ok:#e7f2df;--err:#fbe3e0;--licht:#CCE7F4;color:var(--ink)}
+html[data-theme=dark] :is(.np,.dlg,.card.pv,.snzmenu,.vermenu,.pvmenu){background:var(--card)}
+.themebtn{margin-right:8px}
+/* knop zonder link: grijs; een klik vraagt om de link */
+.btn.join.off,.btn.ibabs.off{background:var(--soft);border-color:var(--line);color:var(--mute)}
+.btn.join.off:hover,.btn.ibabs.off:hover{border-color:var(--brand2);color:var(--brand2)}
+/* Bestanden: eigen mappen */
+.fxdh{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:14px 0 4px;padding:8px 4px 0 6px;border-top:1px solid var(--line);font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.fxdh .link{text-transform:none;letter-spacing:0;font-size:12.5px;padding:3px 4px;display:inline-flex;align-items:center;gap:4px}
+.fxdir{display:flex;align-items:center;border-radius:7px;position:relative}.fxdir .fxt{flex:1;min-width:0;display:flex;align-items:center;gap:7px}.fxdir .fxt span:not(.i){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.fxdir .fxdel{border:0;background:none;color:var(--mute);cursor:pointer;padding:2px 4px;border-radius:5px;opacity:0;flex:none}.fxdir:hover .fxdel,.fxdel:focus{opacity:1}.fxdel:hover{color:var(--red);background:var(--row)}
+.fxdir.on .fxt{background:var(--soft);font-weight:600}
+.fxdir.over{outline:2px dashed var(--hemel);outline-offset:-2px;background:var(--soft)}
+body.fxdragging .fxdir{outline:1px dashed var(--line);outline-offset:-2px}
+.fxdtip{font-size:12.5px;color:var(--mute);margin:4px 6px}
+.fxtb tbody tr[draggable=true]{cursor:default}
+/* Vandaag en Morgen: vaste kolommen voor stukken, iBabs en Deelnemen, zodat ze recht onder elkaar staan, ook als er een ontbreekt */
+.tact{display:grid;grid-template-columns:96px 70px 124px;gap:10px;align-items:center;flex:none}
+.tact>span{display:flex;align-items:center;min-height:30px}.tst{justify-content:flex-end}.tib,.tjn{justify-content:flex-start;min-width:0}
+.tact .btn.sm{width:100%}
+/* ---- iconen (Material Symbols Rounded, Apache-2.0) */
+.i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+.btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}
+/*__ICONS__*/
 </style></head><body>
-<header><a class="logo" href="#/"><img src="__ICON_URI__" alt="" width="28" height="28">MeMeet</a><div id="side" class="topbar"></div><button type="button" class="helpbtn" id="helpBtn" title="Help bij deze pagina (F1)" aria-label="Help bij deze pagina">?</button></header>
+<header><a class="logo" href="#/"><img src="__ICON_URI__" alt="" width="28" height="28">MeMeet</a><div id="side" class="topbar"></div><button type="button" class="helpbtn themebtn" id="themeBtn" role="switch" aria-checked="false" title="Donkere modus aan of uit" aria-label="Donkere modus"><span class="i i-dark_mode"></span></button><button type="button" class="helpbtn" id="helpBtn" title="Help bij deze pagina (F1)" aria-label="Help bij deze pagina"><span class="i i-help"></span></button></header>
 <div class="wrap"><main id="main"></main></div>
 <div id="overlay"><div id="ovText">Laat los om een vergadering aan te maken</div></div>
 <div id="toast"></div>

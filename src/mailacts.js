@@ -43,8 +43,8 @@
     var sent = x.mail.sent ? new Date(x.mail.sent) : null;
     var sub = [x.mail.from ? 'Van ' + x.mail.from : '', sent && !isNaN(sent) ? sent.toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }) : ''].filter(Boolean).join(' · ');
     setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-label="Actie uit een mail">' +
-      '<div class="mahead"><span class="maic" aria-hidden="true">✉</span><div class="mattl"><input id="maT" class="matitle" value="' + esc(x.text) + '" aria-label="Tekst van de actie" title="Tekst van de actie; je kunt hem hier aanpassen"><small class="muted">' + esc(sub) + '</small></div>' +
-      '<button type="button" class="btn sm" id="maDl" title="Het geselecteerde bestand downloaden">⤓ Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div>' +
+      '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('mail') + '</span><div class="mattl"><input id="maT" class="matitle" value="' + esc(x.text) + '" aria-label="Tekst van de actie" title="Tekst van de actie; je kunt hem hier aanpassen"><small class="muted">' + esc(sub) + '</small></div>' +
+      '<button type="button" class="btn sm" id="maDl" title="Het geselecteerde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="mabody"><ul class="malist" id="maList"><li class="muted">Mail wordt gelezen…</li></ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
     D.body.appendChild(bg);
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
@@ -58,7 +58,7 @@
     if (!$('#maDlg')) return;
     MA.items = items;
     setHTML($('#maList', bg), items.map(function (it, i) {
-      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '✉' : '📎') : '✉') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob.size || 0)) + '</small>' : '') + '</button></li>';
+      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '' + ic('mail') + '' : '' + ic('attach_file') + '') : '' + ic('mail') + '') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob.size || 0)) + '</small>' : '') + '</button></li>';
     }).join('') + (items.length > 1 ? '' : '<li class="muted manone">Geen bijlagen</li>'));
     $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); }; });
     $('#maDl', bg).onclick = function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob, it.name); };
@@ -73,7 +73,7 @@
     var out = null;
     try { var r = await convertToPdf(it.name, it.type, it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
     if (tok !== MA.tok) return;
-    if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">⤓ Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
+    if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">' + ic('download') + ' Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
     var pdf;
     try { pdf = await W.pdfjsLib.getDocument(pdfOpts(new Uint8Array(await out.arrayBuffer()))).promise; }
     catch (e) { if (tok === MA.tok) setHTML(pv, '<div class="pvmsg">Dit bestand kan niet worden getoond (' + esc(e.message || e) + ').</div>'); return; }

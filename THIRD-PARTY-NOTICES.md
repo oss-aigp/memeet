@@ -15,6 +15,7 @@ Het gebouwde bestand `dist/MeMeet.html` bevat ook de volgende onderdelen van and
 | [pako](https://github.com/nodeca/pako) | 1.0.11 | (MIT AND Zlib) | compressie (zlib) voor pdf-lib |
 | [tslib](https://github.com/microsoft/tslib) | 1.14.1 | 0BSD | hulpcode van TypeScript in pdf-lib |
 | [JSZip](https://github.com/Stuk/jszip) | 3.10.1 | (MIT OR GPL-3.0-or-later) | Office-bestanden (zip) lezen en schrijven |
+| [Material Symbols](https://github.com/google/material-design-icons) (Rounded, via [@material-symbols/svg-400](https://github.com/marella/material-symbols)) | 0.49.0 | Apache-2.0 | de iconen in de app |
 
 ---
 
@@ -1305,3 +1306,12 @@ copy of the Program in return for a fee.
 ---
 
 Ontwikkelhulpmiddel dat niet in `MeMeet.html` zit: esbuild (MIT), alleen gebruikt bij het bouwen.
+
+---
+
+## Material Symbols 0.49.0 (Apache-2.0)
+
+https://github.com/google/material-design-icons (iconen), verpakt als SVG in https://github.com/marella/material-symbols
+
+Copyright Google LLC. De iconen worden gebruikt onder de Apache License, Version 2.0. De volledige tekst van die licentie staat hierboven bij pdf.js. MeMeet gebruikt een selectie van de ronde variant (gewicht 400), ongewijzigd, als CSS-masker.
+

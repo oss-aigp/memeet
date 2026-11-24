@@ -413,7 +413,7 @@
     var shown = plan.items.filter(function (p) { return !p.minor; }), act = shown.filter(function (p) { return p.status !== 'ongewijzigd'; }), nOn = act.filter(function (p) { return p.on; }).length;
     var skip = []; if (plan.skipDay) skip.push(plan.skipDay + ' hele-dag-afspraak' + (plan.skipDay === 1 ? '' : 'en')); if (plan.skipCan) skip.push(plan.skipCan + ' geannuleerd'); if (plan.skipNoTitle) skip.push(plan.skipNoTitle + ' zonder titel' + (plan.skipPriv ? ' (privé: vink in Outlook bij Meer opties ook Details van privé-items opnemen aan)' : ''));
     var nMinor = plan.items.filter(function (p) { return p.minor; }).length;
-    var h = '<section class="card wkplan"><div class="wkhead"><h2>Kies wat je wilt importeren</h2><button type="button" class="btn sm" id="wkIgn">⚙ Niet importeren…</button></div><p class="muted">' + esc(plan.names.join(', ')) + ' · ' + shown.length + ' afspra' + (shown.length === 1 ? 'ak' : 'ken') + (skip.length ? ' · niet getoond: ' + skip.join(', ') : '') +
+    var h = '<section class="card wkplan"><div class="wkhead"><h2>Kies wat je wilt importeren</h2><button type="button" class="btn sm" id="wkIgn">' + ic('settings') + ' Niet importeren…</button></div><p class="muted">' + esc(plan.names.join(', ')) + ' · ' + shown.length + ' afspra' + (shown.length === 1 ? 'ak' : 'ken') + (skip.length ? ' · niet getoond: ' + skip.join(', ') : '') +
       '. Vink uit wat je niet wilt importeren. Wat je uitvinkt, staat de volgende keer ook uit.</p>';
     if (nMinor) h += '<p class="wklegend">' + nMinor + ' afspra' + (nMinor === 1 ? 'ak wordt' : 'ken worden') + ' overgeslagen (blokken, reistijd, uitloop of korte afspraken direct naast een andere vergadering). <button type="button" class="link" id="wkShowMin">' + (plan.showMinor ? 'Verbergen' : 'Toon welke') + '</button></p>' + (plan.showMinor ? '<ul class="wkmin">' + plan.items.filter(function (p) { return p.minor; }).map(function (p) { return '<li>' + esc(fmtShort(p.date)) + ' ' + esc((p.r.start || '') + (p.r.end ? '–' + p.r.end : '')) + ' <b>' + esc(p.title) + '</b> <span class="muted">(' + esc(p.minor) + ')</span></li>'; }).join('') + '</ul>' : '');
     h += '<div class="tw"><table class="wkt"><thead><tr><th class="cb"><input type="checkbox" id="wkall" title="Alles aan of uit"' + (act.length && nOn === act.length ? ' checked' : '') + '></th><th>Datum</th><th>Tijd</th><th>Afspraak</th><th>Locatie</th><th>Bijlagen</th><th>Status</th></tr></thead><tbody>';
@@ -421,7 +421,7 @@
       if (p.minor) return '';
       var r = p.r, dim = p.status === 'ongewijzigd';
       return '<tr data-wk="' + i + '" class="' + (dim ? 'dim' : p.on ? 'sel' : 'off') + (p.minor ? ' minor' : '') + '"' + (p.minor ? ' title="Waarschijnlijk geen vergadering: ' + esc(p.minor) + '"' : '') + '><td class="cb">' + (dim ? '' : '<input type="checkbox"' + (p.on ? ' checked' : '') + '>') + '</td><td>' + esc(fmtShort(p.date)) + '</td><td>' + esc((r.start || '') + (r.end ? '–' + r.end : '')) + '</td><td><b>' + esc(p.title) + '</b></td><td>' + esc(r.location || '') + '</td>' +
-        '<td>' + (p.atts.length ? '<span title="' + esc(p.atts.map(function (a) { return attTarget(a); }).join('\n')) + '">📎 ' + p.atts.length + '</span>' : '') + '</td>' +
+        '<td>' + (p.atts.length ? '<span title="' + esc(p.atts.map(function (a) { return attTarget(a); }).join('\n')) + '">' + ic('attach_file') + ' ' + p.atts.length + '</span>' : '') + '</td>' +
         '<td><span class="pill' + (dim ? ' grey' : '') + '">' + (p.status === 'nieuw' ? 'Nieuw' : p.status === 'bijwerken' ? 'Bijwerken' : 'Staat er al') + '</span></td></tr>';
     }).join('') + '</tbody></table></div>';
     h += '<div class="wkacts"><button type="button" class="btn pri" id="wkGo"' + (nOn ? '' : ' disabled') + '>Importeer geselecteerde (' + nOn + ')</button><button type="button" class="btn" id="wkCancel">Annuleren</button></div></section>';
@@ -449,10 +449,10 @@
       var skipT = Object.keys(A.data.icsSkip || {}).sort();
       setHTML(dlg, '<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT"><h2 id="dlgT">Niet importeren</h2>' +
         '<p class="muted">Afspraken met een van deze woorden in de titel worden overgeslagen. Hoofdletters maken niet uit.</p>' +
-        '<div class="chips">' + (g.words.length ? g.words.map(function (w, i) { return '<span class="chip">' + esc(w) + '<button type="button" data-rmw="' + i + '" title="Verwijderen" aria-label="' + esc(w) + ' verwijderen">✕</button></span>'; }).join('') : '<span class="muted">Geen trefwoorden.</span>') + '</div>' +
+        '<div class="chips">' + (g.words.length ? g.words.map(function (w, i) { return '<span class="chip">' + esc(w) + '<button type="button" data-rmw="' + i + '" title="Verwijderen" aria-label="' + esc(w) + ' verwijderen">' + ic('close') + '</button></span>'; }).join('') : '<span class="muted">Geen trefwoorden.</span>') + '</div>' +
         '<form class="addw" id="addW"><input id="newW" placeholder="Nieuw trefwoord, bijv. Lunch of Focustijd" autocomplete="off"><button type="submit" class="btn sm">Toevoegen</button></form>' +
         '<label class="chk2"><input type="checkbox" id="shortOn"' + (g.shortOn ? ' checked' : '') + '> Ook afspraken van <input type="number" id="shortMin" min="5" max="60" step="5" value="' + g.shortMin + '"> minuten of korter overslaan als ze direct voor of na een andere vergadering liggen</label>' +
-        (skipT.length ? '<h3>Eerder uitgevinkt</h3><p class="muted">Deze titels staan bij een volgende import standaard uit. Haal ze hier weg om ze weer aan te zetten.</p><div class="chips">' + skipT.map(function (t) { return '<span class="chip grey">' + esc(t) + '<button type="button" data-rmt="' + esc(t) + '" title="Weghalen">✕</button></span>'; }).join('') + '</div>' : '') +
+        (skipT.length ? '<h3>Eerder uitgevinkt</h3><p class="muted">Deze titels staan bij een volgende import standaard uit. Haal ze hier weg om ze weer aan te zetten.</p><div class="chips">' + skipT.map(function (t) { return '<span class="chip grey">' + esc(t) + '<button type="button" data-rmt="' + esc(t) + '" title="Weghalen">' + ic('close') + '</button></span>'; }).join('') + '</div>' : '') +
         '<div class="dlgacts"><button type="button" class="btn" id="dlgReset">Standaard herstellen</button><span class="sp"></span><button type="button" class="btn pri" id="dlgClose">Klaar</button></div></div>');
       $$('[data-rmw]', dlg).forEach(function (b) { b.onclick = function () { g.words.splice(+b.dataset.rmw, 1); changed(); }; });
       $$('[data-rmt]', dlg).forEach(function (b) { b.onclick = function () { delete A.data.icsSkip[b.dataset.rmt]; changed(); }; });
@@ -547,7 +547,7 @@
     var nOpen = A.store ? openCount() : 0;
     h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
     if (A.store) {
-      h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">📁 Wijzig datamap</button>';
+      h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">' + ic('folder') + ' Wijzig datamap</button>';
     }
     setHTML(s, h);
     var cs = $('#chgStore', s); if (cs) cs.onclick = chooseFolder;
@@ -560,7 +560,7 @@
       '<ol class="steps"><li><b>Geef MeMeet een vaste plek</b>: zet <code>MeMeet.html</code> in <b>Documenten\\MeMeet</b>' + (here ? ' <span class="muted">(nu: ' + esc(here) + ')</span>' : '') + '.</li>' +
       '<li><b>Kies de datamap</b>: klik hieronder en kies de map <b>MeMeet</b> waar dit bestand in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan en zet er het icoon naast.</li>' +
       '<li><b>Maak een snelkoppeling</b> op je bureaublad en in de taakbalk, met <code>C:\\Windows\\explorer.exe</code> ervoor. Hoe dat stap voor stap gaat, laat MeMeet je zien na het kiezen van de map.</li></ol>' +
-      (fsOk ? '<p><button class="btn pri" id="pickDir">📁 Datamap kiezen…</button> <a class="btn" href="#/installatie">Uitgebreide uitleg</a></p>' : '<p class="note">Deze browser kan geen map op je computer gebruiken. Open MeMeet in Microsoft Edge of Google Chrome.</p>') +
+      (fsOk ? '<p><button class="btn pri" id="pickDir">' + ic('folder') + ' Datamap kiezen…</button> <a class="btn" href="#/installatie">Uitgebreide uitleg</a></p>' : '<p class="note">Deze browser kan geen map op je computer gebruiken. Open MeMeet in Microsoft Edge of Google Chrome.</p>') +
       '<p class="note"><b>Back-up:</b> kopieer af en toe de hele map <b>memeet-data</b>, mét het bestand <b>memeet.json</b> erin, naar bijvoorbeeld OneDrive of een netwerkschijf. Terugzetten doe je door die map weer als datamap te kiezen. Meer uitleg vind je onder de knop <b>?</b> rechtsboven.</p>' +
       '<p class="note">Mag je geen map kiezen? <button class="link" id="useIdb">Bewaar alles in de browser</button> (alleen op deze computer, zonder bestanden).</p>' +
       (A.hadDir ? '<button class="btn" id="recon">Verder met de vorige map</button>' : '') + '</div>');
@@ -597,7 +597,7 @@
       (A.store && A.store.kind === 'map' ? '<p class="okline">✓ De gegevens staan in de map <b>' + esc(A.store.name) + '</b>.</p>' : A.store ? '<p>De gegevens worden nu in de browser bewaard. Wil je ze in een map op je computer? Klik dan op <b>Datamap kiezen</b>.</p>' : '') +
       '<p>Klik op <b>Datamap kiezen</b> en kies de map <b>MeMeet</b> waar <code>MeMeet.html</code> in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan, met de submappen <b>Vergaderingen</b>, <b>Aantekeningen</b> en <b>Actielijst</b>, en zet het icoon <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</p>' +
       '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    memeet.json</pre>' +
-      '<p><button class="btn' + (A.store && A.store.kind === 'map' ? '' : ' pri') + '" id="insPick">📁 Datamap kiezen…</button></p></section>';
+      '<p><button class="btn' + (A.store && A.store.kind === 'map' ? '' : ' pri') + '" id="insPick">' + ic('folder') + ' Datamap kiezen…</button></p></section>';
     h += '<section class="card wk"><h2>3. Snelkoppeling op het bureaublad en in de taakbalk</h2>' +
       '<p>De snelkoppeling start <code>explorer.exe</code> met MeMeet als bestand. Omdat het doel een programma is, kun je hem daarna ook naar de taakbalk slepen.</p><ol>' +
       '<li>Klik met de rechtermuisknop op een lege plek op het bureaublad en kies <b>Nieuw</b> › <b>Snelkoppeling</b>.</li>' +
@@ -639,7 +639,7 @@
     var t = todayIso(), ms = A.data.meetings;
     var today = ms.filter(function (m) { return m.date === t; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
     function dayList(arr) { return '<ul class="tl">' + arr.map(function (m) {
-        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tjn">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen venster">iBabs</button>' : '') + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">Deelnemen</a>' : '') + '</span></span></li>';
+        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tib">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen tabblad">iBabs</button>' : '') + '</span><span class="tjn">' + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">' + ic('videocam') + ' Deelnemen</a>' : '') + '</span></span></li>';
       }).join('') + '</ul>'; }
     var tm0 = new Date(); tm0.setDate(tm0.getDate() + 1); var tmw = tm0.getFullYear() + '-' + pad(tm0.getMonth() + 1) + '-' + pad(tm0.getDate());
     var tomorrow = ms.filter(function (m) { return m.date === tmw; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
@@ -656,41 +656,44 @@
     var hr = new Date().getHours(), greet = hr < 6 ? 'Goedenacht' : hr < 12 ? 'Goedemorgen' : hr < 18 ? 'Goedemiddag' : 'Goedenavond';
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
-    var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">↻</button></section>';
-    h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">📅 Importeer weekagenda</a><button class="btn" id="imp">Mail importeren…</button><a class="btn pri" href="#/nieuw" id="new">+ Nieuwe vergadering</a></div></div>';
+    var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
+    h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><button class="btn" id="imp">' + ic('upload_file') + ' Mail importeren…</button><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
-    if (A.showToday == null || A.showTodayDay !== t + (late ? 'L' : '')) { A.showToday = !late; A.showTodayDay = t + (late ? 'L' : ''); } /* standaard open, na 20:30 standaard dicht */
-    h += '<section class="card today arch"><button type="button" class="archbtn daybtn" id="tdy" aria-expanded="' + (A.showToday ? 'true' : 'false') + '"><span>' + (!today.length ? '' : A.showToday ? '▾' : '▸') + '</span> Vandaag <span class="muted">' + esc(fmtLong(t)) + ' · ' + (today.length ? today.length + ' vergadering' + (today.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (today.length ? '<span class="link">' + (A.showToday ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>';
+    /* alle vier de onderdelen (vandaag, morgen, volgende, archief) staan standaard open; dichtklappen geldt tot je MeMeet opnieuw opent */
+    if (A.showToday == null) A.showToday = true;
+    h += '<section class="card today arch"><button type="button" class="archbtn daybtn" id="tdy" aria-expanded="' + (A.showToday ? 'true' : 'false') + '"><span>' + (!today.length ? '' : A.showToday ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Vandaag <span class="muted">' + esc(fmtLong(t)) + ' · ' + (today.length ? today.length + ' vergadering' + (today.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (today.length ? '<span class="link">' + (A.showToday ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>';
     if (!A.showToday) { /* ingeklapt */ }
     else if (today.length) {
       h += dayList(today);
     } /* geen vergaderingen vandaag: niets eronder (de kop zegt het al) */
     h += '</section>';
     if (A.showTomorrow == null) A.showTomorrow = true; /* standaard open */
-    h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '▾' : '▸') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
+    h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
       (A.showTomorrow && tomorrow.length ? dayList(tomorrow) : '') + '</section>';
+    if (A.showUp == null) A.showUp = true;
+    if (A.showArch == null) A.showArch = true;
     var showF = A.showUp || A.showArch || q || f.year;
     if (showF) h += '<section class="card fcard"><div class="filters"><input id="q" type="search" placeholder="Zoeken op titel, locatie, namen of aantekeningen…" value="' + esc(f.q) + '">' +
       '<select id="fYear"><option value="">Alle jaren</option>' + Object.keys(years).sort().reverse().map(function (y) { return '<option' + (f.year === y ? ' selected' : '') + '>' + y + '</option>'; }).join('') + '</select></div></section>';
     var cols = [['title', 'Titel'], ['date', 'Datum'], ['start', 'Start'], ['end', 'Eind'], ['location', 'Locatie'], ['files', 'Stukken']];
     var hs = A.hsel || (A.hsel = {}); Object.keys(hs).forEach(function (id) { if (!byId(id)) delete hs[id]; });
     var nSel = Object.keys(hs).length;
-    h += '<div class="bulkbar" id="bulkbar"' + (nSel ? '' : ' hidden') + '><b id="bulkN"></b><button type="button" class="btn sm danger" id="bulkDel">🗑 Verwijderen</button><button type="button" class="link" id="bulkClr">Selectie opheffen</button></div>';
+    h += '<div class="bulkbar" id="bulkbar"' + (nSel ? '' : ' hidden') + '><b id="bulkN"></b><button type="button" class="btn sm danger" id="bulkDel">' + ic('delete') + ' Verwijderen</button><button type="button" class="link" id="bulkClr">Selectie opheffen</button></div>';
     function tbl(rows, empty, arch) {
       rows = sorted(rows, arch);
       var allOn = rows.length && rows.every(function (m) { return hs[m.id]; });
-      var o = '<div class="tw"><table class="mtb"><thead><tr><th class="cb"><input type="checkbox" data-all="' + (arch ? 'arch' : 'up') + '" title="Alles in deze lijst selecteren"' + (allOn ? ' checked' : '') + '></th>' + cols.map(function (c) { var on = A.sort.key === c[0], dn = A.sort.dir * (arch && c[0] === 'date' ? -1 : 1) < 0; return '<th class="c-' + c[0] + (on ? ' on' : '') + '" data-sort="' + c[0] + '">' + c[1] + '<i>' + (on ? (dn ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
+      var o = '<div class="tw"><table class="mtb"><thead><tr><th class="cb"><input type="checkbox" data-all="' + (arch ? 'arch' : 'up') + '" title="Alles in deze lijst selecteren"' + (allOn ? ' checked' : '') + '></th>' + cols.map(function (c) { var on = A.sort.key === c[0], dn = A.sort.dir * (arch && c[0] === 'date' ? -1 : 1) < 0; return '<th class="c-' + c[0] + (on ? ' on' : '') + '" data-sort="' + c[0] + '">' + c[1] + '<i>' + (on ? (dn ? '' + ic('arrow_downward') + '' : '' + ic('arrow_upward') + '') : '' + ic('unfold_more') + '') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
       o += rows.length ? rows.map(function (m) { return row(m, cols.map(function (c) { return c[0]; })).replace('<tr data-id="' + esc(m.id) + '">', '<tr data-id="' + esc(m.id) + '"' + (hs[m.id] ? ' class="sel"' : '') + '><td class="cb"><input type="checkbox" data-hs="' + esc(m.id) + '"' + (hs[m.id] ? ' checked' : '') + '></td>'); }).join('') : '<tr><td colspan="7" class="empty">' + empty + '</td></tr>';
       return o + '</tbody></table></div>';
     }
     var upcoming = list.filter(function (m) { return !m.date || m.date > tmw; }), past = list.filter(function (m) { return m.date && m.date < t; });
     A.hlists = { up: sorted(upcoming), arch: sorted(past, true) };
-    h += '<section class="card arch upc"><button type="button" class="archbtn" id="upc" aria-expanded="' + (A.showUp ? 'true' : 'false') + '"><span>' + (A.showUp ? '▾' : '▸') + '</span> Volgende vergaderingen <span class="muted">' + upcoming.length + ' vergadering' + (upcoming.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showUp ? 'verbergen' : 'weergeven') + '</span></button>';
+    h += '<section class="card arch upc"><button type="button" class="archbtn" id="upc" aria-expanded="' + (A.showUp ? 'true' : 'false') + '"><span>' + (A.showUp ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Volgende vergaderingen <span class="muted">' + upcoming.length + ' vergadering' + (upcoming.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showUp ? 'verbergen' : 'weergeven') + '</span></button>';
     if (A.showUp) h += '<div class="upbody">' + tbl(upcoming, ms.length ? (past.length ? 'Geen komende vergaderingen' + (q || f.year ? ' met deze filters' : '') + '. Eerdere vergaderingen staan in het archief.' : 'Geen vergaderingen gevonden met deze filters.') : 'Nog geen vergaderingen. Sleep een mail naar dit venster om te beginnen.');
     if (A.showUp) h += '<p class="note">Klik op een kolomkop om te sorteren.</p></div>';
     h += '</section>';
-    h += '<section class="card arch"><button type="button" class="archbtn" id="arch"><span>' + (A.showArch ? '▾' : '▸') + '</span> Archief <span class="muted">' + past.length + ' eerdere vergadering' + (past.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showArch ? 'verbergen' : 'weergeven') + '</span></button>';
+    h += '<section class="card arch"><button type="button" class="archbtn" id="arch"><span>' + (A.showArch ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Archief <span class="muted">' + past.length + ' eerdere vergadering' + (past.length === 1 ? '' : 'en') + (q || f.year ? ' met deze filters' : '') + '</span><span class="sp"></span><span class="link">' + (A.showArch ? 'verbergen' : 'weergeven') + '</span></button>';
     if (A.showArch) h += tbl(past, 'Geen eerdere vergaderingen' + (q || f.year ? ' met deze filters' : '') + '.', true);
     h += '</section>';
     setHTML($('#main'), h);
@@ -756,10 +759,10 @@
     h += '<form class="card meta mline" id="frm" autocomplete="off"><input class="ttl" name="title" required placeholder="Titel van de vergadering" title="Titel" value="' + esc(m.title) + '">' +
       '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
-      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">🔗</button></span>' +
-      '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen tabblad"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button></span>' +
-      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">🗑</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">Terug</a></span></form>';
-    h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">📋 Meeneempunten</button>') + '</span></div>';
+      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">' + ic('link') + '</button></span>' +
+      '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button><button type="button" class="btn sm icon" id="ibEd" aria-label="iBabs-link">' + ic('link') + '</button></span>' +
+      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">' + ic('delete') + '</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">' + ic('arrow_back') + ' Terug</a></span></form>';
+    h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">' + ic('checklist') + ' Meeneempunten</button>') + '</span></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
     if (!isNew) h += vervolgRowHtml(m);
     var dsel = isNew ? {} : docSel(m);
@@ -773,7 +776,7 @@
            het origineel downloaden via ⋯ in de viewer. */
         var na = annCount(f.ann), tip = f.name + (f.conv === 'vervangen' ? '\nDe viewer toont de PDF-versie die je erbij hebt gezet.' : '') + (!canView(f.name, f.type) ? '\nDit bestandstype kan de viewer niet tonen; download het origineel via ⋯ in de viewer.' : '') + (na ? '\n' + na + ' aantekening' + (na === 1 ? '' : 'en') + ' in dit stuk.' : '');
         h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(tip) + '">' + esc(f.name) + '</span>' +
-          '<button type="button" class="link red rmx" data-rm="' + i + '" title="Verwijderen" aria-label="' + esc(f.name) + ' verwijderen">✕</button></div></li>';
+          '<button type="button" class="link red rmx" data-rm="' + i + '" title="Verwijderen" aria-label="' + esc(f.name) + ' verwijderen">' + ic('close') + '</button></div></li>';
       }
     });
     if (!list.length) h += '<li class="muted empty">Nog geen stukken.</li>';
@@ -804,7 +807,7 @@
       if (isNew) return; readForm();
       if (!m.title) { toast('Vul een titel in.', 'warn'); return; }
       m.updated = new Date().toISOString(); await persist(); renderSide();
-      var st = $('#svst'); if (st) { st.textContent = 'opgeslagen ✓'; clearTimeout(autoSave.t); autoSave.t = setTimeout(function () { var s2 = $('#svst'); if (s2) s2.textContent = ''; }, 1800); }
+      var st = $('#svst'); if (st) { setHTML(st, 'opgeslagen ' + ic('check')); clearTimeout(autoSave.t); autoSave.t = setTimeout(function () { var s2 = $('#svst'); if (s2) s2.textContent = ''; }, 1800); }
     }
     if (!isNew) $$('[name]', frm).forEach(function (x) { if (x.name !== 'link' && x.name !== 'ibabs') x.addEventListener('change', autoSave); });
     var del = $('#del'); if (del) del.onclick = async function () {
@@ -827,19 +830,29 @@
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });
     bindFolders($('#main'));
-    /* vergaderlink: geen invoervak meer (de link komt uit de uitnodiging); met 🔗 voeg je hem toe of wijzig je hem */
-    var jb = $('#joinBtn'), le = $('#linkEd');
-    function upd() { var ok = /^https?:\/\//i.test(m.link || ''); jb.hidden = !ok; jb.href = ok ? m.link : '#'; le.title = ok ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)'; }
-    le.onclick = async function () {
-      var v = prompt('Vergaderlink (Teams, Zoom of een andere link).\nLaat het vak leeg om de link weg te halen.', m.link || ''); if (v === null) return;
-      v = v.trim(); if (v && !/^https?:\/\//i.test(v)) { toast('Dat is geen geldige link: hij moet met https:// beginnen.', 'warn'); return; }
-      m.link = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? 'Vergaderlink bewaard.' : 'Vergaderlink weggehaald.', 'ok'); }
-    };
-    /* iBabs-link: de knoppen verschijnen zodra er een link staat; een gewijzigde link wordt meteen bewaard, net als de vergaderlink */
-    var ib = $('[name=ibabs]', frm), ibB = $('#ibBtn');
-    function updIb() { ibB.hidden = !/^https?:\/\//i.test(ib.value.trim()); }
-    ib.addEventListener('input', updIb); ib.addEventListener('change', async function () { readForm(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); } });
-    ibB.onclick = function () { readForm(); openIbabs(m); };
+    /* Vergaderlink en iBabs-link: geen invoervakken. Zonder link is de knop grijs; met het link-icoon ernaast (of een klik op de
+       grijze knop) plak je de link. Een leeg vak haalt de link weg. Een bestaande vergadering wordt meteen bewaard. */
+    var jb = $('#joinBtn'), le = $('#linkEd'), ibB = $('#ibBtn'), ibE = $('#ibEd');
+    function isUrl(v) { return /^https?:\/\//i.test(String(v || '').trim()); }
+    function upd() {
+      var ok = isUrl(m.link); jb.classList.toggle('off', !ok); jb.href = ok ? m.link : '#';
+      jb.title = ok ? 'Deelnemen aan de online vergadering' : 'Nog geen vergaderlink. Klik om er een te plakken.';
+      le.title = ok ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)';
+      var oi = isUrl(m.ibabs); ibB.classList.toggle('off', !oi);
+      ibB.title = oi ? 'De stukken in iBabs openen, in een eigen tabblad' : 'Nog geen iBabs-link. Klik om er een te plakken.';
+      ibE.title = oi ? 'iBabs-link wijzigen' : 'iBabs-link toevoegen';
+    }
+    async function askLink(key, what, hint) {
+      var v = prompt(what + (hint ? ' (' + hint + ')' : '') + '.\nLaat het vak leeg om de link weg te halen.', m[key] || ''); if (v === null) return false;
+      v = v.trim(); if (v && !isUrl(v)) { toast('Dat is geen geldige link: hij moet met https:// beginnen.', 'warn'); return false; }
+      m[key] = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? what + ' bewaard.' : what + ' weggehaald.', 'ok'); }
+      return true;
+    }
+    le.onclick = function () { askLink('link', 'Vergaderlink', 'Teams, Zoom of een andere link'); };
+    ibE.onclick = function () { askLink('ibabs', 'iBabs-link', 'de link naar de vergadering in iBabs'); };
+    jb.addEventListener('click', function (e) { if (!isUrl(m.link)) { e.preventDefault(); le.click(); } });
+    ibB.onclick = function () { readForm(); if (!isUrl(m.ibabs)) { ibE.click(); return; } openIbabs(m); };
+    upd();
     if (!isNew && m.link === undefined && m.source && m.source.file) {
       A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m) { upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });
     }
@@ -982,18 +995,18 @@
   /* ------------------------------------------------------------- viewer met aantekeningen (pdf.js) */
   var PV = { tok: 0, tool: 'select', colors: { mark: '#ffd400' }, noteColor: '#e8590c', scale: 1, fit: true, q: '' };
   var SVGNS = 'http://www.w3.org/2000/svg';
-  var TOOLS = [['select', 'Tekst', 'Tekst selecteren en kopiëren', 'Aa'], ['mark', 'Markeren', 'Selecteer tekst; die wordt dan gemarkeerd', '🖍'], ['note', 'Opmerking', 'Klik op een woord om er een opmerking bij te zetten', '💬'], ['erase', 'Gum', 'Klik op een markering of opmerking om die te verwijderen', '⌫']];
+  var TOOLS = [['select', 'Tekst', 'Tekst selecteren en kopiëren', ic('match_case')], ['mark', 'Markeren', 'Selecteer tekst; die wordt dan gemarkeerd', '' + ic('ink_highlighter') + ''], ['note', 'Opmerking', 'Klik op een woord om er een opmerking bij te zetten', '' + ic('add_comment') + ''], ['erase', 'Gum', 'Klik op een markering of opmerking om die te verwijderen', '' + ic('ink_eraser') + '']];
   var COLORS = ['#ffd400', '#7ee081'];
   var MARGIN = 170;
   function isNote(s) { return s.t === 'note' || s.t === 'text'; }
   function hasNotes(ann) { return Object.keys(ann || {}).some(function (k) { return (ann[k] || []).some(isNote); }); }
   async function draftPdf(f) { if (f._pdf === undefined) { var r = await convertToPdf(f.name, f.type, f.blob); f._pdf = r ? new Blob([r.bytes], { type: 'application/pdf' }) : null; } return f._pdf; }
   function maxLabel() { return A.pvMax ? 'Verkleinen (Esc)' : 'Vergroten tot volledig venster'; }
-  function maxBtn() { return '<button type="button" class="tl mx' + (A.pvMax ? ' on' : '') + '" data-act="max" title="' + maxLabel() + '" aria-label="' + maxLabel() + '"><span class="mxi"></span></button>'; }
+  function maxBtn() { return '<button type="button" class="tl mx' + (A.pvMax ? ' on' : '') + '" data-act="max" title="' + maxLabel() + '" aria-label="' + maxLabel() + '">' + ic(A.pvMax ? 'fullscreen_exit' : 'fullscreen') + '</button>'; }
   function pvMax(on) {
     var el = $('#pv'); A.pvMax = !!on; if (!el) return;
     el.classList.toggle('max', A.pvMax);
-    var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); }
+    var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); setHTML(b, ic(A.pvMax ? 'fullscreen_exit' : 'fullscreen')); }
     requestAnimationFrame(function () { if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } });
   }
   /* Ingescande PDF's gebruiken vaak CCITT-fax, JBIG2 of JPEG 2000 voor de pagina-afbeelding. pdf.js pakt die uit met WebAssembly
@@ -1024,22 +1037,22 @@
     var editMode = PV.mode === 'edit' && !isNew && canEdit(f);
     var tabs = !isNew && canEdit(f) ? '<div class="vtabs"><button type="button" data-mode="pdf" class="' + (editMode ? '' : 'on') + '">Bekijken</button><button type="button" data-mode="edit" class="' + (editMode ? 'on' : '') + '" title="Het originele bestand bewerken">Bewerken</button></div>' : '';
     if (editMode) {
-      setHTML(el, '<div class="pvbar"><div class="pvt">' + tabs + '<b class="pvname" title="' + esc(f.name) + '">' + (i + 1) + '. ' + esc(f.name) + '</b></div><div class="pvtools"><button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + '>‹</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + '>›</button><button type="button" class="tl" data-act="orig" title="Origineel downloaden">⤓</button>' + maxBtn() + '</div></div><div class="edwrap" id="edw"></div>');
+      setHTML(el, '<div class="pvbar"><div class="pvt">' + tabs + '<b class="pvname" title="' + esc(f.name) + '">' + (i + 1) + '. ' + esc(f.name) + '</b></div><div class="pvtools"><button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button><button type="button" class="tl" data-act="orig" title="Origineel downloaden">' + ic('download') + '</button>' + maxBtn() + '</div></div><div class="edwrap" id="edw"></div>');
       $$('[data-mode]', el).forEach(function (b) { b.onclick = function () { switchMode(m, i, b.dataset.mode); }; });
       $$('[data-act]', el).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); pvAct(b.dataset.act, m, i); }; });
       A.edCtl = await mountEditor(m, f, $('#edw'), function () { renderDocList(m); });
       return;
     }
     var hint = !editable ? 'Sla de vergadering eerst op. Daarna kun je markeren en opmerkingen maken.' : !/\.pdf$/i.test(f.name) && !(f.pdf && f.conv === 'vervangen') ? 'Weergave van het origineel (' + ((/\.([^.]+)$/.exec(f.name) || ['', '?'])[1]).toUpperCase() + '). De opmaak kan iets afwijken; het bestand zelf blijft ongewijzigd.' : '';
-    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">i</span>' : '') + '<span class="pvst" id="pvst"></span>';
+    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">' + ic('info') + '</span>' : '') + '<span class="pvst" id="pvst"></span>';
     TOOLS.forEach(function (t) { hb += '<button type="button" class="tl' + (PV.tool === t[0] ? ' on' : '') + '" data-tool="' + t[0] + '" title="' + t[1] + ': ' + t[2] + '"' + (!editable && t[0] !== 'select' ? ' disabled' : '') + '><span class="tic">' + t[3] + '</span><span class="tlb">' + t[1] + '</span></button>'; });
     hb += '<span class="cols" id="pvcols">' + COLORS.map(function (c) { return '<button type="button" class="col" data-color="' + c + '" title="Kleur" style="--c:' + c + '"></button>'; }).join('') + '</span>';
-    hb += '<button type="button" class="tl" data-act="undo" title="Ongedaan maken (Ctrl+Z)"' + (editable ? '' : ' disabled') + '>↶</button><button type="button" class="tl" data-act="redo" title="Opnieuw (Ctrl+Y)"' + (editable ? '' : ' disabled') + '>↷</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="zout" title="Kleiner">−</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Groter">+</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + '>‹</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + '>›</button>';
-    hb += maxBtn() + '<button type="button" class="tl" data-act="more" title="Meer">⋯</button><div class="pvmenu" id="pvmenu" hidden>' +
+    hb += '<button type="button" class="tl" data-act="undo" title="Ongedaan maken (Ctrl+Z)"' + (editable ? '' : ' disabled') + '>' + ic('undo') + '</button><button type="button" class="tl" data-act="redo" title="Opnieuw (Ctrl+Y)"' + (editable ? '' : ' disabled') + '>' + ic('redo') + '</button><span class="sep"></span>';
+    hb += '<button type="button" class="tl" data-act="zout" title="Kleiner" aria-label="Kleiner">' + ic('zoom_out') + '</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Groter" aria-label="Groter">' + ic('zoom_in') + '</button><span class="sep"></span>';
+    hb += '<button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button>';
+    hb += maxBtn() + '<button type="button" class="tl" data-act="more" title="Meer">' + ic('more_horiz') + '</button><div class="pvmenu" id="pvmenu" hidden>' +
       (editable ? '<button type="button" data-act="dlann">PDF met aantekeningen downloaden</button><button type="button" data-act="clear">Alle aantekeningen in dit stuk wissen</button>' : '') +
-      '<button type="button" data-act="orig">Origineel downloaden</button><button type="button" data-act="tab">PDF openen in nieuw tabblad</button></div><span class="sp"></span><span class="srch"><input id="pvq" type="search" placeholder="Zoeken in PDF (Ctrl+F)" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)">‹</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)">›</button></span></div></div>';
+      '<button type="button" data-act="orig">Origineel downloaden</button><button type="button" data-act="tab">PDF openen in nieuw tabblad</button></div><span class="sp"></span><span class="srch"><input id="pvq" type="search" placeholder="Zoeken in PDF (Ctrl+F)" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)" aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)" aria-label="Volgende">' + ic('chevron_right') + '</button></span></div></div>';
     hb += '<div class="pvpages" id="pvp"><div class="pvmsg">Stuk wordt klaargemaakt…</div></div>';
     setHTML(el, hb);
     $$('[data-color]', el).forEach(function (b) { b.onclick = function () { if (PV.tool !== 'mark' && PV.tool !== 'note') setTool('mark'); PV.colors[PV.tool] = b.dataset.color; markColor(); }; });
@@ -1222,7 +1235,7 @@
       if (n.s.w) { var w1 = toVp(p, n.s.w[0], n.s.w[1]), w2 = toVp(p, n.s.w[2], n.s.w[3]); n.wx1 = Math.min(w1[0], w2[0]); n.wx2 = Math.max(w1[0], w2[0]); n.wy = Math.max(w1[1], w2[1]) + 1; n.ay = n.wy; n.ax = n.wx2; }
       var bx = D.createElement('div'); bx.className = 'nbox'; bx.style.fontSize = fs + 'px'; bx.style.borderLeftColor = n.s.c || PV.noteColor; bx.dataset.i = n.i;
       var tx = D.createElement('div'); tx.className = 'ntx'; tx.textContent = n.s.txt; bx.appendChild(tx);
-      if (PV.editable) { var x = D.createElement('button'); x.type = 'button'; x.className = 'nx'; x.title = 'Opmerking verwijderen'; x.textContent = '×'; bx.appendChild(x); x.onclick = function (e) { e.stopPropagation(); commit(p, function (arr) { arr.splice(n.i, 1); }); }; }
+      if (PV.editable) { var x = D.createElement('button'); x.type = 'button'; x.className = 'nx'; x.title = 'Opmerking verwijderen'; x.appendChild(icEl('close')); bx.appendChild(x); x.onclick = function (e) { e.stopPropagation(); commit(p, function (arr) { arr.splice(n.i, 1); }); }; }
       bx.addEventListener('click', function () { if (!PV.editable) return; if (PV.tool === 'erase') { commit(p, function (arr) { arr.splice(n.i, 1); }); return; } noteEditor(p, n.i, null); });
       bx.addEventListener('mouseenter', function () { var l = svg.querySelector('[data-n="' + n.i + '"]'); if (l) l.classList.add('on'); });
       bx.addEventListener('mouseleave', function () { var l = svg.querySelector('[data-n="' + n.i + '"]'); if (l) l.classList.remove('on'); });
@@ -1250,7 +1263,7 @@
     clearTimeout(PV.saveT);
     var m = PV.m;
     PV.saveT = setTimeout(async function () {
-      try { m.updated = new Date().toISOString(); await persist(); var s2 = $('#pvst'); if (s2) s2.textContent = 'opgeslagen ✓'; refreshAnnBadge(); }
+      try { m.updated = new Date().toISOString(); await persist(); var s2 = $('#pvst'); if (s2) setHTML(s2, 'opgeslagen ' + ic('check')); refreshAnnBadge(); }
       catch (e) { toast('Aantekeningen opslaan mislukt: ' + (e.message || e), 'err'); }
     }, 600);
   }
@@ -1259,7 +1272,7 @@
     var b = $('.bdg.ann', li), n = annCount(PV.ann);
     if (!n) { if (b) b.remove(); return; }
     if (!b) { b = D.createElement('span'); b.className = 'bdg ann'; b.title = 'Aantekeningen'; li.insertBefore(b, $('.sp', li)); }
-    b.textContent = '✎ ' + n;
+    b.textContent = ''; b.appendChild(icEl('edit_note')); b.appendChild(D.createTextNode(' ' + n));
   }
   function commit(p, fn) {
     snapshot(); var arr = PV.ann[p.n] || (PV.ann[p.n] = []); fn(arr); if (!arr.length) delete PV.ann[p.n];
@@ -1383,10 +1396,10 @@
     var old = $('#dlbar'); if (old) { clearTimeout(old._t); old._close(); }
     var bar = D.createElement('div'); bar.id = 'dlbar'; bar.setAttribute('role', 'status');
     var tx = D.createElement('div'); tx.className = 'dlt';
-    var nm = D.createElement('b'); nm.textContent = '⤓ ' + name; var sub = D.createElement('span'); sub.textContent = 'Staat het niet in je Downloads?';
+    var nm = D.createElement('b'); nm.appendChild(icEl('download')); nm.appendChild(D.createTextNode(' ' + name)); var sub = D.createElement('span'); sub.textContent = 'Staat het niet in je Downloads?';
     tx.appendChild(nm); tx.appendChild(sub);
     var again = D.createElement('button'); again.type = 'button'; again.className = 'btn sm'; again.textContent = 'Opnieuw downloaden';
-    var x = D.createElement('button'); x.type = 'button'; x.className = 'dlx'; x.title = 'Sluiten'; x.textContent = '✕';
+    var x = D.createElement('button'); x.type = 'button'; x.className = 'dlx'; x.title = 'Sluiten'; x.setAttribute('aria-label', 'Sluiten'); x.appendChild(icEl('close'));
     bar.appendChild(tx); bar.appendChild(again); bar.appendChild(x); D.body.appendChild(bar);
     bar._close = function () { if (bar.parentNode) bar.parentNode.removeChild(bar); setTimeout(function () { URL.revokeObjectURL(u); }, 60000); };
     again.onclick = function () { dlFire(u, name); clearTimeout(bar._t); bar._t = setTimeout(bar._close, 25000); };
@@ -1411,6 +1424,21 @@
     $('#pickDocs').onchange = function () { var f = this.files; if (f.length) handleDrop(f); this.value = ''; };
   }
   migrateLocalPrefs();
+  /* donkere modus: de schakelaar rechtsboven. Zonder eigen keuze volgt MeMeet de instelling van Windows. */
+  function curTheme() { return D.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'; }
+  function setTheme(t, save) {
+    D.documentElement.dataset.theme = t;
+    var b = $('#themeBtn'); if (b) { var dk = t === 'dark'; b.setAttribute('aria-checked', dk ? 'true' : 'false'); b.title = dk ? 'Lichte modus' : 'Donkere modus'; setHTML(b, ic(dk ? 'light_mode' : 'dark_mode')); }
+    if (save) { try { localStorage.setItem('memeet-theme', t); } catch (e) {} }
+  }
+  function initTheme() {
+    var saved = null; try { saved = localStorage.getItem('memeet-theme'); } catch (e) {}
+    var mq = W.matchMedia ? W.matchMedia('(prefers-color-scheme: dark)') : null;
+    setTheme(saved || (mq && mq.matches ? 'dark' : 'light'), false);
+    if (mq && mq.addEventListener) mq.addEventListener('change', function (e) { var s = null; try { s = localStorage.getItem('memeet-theme'); } catch (er) {} if (!s) setTheme(e.matches ? 'dark' : 'light', false); });
+    var b = $('#themeBtn'); if (b) b.onclick = function () { setTheme(curTheme() === 'dark' ? 'light' : 'dark', true); };
+  }
+  initTheme();
   A.notesOpen = true; /* de kolom Aantekeningen staat altijd open */
   W.addEventListener('hashchange', function () { if (A.flushNotes) { try { A.flushNotes(); } catch (e) {} A.flushNotes = null; } });
   W.addEventListener('beforeunload', function (e) { if (A.npWin && !A.npWin.closed) { try { A.npWin.close(); } catch (er) {} } if (A.flushNotes) A.flushNotes(); if (A.edCtl && A.edCtl.isDirty()) { e.preventDefault(); e.returnValue = ''; } });
