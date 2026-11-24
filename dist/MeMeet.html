@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.1.1 -->
+<!-- MeMeet-versie: 1.1.2 -->
 <!--
-  MeMeet 1.1.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.1.2 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   en JSZip (MIT of GPL-3.0); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -407,6 +407,12 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .mline>*{flex-shrink:0}.mline .ttl{flex-shrink:1}
 .mline .btn.sm.icon{width:32px;padding:0;font-size:15px}
 .mline [hidden]{display:none!important}
+/* stukken: één regel per stuk, zo weinig mogelijk ruimte links */
+.card.list{padding-left:6px;padding-right:6px}.list .shead{padding-left:4px}
+.list .docs li[data-sel]{padding:5px 4px 5px 3px}.list .docs li .dl1{gap:5px}
+.list .docs .num{width:auto;min-width:1.1em;text-align:right;flex:none}
+.list .docs .dl1 .fn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list .docs .rmx{flex:none;padding:0 3px;font-size:12px;opacity:.35}.list .docs li:hover .rmx,.list .docs li.on .rmx,.list .docs .rmx:focus{opacity:1}
 .nphead{flex-wrap:nowrap}.nphead b{white-space:nowrap}.nphead .btn.sm{white-space:nowrap;flex:none}.npst{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
 .mline input{padding:3px 7px;font-size:13px;height:30px;min-width:0}
 .mline .ttl{flex:1 1 170px;min-width:130px;font-size:17px;height:32px;margin-left:0;padding:3px 6px}
@@ -3670,10 +3676,11 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<h3>Stukken</h3><ul><li>Sleep documenten op de vergadering, of klik op het vak <i>Sleep documenten of een mail hierheen</i> om ze te kiezen. Elk stuk blijft in zijn eigen formaat; MeMeet maakt er geen PDF van. De viewer toont Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails.</li>' +
       '<li>Een <b>zip</b> wordt uitgepakt: de bestanden erin worden losse stukken.</li>' +
       '<li>Sleep je een <b>mail met bijlagen</b> op de vergadering, dan kies je: <b>alleen de mail</b>, of <b>de mail én de bijlagen</b>, elk als apart stuk. Zit er in de mail weer een mail met bijlagen, dan komen die er ook apart bij.</li>' +
-      '<li><b>Volgorde</b>: sleep een stuk omhoog of omlaag. Met <b>Ctrl+klik</b> selecteer je meer stukken, met <b>Shift+klik</b> een reeks; sleep je er een, dan gaan ze allemaal mee. <b>▲ ▼</b> werken ook. <b>⤓</b> downloadt het origineel, <b>✕</b> verwijdert het stuk.</li>' +
+      '<li><b>Volgorde</b>: sleep een stuk omhoog of omlaag. Met <b>Ctrl+klik</b> selecteer je meer stukken, met <b>Shift+klik</b> een reeks; sleep je er een, dan gaan ze allemaal mee.</li>' +
+      '<li>Elk stuk staat op één regel, met rechts <b>✕</b> om het te verwijderen. Bijzonderheden (een eigen PDF-versie, een bestand dat de viewer niet kan tonen, het aantal aantekeningen) zie je als je met de muis op de naam gaat. Het origineel download je via <b>⋯</b> in de viewer.</li>' +
       '<li>Maak de kolom met stukken <b>breder of smaller</b> door de rand rechts ervan te verslepen (dubbelklik: standaardbreedte).</li>' +
       '<li>Sleep je een bestand met <b>dezelfde naam</b> erop, dan vraagt MeMeet of de oude versie vervangen moet worden.</li>' +
-      '<li>Een stuk met het label "niet te tonen" (bijvoorbeeld een oud .doc-bestand) download je met ⤓ en open je in Word. Wil je het in de viewer zien, sla het dan in Word op als PDF en sleep die PDF met dezelfde naam erop: MeMeet vraagt dan of het de PDF-versie is.</li></ul>' +
+      '<li>Een stuk dat de viewer niet kan tonen (bijvoorbeeld een oud .doc-bestand) download je via <b>⋯</b> › <i>Origineel downloaden</i> en open je in Word. Wil je het in de viewer zien, sla het dan in Word op als PDF en sleep die PDF met dezelfde naam erop: MeMeet vraagt dan of het de PDF-versie is.</li></ul>' +
       '<h3>📋 Meeneempunten: het vorige overleg</h3><ul><li>Heeft deze vergadering een eerdere vergadering met dezelfde titel (datums en nummers in de titel tellen niet mee), dan staat bovenaan de stukken <b>Vorig overleg</b>, met het aantal besluiten, acties en meeneempunten van toen.</li>' +
       '<li>Klik erop, of op <b>📋 Meeneempunten</b>, voor een popup met de besluiten (<code>=</code>), acties (<code>!</code>) en meeneempunten (<code>&gt;</code>) uit de aantekeningen van die vergadering. Een actie vink je daar af. <b>Esc</b> sluit de popup.</li>' +
       '<li>Klopt de koppeling niet, kies dan onderin de popup bij <b>Vervolg van</b> zelf de juiste vergadering, of <i>Geen vorige vergadering</i>.</li></ul>' +
@@ -3692,7 +3699,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<h3>Bewerken</h3><ul><li>Het tabblad <b>Bewerken</b> boven de viewer past het originele bestand aan.</li>' +
       '<li>Word: stijlen, vet, cursief, onderstrepen, opsomming en uitlijnen. Excel: typ in een cel; Enter, Tab en de pijltjes bewegen, F2 past een cel aan, Delete wist, met = begin je een formule. PowerPoint: klik in een tekstvak op de dia.</li>' +
       '<li>Opslaan met <b>💾 Opslaan</b> of Ctrl+S. De eerste keer bewaart MeMeet een kopie "(oorspronkelijk)". De viewer toont daarna de nieuwe versie.</li>' +
-      '<li>Liever in Office zelf? Download het stuk met ⤓, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
+      '<li>Liever in Office zelf? Download het stuk via <b>⋯</b> › <i>Origineel downloaden</i>, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
       '<h3>Aantekeningen en acties</h3><ul><li>Rechts staat altijd de kolom <b>Aantekeningen</b>. Alles wordt vanzelf bewaard en ook als tekstbestand in de map Aantekeningen gezet.</li>' +
       '<li>Een regel die begint met <code>!</code> wordt een actie, bijvoorbeeld <code>! Jan stuurt de notitie rond</code>. Die staat daarna in de Actielijst.</li>' +
       '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>✉ Mailen</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
@@ -4557,12 +4564,11 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
         h += '<li data-sel="' + i + '"><div class="dl1"><input type="checkbox" data-p="' + i + '"' + (f.on ? ' checked' : '') + ' title="Meenemen bij opslaan"><span class="fn">' + esc(f.name) + '</span></div>' +
           (f.inline ? '<div class="dl2"><small>afbeelding uit de mailtekst</small></div>' : '') + '</li>';
       } else {
-        var badge = f.conv === 'vervangen' ? '<span class="bdg ok" title="De viewer toont de PDF-versie die je erbij hebt gezet">eigen PDF</span>' : !canView(f.name, f.type) ? '<span class="bdg no" title="Dit bestandstype kan de viewer niet tonen. Download het origineel om het te openen.">niet te tonen</span>' : '';
-        var na = annCount(f.ann);
-        h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(f.name) + '">' + esc(f.name) + '</span></div>' +
-          '<div class="dl2">' + badge + (na ? '<span class="bdg ann" title="Aantekeningen">✎ ' + na + '</span>' : '') + '<span class="sp"></span>' +
-          '<button type="button" class="link" data-up="' + i + '" title="Omhoog"' + (i ? '' : ' disabled') + '>▲</button><button type="button" class="link" data-down="' + i + '" title="Omlaag"' + (i < list.length - 1 ? '' : ' disabled') + '>▼</button>' +
-          '<button type="button" class="link" data-dl="' + i + '" title="Origineel downloaden">⤓</button><button type="button" class="link red" data-rm="' + i + '" title="Verwijderen">✕</button></div></li>';
+        /* één regel per stuk: nummer, naam en verwijderen. Bijzonderheden staan in de tooltip van de naam; ordenen gaat door te slepen,
+           het origineel downloaden via ⋯ in de viewer. */
+        var na = annCount(f.ann), tip = f.name + (f.conv === 'vervangen' ? '\nDe viewer toont de PDF-versie die je erbij hebt gezet.' : '') + (!canView(f.name, f.type) ? '\nDit bestandstype kan de viewer niet tonen; download het origineel via ⋯ in de viewer.' : '') + (na ? '\n' + na + ' aantekening' + (na === 1 ? '' : 'en') + ' in dit stuk.' : '');
+        h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(tip) + '">' + esc(f.name) + '</span>' +
+          '<button type="button" class="link red rmx" data-rm="' + i + '" title="Verwijderen" aria-label="' + esc(f.name) + ' verwijderen">✕</button></div></li>';
       }
     });
     if (!list.length) h += '<li class="muted empty">Nog geen stukken.</li>';
@@ -4612,8 +4618,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (isNew) $$('#docs li[data-sel]').forEach(function (li) { li.onclick = function (e) { if (e.target.closest('button,input')) return; pvShow(m, +li.dataset.sel); }; });
     else bindDocList(m);
     bindListGrip();
-    $$('[data-up],[data-down]').forEach(function (b) { b.onclick = async function () { var i = +(b.dataset.up || b.dataset.down), j = b.dataset.up != null ? i - 1 : i + 1; if (j < 0 || j >= m.files.length) return; readForm(); var t = m.files[i]; m.files[i] = m.files[j]; m.files[j] = t; if (A.sel && A.sel.i === i) A.sel.i = j; await persist(); renderDetail(m); }; });
-    $$('[data-dl]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.dl]; dl(await A.store.get(m, f.name), f.name); }; });
     $$('[data-rm]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.rm]; if (!confirm('"' + f.name + '" verwijderen' + (annCount(f.ann) ? ', inclusief je aantekeningen' : '') + '?')) return; readForm(); await A.store.del(m, f.name); if (f.pdf && f.pdf !== f.name) await A.store.del(m, f.pdf); if (f.backup) await A.store.del(m, f.backup); m.files.splice(+a.dataset.rm, 1); await persist(); renderDetail(m); }; });
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });

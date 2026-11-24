@@ -761,12 +761,11 @@
         h += '<li data-sel="' + i + '"><div class="dl1"><input type="checkbox" data-p="' + i + '"' + (f.on ? ' checked' : '') + ' title="Meenemen bij opslaan"><span class="fn">' + esc(f.name) + '</span></div>' +
           (f.inline ? '<div class="dl2"><small>afbeelding uit de mailtekst</small></div>' : '') + '</li>';
       } else {
-        var badge = f.conv === 'vervangen' ? '<span class="bdg ok" title="De viewer toont de PDF-versie die je erbij hebt gezet">eigen PDF</span>' : !canView(f.name, f.type) ? '<span class="bdg no" title="Dit bestandstype kan de viewer niet tonen. Download het origineel om het te openen.">niet te tonen</span>' : '';
-        var na = annCount(f.ann);
-        h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(f.name) + '">' + esc(f.name) + '</span></div>' +
-          '<div class="dl2">' + badge + (na ? '<span class="bdg ann" title="Aantekeningen">✎ ' + na + '</span>' : '') + '<span class="sp"></span>' +
-          '<button type="button" class="link" data-up="' + i + '" title="Omhoog"' + (i ? '' : ' disabled') + '>▲</button><button type="button" class="link" data-down="' + i + '" title="Omlaag"' + (i < list.length - 1 ? '' : ' disabled') + '>▼</button>' +
-          '<button type="button" class="link" data-dl="' + i + '" title="Origineel downloaden">⤓</button><button type="button" class="link red" data-rm="' + i + '" title="Verwijderen">✕</button></div></li>';
+        /* één regel per stuk: nummer, naam en verwijderen. Bijzonderheden staan in de tooltip van de naam; ordenen gaat door te slepen,
+           het origineel downloaden via ⋯ in de viewer. */
+        var na = annCount(f.ann), tip = f.name + (f.conv === 'vervangen' ? '\nDe viewer toont de PDF-versie die je erbij hebt gezet.' : '') + (!canView(f.name, f.type) ? '\nDit bestandstype kan de viewer niet tonen; download het origineel via ⋯ in de viewer.' : '') + (na ? '\n' + na + ' aantekening' + (na === 1 ? '' : 'en') + ' in dit stuk.' : '');
+        h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(tip) + '">' + esc(f.name) + '</span>' +
+          '<button type="button" class="link red rmx" data-rm="' + i + '" title="Verwijderen" aria-label="' + esc(f.name) + ' verwijderen">✕</button></div></li>';
       }
     });
     if (!list.length) h += '<li class="muted empty">Nog geen stukken.</li>';
@@ -816,8 +815,6 @@
     if (isNew) $$('#docs li[data-sel]').forEach(function (li) { li.onclick = function (e) { if (e.target.closest('button,input')) return; pvShow(m, +li.dataset.sel); }; });
     else bindDocList(m);
     bindListGrip();
-    $$('[data-up],[data-down]').forEach(function (b) { b.onclick = async function () { var i = +(b.dataset.up || b.dataset.down), j = b.dataset.up != null ? i - 1 : i + 1; if (j < 0 || j >= m.files.length) return; readForm(); var t = m.files[i]; m.files[i] = m.files[j]; m.files[j] = t; if (A.sel && A.sel.i === i) A.sel.i = j; await persist(); renderDetail(m); }; });
-    $$('[data-dl]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.dl]; dl(await A.store.get(m, f.name), f.name); }; });
     $$('[data-rm]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.rm]; if (!confirm('"' + f.name + '" verwijderen' + (annCount(f.ann) ? ', inclusief je aantekeningen' : '') + '?')) return; readForm(); await A.store.del(m, f.name); if (f.pdf && f.pdf !== f.name) await A.store.del(m, f.pdf); if (f.backup) await A.store.del(m, f.backup); m.files.splice(+a.dataset.rm, 1); await persist(); renderDetail(m); }; });
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });

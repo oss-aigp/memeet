@@ -12,11 +12,11 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 
 <table>
 <tr>
-<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (3:37): voor, tijdens en na de vergadering"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (4:04): voor, tijdens en na de vergadering"></a></td>
 <td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:06)"></a></td>
 </tr>
 <tr>
-<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (3:37): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
+<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (4:04): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
 <td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:06): downloaden, een vaste plek geven, de datamap kiezen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
 </tr>
 </table>
@@ -177,7 +177,8 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 
 **Stukken**
 - Sleep documenten op een geopende vergadering.
-- **Volgorde**: sleep een stuk omhoog of omlaag. Met **Ctrl+klik** selecteer je meer stukken, met **Shift+klik** een reeks; sleep je er een, dan gaan ze allemaal mee. ▲▼ werken ook.
+- **Volgorde**: sleep een stuk omhoog of omlaag. Met **Ctrl+klik** selecteer je meer stukken, met **Shift+klik** een reeks; sleep je er een, dan gaan ze allemaal mee.
+- Elk stuk staat op één regel, met rechts **✕** om het te verwijderen. Bijzonderheden (een eigen PDF-versie, een bestand dat de viewer niet kan tonen, het aantal aantekeningen) zie je als je met de muis op de naam gaat. Het origineel download je via **⋯** in de viewer.
 - De kolom met stukken maak je **breder of smaller** door de rand rechts ervan te verslepen (dubbelklik: standaardbreedte).
 - Elk stuk blijft in zijn **eigen formaat**; MeMeet maakt er geen PDF van. Een **zip** wordt uitgepakt: de bestanden erin worden losse stukken.
 - Sleep je een **mail met bijlagen** op een vergadering, dan kies je: **alleen de mail**, of **de mail én de bijlagen**, elk als apart stuk. Zit er in die mail weer een mail met bijlagen, dan komen die er ook apart bij.
@@ -279,7 +280,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 | **Er gebeurt niets als ik een mail sleep** | Sleep de mail eerst naar het bureaublad en daarna naar MeMeet. Of gebruik **Mail importeren…**. |
 | **"Map kiezen lukt niet"** | Je beheerder heeft toegang tot mappen misschien geblokkeerd. Kies **bewaar alles in de browser**. |
 | **Edge vraagt elke keer om toegang** | Dat is normaal, het is een beveiligingsregel van de browser. Klik op **Map openen** en dan op **Toestaan**. |
-| **Een stuk heeft het label "niet te tonen"** | Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen. Download het origineel met ⤓ en open het in Word of Excel. Wil je het in de viewer zien, kies dan in Word of Excel **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |
+| **De viewer kan een stuk niet tonen** | Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen. Download het origineel via **⋯** › *Origineel downloaden* en open het in Word of Excel. Wil je het in de viewer zien, kies dan in Word of Excel **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |
 | **De opmaak van een stuk in de viewer wijkt af** | De viewer zet Word, Excel en PowerPoint zonder Office om om ze te tonen; de tekst klopt maar de opmaak is soms vereenvoudigd. Het bestand zelf blijft ongewijzigd. Gebruik voor de exacte opmaak de PDF-route hierboven. |
 | **Een gescande PDF: zoeken en markeren werkt niet** | Een scan zonder tekstherkenning (OCR) is alleen een afbeelding, zonder tekst. Opmerkingen werken wel. Heeft de scanner OCR gedaan, dan werken zoeken en markeren ook. |
 | **Een gescande PDF toont lege witte pagina's** | Dat kwam voor in versie 1.0.0, bij scans in zwart-wit (CCITT-fax of JBIG2) of JPEG 2000. Vanaf versie 1.0.1 worden die gewoon getoond. Werk MeMeet bij en open het stuk opnieuw. |

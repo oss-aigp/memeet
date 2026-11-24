@@ -400,6 +400,12 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .mline>*{flex-shrink:0}.mline .ttl{flex-shrink:1}
 .mline .btn.sm.icon{width:32px;padding:0;font-size:15px}
 .mline [hidden]{display:none!important}
+/* stukken: één regel per stuk, zo weinig mogelijk ruimte links */
+.card.list{padding-left:6px;padding-right:6px}.list .shead{padding-left:4px}
+.list .docs li[data-sel]{padding:5px 4px 5px 3px}.list .docs li .dl1{gap:5px}
+.list .docs .num{width:auto;min-width:1.1em;text-align:right;flex:none}
+.list .docs .dl1 .fn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list .docs .rmx{flex:none;padding:0 3px;font-size:12px;opacity:.35}.list .docs li:hover .rmx,.list .docs li.on .rmx,.list .docs .rmx:focus{opacity:1}
 .nphead{flex-wrap:nowrap}.nphead b{white-space:nowrap}.nphead .btn.sm{white-space:nowrap;flex:none}.npst{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
 .mline input{padding:3px 7px;font-size:13px;height:30px;min-width:0}
 .mline .ttl{flex:1 1 170px;min-width:130px;font-size:17px;height:32px;margin-left:0;padding:3px 6px}
