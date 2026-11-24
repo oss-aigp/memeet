@@ -395,6 +395,37 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .anngrp{font-size:14px;margin:14px 0 6px;color:var(--mute)}
 #dlbar{position:fixed;right:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:10px;max-width:min(520px,calc(100vw - 32px));background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:10px 12px;font-size:13px}
 #dlbar .dlt{display:flex;flex-direction:column;min-width:0}#dlbar .dlt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dlbar .dlt span{color:var(--mute);font-size:12px}#dlbar .btn{flex:none;white-space:nowrap}#dlbar .dlx{flex:none;border:0;background:none;color:var(--mute);cursor:pointer;font-size:14px;padding:4px}
+/* vergaderpagina: titel, velden en knoppen op één compacte regel */
+.meta.mline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 10px;margin-bottom:8px;border-top-width:3px}
+.mline input{padding:3px 7px;font-size:13px;height:30px;min-width:0}
+.mline .ttl{flex:1 1 170px;min-width:130px;font-size:17px;height:32px;margin-left:0;padding:3px 6px}
+.mline input[type=date]{width:126px;flex:none}.mline input[type=time]{width:82px;flex:none}
+.mline .tsp{display:inline-flex;align-items:center;gap:2px;color:var(--mute);flex:none}
+.mline .loc{flex:0 1 130px;min-width:80px}
+.mline .lk{display:inline-flex;gap:4px;align-items:center;flex:0 1 auto;min-width:0}.mline .lk input{width:118px;flex:0 1 118px;min-width:70px}
+.mline .btn.sm{height:30px;padding:0 10px;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.mline .macts{display:inline-flex;gap:6px;align-items:center;margin-left:auto;flex:none}
+.svst{font-size:12px;color:#2e7d32;white-space:nowrap}
+/* kolom met stukken: breedte instelbaar (sleeprand), meer tegelijk selecteren en slepen om te ordenen */
+.ws{position:relative}
+@media (min-width:981px){.ws{grid-template-columns:var(--lw,300px) minmax(0,1fr)}}
+@media (min-width:1251px){.ws.n3{grid-template-columns:var(--lw,260px) minmax(0,1fr) var(--npw,340px)}}
+@media (min-width:981px) and (max-width:1250px){.ws.n3{grid-template-columns:var(--lw,240px) minmax(0,1fr)}}
+.lsgrip{position:absolute;top:0;bottom:0;left:calc(var(--lw,300px) + 2px);width:10px;cursor:col-resize;z-index:4;border-left:3px solid transparent}
+.lsgrip:hover,.lsdrag .lsgrip{border-left-color:var(--hemel)}.lsdrag{cursor:col-resize;user-select:none}
+@media (max-width:980px){.lsgrip{display:none}}
+.list .docs li.picked{background:var(--soft);outline:2px solid var(--hemel);outline-offset:-2px}
+.list .docs li.drop-before{box-shadow:inset 0 3px 0 var(--acc)}.list .docs li.drop-after{box-shadow:inset 0 -3px 0 var(--acc)}
+.list .docs.dragging li{cursor:grabbing}
+/* vervolg: besluiten, acties en meeneempunten van het vorige overleg */
+.vvrow{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;margin:0 0 8px;border-radius:8px;background:var(--soft);cursor:pointer;font-size:13px;line-height:1.35}
+.vvrow:hover,.vvrow:focus{outline:2px solid var(--hemel);outline-offset:-2px}.vvrow small{display:block;color:var(--mute);font-size:12px}.vvic{flex:none}
+.dlg.vv{width:min(640px,100%)}.vvhead{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.vvhead h2{margin:0 0 3px;font-size:19px}.vvhead p{margin:0;font-size:13px}
+.vvx{border:0;background:var(--row);color:var(--ink);width:30px;height:30px;border-radius:50%;cursor:pointer;flex:none;font-size:14px}.vvx:hover{background:var(--line)}
+.vvbody h3{font-size:14px;margin:14px 0 4px;color:var(--brand)}.vvbody ul{margin:0;padding-left:20px}.vvbody li{margin:3px 0}.vvnone{margin:2px 0;font-size:13px}.vvtip{font-size:12.5px;margin-top:14px}
+.vvbody li.vvact{list-style:none;margin-left:-20px}.vvact label{display:flex;gap:7px;align-items:baseline;cursor:pointer}.vvact input{width:auto;margin:0}.vvact.done span{text-decoration:line-through;color:var(--mute)}
+.dlg.vv .dlgacts{flex-wrap:wrap;align-items:center}.vvlink{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mute)}.vvlink select{max-width:300px}
+.vvl{font-size:12.5px;text-align:left}
 </style></head><body>
 <header><a class="logo" href="#/"><img src="__ICON_URI__" alt="" width="28" height="28">MeMeet</a><div id="side" class="topbar"></div><button type="button" class="helpbtn" id="helpBtn" title="Help bij deze pagina (F1)" aria-label="Help bij deze pagina">?</button></header>
 <div class="wrap"><main id="main"></main></div>

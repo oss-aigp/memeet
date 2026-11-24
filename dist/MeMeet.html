@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.0.1 -->
+<!-- MeMeet-versie: 1.1.0 -->
 <!--
-  MeMeet 1.0.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.1.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   en JSZip (MIT of GPL-3.0); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -402,6 +402,37 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .anngrp{font-size:14px;margin:14px 0 6px;color:var(--mute)}
 #dlbar{position:fixed;right:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:10px;max-width:min(520px,calc(100vw - 32px));background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:10px 12px;font-size:13px}
 #dlbar .dlt{display:flex;flex-direction:column;min-width:0}#dlbar .dlt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#dlbar .dlt span{color:var(--mute);font-size:12px}#dlbar .btn{flex:none;white-space:nowrap}#dlbar .dlx{flex:none;border:0;background:none;color:var(--mute);cursor:pointer;font-size:14px;padding:4px}
+/* vergaderpagina: titel, velden en knoppen op één compacte regel */
+.meta.mline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 10px;margin-bottom:8px;border-top-width:3px}
+.mline input{padding:3px 7px;font-size:13px;height:30px;min-width:0}
+.mline .ttl{flex:1 1 170px;min-width:130px;font-size:17px;height:32px;margin-left:0;padding:3px 6px}
+.mline input[type=date]{width:126px;flex:none}.mline input[type=time]{width:82px;flex:none}
+.mline .tsp{display:inline-flex;align-items:center;gap:2px;color:var(--mute);flex:none}
+.mline .loc{flex:0 1 130px;min-width:80px}
+.mline .lk{display:inline-flex;gap:4px;align-items:center;flex:0 1 auto;min-width:0}.mline .lk input{width:118px;flex:0 1 118px;min-width:70px}
+.mline .btn.sm{height:30px;padding:0 10px;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.mline .macts{display:inline-flex;gap:6px;align-items:center;margin-left:auto;flex:none}
+.svst{font-size:12px;color:#2e7d32;white-space:nowrap}
+/* kolom met stukken: breedte instelbaar (sleeprand), meer tegelijk selecteren en slepen om te ordenen */
+.ws{position:relative}
+@media (min-width:981px){.ws{grid-template-columns:var(--lw,300px) minmax(0,1fr)}}
+@media (min-width:1251px){.ws.n3{grid-template-columns:var(--lw,260px) minmax(0,1fr) var(--npw,340px)}}
+@media (min-width:981px) and (max-width:1250px){.ws.n3{grid-template-columns:var(--lw,240px) minmax(0,1fr)}}
+.lsgrip{position:absolute;top:0;bottom:0;left:calc(var(--lw,300px) + 2px);width:10px;cursor:col-resize;z-index:4;border-left:3px solid transparent}
+.lsgrip:hover,.lsdrag .lsgrip{border-left-color:var(--hemel)}.lsdrag{cursor:col-resize;user-select:none}
+@media (max-width:980px){.lsgrip{display:none}}
+.list .docs li.picked{background:var(--soft);outline:2px solid var(--hemel);outline-offset:-2px}
+.list .docs li.drop-before{box-shadow:inset 0 3px 0 var(--acc)}.list .docs li.drop-after{box-shadow:inset 0 -3px 0 var(--acc)}
+.list .docs.dragging li{cursor:grabbing}
+/* vervolg: besluiten, acties en meeneempunten van het vorige overleg */
+.vvrow{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;margin:0 0 8px;border-radius:8px;background:var(--soft);cursor:pointer;font-size:13px;line-height:1.35}
+.vvrow:hover,.vvrow:focus{outline:2px solid var(--hemel);outline-offset:-2px}.vvrow small{display:block;color:var(--mute);font-size:12px}.vvic{flex:none}
+.dlg.vv{width:min(640px,100%)}.vvhead{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.vvhead h2{margin:0 0 3px;font-size:19px}.vvhead p{margin:0;font-size:13px}
+.vvx{border:0;background:var(--row);color:var(--ink);width:30px;height:30px;border-radius:50%;cursor:pointer;flex:none;font-size:14px}.vvx:hover{background:var(--line)}
+.vvbody h3{font-size:14px;margin:14px 0 4px;color:var(--brand)}.vvbody ul{margin:0;padding-left:20px}.vvbody li{margin:3px 0}.vvnone{margin:2px 0;font-size:13px}.vvtip{font-size:12.5px;margin-top:14px}
+.vvbody li.vvact{list-style:none;margin-left:-20px}.vvact label{display:flex;gap:7px;align-items:baseline;cursor:pointer}.vvact input{width:auto;margin:0}.vvact.done span{text-decoration:line-through;color:var(--mute)}
+.dlg.vv .dlgacts{flex-wrap:wrap;align-items:center}.vvlink{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mute)}.vvlink select{max-width:300px}
+.vvl{font-size:12.5px;text-align:left}
 </style></head><body>
 <header><a class="logo" href="#/"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4gPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTRiOGE2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGY2ZTc0Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+IDxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIiByeD0iNTYiIGZpbGw9InVybCgjZykiLz4gPGcgZmlsbD0iI2ZmZmZmZiI+IDxjaXJjbGUgY3g9IjEyOC4wIiBjeT0iNDguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iMTg0LjYiIGN5PSI3MS40IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIyMDguMCIgY3k9IjEyOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxODQuNiIgY3k9IjE4NC42IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxMjguMCIgY3k9IjIwOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSI3MS40IiBjeT0iMTg0LjYiIHI9IjEzIi8+IDxjaXJjbGUgY3g9IjQ4LjAiIGN5PSIxMjguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iNzEuNCIgY3k9IjcxLjQiIHI9IjEzIi8+IDwvZz4gPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTI4IiByPSI1MiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjk2Ii8+IDxyZWN0IHg9IjEwNiIgeT0iMTAyIiB3aWR0aD0iNDQiIGhlaWdodD0iNTQiIHJ4PSI2IiBmaWxsPSIjMGY2ZTc0Ii8+IDxyZWN0IHg9IjExMyIgeT0iMTEzIiB3aWR0aD0iMzAiIGhlaWdodD0iNSIgcng9IjIuNSIgZmlsbD0iI2ZmZmZmZiIvPiA8cmVjdCB4PSIxMTMiIHk9IjEyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiM5ZWU2ZGQiLz4gPHJlY3QgeD0iMTEzIiB5PSIxMzUiIHdpZHRoPSIyOCIgaGVpZ2h0PSI1IiByeD0iMi41IiBmaWxsPSIjOWVlNmRkIi8+IDxjaXJjbGUgY3g9IjEyOCIgY3k9IjQ4IiByPSIxMyIgZmlsbD0iI2ZmZDQwMCIvPiA8L3N2Zz4g" alt="" width="28" height="28">MeMeet</a><div id="side" class="topbar"></div><button type="button" class="helpbtn" id="helpBtn" title="Help bij deze pagina (F1)" aria-label="Help bij deze pagina">?</button></header>
 <div class="wrap"><main id="main"></main></div>
@@ -735,8 +766,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (pt === 0) { R.f = 'D'; R.I = Math.max(1, Math.round(period / 1440)); }
     else if (pt === 1) { R.f = 'W'; R.I = Math.max(1, period); R.days = mask(u32()); }
     else if (pt === 2) { R.f = 'M'; R.I = Math.max(1, period); R.mday = u32(); }
-    else if (pt === 3) { R.f = 'M'; R.I = Math.max(1, period); R.days = mask(u32()); var n = u32(); R.nth = n >= 5 ? -1 : n; }
-    else if (pt === 4) { R.f = 'M'; R.I = Math.max(1, period); R.mday = -1; u32(); }
+    /* 3 = laatste dag van de maand (MonthEnd), 4 = de n-de weekdag van de maand (MonthNth; n = 5 betekent de laatste) */
+    else if (pt === 3) { R.f = 'M'; R.I = Math.max(1, period); R.mday = -1; u32(); }
+    else if (pt === 4) { R.f = 'M'; R.I = Math.max(1, period); R.days = mask(u32()); var n = u32(); R.nth = n >= 5 ? -1 : n; }
     else return null; /* Hijri-kalender e.d. */
     if (freq === 0x200D && R.f === 'M' && R.I < 12) R.I = 12;
     var endType = u32(), cnt = u32(); R.wkst = u32() % 7;
@@ -959,28 +991,59 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     }
     function ft(v) { return v && (v.lo || v.hi) ? new Date((v.hi * 4294967296 + v.lo) / 1e4 - 11644473600000) : null; }
     function tag(id, t) { return id == null ? -1 : ((id << 16) | t) >>> 0; }
-    var props = fixed(top, 32);
-    var html = str(top, 0x1013); if (!html) { var hb = bin(top, 0x1013); if (hb) html = decodeText(hb, 'utf-8'); }
-    var body = str(top, 0x1000) || (html ? htmlToText(html) : '');
+    /* een bericht lezen: het hoofdbericht (eigenschappenkop 32 bytes) of een bericht dat als bijlage is ingesloten (kop 24 bytes) */
+    function readMsg(st0, hdr, depth) {
+      var props = fixed(st0, hdr);
+      var html = str(st0, 0x1013); if (!html) { var hb = bin(st0, 0x1013); if (hb) html = decodeText(hb, 'utf-8'); }
+      var atts = [], skipped = [];
+      Object.keys(st0).filter(function (n) { return /^__attach_version1\.0_#/i.test(n); }).sort().forEach(function (n) {
+        var st = c.kids(st0[n]), fp = fixed(st, 8);
+        var name = str(st, 0x3707) || str(st, 0x3704) || str(st, 0x3001) || 'bijlage';
+        var data = bin(st, 0x3701), hid = fp[0x7FFE000B], fl = fp[0x37140003];
+        if (!data) {
+          var sub = st['__substg1.0_3701000D']; if (!sub) return;
+          /* Een ingesloten bericht. Een echte mail wordt een losse .eml (met zijn eigen bijlagen erin). Uitzonderingen van een
+             terugkerende afspraak (verborgen, of klasse IPM.OLE.CLASS) slaat Outlook ook zo op; die worden overgeslagen. */
+          var es = c.kids(sub), cls = str(es, 0x001A);
+          if (depth >= 3 || /^IPM\.OLE\.CLASS/i.test(cls) || (fl && fl.lo & 2) || (hid && hid.lo & 1)) { skipped.push(name); return; }
+          var em = readMsg(es, 24, depth + 1);
+          atts.push({ name: (em.subject || name || 'Bijgevoegde mail').replace(/[\\/:*?"<>|\u0000-\u001f]/g, '_').trim().slice(0, 90).replace(/(\.eml|\.msg)?$/i, '.eml'), type: 'message/rfc822', data: msgToEml(em), inline: false });
+          return;
+        }
+        var mime = str(st, 0x370E) || guessMime(name);
+        atts.push({ name: name, type: mime, data: data,
+          inline: !!(hid && hid.lo & 1) || !!(fl && fl.lo & 4) || (!!str(st, 0x3712) && /^image\//.test(mime) && /^image\d+\./i.test(name)) });
+      });
+      return { props: props, subject: str(st0, 0x37), from: str(st0, 0x0C1A) || str(st0, 0x42), sent: ft(props[0x00390040]),
+        text: str(st0, 0x1000) || (html ? htmlToText(html) : ''), html: html || '', attachments: atts, skipped: skipped };
+    }
+    var mm = readMsg(top, 32, 0), props = mm.props;
     var start = ft(props[tag(named[APPT + ':' + 0x820D], 0x40)]) || ft(props[0x00600040]);
     var end = ft(props[tag(named[APPT + ':' + 0x820E], 0x40)]) || ft(props[0x00610040]);
     var allDay = props[tag(named[APPT + ':' + 0x8215], 0x0B)]; allDay = !!(allDay && allDay.lo & 1);
     var next = null; try { next = outlookRecur(bin(top, named[APPT + ':' + 0x8216])); } catch (er) { console.warn('Herhaling niet gelezen', er); }
-    var atts = [], skipped = [];
-    Object.keys(top).filter(function (n) { return /^__attach_version1\.0_#/i.test(n); }).sort().forEach(function (n) {
-      var st = c.kids(top[n]), fp = fixed(st, 8);
-      var name = str(st, 0x3707) || str(st, 0x3704) || str(st, 0x3001) || 'bijlage';
-      var data = bin(st, 0x3701);
-      if (!data) { if (st['__substg1.0_3701000D']) skipped.push(name); return; }
-      var mime = str(st, 0x370E) || guessMime(name), hid = fp[0x7FFE000B], fl = fp[0x37140003];
-      atts.push({ name: name, type: mime, data: data,
-        inline: !!(hid && hid.lo & 1) || !!(fl && fl.lo & 4) || (!!str(st, 0x3712) && /^image\//.test(mime) && /^image\d+\./i.test(name)) });
-    });
     return {
-      subject: str(top, 0x37), from: str(top, 0x0C1A) || str(top, 0x42), sent: ft(props[0x00390040]),
-      text: body, start: start, end: end, allDay: allDay, next: next, location: str(top, named[APPT + ':' + 0x8208]),
-      attachments: atts, skipped: skipped, html: html || ''
+      subject: mm.subject, from: mm.from, sent: mm.sent,
+      text: mm.text, start: start, end: end, allDay: allDay, next: next, location: str(top, named[APPT + ':' + 0x8208]),
+      attachments: mm.attachments, skipped: mm.skipped, html: mm.html
     };
+  }
+  /* een gelezen bericht als .eml (MIME): tekst, HTML en bijlagen */
+  function msgToEml(mm) {
+    var bnd = '----MeMeet-' + Math.random().toString(36).slice(2), alt = bnd + '-alt', te = new TextEncoder();
+    function ew(t) { t = String(t || ''); return /^[\x20-\x7e]*$/.test(t) ? t : '=?utf-8?B?' + btoa(unescape(encodeURIComponent(t))) + '?='; }
+    function b64l(u8) { var s = '', C = 0x8000; for (var i = 0; i < u8.length; i += C) s += String.fromCharCode.apply(null, u8.subarray(i, i + C)); return btoa(s).replace(/.{76}/g, '$&\r\n'); }
+    var o = ['From: ' + ew(mm.from), 'Subject: ' + ew(mm.subject)];
+    if (mm.sent && !isNaN(mm.sent)) o.push('Date: ' + mm.sent.toUTCString());
+    o.push('MIME-Version: 1.0', 'Content-Type: multipart/mixed; boundary="' + bnd + '"', '', '--' + bnd);
+    var textPart = ['Content-Type: text/plain; charset=utf-8', 'Content-Transfer-Encoding: base64', '', b64l(te.encode(mm.text || ''))];
+    if (mm.html) o.push('Content-Type: multipart/alternative; boundary="' + alt + '"', '', '--' + alt, textPart.join('\r\n'), '--' + alt, 'Content-Type: text/html; charset=utf-8', 'Content-Transfer-Encoding: base64', '', b64l(te.encode(mm.html)), '--' + alt + '--');
+    else o.push(textPart.join('\r\n'));
+    (mm.attachments || []).forEach(function (a) {
+      o.push('--' + bnd, 'Content-Type: ' + (a.type || 'application/octet-stream') + '; name="' + ew(a.name) + '"', 'Content-Disposition: ' + (a.inline ? 'inline' : 'attachment') + '; filename="' + ew(a.name) + '"', 'Content-Transfer-Encoding: base64', '', b64l(a.data));
+    });
+    o.push('--' + bnd + '--', '');
+    return te.encode(o.join('\r\n'));
   }
 
   /* ------------------------------------------------------------------ datum/tijd/locatie uit tekst */
@@ -1017,7 +1080,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   function addHour(t) { var p = t.split(':'); return pad((+p[0] + 1) % 24) + ':' + p[1]; }
   function cleanSubject(s) {
-    var re = /^\s*(re|fw|fwd|tr|doorst|antw|wg|aw|uitnodiging|invitation|bijgewerkte uitnodiging|updated invitation|geaccepteerd|accepted|voorlopig|tentative)\s*:\s*/i;
+    var re = /^\s*(re|fw|fwd|tr|doorst|antw|wg|aw|uitnodiging|invitation|bijgewerkte uitnodiging|updated invitation|bijgewerkt|gewijzigd|verplaatst|updated|geaccepteerd|accepted|voorlopig|tentative)\s*:\s*/i;
     s = (s || '').trim(); while (re.test(s)) s = s.replace(re, '');
     return s.replace(/\s+/g, ' ').trim();
   }
@@ -1431,6 +1494,11 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     else return null;
     return { bytes: out, how: 'omgezet' };
   }
+  /* kan de viewer dit bestand tonen? (dezelfde soorten als convertToPdf) */
+  function canView(name, type) {
+    var ext = (String(name || '').split('.').pop() || '').toLowerCase();
+    return /^(pdf|docx|docm|dotx|xlsx|xlsm|pptx|pptm|ppsx|odt|rtf|png|jpe?g|gif|bmp|webp|svg|eml|msg|html?|txt|csv|md|log|xml|json)$/.test(ext) || /pdf|^image\/|^text\/|rfc822|ms-outlook/.test(type || '');
+  }
 
   /* ---------- aantekeningen in een PDF branden */
   function hexRgb(h) { var n = parseInt(String(h || '#000').slice(1), 16); return PL.rgb((n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255); }
@@ -1497,87 +1565,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     return d.save();
   }
 
-  /* ---------- vergadering -> één PDF */
-  function pdfStr(t) { return PL.PDFHexString.fromText(t); }
-  function addOutline(doc, items) {
-    if (!items.length) return;
-    var ctxp = doc.context, root = ctxp.nextRef(), refs = items.map(function () { return ctxp.nextRef(); });
-    items.forEach(function (it, i) {
-      var d = { Title: pdfStr(it.title), Parent: root, Dest: [it.page.ref, PL.PDFName.of('Fit')] };
-      if (i > 0) d.Prev = refs[i - 1]; if (i < items.length - 1) d.Next = refs[i + 1];
-      ctxp.assign(refs[i], ctxp.obj(d));
-    });
-    ctxp.assign(root, ctxp.obj({ Type: 'Outlines', First: refs[0], Last: refs[refs.length - 1], Count: items.length }));
-    doc.catalog.set(PL.PDFName.of('Outlines'), root);
-    doc.catalog.set(PL.PDFName.of('PageMode'), PL.PDFName.of('UseOutlines'));
-  }
-  async function buildCover(m, items, startPage) {
-    var ctx = await newDoc(), w = new Writer(ctx, A4, 60); w.newPage();
-    w.para([{ t: 'AGENDA', b: true, color: GREY }], { size: 9, after: 4 });
-    w.para([{ t: m.title || 'Vergadering', b: true, color: BLUE }], { size: 22, after: 4 });
-    w.y -= 10;
-    var meta = [['Datum', m.date ? fmtLong(m.date) : '—'], ['Tijd', m.start ? m.start + (m.end ? ' – ' + m.end : '') : '—'], ['Locatie', m.location], ['Voorzitter', names(m.invitees)[0] || m.chair], ['Leden', names(m.invitees).slice(1).join(', ')]].filter(function (r) { return r[1]; });
-    meta.forEach(function (r) {
-      var lines = w.layout([{ t: r[1] }], 11, w.W() - 100), h = Math.max(1, lines.length) * 14.5;
-      w.ensure(h); w.page.drawText(r[0], { x: w.m, y: w.y - 11, size: 10, font: ctx.F.b, color: GREY }); w.drawLines(w.page, lines, w.m + 100, w.y, 11, { lh: 1.32 }); w.y -= h + 3;
-    });
-    w.y -= 10; w.para([{ t: 'Stukken', b: true, color: BLUE }], { size: 12.5, after: 6 });
-    if (!items.length) w.para([{ t: 'Geen stukken.', i: true, color: GREY }]);
-    items.forEach(function (it, i) {
-      var label = (i + 1) + '.  ' + it.f.name, pg = startPage ? 'p. ' + startPage[i] : '', pw = ctx.F.r.widthOfTextAtSize(pg, 10.5);
-      var lines = w.layout([{ t: label }], 10.5, w.W() - pw - 30), h = Math.max(1, lines.length) * 14;
-      w.ensure(h + 4);
-      w.drawLines(w.page, lines, w.m, w.y, 10.5, { lh: 1.33 });
-      if (pg) w.page.drawText(pg, { x: w.m + w.W() - pw, y: w.y - 10.5, size: 10.5, font: ctx.F.r, color: GREY });
-      var tag = !it.bytes ? 'niet opgenomen' : annCount(it.ann) ? 'met aantekeningen' : it.how === 'omgezet' ? 'omgezet naar PDF' : '';
-      if (tag) w.page.drawText(tag, { x: w.m + w.W() - pw - 90, y: w.y - 10, size: 7.5, font: ctx.F.i, color: GREY });
-      w.y -= h + 4;
-      w.page.drawLine({ start: { x: w.m, y: w.y + 2 }, end: { x: w.m + w.W(), y: w.y + 2 }, thickness: 0.4, color: LINE });
-    });
-    w.y -= 14; w.para([{ t: 'Samengesteld met MeMeet op ' + new Date().toLocaleString('nl-NL', { dateStyle: 'long', timeStyle: 'short' }), i: true, color: GREY }], { size: 8 });
-    return ctx.doc;
-  }
-  async function mergeMeeting(m, items, progress) {
-    var out = await PL.PDFDocument.create(), fr = await out.embedFont(PL.StandardFonts.Helvetica), fb = await out.embedFont(PL.StandardFonts.HelveticaBold);
-    out.setTitle((m.title || 'Vergadering') + (m.date ? ' – ' + fmtShort(m.date) : '')); out.setCreator('MeMeet'); out.setProducer('MeMeet');
-    for (var i = 0; i < items.length; i++) {
-      progress && progress(i + 1, items.length);
-      var it = items[i]; it.pages = null;
-      if (!it.bytes) continue;
-      try { var src = await PL.PDFDocument.load(it.bytes, { ignoreEncryption: true, updateMetadata: false }); it.pages = await out.copyPages(src, src.getPageIndices()); }
-      catch (e) { console.error(e); it.pages = null; it.err = 'beveiligd of beschadigd'; }
-    }
-    var cover1 = await buildCover(m, items, null), coverN = cover1.getPageCount(), p = coverN + 1, starts = [];
-    items.forEach(function (it) { starts.push(p); p += it.pages ? it.pages.length : 1; });
-    var cover = await buildCover(m, items, starts);
-    if (cover.getPageCount() !== coverN) { coverN = cover.getPageCount(); p = coverN + 1; starts = []; items.forEach(function (it) { starts.push(p); p += it.pages ? it.pages.length : 1; }); cover = await buildCover(m, items, starts); }
-    var total = p - 1, outline = [], cp = await out.copyPages(cover, cover.getPageIndices());
-    cp.forEach(function (pg, k) { out.addPage(pg); if (!k) outline.push({ title: 'Agenda', page: pg }); });
-    items.forEach(function (it, i) {
-      var label = 'Stuk ' + (i + 1) + ' · ' + it.f.name;
-      if (!it.pages) {
-        var ph = out.addPage(A4);
-        ph.drawText(san(label), { x: 60, y: 760, size: 14, font: fb, color: BLUE });
-        ph.drawText(san('Dit stuk kon niet in de PDF worden opgenomen' + (it.err ? ' (' + it.err + ')' : ' (bestandstype wordt niet ondersteund)') + '.'), { x: 60, y: 735, size: 10.5, font: fr, color: INK });
-        ph.drawText('Open het origineel vanuit MeMeet.', { x: 60, y: 718, size: 10.5, font: fr, color: INK });
-        outline.push({ title: (i + 1) + '. ' + it.f.name, page: ph });
-        return;
-      }
-      it.pages.forEach(function (pg, k) {
-        out.addPage(pg);
-        if (it.ann && it.ann[k + 1]) drawPageAnn(pg, it.ann[k + 1], fr);
-        if (!k) outline.push({ title: (i + 1) + '. ' + it.f.name, page: pg });
-        try {
-          if ((pg.getRotation().angle || 0) % 360 !== 0) return;
-          var mb = pg.getMediaBox(), t = san(label).slice(0, 90), tw = fr.widthOfTextAtSize(t, 7);
-          pg.drawText(t, { x: mb.x + mb.width - tw - 18, y: mb.y + mb.height - 14, size: 7, font: fr, color: GREY });
-          var pn = 'pagina ' + (starts[i] + k) + ' van ' + total; pg.drawText(pn, { x: mb.x + (mb.width - fr.widthOfTextAtSize(pn, 7)) / 2, y: mb.y + 8, size: 7, font: fr, color: GREY });
-        } catch (e) {}
-      });
-    });
-    addOutline(out, outline);
-    return out.save();
-  }
 
   /* ================================================================== PowerPoint: dia's getrouw weergeven
      Leest thema (kleuren, lettertypen, opmaakstijlen), diamaster en -indeling (achtergrond, vaste vormen, tijdelijke aanduidingen
@@ -2735,7 +2722,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     async function doSave() {
       if (save.disabled) return;
       save.disabled = true; st.textContent = 'Opslaan…'; st.className = 'edst';
-      try { var nb = await ed.save(); await saveEdited(m, f, nb); dirty = false; if (ed.init && ext === 'docx') { /* nieuwe toestand is basis voor volgende opslag */ var fresh = await mountEditor(m, f, box, done); A.edCtl = fresh; toast('Opgeslagen. De PDF is bijgewerkt.', 'ok'); return; } st.textContent = 'Opgeslagen ✓ (PDF bijgewerkt)'; st.className = 'edst ok'; stateBtns(); done && done(); }
+      try { var nb = await ed.save(); await saveEdited(m, f, nb); dirty = false; if (ed.init && ext === 'docx') { /* nieuwe toestand is basis voor volgende opslag */ var fresh = await mountEditor(m, f, box, done); A.edCtl = fresh; toast('Opgeslagen.', 'ok'); return; } st.textContent = 'Opgeslagen ✓'; st.className = 'edst ok'; stateBtns(); done && done(); }
       catch (e) { console.error(e); save.disabled = false; st.textContent = 'Opslaan mislukt: ' + (e.message || e); st.className = 'edst err'; }
     }
     save.onclick = doSave;
@@ -2746,7 +2733,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var ext = (/\.[^.]*$/.exec(f.name) || [''])[0], base = f.name.slice(0, f.name.length - ext.length);
     if (!f.backup) { var bn = uniqueName(m, base + ' (oorspronkelijk)' + ext); await A.store.put(m, bn, await A.store.get(m, f.name)); f.backup = bn; }
     await A.store.put(m, f.name, blob); f.size = blob.size; f.edited = new Date().toISOString();
-    await makePdf(m, f, blob); m.updated = f.edited; await persist();
+    /* geen PDF meer bijmaken: de viewer zet het bewerkte origineel opnieuw om. Een automatisch gemaakte PDF van vóór versie 1.1 vervalt daarom. */
+    if (f.pdf && f.conv === 'omgezet') { try { await A.store.del(m, f.pdf); } catch (e) {} f.pdf = null; delete f.conv; delete f.convV; }
+    forgetPdf(m, f); m.updated = f.edited; await persist();
   }
 
   /* ================================================================== aantekeningen tijdens de vergadering + actielijst */
@@ -2772,33 +2761,13 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     String(m.minutes || '').split(/\r?\n/).forEach(function (l) { var c = ACT_RE.exec(l); if (!c) return; var id = actId(m, c[2]); if (seen[id]) return; seen[id] = 1; out.push({ id: id, text: c[2] }); });
     return out;
   }
-  /* ---------- meeneempunten uit de aantekeningen: "> label: tekst". De regel blijft staan; het punt wordt er telkens uit afgeleid, zoals bij acties. */
+  /* ---------- meeneempunten: regels die met > beginnen ("> begroting opnieuw bespreken"). Die neem je mee naar het vervolgoverleg
+     (de volgende vergadering met dezelfde titel). De regel blijft in de aantekening staan; het punt wordt er telkens uit afgeleid. */
   var PT_RE = /^\s*>\s*(.*?)\s*$/;
-  function ptMeta(id) { return (A.data.pts || {})[id] || {}; }
-  function setPtMeta(id, k, v) { A.data.pts = A.data.pts || {}; var o = A.data.pts[id] || (A.data.pts[id] = {}); if (v == null || v === '') delete o[k]; else o[k] = v; if (!Object.keys(o).length) delete A.data.pts[id]; }
-  function pointsOf(m) {
-    var out = [], seen = {};
-    String(m.minutes || '').split(/\r?\n/).forEach(function (l) {
-      var c = PT_RE.exec(l); if (!c || !c[1]) return;
-      var body = c[1], lb = /^([^:]{1,40}?)\s*:\s+(\S.*)$/.exec(body), label = '', text = body, key = '', wait = '', exact = false;
-      if (lb) { label = lb[1].trim(); text = lb[2].trim(); }
-      else if (/:$/.test(body)) return; /* "> Linda:" is nog niet af */
-      if (label && /^volgende vergadering$/i.test(label)) { /* de titel van de vergadering waarin je typt, zonder getallen en datums */
-        var pt = plainTitle(m.title); if (pt) { key = 'titel:' + pt; label = m.title; wait = m.title; exact = true; } else label = '';
-      } else if (label) { var mw = matchWords(label).join(' '); key = 'label:' + (mw || label.toLowerCase()); wait = label; }
-      var id = m.id + ':p' + hashStr(key + '|' + text.toLowerCase()); if (seen[id]) return; seen[id] = 1;
-      out.push({ id: id, key: key, label: label, wait: wait, exact: exact, text: text, m: m });
-    });
-    return out;
-  }
-  function allPoints() {
-    var out = [];
-    A.data.meetings.slice().sort(function (x, y) { return ((x.date || '') + (x.start || '')).localeCompare((y.date || '') + (y.start || '')); })
-      .forEach(function (m) { if (m.minutes && m.minutes.indexOf('>') >= 0) out = out.concat(pointsOf(m)); });
-    return out;
-  }
+  function pointsOf(m) { var out = []; String(m.minutes || '').split(/\r?\n/).forEach(function (l) { var c = PT_RE.exec(l); if (c && c[1]) out.push(c[1]); }); return out; }
   /* ---------- besluiten: regels die met = beginnen ("= livegang schuift naar maart"); een regel van alleen =-tekens telt niet */
   var DEC_RE = /^\s*=(?!=)\s*(\S.*?)\s*$/;
+  function decisionsOf(m) { var out = []; String(m.minutes || '').split(/\r?\n/).forEach(function (l) { var c = DEC_RE.exec(l); if (c) out.push(c[1]); }); return out; }
   function isDone(id) { return !!meta(id).done; }
   function allActions() {
     var out = [], t = todayIso();
@@ -2856,7 +2825,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   async function saveMinutes(m) {
     m.minutesUpdated = new Date().toISOString();
     try { await writeNotesFiles(m); } catch (e) { console.error(e); toast('Aantekeningenbestand opslaan mislukt: ' + (e.message || e), 'err'); }
-    try { await syncPointLists(); } catch (e) { console.error('Meeneempunten bijwerken mislukt', e); }
     await persist(); renderSide();
   }
   /* ---------- links in tekst */
@@ -2885,7 +2853,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       $('#npclose').onclick = toggleNotes; $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
       $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; bindGrip(); return;
     }
-    h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt: &gt; Linda: praten over Jozef&#10;&#10;Acties komen in de Actielijst, meeneempunten bij Meeneempunten.">' + esc(m.minutes || '') + '</textarea>';
+    h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
     setHTML(np, h);
     var ta = $('#npt'), t;
     function queue() { var st = $('#npst'); if (st) { st.textContent = 'opslaan…'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = 'opgeslagen ✓'; s2.className = 'npst ok'; } }, 800); }
@@ -2932,7 +2900,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<header><div class="t"><b>' + esc(m.title || 'Vergadering') + '</b><small>' + esc(m.date ? fmtLong(m.date) : '') + (m.start ? ', ' + esc(m.start) : '') + '</small></div><span id="st"></span>' +
       '<button id="mail" title="Het verslag mailen">✉ Mailen</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
       '<textarea id="t" spellcheck="true" placeholder="Typ hier je aantekeningen…"></textarea><div id="links"></div>' +
-      '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt (&gt; MT: punt). Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
+      '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt voor het vervolgoverleg. Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
     d.close();
     var ta = d.getElementById('t'), st = d.getElementById('st'), lk = d.getElementById('links'), t = null;
     ta.value = m.minutes || ''; lk.innerHTML = linkListHtml(m.minutes);
@@ -2974,7 +2942,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   function toggleNotes() {
     A.notesOpen = !A.notesOpen; try { localStorage.setItem('memeet-notes', A.notesOpen ? '1' : '0'); } catch (e) {}
-    var ws = $('.ws'); if (ws) ws.classList.toggle('n3', A.notesOpen);
+    var ws = $('.ws'); if (ws) { ws.classList.toggle('n3', A.notesOpen); applyLw(); }
     var b = $('#npToggle'); if (b) b.classList.toggle('on', A.notesOpen);
     if (A.notesOpen) { var m = currentMeeting(); if (m) renderNotes(m); var t = $('#npt'); if (t) t.focus(); }
     if (PV.fit && $('#pvp')) setTimeout(layoutPages, 50);
@@ -3148,15 +3116,16 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var cols = [['name', 'Naam'], ['date', 'Datum'], ['changed', 'Gewijzigd']];
     var h = '<div class="head"><h1>Verslagen</h1></div><section class="card"><div class="filters"><input id="rq" type="search" placeholder="Zoeken in verslagen…" value="' + esc(f.q) + '">' +
       '<label class="chk"><input type="checkbox" id="rall"' + (f.all ? ' checked' : '') + '> Ook vergaderingen zonder aantekeningen</label></div>';
-    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
+    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '<th class="nosort">Besluiten, acties en meeneempunten</th></tr></thead><tbody>';
     h += list.length ? list.map(function (m) {
-      var chg = m.minutesUpdated ? new Date(m.minutesUpdated) : null;
-      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><b>' + esc(m.title || 'Vergadering') + '</b></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td></tr>';
-    }).join('') : '<tr><td colspan="3" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
+      var chg = m.minutesUpdated ? new Date(m.minutesUpdated) : null, vv = vervolgOf(m);
+      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><b>' + esc(m.title || 'Vergadering') + '</b></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td><td>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="Besluiten, acties en meeneempunten van deze vergadering">📋 ' + esc(vervolgSummary(vv)) + '</button>' : '<span class="muted">—</span>') + '</td></tr>';
+    }).join('') : '<tr><td colspan="4" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
     h += '</tbody></table></div><p class="note">' + list.length + ' verslag' + (list.length === 1 ? '' : 'en') + ' · Klik op een kolomkop om te sorteren, en op een verslag om het te bewerken.</p></section>';
     setHTML($('#main'), h);
     $$('[data-rsort]').forEach(function (th) { th.onclick = function () { var k = th.dataset.rsort; f.dir = f.key === k ? -f.dir : (k === 'name' ? 1 : -1); f.key = k; renderReports(); }; });
-    $$('.rrow').forEach(function (r) { r.onclick = function () { location.hash = '#/verslag/' + encodeURIComponent(r.dataset.rid); }; });
+    $$('.rrow').forEach(function (r) { r.onclick = function (e) { if (e.target.closest('button')) return; location.hash = '#/verslag/' + encodeURIComponent(r.dataset.rid); }; });
+    $$('[data-vv]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); openVervolg(byId(b.dataset.vv), null); }; });
     var qi = $('#rq'); qi.oninput = function () { f.q = qi.value; var pos = qi.selectionStart; renderReports(); var n = $('#rq'); n.focus(); n.setSelectionRange(pos, pos); };
     $('#rall').onchange = function () { f.all = this.checked; renderReports(); };
   }
@@ -3281,326 +3250,117 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   function mailMinutes(m) { return mailText('Aantekeningen: ' + (m.title || 'Vergadering') + (m.date ? ' (' + fmtShort(m.date) + ')' : ''), minutesMailText(m)); }
   function renderReport(m) {
-    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
+    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">📋 Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
     h += '<section class="card repcard"><div class="edwrap" id="repbox"></div></section>';
     setHTML($('#main'), h);
     var E = repEditor($('#repbox'), {
-      html: repHtmlOf(m), actions: true, foot: 'Begin een regel met ! voor een actie (komt in de Actielijst), = voor een besluit, > voor een meeneempunt (> MT: punt).',
+      html: repHtmlOf(m), actions: true, foot: 'Begin een regel met ! voor een actie (komt in de Actielijst), = voor een besluit, > voor een meeneempunt voor het vervolgoverleg.',
       status: m.minutesUpdated ? 'Laatst gewijzigd ' + new Date(m.minutesUpdated).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }) : '',
       onSave: async function (r) { m.minutesHtml = r.html; m.minutes = r.text; await saveMinutes(m); },
       download: function (r) { m.minutes = r.text; dl(new Blob(['﻿' + minutesText(m)], { type: 'text/plain' }), minutesFileName(m)); }
     });
     A.flushNotes = E.flush;
     $('#repMail').onclick = async function () { await E.flush(); mailMinutes(m); };
+    $('#repVv').onclick = async function () { await E.flush(); openVervolg(m, null); };
     E.ed.focus();
   }
 
-  /* ================================================================== Meeneempunten (in de code: annos): lijstjes in verslagvorm, gekoppeld aan een vergadering,
-     wachtend op een vergadering met een bepaalde titel, of los. Punten uit de aantekeningen (regels met >) komen er vanzelf in. */
-  var ANNO_DIR = 'Meeneempunten', OLD_ANNO_DIRS = ['Bespreekpunten', 'Annotaties'], annoDir = ANNO_DIR;
-  /* De map heette eerst Annotaties en daarna Bespreekpunten: zet de bestanden eenmalig over naar Meeneempunten.
-     Lukt dat niet, dan blijft de oude map in gebruik. Bestaat Meeneempunten al, dan blijft een oude map onaangeroerd staan. */
-  async function migrateAnnoDir(root) {
-    async function dirOf(n) { try { return await root.getDirectoryHandle(n); } catch (e) { return null; } }
-    annoDir = ANNO_DIR;
-    var cur = await dirOf(ANNO_DIR);
-    for (var i = 0; i < OLD_ANNO_DIRS.length; i++) {
-      var name = OLD_ANNO_DIRS[i], old = await dirOf(name);
-      if (!old || cur) continue;
-      try {
-        var nw = await root.getDirectoryHandle(ANNO_DIR, { create: true });
-        for await (var e of old.values()) { if (e.kind !== 'file') continue; var f = await e.getFile(), h = await nw.getFileHandle(e.name, { create: true }), w = await h.createWritable(); await w.write(f); await w.close(); }
-      } catch (er) {
-        console.error('Map ' + name + ' omzetten naar ' + ANNO_DIR + ' mislukt', er);
-        try { await root.removeEntry(ANNO_DIR, { recursive: true }); } catch (e2) {}
-        annoDir = name; return;
-      }
-      try { await root.removeEntry(name, { recursive: true }); } catch (er) { console.warn(er); }
-      cur = nw;
-    }
-  }
-  function annos() { var l = A.data.annos || (A.data.annos = []); for (var i = 0; i < l.length; i++) if (!l[i].v2) annoMigrate(l[i]); return l; }
-  function annoById(id) { return annos().filter(function (a) { return a.id === id; })[0]; }
-  function annoFileName(a) { return safe(a.title || 'Meeneempunten').slice(0, 80) + ' [' + a.id.slice(-4) + '].txt'; }
-  /* de titel is de eerste regel van de tekst */
-  function annoTitleOf(text) { var l = String(text || '').split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean)[0] || ''; return l.slice(0, 120) || 'Nieuw lijstje'; }
-  /* oudere lijstjes (annotaties) hadden een los titelveld: zet die titel eenmalig als eerste regel in de tekst */
-  function annoMigrate(a) {
-    if (a.v2) return; a.v2 = true;
-    var first = String(a.text || '').split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean)[0] || '';
-    /* een standaardtitel ("Nieuwe annotatie", "Annotatie bij …") was geen echte titel en gaat niet in de tekst */
-    var real = a.title && a.title !== 'Nieuwe annotatie' && a.title !== 'Annotatie' && a.title !== 'Nieuw bespreekpunt' && a.title !== 'Nieuw lijstje' && !/^Annotatie bij /.test(a.title);
-    if (real && first !== a.title.trim()) { a.html = '<p>' + esc(a.title) + '</p>' + (a.text || a.html ? annoHtmlOf(a) : ''); a.text = a.title + (a.text ? '\n' + a.text : ''); }
-    /* de titel is altijd de eerste regel van de tekst */
-    if (String(a.text || '').trim()) a.title = annoTitleOf(a.text);
-  }
-  function annoHtmlOf(a) { return a.html || String(a.text || '').split(/\r?\n/).map(function (l) { return '<p>' + (l ? esc(l) : '<br>') + '</p>'; }).join('') || '<p><br></p>'; }
+  /* ================================================================== Vervolg: per vergadering een kort document met besluiten (=), acties (!)
+     en meeneempunten (>) uit de aantekeningen. Bij een volgende vergadering met dezelfde titel (het vervolgoverleg) staat het document
+     van de vorige keer klaar onder de knop Meeneempunten, en het staat bij elk verslag op het tabblad Verslagen. Het opent als popup. */
 
-  /* ---------- wachten op een vergadering met een bepaalde titel */
   /* woorden van een titel: kleine letters, zonder accenten, zonder vulwoorden */
   var MATCH_STOP = { bila: 1, po: 1, overleg: 1, bijpraten: 1, met: 1, de: 1, het: 1, een: 1 };
   function matchWords(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(function (w) { return w && !MATCH_STOP[w]; }); }
-  /* een titel zonder losse getallen en datums ("Teamoverleg 10-11" = "Teamoverleg 17 november") */
-  function plainTitle(s) { return matchWords(String(s || '').replace(/\b\d{1,4}[-\/.]\d{1,2}(?:[-\/.]\d{2,4})?\b/g, ' ')).filter(function (w) { return !/^\d+$/.test(w) && !MON[w]; }).join(' '); }
-  /* past de titel van vergadering m bij waar het lijstje op wacht? Per heel woord: "Linda" past bij "bila Linda", niet bij "Belinda". */
-  function annoMatches(a, m) {
-    if (!a.wait || !m || !m.title) return false;
-    if (a.waitExact) { var pw = plainTitle(a.wait); return !!pw && plainTitle(m.title) === pw; }
-    var w = matchWords(a.wait), t = matchWords(m.title);
-    return !!w.length && w.every(function (x) { return t.indexOf(x) >= 0; });
-  }
+  /* een titel zonder losse getallen, datums en voorvoegsels ("Teamoverleg 10-11" = "Teamoverleg 17 november" = "Bijgewerkt: Teamoverleg") */
+  function plainTitle(s) { return matchWords(cleanSubject(String(s || '')).replace(/\b\d{1,4}[-\/.]\d{1,2}(?:[-\/.]\d{2,4})?\b/g, ' ')).filter(function (w) { return !/^\d+$/.test(w) && !MON[w]; }).join(' '); }
   function meetKey(m) { return (m.date || '') + ' ' + (m.start || ''); }
-  function isWaiting(a) { return !a.mid && !!String(a.wait || '').trim(); }
-  /* de vergadering waar een wachtend lijstje nu staat: de eerstvolgende passende vergadering van vandaag of later (niet afgehandeld schuift zo vanzelf door) */
-  function annoTarget(a) {
-    if (!isWaiting(a) || a.pin) return null;
-    if (a.archived) return a.archMid ? byId(a.archMid) || null : null;
-    var t = todayIso(), skip = (a.skip || []).slice();
-    /* een punt dat je in een vergadering typt, is voor de volgende keer: de vergaderingen waar de punten vandaan komen, tellen niet mee */
-    if (a.ptKey != null) annoPoints(a).forEach(function (p) { skip.push(p.m.id); });
-    return A.data.meetings.filter(function (m) { return m.date && m.date >= t && skip.indexOf(m.id) < 0 && annoMatches(a, m); })
-      .sort(function (x, y) { return meetKey(x).localeCompare(meetKey(y)); })[0] || null;
-  }
-  /* staat lijstje a bij vergadering m? Gekoppeld: alleen daar. Vastgepind: bij elke passende vergadering. Wachtend: bij de eerstvolgende. */
-  function annoShowsAt(a, m) {
-    if (a.mid) return a.mid === m.id;
-    if (!isWaiting(a)) return false;
-    if (a.pin) return a.archived ? a.archMid === m.id : (a.skip || []).indexOf(m.id) < 0 && annoMatches(a, m);
-    var tg = annoTarget(a); return !!tg && tg.id === m.id;
-  }
-  function annoMeetLabel(a) { var m = a.mid ? byId(a.mid) : null; return m ? m.title + (m.date ? ' (' + fmtShort(m.date) + ')' : '') : ''; }
   function meetName(m) { return m ? m.title + (m.date ? ' (' + fmtShort(m.date) + ')' : '') : ''; }
-  function waitLabel(a) { return a.waitExact ? 'dezelfde titel als "' + a.wait + '"' : '"' + a.wait + '"'; }
-  function waitDays(a) { var d = Math.floor((Date.now() - new Date(a.waitSince || a.created || Date.now()).getTime()) / 864e5); return d < 1 ? 'sinds vandaag' : d === 1 ? '1 dag' : d + ' dagen'; }
-  /* waar het lijstje staat, als tekst (voor de lijst, zoeken en sorteren) */
-  function annoWhere(a) {
-    if (a.mid) return annoMeetLabel(a);
-    if (!isWaiting(a)) return '';
-    if (a.archived) return a.archMid && byId(a.archMid) ? meetName(byId(a.archMid)) : 'wachtte op ' + waitLabel(a);
-    if (a.pin) return 'vast bij ' + waitLabel(a);
-    var tg = annoTarget(a);
-    return 'wacht op ' + waitLabel(a) + ' · ' + (tg ? 'volgende: ' + meetName(tg) : 'nog geen vergadering, wacht ' + waitDays(a));
+
+  /* het vervolgdocument van vergadering m */
+  function vervolgOf(m) {
+    var acts = actionsOf(m).map(function (a) { return { id: a.id, text: a.text, done: isDone(a.id) }; });
+    return { dec: decisionsOf(m), acts: acts, pts: pointsOf(m), n: decisionsOf(m).length + acts.length + pointsOf(m).length };
+  }
+  function vervolgSummary(v) {
+    var o = [], open = v.acts.filter(function (a) { return !a.done; }).length;
+    if (v.dec.length) o.push(v.dec.length + ' besluit' + (v.dec.length === 1 ? '' : 'en'));
+    if (v.acts.length) o.push(v.acts.length + ' actie' + (v.acts.length === 1 ? '' : 's') + (open !== v.acts.length ? ' (' + open + ' open)' : ''));
+    if (v.pts.length) o.push(v.pts.length + ' meeneempunt' + (v.pts.length === 1 ? '' : 'en'));
+    return o.join(' · ') || 'niets vastgelegd';
+  }
+  /* De vorige vergadering voor m: zelf gekozen (m.prevId), of anders de laatste eerdere vergadering met dezelfde titel.
+     m.prevId === '' betekent: bewust geen koppeling. */
+  function prevMeeting(m) {
+    if (m.prevId === '') return null;
+    if (m.prevId) { var p = byId(m.prevId); if (p) return p; }
+    var t = plainTitle(m.title), k = meetKey(m); if (!t) return null;
+    return A.data.meetings.filter(function (x) { return x.id !== m.id && meetKey(x) < k && plainTitle(x.title) === t; })
+      .sort(function (a, b) { return meetKey(b).localeCompare(meetKey(a)); })[0] || null;
   }
 
-  /* ---------- punten uit de aantekeningen (regels met >), gegroepeerd per label */
-  /* elk punt hoort bij één lijstje (in het register: pts[id].a); punten zonder lijstje gaan naar het lijstje met hetzelfde label, dat zo nodig wordt aangemaakt */
-  function ptListFor(key) { return annos().filter(function (a) { return a.ptKey === key && !a.archived; })[0]; }
-  function annoPoints(a) { return allPoints().filter(function (p) { return ptMeta(p.id).a === a.id; }); }
-  function ptSig(a) { return annoPoints(a).map(function (p) { var mt = ptMeta(p.id); return p.id + (mt.done ? 'x' : '') + (mt.hidden ? 'h' : ''); }).join(','); }
-  /* Na het opslaan van aantekeningen: punten aan een lijstje toewijzen en lijstjes aanmaken. Een automatisch gemaakt lijstje dat leeg is geraakt
-     (bijvoorbeeld door een half getypte regel) en waar je zelf niets aan hebt veranderd, verdwijnt weer. Bewaart zelf niet; de aanroeper doet persist(). */
-  async function syncPointLists() {
-    var pts = allPoints(), live = {}, list = annos(), touched = [];
-    pts.forEach(function (p) {
-      live[p.id] = 1;
-      var mt = ptMeta(p.id), cur = mt.a ? annoById(mt.a) : null;
-      if (cur) return;
-      var a = ptListFor(p.key);
-      if (!a) {
-        var now = new Date().toISOString(), title = p.key ? p.label : 'Nog te plaatsen';
-        a = { id: uid(), title: title, text: title, html: '<p>' + esc(title) + '</p>', mid: null, created: now, updated: now, v2: true, auto: true, ptKey: p.key };
-        if (p.key) { a.wait = p.wait; a.waitSince = now; if (p.exact) a.waitExact = true; }
-        list.push(a);
+  /* De popup. src: de vergadering waarvan het document getoond wordt (mag leeg zijn). ctx: de vergadering waarvoor het vervolg
+     geopend wordt (vanaf de vergaderpagina); dan kun je ook een andere vorige vergadering kiezen. Escape of klikken naast de popup sluit hem. */
+  function openVervolg(src, ctx) {
+    closeVervolg();
+    var bg = D.createElement('div'); bg.className = 'dlgbg vvbg'; bg.id = 'vvDlg';
+    function list(items, empty) { return items.length ? '<ul>' + items.join('') + '</ul>' : '<p class="muted vvnone">' + empty + '</p>'; }
+    function draw() {
+      var h = '<div class="dlg vv" role="dialog" aria-modal="true" aria-labelledby="vvT"><div class="vvhead"><div><h2 id="vvT">Besluiten, acties en meeneempunten</h2>';
+      if (src) {
+        var v = vervolgOf(src);
+        h += '<p class="muted">' + (ctx && ctx !== src ? 'Uit het vorige overleg: ' : '') + '<b>' + esc(src.title) + '</b>' + (src.date ? ', ' + esc(fmtLong(src.date)) + (src.start ? ' ' + esc(src.start) : '') : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div><div class="vvbody">';
+        h += '<h3>Besluiten</h3>' + list(v.dec.map(function (t) { return '<li>' + esc(t) + '</li>'; }), 'Geen besluiten vastgelegd.');
+        h += '<h3>Acties</h3>' + list(v.acts.map(function (a) { return '<li class="vvact' + (a.done ? ' done' : '') + '"><label><input type="checkbox" data-vva="' + esc(a.id) + '"' + (a.done ? ' checked' : '') + '> <span>' + esc(a.text) + '</span></label></li>'; }), 'Geen acties vastgelegd.');
+        h += '<h3>Meeneempunten</h3>' + list(v.pts.map(function (t) { return '<li>' + esc(t) + '</li>'; }), 'Geen meeneempunten vastgelegd.');
+        if (!v.n) h += '<p class="muted vvtip">Begin in de aantekeningen een regel met <code>=</code> voor een besluit, <code>!</code> voor een actie of <code>&gt;</code> voor een meeneempunt; die komen dan hier.</p>';
+        h += '</div><div class="dlgacts"><a class="btn sm" href="#/v/' + encodeURIComponent(src.id) + '" data-vvgo="1">Naar die vergadering</a><a class="btn sm" href="#/verslag/' + encodeURIComponent(src.id) + '" data-vvgo="1">Verslag openen</a><span class="sp"></span>';
+      } else {
+        h += '<p class="muted">' + (ctx ? esc(ctx.title) : '') + '</p></div><button type="button" class="vvx" id="vvX" title="Sluiten (Esc)" aria-label="Sluiten">✕</button></div><div class="vvbody">' +
+          '<p>Er is nog geen eerdere vergadering met de titel <b>' + esc(ctx ? ctx.title : '') + '</b> gevonden. Kies hieronder zelf de vergadering waar dit het vervolg van is.</p></div><div class="dlgacts"><span class="sp"></span>';
       }
-      setPtMeta(p.id, 'a', a.id);
-      if (touched.indexOf(a) < 0) touched.push(a);
-    });
-    /* registerregels zonder punt en zonder vinkje of verbergen: opruimen */
-    var reg = A.data.pts || {};
-    Object.keys(reg).forEach(function (id) { if (!live[id] && !reg[id].done && !reg[id].hidden) delete reg[id]; });
-    var drop = list.filter(function (a) { return a.auto && !a.archived && !a.mid && !annoPoints(a).length && String(a.text || '').trim() === String(a.title || '').trim(); });
-    for (var i = 0; i < drop.length; i++) { try { await writeAnnoFile(drop[i], true); } catch (e) {} }
-    if (drop.length) A.data.annos = list.filter(function (a) { return drop.indexOf(a) < 0; });
-    /* tekstbestanden bijwerken van lijstjes waarvan de punten veranderd zijn */
-    var lists = annos().filter(function (a) { return a.ptKey != null || touched.indexOf(a) >= 0; });
-    for (var j = 0; j < lists.length; j++) {
-      var s = ptSig(lists[j]); if (s === (lists[j].ptSig || '')) continue;
-      lists[j].ptSig = s; try { await writeAnnoFile(lists[j]); } catch (e) { console.warn(e); }
-    }
-  }
-  /* de punten van een lijstje als afvinkbare regels, met herkomst */
-  function pointsHtml(a, showHidden) {
-    var ps = annoPoints(a), vis = ps.filter(function (p) { return !ptMeta(p.id).hidden; }), hid = ps.length - vis.length;
-    if (!ps.length) return '';
-    var rows = (showHidden ? ps : vis).slice().sort(function (x, y) { return (ptMeta(x.id).done ? 1 : 0) - (ptMeta(y.id).done ? 1 : 0); });
-    var h = '<ul class="ptlist">' + rows.map(function (p) {
-      var mt = ptMeta(p.id);
-      return '<li class="pt' + (mt.done ? ' done' : '') + (mt.hidden ? ' hid' : '') + '" data-pt="' + esc(p.id) + '"><input type="checkbox" class="ptdone" title="Afgehandeld"' + (mt.done ? ' checked' : '') + '><span class="pttx">' + esc(p.text) + '</span>' +
-        (mt.hidden ? '<button type="button" class="link ptrest" title="Weer tonen">↩</button>' : '<button type="button" class="link ptdel" title="Verbergen (de regel blijft in de aantekeningen staan)">✕</button>') +
-        '<small class="ptsrc">uit <a href="#/v/' + encodeURIComponent(p.m.id) + '">' + esc(p.m.title + (p.m.date ? ' ' + fmtShort(p.m.date).slice(0, 5) : '')) + '</a></small></li>';
-    }).join('') + '</ul>';
-    if (hid) h += '<p class="pthid"><button type="button" class="link" data-pthid="1">' + (showHidden ? 'Verborgen punten niet tonen' : hid + ' verborgen punt' + (hid === 1 ? '' : 'en') + ' tonen') + '</button></p>';
-    return h;
-  }
-  /* afvinken en verbergen werken als bij acties: de regel blijft in de aantekening staan, het vinkje staat apart in het register */
-  function bindPoints(root, a, redraw) {
-    async function done() { try { a.ptSig = ptSig(a); await writeAnnoFile(a); } catch (e) {} await persist(); redraw(); }
-    $$('.ptdone', root).forEach(function (cb) { cb.onclick = function (e) { e.stopPropagation(); }; cb.onchange = function () { setPtMeta(cb.closest('[data-pt]').dataset.pt, 'done', cb.checked ? new Date().toISOString() : null); done(); }; });
-    $$('.ptdel', root).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); setPtMeta(b.closest('[data-pt]').dataset.pt, 'hidden', new Date().toISOString()); done(); }; });
-    $$('.ptrest', root).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); setPtMeta(b.closest('[data-pt]').dataset.pt, 'hidden', null); done(); }; });
-    $$('[data-pthid]', root).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); A.ptShowHidden = !A.ptShowHidden; redraw(); }; });
-  }
-  /* de inhoud van een lijstje bij een vergadering: eerst de punten, dan de vrije tekst */
-  function annoBodyHtml(a) { return pointsHtml(a, false) + '<div class="anntext">' + annoHtmlOf(a) + '</div>'; }
-  function openPointCount(a) { return annoPoints(a).filter(function (p) { var mt = ptMeta(p.id); return !mt.done && !mt.hidden; }).length; }
-
-  function annoText(a) {
-    var m = a.mid ? byId(a.mid) : null, o = [String(a.text || '').replace(/\s+$/, '') || a.title || 'Meeneempunten'];
-    var ps = annoPoints(a).filter(function (p) { return !ptMeta(p.id).hidden; });
-    if (ps.length) { o.push('', 'PUNTEN UIT AANTEKENINGEN', '------------------------'); ps.forEach(function (p) { o.push((ptMeta(p.id).done ? '[x] ' : '[ ] ') + p.text + '  (uit ' + meetName(p.m) + ')'); }); }
-    if (m) o.push('', 'Vergadering: ' + m.title + (m.date ? ' (' + fmtLong(m.date) + ')' : ''));
-    else if (isWaiting(a)) o.push('', (a.pin ? 'Vast bij vergaderingen met ' : 'Wacht op een vergadering met ') + waitLabel(a));
-    o.push('', '(Bijgehouden in MeMeet, laatst opgeslagen ' + new Date().toLocaleString('nl-NL', { dateStyle: 'long', timeStyle: 'short' }) + ')');
-    return o.join('\r\n');
-  }
-  /* het tekstbestand in memeet-data\Meeneempunten bijwerken (of weghalen) */
-  async function writeAnnoFile(a, remove) {
-    if (!A.store || A.store.kind !== 'map') return;
-    var dir = await A.store.root.getDirectoryHandle(annoDir, { create: true }), name = annoFileName(a);
-    if (a.file && (remove || a.file !== name)) { try { await dir.removeEntry(a.file); } catch (e) {} a.file = null; }
-    if (remove) return;
-    var h = await dir.getFileHandle(name, { create: true }), w = await h.createWritable(); await w.write(new Blob(['﻿' + annoText(a)], { type: 'text/plain' })); await w.close(); a.file = name;
-  }
-  async function saveAnno(a) { if (a.dropped) return; a.updated = new Date().toISOString(); try { await writeAnnoFile(a); } catch (e) { console.error(e); toast('Lijstje als bestand opslaan mislukt: ' + (e.message || e), 'err'); } await persist(); }
-  async function newAnno(mid) {
-    var now = new Date().toISOString();
-    var a = { id: uid(), title: 'Nieuw lijstje', html: '', text: '', mid: mid || null, created: now, updated: now, v2: true };
-    annos().push(a); await saveAnno(a);
-    A.annoNew = a.id; location.hash = '#/meeneempunt/' + encodeURIComponent(a.id);
-  }
-  async function deleteAnno(a) {
-    var np = annoPoints(a).length;
-    if (!confirm('Lijstje "' + (a.title || 'Meeneempunten') + '" verwijderen?\n\nDe tekst en het tekstbestand in de map ' + annoDir + ' worden gewist.' + (np ? '\nDe ' + np + ' punt(en) uit je aantekeningen blijven daar staan en komen bij het volgende opslaan weer in een lijstje.' : ''))) return false;
-    try { await writeAnnoFile(a, true); } catch (e) {}
-    A.data.annos = annos().filter(function (x) { return x !== a; });
-    var reg = A.data.pts || {}; Object.keys(reg).forEach(function (id) { if (reg[id].a === a.id) delete reg[id].a; });
-    await persist();
-    toast('Lijstje verwijderd.', 'ok'); return true;
-  }
-  /* een nieuw lijstje dat leeg blijft, wordt bij het verlaten weer weggegooid */
-  function dropEmptyAnno(a) {
-    a.dropped = true; A.data.annos = annos().filter(function (x) { return x !== a; });
-    (async function () { try { await writeAnnoFile(a, true); } catch (e) {} await persist(); })();
-  }
-  /* archiveren of terugzetten (de datum Gewijzigd blijft gelijk). Bij een wachtend lijstje wordt vastgelegd bij welke vergadering het op dat moment stond. */
-  async function setAnnoArchived(a, on, at) {
-    if (on) { if (isWaiting(a)) { var tg = at || annoTarget(a); if (tg) a.archMid = tg.id; else delete a.archMid; } a.archived = new Date().toISOString(); }
-    else { delete a.archived; delete a.archMid; }
-    await persist(); toast(on ? 'Naar het archief verplaatst.' : 'Teruggezet uit het archief.', 'ok');
-  }
-  /* "Niet hier": deze vergadering overslaan; het lijstje wacht op de volgende passende vergadering */
-  async function skipAnnoAt(a, m) { a.skip = (a.skip || []).concat([m.id]); delete a.auto; await persist(); toast('Het lijstje wacht nu op de volgende vergadering met ' + waitLabel(a) + '.', 'ok'); }
-
-  function renderAnnos() {
-    var f = A.nf || (A.nf = { q: '', key: 'changed', dir: -1 }), q = f.q.toLowerCase();
-    var all = annos().filter(function (a) { return !q || [a.title, a.text, annoWhere(a), annoPoints(a).map(function (p) { return p.text; }).join(' ')].join(' ').toLowerCase().indexOf(q) >= 0; });
-    all.sort(function (a, b) {
-      var x, y; if (f.key === 'name') { x = (a.title || '').toLowerCase(); y = (b.title || '').toLowerCase(); } else if (f.key === 'meet') { x = annoWhere(a).toLowerCase(); y = annoWhere(b).toLowerCase(); } else { x = a.updated || ''; y = b.updated || ''; }
-      var r = x < y ? -1 : x > y ? 1 : 0; return (r || (a.title || '').localeCompare(b.title || '', 'nl')) * (r ? f.dir : 1);
-    });
-    var list = all.filter(function (a) { return !a.archived && !isWaiting(a); }), wait = all.filter(function (a) { return !a.archived && isWaiting(a); }), arch = all.filter(function (a) { return a.archived; });
-    var nArch = annos().filter(function (a) { return a.archived; }).length, nWait = annos().filter(function (a) { return !a.archived && isWaiting(a); }).length;
-    var cols = [['name', 'Naam'], ['meet', 'Vergadering'], ['changed', 'Gewijzigd']];
-    function table(rows, inArch, emptyTxt) {
-      var t = '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-nsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '<th class="nosort"></th></tr></thead><tbody>';
-      t += rows.length ? rows.map(function (a) {
-        var d = a.updated ? new Date(a.updated) : null, np = openPointCount(a), where;
-        if (a.mid && byId(a.mid)) where = '<a href="#/v/' + encodeURIComponent(a.mid) + '">' + esc(annoMeetLabel(a)) + '</a>';
-        else if (isWaiting(a)) { var tg = a.archived ? (a.archMid && byId(a.archMid)) : (!a.pin && annoTarget(a)); where = tg ? (a.archived ? '' : '<span class="muted">wacht op ' + esc(waitLabel(a)) + ' · volgende:</span> ') + '<a href="#/v/' + encodeURIComponent(tg.id) + '">' + esc(meetName(tg)) + '</a>' : '<span class="muted">' + esc(annoWhere(a)) + '</span>'; }
-        else where = '<span class="muted">—</span>';
-        return '<tr class="rrow" data-aid="' + esc(a.id) + '"><td><b>' + esc(a.title || 'Meeneempunten') + '</b>' + (np ? ' <span class="pill">' + np + ' punt' + (np === 1 ? '' : 'en') + '</span>' : '') + (a.pin && !a.archived ? ' <span class="bdg">vast</span>' : '') + '</td><td>' + where + '</td>' +
-          '<td>' + (d ? esc(pad(d.getDate()) + '-' + pad(d.getMonth() + 1) + '-' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes())) : '—') + '</td><td class="aact">' +
-          (inArch ? '<button type="button" class="link" data-aarch="0" data-id="' + esc(a.id) + '" title="Terug naar de meeneempunten">Terugzetten</button>' : '<button type="button" class="link" data-aarch="1" data-id="' + esc(a.id) + '" title="Naar het archief onderaan">Archiveren</button>') +
-          '<button type="button" class="link red" data-adel="' + esc(a.id) + '" title="Verwijderen">✕</button></td></tr>';
-      }).join('') : '<tr><td colspan="4" class="empty">' + emptyTxt + '</td></tr>';
-      return t + '</tbody></table></div>';
-    }
-    var h = '<div class="head"><h1>Meeneempunten</h1><div class="acts"><button type="button" class="btn pri" id="annoNew">+ Meeneempuntenlijstje toevoegen</button></div></div>';
-    h += '<section class="card"><div class="filters"><input id="nq" type="search" placeholder="Zoeken in meeneempunten…" value="' + esc(f.q) + '"></div>';
-    h += '<h2 class="anngrp">Bij een vergadering of los</h2>';
-    h += table(list, false, annos().length - nArch - nWait ? 'Geen lijstjes gevonden.' : 'Nog geen lijstjes. Klik op <b>+ Meeneempuntenlijstje toevoegen</b> om er een te maken, los of bij een vergadering, of begin in je aantekeningen een regel met <code>&gt;</code>.');
-    h += '<h2 class="anngrp">Wachtend op een vergadering</h2>';
-    h += table(wait, false, nWait ? 'Geen wachtende lijstjes met deze zoekterm.' : 'Geen lijstjes die wachten. Vul bij een lijstje <b>Wacht op titel</b> in, bijvoorbeeld <i>Linda</i> of <i>MT</i>, of typ in je aantekeningen <code>&gt; MT: punt</code>.');
-    h += '<p class="note">' + (list.length + wait.length) + ' lijstje' + (list.length + wait.length === 1 ? '' : 's') + (A.store.kind === 'map' ? ' · Ook bewaard als tekstbestand in memeet-data\\' + esc(annoDir) : '') + '</p></section>';
-    /* archief onderaan, standaard ingeklapt */
-    h += '<section class="card arch annarch"><button type="button" class="archbtn" id="annArch" aria-expanded="' + (A.showAnnArch ? 'true' : 'false') + '"><span>' + (A.showAnnArch ? '▾' : '▸') + '</span> Archief <span class="muted">' + arch.length + ' lijstje' + (arch.length === 1 ? '' : 's') + (q && arch.length !== nArch ? ' met deze zoekterm' : '') + '</span><span class="sp"></span><span class="link">' + (A.showAnnArch ? 'verbergen' : 'weergeven') + '</span></button>';
-    if (A.showAnnArch) h += table(arch, true, nArch ? 'Geen gearchiveerde lijstjes met deze zoekterm.' : 'Het archief is leeg. Met <b>Archiveren</b> zet je een lijstje hier neer.');
-    h += '</section>';
-    setHTML($('#main'), h);
-    $('#annoNew').onclick = function () { newAnno(null); };
-    $('#annArch').onclick = function () { A.showAnnArch = !A.showAnnArch; var y = W.scrollY; renderAnnos(); W.scrollTo(0, y); };
-    $$('[data-nsort]').forEach(function (th) { th.onclick = function () { var k = th.dataset.nsort; f.dir = f.key === k ? -f.dir : (k === 'changed' ? -1 : 1); f.key = k; renderAnnos(); }; });
-    $$('tr[data-aid]').forEach(function (r) { r.onclick = function (e) { if (e.target.closest('a,button')) return; location.hash = '#/meeneempunt/' + encodeURIComponent(r.dataset.aid); }; });
-    $$('[data-aarch]').forEach(function (b) { b.onclick = async function (e) { e.stopPropagation(); var a = annoById(b.dataset.id); if (!a) return; var y = W.scrollY; await setAnnoArchived(a, b.dataset.aarch === '1'); renderAnnos(); W.scrollTo(0, y); }; });
-    $$('[data-adel]').forEach(function (b) { b.onclick = async function (e) { e.stopPropagation(); var a = annoById(b.dataset.adel); if (a && await deleteAnno(a)) renderAnnos(); }; });
-    var qi = $('#nq'); qi.oninput = function () { f.q = qi.value; var p = qi.selectionStart; renderAnnos(); var n = $('#nq'); n.focus(); n.setSelectionRange(p, p); };
-  }
-  function renderAnno(a) {
-    var ms = A.data.meetings.slice().sort(function (x, y) { return ((y.date || '') + (y.start || '')).localeCompare((x.date || '') + (x.start || '')); });
-    annoMigrate(a);
-    var back = a.mid && byId(a.mid) ? byId(a.mid) : annoTarget(a);
-    var tg = isWaiting(a) && !a.pin ? annoTarget(a) : null;
-    var waitInfo = !isWaiting(a) ? '' : a.pin ? 'Vastgepind: staat bij elke vergadering met ' + esc(waitLabel(a)) + '.' : a.archived ? (a.archMid && byId(a.archMid) ? 'Gearchiveerd bij <a href="#/v/' + encodeURIComponent(a.archMid) + '">' + esc(meetName(byId(a.archMid))) + '</a>.' : 'Gearchiveerd.') :
-      tg ? 'Staat nu bij <a href="#/v/' + encodeURIComponent(tg.id) + '">' + esc(meetName(tg)) + '</a>.' : 'Nog geen vergadering met deze titel; wacht ' + esc(waitDays(a)) + '.';
-    var h = '<section class="card meta annohead"><div class="mtop">' +
-      '<label class="annomeet">Vergadering <select id="annoM"><option value="">— geen vergadering —</option>' + ms.map(function (m) { return '<option value="' + esc(m.id) + '"' + (m.id === a.mid ? ' selected' : '') + '>' + esc((m.date ? fmtShort(m.date) + ' ' : '') + m.title) + '</option>'; }).join('') + '</select>' +
-      (a.mid && byId(a.mid) ? ' <a href="#/v/' + encodeURIComponent(a.mid) + '">Naar vergadering ›</a>' : '') + '</label><div class="acts">' +
-      '<button type="button" class="btn" id="annoMail" title="Het lijstje mailen; Outlook opent een nieuwe mail">✉ Mailen</button><button type="button" class="btn" id="annoArch" title="' + (a.archived ? 'Terug naar de meeneempunten' : 'Naar het archief op het tabblad Meeneempunten') + '">' + (a.archived ? 'Terugzetten' : 'Archiveren') + '</button><button type="button" class="btn red" id="annoDel">Verwijder</button><a class="btn" href="' + (back ? '#/v/' + encodeURIComponent(back.id) : '#/meeneempunten') + '" title="' + (back ? 'Naar de vergadering' : 'Terug naar de lijst') + '">Terug</a></div></div>' +
-      '<div class="annowait"><label>of wacht op titel <input id="annoW" placeholder="bijvoorbeeld Linda of MT" value="' + esc(a.wait || '') + '"' + (a.mid ? ' disabled title="Het lijstje is gekoppeld aan een vergadering. Kies — geen vergadering — om te wachten op een titel."' : '') + '></label>' +
-      '<label class="chk" title="Vastgepind staat het lijstje bij elke vergadering met deze titel en schuift het niet door"><input type="checkbox" id="annoPin"' + (a.pin ? ' checked' : '') + (a.mid ? ' disabled' : '') + '> Vastpinnen</label>' +
-      '<span class="muted" id="annoWI">' + waitInfo + '</span></div></section>';
-    var ph = pointsHtml(a, !!A.ptShowHidden);
-    if (ph) h += '<section class="card ptcard"><h2>Punten uit aantekeningen</h2><div id="annopts">' + ph + '</div></section>';
-    h += '<section class="card repcard"><div class="edwrap anno-ed" id="annobox"></div></section>';
-    setHTML($('#main'), h);
-    var pc = $('#annopts');
-    function redrawPts() { setHTML(pc, pointsHtml(a, !!A.ptShowHidden)); bindPoints(pc, a, redrawPts); }
-    if (pc) bindPoints(pc, a, redrawPts);
-    var E = repEditor($('#annobox'), {
-      html: annoHtmlOf(a), foot: 'De eerste regel is de titel van het lijstje.',
-      status: a.updated ? 'Laatst gewijzigd ' + new Date(a.updated).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }) : '',
-      onSave: async function (r) { if (a.dropped) return; a.html = r.html; a.text = r.text; a.title = annoTitleOf(r.text); delete a.auto; await saveAnno(a); },
-      download: function (r) { a.text = r.text; dl(new Blob(['﻿' + annoText(a)], { type: 'text/plain' }), annoFileName(a)); }
-    });
-    var fresh = A.annoNew === a.id; A.annoNew = null;
-    A.flushNotes = function () { if (fresh && !E.text().trim() && !String(a.wait || '').trim()) { dropEmptyAnno(a); return Promise.resolve(); } return E.flush(); };
-    var sug = a.mid && byId(a.mid) ? 'Meeneempunten bij ' + annoMeetLabel(a) : 'Meeneempunten';
-    E.ed.style.setProperty('--ph', JSON.stringify(sug));
-    function empt() { E.ed.classList.toggle('empty', !E.ed.textContent.trim() && E.ed.children.length <= 1); }
-    E.ed.addEventListener('input', empt); empt();
-    /* Shift+Enter in de titelregel: gewoon een nieuwe alinea, zodat alleen de titel vet is */
-    E.ed.addEventListener('keydown', function (e) {
-      /* Enter in een leeg lijstje: de grijze suggestie wordt de (vette) titel en je gaat door op de volgende regel */
-      if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && E.ed.classList.contains('empty')) {
-        e.preventDefault(); var f = E.ed.firstChild, r = D.createRange(), sl = W.getSelection();
-        if (f) { r.setStart(f, 0); r.collapse(true); sl.removeAllRanges(); sl.addRange(r); }
-        D.execCommand('insertText', false, sug); D.execCommand('insertParagraph'); return;
+      if (ctx) {
+        var auto = (function () { var keep = ctx.prevId; delete ctx.prevId; var r = prevMeeting(ctx); if (keep !== undefined) ctx.prevId = keep; return r; })();
+        var opts = A.data.meetings.filter(function (x) { return x.id !== ctx.id && meetKey(x) < meetKey(ctx); }).sort(function (a, b) { return meetKey(b).localeCompare(meetKey(a)); }).slice(0, 60);
+        h += '<label class="vvlink">Vervolg van <select id="vvSel"><option value=""' + (ctx.prevId === undefined ? ' selected' : '') + '>Automatisch' + (auto ? ': ' + esc(meetName(auto)) : ' (niets gevonden)') + '</option>' +
+          opts.map(function (x) { return '<option value="' + esc(x.id) + '"' + (ctx.prevId === x.id ? ' selected' : '') + '>' + esc(meetName(x)) + '</option>'; }).join('') +
+          '<option value="-"' + (ctx.prevId === '' ? ' selected' : '') + '>Geen vorige vergadering</option></select></label>';
       }
-      if (e.key !== 'Enter' || !e.shiftKey) return; var s = W.getSelection(), n = s.rangeCount && s.anchorNode;
-      while (n && n.parentNode !== E.ed) n = n.parentNode;
-      if (n && n === E.ed.firstChild) { e.preventDefault(); D.execCommand('insertParagraph'); }
-    }, true);
-    $('#annoM').onchange = async function () { a.mid = this.value || null; delete a.auto; await saveAnno(a); await E.flush(); renderAnno(a); toast(a.mid ? 'Gekoppeld aan ' + annoMeetLabel(a) + '.' : 'Het lijstje staat nu niet meer bij een vergadering.', 'ok'); };
-    var wi = $('#annoW');
-    wi.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); wi.blur(); } });
-    wi.onchange = async function () {
-      var v = wi.value.trim(); if (v === String(a.wait || '')) return;
-      if (v && !a.wait) a.waitSince = new Date().toISOString();
-      if (v) a.wait = v; else { delete a.wait; delete a.waitSince; }
-      delete a.waitExact; delete a.skip; delete a.auto;
-      await saveAnno(a); await E.flush(); renderAnno(a);
-      var t2 = annoTarget(a); toast(!v ? 'Het lijstje wacht niet meer op een titel.' : a.pin ? 'Vastgepind bij vergaderingen met "' + v + '".' : t2 ? 'Staat nu bij ' + meetName(t2) + '.' : 'Wacht op een vergadering met "' + v + '".', 'ok');
-    };
-    $('#annoPin').onchange = async function () { if (this.checked) a.pin = true; else delete a.pin; delete a.auto; await saveAnno(a); await E.flush(); renderAnno(a); };
-    $('#annoMail').onclick = async function () {
-      await E.flush();
-      var ps = annoPoints(a).filter(function (p) { var mt = ptMeta(p.id); return !mt.done && !mt.hidden; });
-      var where = a.mid && byId(a.mid) ? annoMeetLabel(a) : '';
-      mailText((a.title || 'Meeneempunten') + (where ? ' – ' + where : ''), (ps.length ? ps.map(function (p) { return '- ' + p.text; }).join('\n') + '\n\n' : '') + String(a.text || '').replace(/\s+$/, '') + (where ? '\n\n(Bij de vergadering ' + where + ')' : ''));
-    };
-    $('#annoArch').onclick = async function () { await E.flush(); var on = !a.archived; var at = back; await setAnnoArchived(a, on); if (on) { A.flushNotes = null; location.hash = at ? '#/v/' + encodeURIComponent(at.id) : '#/meeneempunten'; } else renderAnno(a); };
-    $('#annoDel').onclick = async function () { if (await deleteAnno(a)) { A.flushNotes = null; location.hash = '#/meeneempunten'; } };
-    E.ed.focus();
+      h += '</div></div>';
+      setHTML(bg, h);
+      $('#vvX', bg).onclick = closeVervolg;
+      $$('[data-vvgo]', bg).forEach(function (a) { a.addEventListener('click', function () { closeVervolg(); }); });
+      $$('[data-vva]', bg).forEach(function (cb) { cb.onchange = async function () { setMeta(cb.dataset.vva, 'done', cb.checked ? new Date().toISOString() : null); await saveActions(src); draw(); if (ctx) refreshVervolgRow(ctx); }; });
+      var sel = $('#vvSel', bg); if (sel) sel.onchange = async function () {
+        if (sel.value === '') delete ctx.prevId; else if (sel.value === '-') ctx.prevId = ''; else ctx.prevId = sel.value;
+        ctx.updated = new Date().toISOString(); await persist(); src = prevMeeting(ctx); draw(); refreshVervolgRow(ctx);
+      };
+    }
+    draw();
+    bg.addEventListener('click', function (e) { if (e.target === bg) closeVervolg(); });
+    D.body.appendChild(bg);
+    var x = $('#vvX', bg); if (x) x.focus();
+  }
+  function closeVervolg() { var d = $('#vvDlg'); if (d) d.remove(); }
+  /* Escape sluit de popup (vóór andere sneltoetsen, zoals het verkleinen van de viewer) */
+  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#vvDlg')) { e.preventDefault(); e.stopPropagation(); closeVervolg(); } }, true);
+  W.addEventListener('hashchange', closeVervolg);
+
+  /* de regel bovenaan de stukken: het vervolgdocument van de vorige keer */
+  function vervolgRowHtml(m) {
+    var p = prevMeeting(m); if (!p) return '';
+    return '<div class="vvrow" id="vvRow" role="button" tabindex="0" title="Besluiten, acties en meeneempunten van de vorige keer"><span class="vvic">📋</span><span class="vvtx"><b>Vorig overleg</b> · ' + esc(fmtShort(p.date)) + '<small>' + esc(vervolgSummary(vervolgOf(p))) + '</small></span></div>';
+  }
+  function refreshVervolgRow(m) {
+    var old = $('#vvRow'), html = vervolgRowHtml(m), box = D.createElement('div'); setHTML(box, html);
+    var nw = box.firstChild;
+    if (old && nw) old.replaceWith(nw); else if (old) old.remove(); else if (nw) { var hd = $('.ws .card.list .shead'); if (hd) hd.after(nw); }
+    bindVervolgRow(m);
+  }
+  function bindVervolgRow(m) {
+    var r = $('#vvRow'); if (!r) return;
+    r.onclick = function () { openVervolg(prevMeeting(m), m); };
+    r.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); r.click(); } };
   }
 
   /* ================================================================== tabblad Bestanden (alleen lezen) */
@@ -3871,26 +3631,27 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>Je gegevens zijn gewone bestanden</b> in <code>memeet-data</code>, niet versleuteld. Ze zijn net zo goed beveiligd als je andere documenten: via je Windows-account en de beveiliging van je werkplek.</li>' +
       '<li><b>OneDrive.</b> Wordt je map Documenten met OneDrive gesynchroniseerd, dan komt <code>memeet-data</code> ook in de OneDrive van je organisatie. Voor gewone werkstukken is dat meestal prima; volg voor vertrouwelijke of gerubriceerde informatie de regels van je organisatie.</li>' +
       '<li><b>Bewaar je alles in de browser</b>, dan staan de gegevens in je browserprofiel op deze computer. Wis je de browsergegevens, dan ben je ze kwijt: maak dan regelmatig een export.</li>' +
-      '<li><b>Wat wel naar buiten gaat:</b> alleen wat je zelf doet, zoals <b>Deelnemen</b> (opent de Teams-link), <b>Stukken in iBabs</b> (opent iBabs in een eigen venster), een conceptmail die je in Outlook verstuurt, of een link naar GitHub in deze help.</li>' +
-      '<li><b>Let op bij delen:</b> een PDF die je downloadt met aantekeningen, of de export als één PDF, bevat je markeringen en opmerkingen.</li></ul>'],
+      '<li><b>Wat wel naar buiten gaat:</b> alleen wat je zelf doet, zoals <b>Deelnemen</b> (opent de Teams-link), <b>iBabs</b> (opent iBabs in een eigen venster), een conceptmail die je in Outlook verstuurt, of een link naar GitHub in deze help.</li>' +
+      '<li><b>Let op bij delen:</b> een PDF die je downloadt met aantekeningen bevat je markeringen en opmerkingen.</li></ul>'],
     ['Waarom vraagt de browser elke keer om toestemming?', '<p>Dat is een beveiligingsregel van de browser: een webpagina mag pas bij een map op je computer als jij daar in die sessie toestemming voor geeft. Klik op <b>Map openen</b> en daarna op <b>Toestaan</b>.</p>'],
     ['Kan ik MeMeet op meerdere computers gebruiken?', '<p>Ja, maar niet tegelijk met dezelfde gegevens. Kopieer de hele map <code>memeet-data</code> naar de andere computer en kies daar die map. Werk niet op twee computers tegelijk in dezelfde map (bijvoorbeeld via OneDrive): dan kunnen wijzigingen elkaar overschrijven.</p>'],
   ];
-  var ABOUT_HTML = '<p><b>MeMeet</b> is een vergaderapp in één HTML-bestand. Je sleept mails en uitnodigingen uit Outlook erin, en MeMeet maakt er vergaderingen van met alle stukken, die je kunt lezen, markeren, bewerken en exporteren. Alles blijft op je eigen computer.</p>' +
-    '<h3>Zo werkt het</h3><ol><li><b>Vergaderingen maken</b>: sleep een mail of uitnodiging erin, of lees met <b>Importeer weekagenda</b> je Outlook-agenda in. Titel, datum, tijd, locatie, vergaderlink, iBabs-link, genodigden en bijlagen worden overgenomen.</li>' +
-    '<li><b>Stukken</b>: Word, Excel, PowerPoint, afbeeldingen en mails worden automatisch omgezet naar PDF. In de viewer kun je zoeken, markeren en opmerkingen maken; bij Bewerken pas je het origineel aan.</li>' +
-    '<li><b>Vergaderen</b>: met <b>Deelnemen</b> open je de online vergadering, met <b>Stukken in iBabs</b> de stukken in iBabs, en met <b>✎ Aantekeningen</b> maak je aantekeningen. <b>Naast elkaar</b> zet iBabs links en je aantekeningen rechts. Regels die met <code>!</code> beginnen, worden acties; met <code>=</code> besluiten; met <code>&gt;</code> meeneempunten voor een volgende vergadering.</li>' +
-    '<li><b>Afronden</b>: <b>Exporteer als één PDF</b> maakt één document met agenda, stukken en aantekeningen. Verslagen en acties vind je terug in de tabbladen <b>Verslagen</b> en <b>Actielijst</b>.</li>' +
+  var ABOUT_HTML = '<p><b>MeMeet</b> is een vergaderapp in één HTML-bestand. Je sleept mails en uitnodigingen uit Outlook erin, en MeMeet maakt er vergaderingen van met alle stukken, die je kunt lezen, markeren en bewerken. Alles blijft op je eigen computer.</p>' +
+    '<h3>Zo werkt het</h3><ol><li><b>Vergaderingen maken</b>: sleep een mail of uitnodiging erin, of lees met <b>Importeer weekagenda</b> je Outlook-agenda in. Titel, datum, tijd, locatie, vergaderlink, iBabs-link en bijlagen worden overgenomen.</li>' +
+    '<li><b>Stukken</b>: elk stuk blijft in zijn eigen formaat (Word, Excel, PowerPoint, PDF, afbeeldingen, mails). Een zip wordt uitgepakt; bij een mail komen de bijlagen als losse stukken erachter. De viewer toont ze allemaal; daarin kun je zoeken, markeren en opmerkingen maken. Bij Bewerken pas je het origineel aan.</li>' +
+    '<li><b>Vergaderen</b>: met <b>Deelnemen</b> open je de online vergadering, met <b>iBabs</b> de stukken in iBabs, en met <b>✎ Aantekeningen</b> maak je aantekeningen. <b>Naast elkaar</b> zet iBabs links en je aantekeningen rechts. Regels die met <code>!</code> beginnen, worden acties; met <code>=</code> besluiten; met <code>&gt;</code> meeneempunten voor het vervolgoverleg.</li>' +
+    '<li><b>Afronden</b>: verslagen en acties vind je terug in de tabbladen <b>Verslagen</b> en <b>Actielijst</b>. Bij het volgende overleg met dezelfde titel staan de besluiten, acties en meeneempunten van de vorige keer klaar onder <b>📋 Meeneempunten</b>.</li>' +
     '<li><b>Terugvinden</b>: in <b>Bestanden</b> staan alle stukken, met versies, en kun je ze openen, downloaden en mailen.</li></ol>' +
-    '<h3>Waar staat wat?</h3><pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html      de app\n  MeMeet.ico       het icoon\n  memeet-data\\     je gegevens\n    Vergaderingen\\  per vergadering de stukken\n    Aantekeningen\\  de verslagen als .txt\n    Actielijst\\     Actielijst.txt\n    Meeneempunten\\ de meeneempunten als .txt\n    memeet.json     het register</pre>' +
-    '<h3>Tabbladen</h3><ul><li><b>Vergaderingen</b>: vandaag, morgen, volgende vergaderingen en het archief.</li><li><b>Verslagen</b>: alle aantekeningen als verslag, met een Word-achtige editor.</li><li><b>Actielijst</b>: alle acties uit vergaderingen en losse acties, met toevoegen, afvinken, snoozen en een begindatum.</li><li><b>Meeneempunten</b>: lijstjes met punten om mee te nemen naar een vergadering: gekoppeld aan een vergadering, wachtend op een vergadering met een bepaalde titel, of los.</li><li><b>Bestanden</b>: een verkenner met alle stukken.</li></ul>' +
+    '<h3>Waar staat wat?</h3><pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html      de app\n  MeMeet.ico       het icoon\n  memeet-data\\     je gegevens\n    Vergaderingen\\  per vergadering de stukken\n    Aantekeningen\\  de verslagen als .txt\n    Actielijst\\     Actielijst.txt\n    memeet.json     het register</pre>' +
+    '<h3>Tabbladen</h3><ul><li><b>Vergaderingen</b>: vandaag, morgen, volgende vergaderingen en het archief.</li><li><b>Verslagen</b>: alle aantekeningen als verslag, met een Word-achtige editor, en per vergadering de besluiten, acties en meeneempunten.</li><li><b>Actielijst</b>: alle acties uit vergaderingen en losse acties, met toevoegen, afvinken, snoozen en een begindatum.</li><li><b>Bestanden</b>: een verkenner met alle stukken.</li></ul>' +
     '<p>De volledige handleiding staat in de <a href="' + GITHUB + '#readme" target="_blank" rel="noopener">README op GitHub</a>.</p>' +
     '<h3>Licentie</h3><p>MeMeet is open source onder de <a href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32017D0863" target="_blank" rel="noopener">European Union Public Licence 1.2</a> (EUPL), ook in het Nederlands. MeMeet bevat pdf.js (Apache 2.0), pdf-lib en JSZip (MIT); zie <code>THIRD-PARTY-NOTICES.md</code> op GitHub.</p>';
   var HELP = {
     home: { t: 'Vergaderingen', h:
       '<p>Het startscherm met je vergaderingen van vandaag en morgen, en de lijsten met volgende en eerdere vergaderingen.</p>' +
       '<h3>Een vergadering maken</h3><ul>' +
-      '<li><b>Sleep een mail of uitnodiging</b> uit Outlook naar het venster. MeMeet haalt titel, datum, tijd, locatie, vergaderlink en genodigden eruit en zet de bijlagen als stukken klaar. Controleer alles en klik op <b>Opslaan</b>.</li>' +
+      '<li><b>Sleep een mail of uitnodiging</b> uit Outlook naar het venster. MeMeet haalt titel, datum, tijd, locatie, vergaderlink en iBabs-link eruit en zet de bijlagen als stukken klaar (een mail als bijlage komt er met zijn eigen bijlagen apart bij). Controleer alles en klik op <b>Opslaan</b>.</li>' +
+      '<li>Bestaat de vergadering op die dag al (dezelfde titel), dan is het een verplaatsing: MeMeet werkt alleen de tijd bij.</li>' +
       '<li>Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail eerst naar het bureaublad en dan naar MeMeet, of gebruik <b>Mail importeren…</b>.</li>' +
       '<li>Meerdere mails tegelijk slepen maakt meerdere vergaderingen in één keer.</li>' +
       '<li>Bij een <b>terugkerende afspraak</b> krijgt de vergadering de datum en tijd van de eerstvolgende keer.</li>' +
@@ -3905,48 +3666,54 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<h3>Vergaderingen verwijderen</h3><ul><li>Vink vergaderingen aan (of het vinkje in de kop voor de hele lijst). Onderaan verschijnt een balk met <b>🗑 Verwijderen</b>.</li>' +
       '<li>Daarbij wordt alles gewist wat erbij hoort: de map met stukken, de originele mail, gewijzigde versies, de aantekeningen en de acties. Dit kun je niet ongedaan maken.</li></ul>' },
     meeting: { t: 'Een vergadering', h:
-      '<h3>Gegevens</h3><ul><li>Titel, datum, tijd, locatie, vergaderlink en genodigden pas je bovenaan aan. Klik op <b>Opslaan</b> om ze te bewaren.</li>' +
-      '<li>Genodigden scheid je met komma\'s. De <b>eerste naam is de voorzitter</b>.</li>' +
+      '<h3>Gegevens</h3><ul><li>Titel, datum, tijd, locatie, vergaderlink en iBabs-link staan samen op één regel bovenaan, zodat er zoveel mogelijk ruimte is voor de stukken. Wijzig je iets, dan wordt het vanzelf bewaard (je ziet even <i>opgeslagen ✓</i>). Alleen een nieuwe vergadering heeft een knop <b>Opslaan</b>.</li>' +
       '<li><b>Deelnemen</b> verschijnt zodra er een vergaderlink is.</li>' +
       '<li>De <b>iBabs-link</b> is een eigen veld, apart van de vergaderlink. MeMeet vult hem vanzelf als de uitnodiging een link naar iBabs bevat (bij inslepen en bij de weekimport). Je kunt hem ook zelf plakken of wijzigen. Staat een iBabs-link bij een oudere vergadering nog in het veld Vergaderlink, knip hem dan daar weg en plak hem bij iBabs-link.</li></ul>' +
-      '<h3>iBabs</h3><ul><li><b>Stukken in iBabs</b> opent de vergadering in iBabs in een eigen venster, zonder tabbladen. Klik je bij een andere vergadering, dan laadt die in hetzelfde venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
+      '<h3>iBabs</h3><ul><li><b>iBabs</b> opent de vergadering in iBabs in een eigen venster, zonder tabbladen. Klik je bij een andere vergadering, dan laadt die in hetzelfde venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
       '<li><b>Naast elkaar</b> zet iBabs links op je scherm en je aantekeningen rechts, elk in een eigen venster. Houdt de browser het tweede venster tegen, sta dan één keer pop-ups toe voor MeMeet (het icoontje rechts in de adresbalk). De vensters komen op het scherm waar MeMeet staat; het venster van MeMeet zelf verschuift niet.</li>' +
       '<li>iBabs kan niet in MeMeet zelf worden getoond: iBabs staat dat niet toe.</li></ul>' +
-      '<h3>Stukken</h3><ul><li>Sleep documenten op de vergadering, of klik op het vak <i>Sleep documenten of een mail hierheen</i> om ze te kiezen. Word, Excel, PowerPoint, afbeeldingen, tekst en mails worden automatisch omgezet naar PDF.</li>' +
-      '<li>Met <b>▲ ▼</b> bepaal je de volgorde; die geldt ook voor de export. <b>⤓</b> downloadt het origineel, <b>✕</b> verwijdert het stuk.</li>' +
+      '<h3>Stukken</h3><ul><li>Sleep documenten op de vergadering, of klik op het vak <i>Sleep documenten of een mail hierheen</i> om ze te kiezen. Elk stuk blijft in zijn eigen formaat; MeMeet maakt er geen PDF van. De viewer toont Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails.</li>' +
+      '<li>Een <b>zip</b> wordt uitgepakt: de bestanden erin worden losse stukken.</li>' +
+      '<li>Sleep je een <b>mail met bijlagen</b> op de vergadering, dan kies je: <b>alleen de mail</b>, of <b>de mail én de bijlagen</b>, elk als apart stuk. Zit er in de mail weer een mail met bijlagen, dan komen die er ook apart bij.</li>' +
+      '<li><b>Volgorde</b>: sleep een stuk omhoog of omlaag. Met <b>Ctrl+klik</b> selecteer je meer stukken, met <b>Shift+klik</b> een reeks; sleep je er een, dan gaan ze allemaal mee. <b>▲ ▼</b> werken ook. <b>⤓</b> downloadt het origineel, <b>✕</b> verwijdert het stuk.</li>' +
+      '<li>Maak de kolom met stukken <b>breder of smaller</b> door de rand rechts ervan te verslepen (dubbelklik: standaardbreedte).</li>' +
       '<li>Sleep je een bestand met <b>dezelfde naam</b> erop, dan vraagt MeMeet of de oude versie vervangen moet worden.</li>' +
-      '<li>Een stuk met het label "geen PDF" (bijvoorbeeld een oud .doc-bestand) zet je zelf om in Word via <b>Opslaan als › PDF</b> en sleep je daarna op de vergadering.</li></ul>' +
-      '<h3>De viewer (tabblad PDF)</h3><ul>' +
+      '<li>Een stuk met het label "niet te tonen" (bijvoorbeeld een oud .doc-bestand) download je met ⤓ en open je in Word. Wil je het in de viewer zien, sla het dan in Word op als PDF en sleep die PDF met dezelfde naam erop: MeMeet vraagt dan of het de PDF-versie is.</li></ul>' +
+      '<h3>📋 Meeneempunten: het vorige overleg</h3><ul><li>Heeft deze vergadering een eerdere vergadering met dezelfde titel (datums en nummers in de titel tellen niet mee), dan staat bovenaan de stukken <b>Vorig overleg</b>, met het aantal besluiten, acties en meeneempunten van toen.</li>' +
+      '<li>Klik erop, of op <b>📋 Meeneempunten</b>, voor een popup met de besluiten (<code>=</code>), acties (<code>!</code>) en meeneempunten (<code>&gt;</code>) uit de aantekeningen van die vergadering. Een actie vink je daar af. <b>Esc</b> sluit de popup.</li>' +
+      '<li>Klopt de koppeling niet, kies dan onderin de popup bij <b>Vervolg van</b> zelf de juiste vergadering, of <i>Geen vorige vergadering</i>.</li></ul>' +
+      '<h3>De viewer (tabblad Bekijken)</h3><ul>' +
       '<li><b>Tekst</b>: tekst selecteren en kopiëren (Ctrl+C).</li>' +
       '<li><b>Markeren</b>: selecteer tekst; die wordt geel of groen gemarkeerd. Kies de kleur met de bolletjes.</li>' +
       '<li><b>Opmerking</b>: klik op een woord en typ. De opmerking komt in de rechtermarge; Ctrl+Enter is klaar.</li>' +
       '<li><b>Gum</b>: klik op een markering of opmerking om hem weg te halen.</li>' +
       '<li><b>↶ ↷</b>: ongedaan maken en opnieuw, tot 20 stappen (Ctrl+Z en Ctrl+Y).</li>' +
       '<li><b>Zoeken</b>: Ctrl+F, daarna Enter voor de volgende treffer en Shift+Enter voor de vorige.</li>' +
-      '<li>Alle knoppen boven het stuk staan op één regel. Is de kolom smal, dan tonen ze alleen een symbool (Aa = tekst, 🖍 = markeren, 💬 = opmerking, ⌫ = gum); wijs een knop aan voor de naam. Een melding over het stuk staat achter het rondje <b>i</b>.</li>' +
+      '<li>Een stuk dat geen PDF is, toont de viewer als weergave van het origineel; de opmaak kan iets afwijken, het bestand zelf blijft ongewijzigd. Een melding over het stuk staat achter het rondje <b>i</b>.</li>' +
+      '<li>Alle knoppen boven het stuk staan op één regel. Is de kolom smal, dan tonen ze alleen een symbool (Aa = tekst, 🖍 = markeren, 💬 = opmerking, ⌫ = gum); wijs een knop aan voor de naam.</li>' +
       '<li><b>− 100% +</b>: kleiner en groter. Klik op het percentage om de pagina weer passend te maken.</li>' +
       '<li><b>Vierkantje met hoekjes</b>: de viewer vergroten tot het hele venster. Nog eens klikken of Esc maakt hem weer klein.</li>' +
-      '<li><b>⋯</b>: het stuk downloaden met je aantekeningen, alle aantekeningen wissen, het origineel downloaden of de PDF in een nieuw tabblad openen.</li></ul>' +
+      '<li><b>⋯</b>: het stuk als PDF downloaden met je aantekeningen, alle aantekeningen wissen, het origineel downloaden of de weergave in een nieuw tabblad openen.</li></ul>' +
       '<h3>Bewerken</h3><ul><li>Het tabblad <b>Bewerken</b> boven de viewer past het originele bestand aan.</li>' +
       '<li>Word: stijlen, vet, cursief, onderstrepen, opsomming en uitlijnen. Excel: typ in een cel; Enter, Tab en de pijltjes bewegen, F2 past een cel aan, Delete wist, met = begin je een formule. PowerPoint: klik in een tekstvak op de dia.</li>' +
-      '<li>Opslaan met <b>💾 Opslaan</b> of Ctrl+S. De eerste keer bewaart MeMeet een kopie "(oorspronkelijk)" en daarna wordt de PDF bijgewerkt.</li>' +
+      '<li>Opslaan met <b>💾 Opslaan</b> of Ctrl+S. De eerste keer bewaart MeMeet een kopie "(oorspronkelijk)". De viewer toont daarna de nieuwe versie.</li>' +
       '<li>Liever in Office zelf? Download het stuk met ⤓, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
       '<h3>Aantekeningen en acties</h3><ul><li><b>✎ Aantekeningen</b> opent een kolom rechts. Alles wordt vanzelf bewaard en ook als tekstbestand in de map Aantekeningen gezet.</li>' +
       '<li>Een regel die begint met <code>!</code> wordt een actie, bijvoorbeeld <code>! Jan stuurt de notitie rond</code>. Die staat daarna in de Actielijst.</li>' +
       '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>✉ Mailen</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
-      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor een andere vergadering: <code>&gt; Linda: praten over Jozef</code> komt in het lijstje <i>Linda</i> op het tabblad Meeneempunten, en staat bij de eerstvolgende vergadering met Linda in de titel. <code>&gt; volgende vergadering: …</code> gaat naar de volgende vergadering met dezelfde titel; zonder label komt het punt in <i>Nog te plaatsen</i>. Meeneempunten zijn privé: ze gaan niet mee met Mailen.</li>' +
+      '<li>Een regel die begint met <code>&gt;</code> is een meeneempunt voor het vervolgoverleg, bijvoorbeeld <code>&gt; begroting opnieuw bespreken</code>. Bij de volgende vergadering met dezelfde titel staat het klaar onder <b>📋 Meeneempunten</b>. Meeneempunten zijn privé: ze gaan niet mee met Mailen.</li>' +
       '<li>Je regels blijven staan zoals je ze typt, ook in het tekstbestand.</li>' +
-            '<li>Maak de kolom <b>breder of smaller</b> door de linkerrand te verslepen (dubbelklik: standaardbreedte).</li>' +
+      '<li>Maak de kolom <b>breder of smaller</b> door de linkerrand te verslepen (dubbelklik: standaardbreedte).</li>' +
       '<li><b>⧉ Apart venster</b> zet de aantekeningen in een eigen venster rechts op je scherm. Dat kun je los verschuiven en naast andere programma\'s zetten. Met <b>⇤ Terug</b> of door het venster te sluiten, staan ze weer in MeMeet.</li></ul>' +
-      '<h3>Exporteren en verwijderen</h3><ul><li><b>Exporteer als één PDF</b> maakt één bestand met een agendapagina, alle stukken met paginanummers en bladwijzers, en je aantekeningen. Het komt in Downloads en in de map van de vergadering.</li>' +
-      '<li><b>Verwijder</b> wist de vergadering met al haar stukken. Je aantekeningen blijven in de map Aantekeningen staan.</li></ul>' },
+      '<h3>Verwijderen</h3><ul><li><b>Verwijder</b> wist de vergadering met al haar stukken. Je aantekeningen blijven in de map Aantekeningen staan.</li></ul>' },
     reports: { t: 'Verslagen', h:
       '<p>Alle aantekeningen van je vergaderingen op een rij, als verslagen.</p><ul>' +
       '<li>Sorteer op naam, vergaderdatum of datum gewijzigd door op de kolomkop te klikken. Zoek met het zoekvak in titels en tekst.</li>' +
       '<li>Vink <b>Ook vergaderingen zonder aantekeningen</b> aan om ook vergaderingen zonder verslag te zien, bijvoorbeeld om er een te beginnen.</li>' +
       '<li>Klik op een verslag om het te bewerken in een Word-achtige editor: koppen, vet, cursief, onderstreept en lijsten. Wijzigingen worden vanzelf bewaard.</li>' +
       '<li>Een webadres (https://… of www.…) wordt vanzelf een link. Klik erop om hem in een nieuw tabblad te openen.</li>' +
-      '<li>Regels die met <code>!</code> beginnen, zijn acties en staan ook in de Actielijst. Regels met <code>=</code> zijn besluiten; regels met <code>&gt;</code> zijn meeneempunten (zie Meeneempunten).</li>' +
+      '<li>Regels die met <code>!</code> beginnen, zijn acties en staan ook in de Actielijst. Regels met <code>=</code> zijn besluiten; regels met <code>&gt;</code> zijn meeneempunten voor het vervolgoverleg.</li>' +
+      '<li>In de kolom <b>Besluiten, acties en meeneempunten</b> staat per vergadering een kort overzicht daarvan; klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>📋 Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>📋 Meeneempunten</b>.</li>' +
       '<li><b>✉ Mailen</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
       '<li>Elk verslag staat ook als tekstbestand in de map <code>memeet-data\\Aantekeningen</code>, als <code>jjjjmmdd Titel.txt</code>. Pas die bestanden niet buiten MeMeet aan: MeMeet schrijft ze opnieuw bij de volgende wijziging.</li></ul>' },
     actions: { t: 'Actielijst', h:
@@ -3967,30 +3734,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>Vergadering ›</b> opent de bijbehorende vergadering, met het stuk in de viewer.</li>' +
       '<li><b>🗑 Verwijderen</b> haalt een bestand alleen uit dit overzicht; in de vergadering blijft het staan. Met <b>Verwijderd tonen</b> en <b>↩ Terugzetten</b> haal je het terug.</li>' +
       '<li>Selecteer meerdere bestanden met de vinkjes (of Ctrl+klik) om ze in één keer te openen, downloaden, mailen of verwijderen.</li></ul>' },
-    annos: { t: 'Meeneempunten', h:
-      '<p>Meeneempunten zijn lijstjes in dezelfde vorm als een verslag: voor punten die je wilt inbrengen, voorbereiding, ideeën of gespreksnotities. (Dit tabblad heette eerder Bespreekpunten.)</p>' +
-      '<h3>Een lijstje maken</h3><ul>' +
-      '<li><b>+ Meeneempuntenlijstje toevoegen</b> maakt een nieuw lijstje en je kunt meteen typen. De <b>eerste regel</b> is de titel: die wordt vanzelf vet en is de naam in de lijst. Op de lege eerste regel staat in grijs een voorstel (bijvoorbeeld <i>Meeneempunten bij Teamoverleg</i>); druk op <b>Enter</b> om dat als titel over te nemen. Daaronder typ je gewone tekst. De Word-achtige editor kent koppen, vet, cursief, onderstreept en lijsten. Alles wordt vanzelf bewaard.</li>' +
-      '<li>Bij <b>Vergadering</b> koppel je het lijstje aan een vergadering, of laat je het los staan. Op de pagina van die vergadering staat het lijstje dan bovenaan de stukken. Klik op de titel om de tekst daar open of dicht te klappen (met een schuifbalk als hij lang is); klik op ✎ om hem te bewerken. Met <b>+ Meeneempunten</b> bovenaan de stukken maak je daar direct meeneempunten bij die vergadering. Zijn die er al, dan klapt dezelfde knop ze open.</li>' +
-      '<li>Laat je een nieuw lijstje leeg en ga je weg, dan wordt het niet bewaard.</li></ul>' +
-      '<h3>Wachten op een vergadering</h3><ul>' +
-      '<li>Bestaat de vergadering nog niet, vul dan bij <b>of wacht op titel</b> een naam of woord in, bijvoorbeeld <i>Linda</i> of <i>MT</i>. Het lijstje staat dan bij de eerstvolgende vergadering (vandaag of later) met dat woord in de titel. Een vergadering die je later importeert of insleept, pakt het lijstje vanzelf op.</li>' +
-      '<li>Er wordt gezocht op hele woorden, zonder hoofdletters en accenten: <i>Linda</i> past bij <i>bila Linda</i> en <i>PO Linda</i>, niet bij <i>Belinda</i>. De woorden bila, po, overleg, bijpraten, met, de, het en een tellen niet mee.</li>' +
-      '<li><b>Niet hier</b> bij het lijstje op de vergaderpagina slaat die vergadering over; het lijstje wacht dan op de volgende.</li>' +
-      '<li>Is de vergadering voorbij en heb je het lijstje niet gearchiveerd, dan schuift het door naar de volgende passende vergadering.</li>' +
-      '<li><b>Vastpinnen</b> maakt er een vaste lijst opletpunten van: het lijstje staat dan bij elke passende vergadering en schuift niet door.</li>' +
-      '<li>Het tabblad toont drie groepen: <b>bij een vergadering of los</b>, <b>wachtend op een vergadering</b> (met de volgende vergadering, of hoe lang het al wacht) en het <b>archief</b>.</li></ul>' +
-      '<h3>Punten uit je aantekeningen</h3><ul>' +
-      '<li>Typ in je aantekeningen een regel als <code>&gt; MT: begroting agenderen</code>. Het punt komt in het lijstje <i>MT</i>; bestaat dat nog niet, dan maakt MeMeet het aan, wachtend op een vergadering met MT in de titel. Punten met hetzelfde label uit verschillende vergaderingen komen in hetzelfde lijstje.</li>' +
-      '<li>Een punt staat niet bij de vergadering waarin je het typte, maar bij de volgende.</li>' +
-      '<li><code>&gt; volgende vergadering: …</code> gebruikt de titel van de vergadering waarin je typt (getallen en datums in de titel tellen niet mee). Zonder label, zoals <code>&gt; idee uitwerken</code>, komt het punt in het lijstje <i>Nog te plaatsen</i>.</li>' +
-      '<li>In het lijstje staan de punten bovenaan als afvinkbare regels, met de vergadering waar ze vandaan komen. Daaronder staat de tekst die je zelf typt. <b>✕</b> verbergt een punt. De regel blijft in je aantekeningen staan, net als bij acties.</li>' +
-      '<li>Meeneempunten zijn privé: ze gaan niet mee als je je aantekeningen mailt.</li></ul>' +
-      '<h3>Verder</h3><ul>' +
-      '<li><b>✉ Mailen</b> opent een nieuwe mail in Outlook met de open punten en de tekst. <b>Verwijder</b> wist het lijstje.</li>' +
-      '<li>Sorteer op naam, vergadering of datum gewijzigd, en zoek met het zoekvak.</li>' +
-      '<li><b>Archiveren</b> (in de lijst of bovenaan een lijstje) zet een lijstje in het <b>Archief</b> onderaan het tabblad. Dat archief is standaard ingeklapt. Met <b>Terugzetten</b> haal je een lijstje terug. Bij de vergadering blijft een gearchiveerd lijstje zichtbaar, met het label <i>archief</i>; bij een wachtend lijstje legt MeMeet vast bij welke vergadering het stond.</li>' +
-      '<li>Elk lijstje staat ook als tekstbestand in <code>memeet-data\\Meeneempunten</code>. Had je een map <code>Bespreekpunten</code>, dan zet MeMeet die bestanden eenmalig over. Verdwijnt een gekoppelde vergadering, dan blijft het lijstje bestaan, los.</li></ul>' },
     week: { t: 'Weekagenda importeren', h:
       '<p>Je Outlook-agenda van de komende dagen in één keer inlezen als vergaderingen.</p>' +
       '<h3>1. Agenda opslaan in Outlook</h3><ol><li>Ga naar <b>Agenda</b> en klik links op je eigen agenda.</li><li>Kies <b>Bestand › Agenda opslaan in bestand</b> en klik op <b>Meer opties</b>.</li>' +
@@ -4001,7 +3744,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Blokken, reistijd, uitloop en korte afspraken direct naast een andere vergadering worden overgeslagen. Met <b>⚙ Niet importeren…</b> beheer je de trefwoorden en minuten, en geef je eerder uitgevinkte titels weer vrij.</li>' +
       '<li>Hele-dag-afspraken, geannuleerde afspraken, afspraken die geweest zijn en afspraken zonder titel worden niet geïmporteerd.</li></ul>' +
       '<h3>Wat er gebeurt</h3><ul><li>Elke afspraak wordt een vergadering met datum, tijd, locatie, vergaderlink en genodigden (de organisator vooraan). Een link naar iBabs in de tekst van de afspraak komt in het veld iBabs-link; een import zonder iBabs-link laat een bestaande of zelf geplakte link staan.</li>' +
-      '<li>Bijlagen worden stukken; mails als bijlage worden omgezet naar PDF.</li>' +
+      '<li>Bijlagen worden stukken, in hun eigen formaat. Een mail als bijlage blijft een mail; zijn bijlagen komen er als losse stukken achter. Een zip wordt uitgepakt.</li>' +
       '<li>Opnieuw importeren werkt bestaande vergaderingen bij; stukken en aantekeningen blijven staan. Een afspraak die je in Outlook verwijdert, blijft in MeMeet staan.</li></ul>' },
     install: { t: 'Installatie en back-up', h:
       '<h3>Installeren</h3><ol><li>Zet <code>MeMeet.html</code> in <code>Documenten\\MeMeet</code>.</li>' +
@@ -4016,7 +3759,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (h === '#/nieuw' || /^#\/v\//.test(h)) return 'meeting';
     if (/^#\/verslag/.test(h)) return 'reports';
     if (h === '#/acties') return 'actions';
-    if (/^#\/(meeneempunt|bespreekpunt|annotatie)/.test(h)) return 'annos';
     if (h === '#/bestanden') return 'files';
     if (h === '#/weekagenda') return 'week';
     if (h === '#/installatie') return 'install';
@@ -4153,9 +3895,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     else { A.data = { version: 1, types: DEFAULT_TYPES.slice(), meetings: [] }; await st.save(A.data); }
     migrateActions();
     if (st.kind === 'map') await migrateLayout(st);
-    if (st.kind === 'map') try { await migrateAnnoDir(st.root); } catch (e) { console.error(e); }
-    /* meeneempunten (regels met >) die al in aantekeningen staan, in een lijstje zetten */
-    try { var sig = JSON.stringify([A.data.pts || null, (A.data.annos || []).length]); await syncPointLists(); if (JSON.stringify([A.data.pts || null, (A.data.annos || []).length]) !== sig) await st.save(A.data); } catch (e) { console.error(e); }
     await kvSet('mode', st.kind);
     route();
   }
@@ -4190,14 +3929,50 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   async function persist() { A.data.updated = new Date().toISOString(); await A.store.save(A.data); }
 
   /* ------------------------------------------------------------- mail -> vergadering */
+  /* een mailbestand (.msg of .eml) lezen, zonder het te controleren */
+  async function readMail(blob, name) {
+    var buf = await blob.arrayBuffer(), u = new Uint8Array(buf);
+    if (rd(u, 0) === 0xE011CFD0) return parseMsg(buf);
+    if (/\.msg$/i.test(name || blob.name || '')) throw new Error('"' + (name || blob.name) + '" is geen geldig Outlook-bestand');
+    return parseEml(buf);
+  }
   async function parseMailFile(file) {
-    var buf = await file.arrayBuffer(), u = new Uint8Array(buf), m;
-    if (rd(u, 0) === 0xE011CFD0) m = parseMsg(buf);
-    else if (/\.msg$/i.test(file.name)) throw new Error('"' + file.name + '" is geen geldig Outlook-bestand');
-    else m = parseEml(buf);
+    var m = await readMail(file, file.name);
     if (!m.subject && !m.from && !m.start && !m.attachments.length) throw new Error('In "' + file.name + '" is geen mail herkend');
     var r = analyse(m);
     return { r: r, m: m };
+  }
+  function isZipName(it) { return /\.zip$/i.test(it.name || '') || /^application\/(x-)?zip(-compressed)?$/i.test(it.type || ''); }
+  function isMailItem(it) { return /\.(msg|eml)$/i.test(it.name || '') || /ms-outlook|rfc822/i.test(it.type || ''); }
+  /* Bestanden klaarmaken om als stukken toe te voegen. Alles blijft in zijn eigen formaat, met twee uitzonderingen:
+     een zip wordt uitgepakt (de bestanden erin worden losse stukken), en bij een mail komen de bijlagen als losse stukken
+     achter de mail. Dat werkt ook genest (een zip in een mail, een mail in een mail), tot vier niveaus diep.
+     items: [{ name, type, blob }]; geeft dezelfde vorm terug. */
+  async function expandFiles(items, depth) {
+    depth = depth || 0; var out = [];
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      if (isZipName(it) && depth < 4 && W.JSZip) {
+        try {
+          var z = await W.JSZip.loadAsync(it.blob), ents = [];
+          z.forEach(function (p, e) { if (!e.dir && !/(^|\/)(__MACOSX\/|\.DS_Store$|Thumbs\.db$|desktop\.ini$)/i.test(p)) ents.push(e); });
+          ents.sort(function (a, b) { return a.name.localeCompare(b.name, 'nl', { numeric: true }); });
+          var inner = [];
+          for (var k = 0; k < ents.length; k++) { var nm = ents[k].name.split('/').pop(), b = await ents[k].async('blob'); inner.push({ name: nm, type: guessMime(nm), blob: new Blob([b], { type: guessMime(nm) }) }); }
+          out = out.concat(await expandFiles(inner, depth + 1));
+          continue;
+        } catch (e) { console.warn('Zip niet uit te pakken: ' + it.name, e); } /* geen geldige zip: als bestand toevoegen */
+      }
+      out.push(it);
+      if (isMailItem(it) && depth < 4) {
+        try {
+          var mm = await readMail(it.blob, it.name);
+          var atts = mm.attachments.filter(function (a) { return !a.inline; }).map(function (a) { var t = a.type || guessMime(a.name); return { name: a.name, type: t, blob: new Blob([a.data], { type: t }) }; });
+          out = out.concat(await expandFiles(atts, depth + 1));
+        } catch (e) { console.warn('Bijlagen van de mail niet gelezen: ' + it.name, e); }
+      }
+    }
+    return out;
   }
   function guessType(title) {
     var t = (title || '').toLowerCase(), best = '';
@@ -4208,11 +3983,15 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   async function draftFromMail(file) {
     var p = await parseMailFile(file), r = p.r, m = p.m;
+    /* bijlagen worden stukken; een mail als bijlage komt er met zijn eigen bijlagen apart bij, een zip wordt uitgepakt */
+    var real = await expandFiles(m.attachments.filter(function (a) { return !a.inline; }).map(function (a) { var t = a.type || guessMime(a.name); return { name: a.name, type: t, blob: new Blob([a.data], { type: t }) }; }));
+    var pending = real.map(function (a) { return { name: a.name, type: a.type, blob: a.blob, on: true }; })
+      .concat(m.attachments.filter(function (a) { return a.inline; }).map(function (a) { return { name: a.name, type: a.type || guessMime(a.name), blob: new Blob([a.data], { type: a.type }), on: false, inline: true }; }));
     return {
       id: uid(), isNew: true, type: guessType(r.title), title: r.title || '(zonder titel)', location: r.location, link: r.link || '', ibabs: r.ibabs || '', date: nl2iso(r.date), start: r.start, end: r.end,
       chair: '', invitees: '', notes: r.notes,
       source: { from: m.from || '', sent: m.sent && !isNaN(m.sent) ? m.sent.toISOString() : '', mail: file.name, skipped: m.skipped || [], how: r.src, recurring: !!r.recurring },
-      files: [], pending: m.attachments.map(function (a) { return { name: a.name, type: a.type || guessMime(a.name), blob: new Blob([a.data], { type: a.type }), on: !a.inline, inline: a.inline }; }),
+      files: [], pending: pending,
       mailBlob: file
     };
   }
@@ -4226,30 +4005,32 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var n = uniqueName(m, name);
     try { await A.store.put(m, n, blob); }
     catch (e) { n = uniqueName(m, n.normalize('NFKD').replace(/[\u2013\u2014]/g, '-').replace(/[^\x20-\x7e]/g, '')); await A.store.put(m, n, blob); }
+    /* het stuk blijft in zijn eigen formaat; de viewer zet het pas om bij het tonen (zie getPdf), zonder een PDF op te slaan */
     var rec = { name: n, type: type || guessMime(n), size: blob.size, added: new Date().toISOString() };
     m.files.push(rec);
-    await makePdf(m, rec, blob);
     return n;
   }
-  async function makePdf(m, f, blob) {
-    try {
-      var r = await convertToPdf(f.name, f.type, blob);
-      if (!r) { f.conv = 'niet'; f.convV = CONV_VERSION; return null; }
-      if (r.how === 'origineel') { f.pdf = f.name; f.conv = 'origineel'; return blob; }
-      var pb = new Blob([r.bytes], { type: 'application/pdf' }), pn = f.pdf && f.pdf !== f.name ? f.pdf : uniqueName(m, f.name.replace(/\.[^.]*$/, '') + '.pdf');
-      try { await A.store.put(m, pn, pb); } catch (e) { pn = uniqueName(m, pn.normalize('NFKD').replace(/[^\x20-\x7e]/g, '')); await A.store.put(m, pn, pb); }
-      f.pdf = pn; f.conv = 'omgezet'; f.convV = CONV_VERSION; return pb;
-    } catch (e) { console.error(e); f.conv = 'niet'; f.convErr = String(e.message || e); f.convV = CONV_VERSION; return null; }
-  }
+  /* Weergave in de viewer. Een PDF wordt zelf getoond. Een ander bestand wordt in het geheugen omgezet naar een PDF om te tonen;
+     die wordt niet opgeslagen. Stukken van vóór versie 1.1 hebben soms al een opgeslagen PDF-versie (f.pdf); die wordt gebruikt,
+     net als een eigen PDF-versie die je erbij hebt gesleept. De laatste omzettingen blijven even in het geheugen. */
+  var PDFMEM = { keys: [], map: {} };
+  function memKey(m, f) { return m.id + '/' + f.name + '/' + (f.edited || f.added || '') + '/' + (f.size || 0); }
   async function getPdf(m, f) {
-    /* PowerPoint-stukken van vóór de nieuwe dia-weergave opnieuw omzetten (niet als er al aantekeningen op staan: die zouden verschuiven) */
+    /* PowerPoint-stukken met een opgeslagen omzetting van vóór de nieuwe dia-weergave: die PDF niet meer gebruiken (tenzij er al aantekeningen op staan: die zouden verschuiven) */
     if (f.pdf && f.conv === 'omgezet' && /\.(pptx|pptm|ppsx)$/i.test(f.name) && (f.convV || 1) < CONV_VERSION && !annCount(f.ann)) {
-      try { var r0 = await makePdf(m, f, await A.store.get(m, f.name)); await persist(); if (r0) return r0; } catch (e) { console.warn(e); }
+      try { await A.store.del(m, f.pdf); } catch (e) {} f.pdf = null; delete f.conv; delete f.convV; await persist();
     }
     if (f.pdf) { try { return await A.store.get(m, f.pdf); } catch (e) { f.pdf = null; } }
-    if (f.conv === 'niet' && f.convV === CONV_VERSION) return null;
-    var r = await makePdf(m, f, await A.store.get(m, f.name)); await persist(); return r;
+    var k = memKey(m, f); if (Object.prototype.hasOwnProperty.call(PDFMEM.map, k)) return PDFMEM.map[k];
+    var blob = await A.store.get(m, f.name), out = null;
+    try { var r = await convertToPdf(f.name, f.type, blob); if (r) out = r.how === 'origineel' ? blob : new Blob([r.bytes], { type: 'application/pdf' }); }
+    catch (e) { console.error(e); f.convErr = String(e.message || e); }
+    PDFMEM.map[k] = out; PDFMEM.keys.push(k);
+    while (PDFMEM.keys.length > 12) delete PDFMEM.map[PDFMEM.keys.shift()];
+    return out;
   }
+  /* geeft de viewer een eigen weergave voor dit stuk (na bewerken of vervangen): de oude omzetting uit het geheugen halen */
+  function forgetPdf(m, f) { Object.keys(PDFMEM.map).forEach(function (k) { if (k.indexOf(m.id + '/' + f.name + '/') === 0) delete PDFMEM.map[k]; }); PDFMEM.keys = PDFMEM.keys.filter(function (k) { return PDFMEM.map.hasOwnProperty(k); }); }
   function agendaFirst(list) { return list.slice().sort(function (a, b) { return (/agenda/i.test(b.name) ? 1 : 0) - (/agenda/i.test(a.name) ? 1 : 0); }); }
   async function ensureFolder(m) { if (A.store && A.store.kind === 'map' && m.folder) { try { await A.store.dir(m); } catch (e) { console.warn('Map aanmaken mislukt', e); } } }
   async function saveDraft(d) {
@@ -4257,7 +4038,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       source: d.source, files: [], created: new Date().toISOString() };
     m.folder = safe((m.date || 'zonder datum') + ' ' + m.title).slice(0, 70) + ' [' + m.id.slice(-4) + ']';
     var todo = agendaFirst((d.pending || []).filter(function (f) { return f.on; }));
-    for (var i = 0; i < todo.length; i++) { toast('Stukken omzetten naar PDF… (' + (i + 1) + '/' + todo.length + ')'); await addFileTo(m, todo[i].name, todo[i].type, todo[i].blob); }
+    for (var i = 0; i < todo.length; i++) { toast('Stukken opslaan… (' + (i + 1) + '/' + todo.length + ')'); await addFileTo(m, todo[i].name, todo[i].type, todo[i].blob); }
     if (d.mailBlob) { var mn = uniqueName(m, 'Originele mail' + (/\.msg$/i.test(d.mailBlob.name) ? '.msg' : '.eml')); await A.store.put(m, mn, d.mailBlob); m.source.file = mn; }
     A.data.meetings.push(m); await ensureFolder(m); await persist();
     return m;
@@ -4274,43 +4055,55 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     }
     var mails = files.filter(isMail), docs = files.filter(function (f) { return !isMail(f); });
     var cur = currentMeeting();
+    function item(f) { return { name: f.name, type: f.type || guessMime(f.name), blob: f }; }
     try {
       if (cur && !cur.isNew) {
-        var n = 0;
-        for (var i = 0; i < docs.length; i++) {
-          var same = cur.files.filter(function (f) { return f.name.toLowerCase() === safe(docs[i].name).toLowerCase(); })[0];
-          if (same && confirm('"' + same.name + '" bestaat al in deze vergadering.\n\nOK = de oude versie vervangen door deze nieuwe\nAnnuleren = als extra stuk toevoegen')) {
-            toast('Nieuwe versie opslaan…'); await saveEdited(cur, same, docs[i]); n++; continue;
-          }
-          var base = docs[i].name.replace(/\.[^.]*$/, '').toLowerCase(), twin = /\.pdf$/i.test(docs[i].name) && cur.files.filter(function (f) { return (f.conv === 'omgezet' || f.conv === 'niet') && f.name.replace(/\.[^.]*$/, '').toLowerCase() === base; })[0];
-          if (twin && confirm('Wil je "' + docs[i].name + '" gebruiken als PDF-versie van "' + twin.name + '"?\n(OK = gebruiken als PDF-versie, Annuleren = toevoegen als apart stuk)')) {
-            var tpn = twin.pdf && twin.pdf !== twin.name ? twin.pdf : uniqueName(cur, docs[i].name); await A.store.put(cur, tpn, docs[i]); twin.pdf = tpn; twin.conv = 'vervangen'; delete twin.convErr; n++; continue;
-          }
-          toast('Omzetten naar PDF: ' + docs[i].name + '…'); await addFileTo(cur, docs[i].name, docs[i].type, docs[i]); n++;
-        }
-        for (i = 0; i < mails.length; i++) {
+        var n = 0, list = await expandFiles(docs.map(item)); /* zips uitpakken */
+        /* een mail: alleen de mail, of de mail met de bijlagen als losse stukken erachter */
+        for (var i = 0; i < mails.length; i++) {
           var p = await parseMailFile(mails[i]), atts = p.m.attachments.filter(function (a) { return !a.inline; });
-          if (confirm('Wat wil je met de mail "' + (p.m.subject || mails[i].name) + '"?\n\nOK = de ' + atts.length + ' bijlage(n) toevoegen aan deze vergadering\nAnnuleren = de mail zelf als document toevoegen')) {
-            for (var j = 0; j < atts.length; j++) { await addFileTo(cur, atts[j].name, atts[j].type, new Blob([atts[j].data], { type: atts[j].type })); n++; }
-          } else { await addFileTo(cur, mails[i].name, mails[i].type, mails[i]); n++; }
+          if (atts.length && confirm('Wat wil je met de mail "' + (p.m.subject || mails[i].name) + '"?\n\nOK = de mail én de ' + atts.length + ' bijlage' + (atts.length === 1 ? '' : 'n') + ' toevoegen, elk als apart stuk\nAnnuleren = alleen de mail toevoegen')) list = list.concat(await expandFiles([item(mails[i])]));
+          else list.push(item(mails[i]));
         }
-        cur.updated = new Date().toISOString(); await persist(); renderDetail(cur); toast(n + ' document(en) toegevoegd.', 'ok'); return;
+        for (i = 0; i < list.length; i++) {
+          var it = list[i], same = cur.files.filter(function (f) { return f.name.toLowerCase() === safe(it.name).toLowerCase(); })[0];
+          if (same && confirm('"' + same.name + '" bestaat al in deze vergadering.\n\nOK = de oude versie vervangen door deze nieuwe\nAnnuleren = als extra stuk toevoegen')) {
+            toast('Nieuwe versie opslaan…'); await saveEdited(cur, same, it.blob); n++; continue;
+          }
+          /* een PDF met dezelfde naam als een stuk dat geen PDF is: eventueel gebruiken als PDF-versie voor de viewer */
+          var base = it.name.replace(/\.[^.]*$/, '').toLowerCase(), twin = /\.pdf$/i.test(it.name) && cur.files.filter(function (f) { return !/\.pdf$/i.test(f.name) && f.conv !== 'vervangen' && f.name.replace(/\.[^.]*$/, '').toLowerCase() === base; })[0];
+          if (twin && confirm('Wil je "' + it.name + '" gebruiken als PDF-versie van "' + twin.name + '"?\n(OK = gebruiken als PDF-versie, Annuleren = toevoegen als apart stuk)')) {
+            var tpn = twin.pdf && twin.pdf !== twin.name ? twin.pdf : uniqueName(cur, it.name); await A.store.put(cur, tpn, it.blob); twin.pdf = tpn; twin.conv = 'vervangen'; delete twin.convErr; forgetPdf(cur, twin); n++; continue;
+          }
+          toast('Toevoegen: ' + it.name + '…'); await addFileTo(cur, it.name, it.type, it.blob); n++;
+        }
+        cur.updated = new Date().toISOString(); await persist(); renderDetail(cur); toast(n + ' stuk' + (n === 1 ? '' : 'ken') + ' toegevoegd.', 'ok'); return;
       }
       if (cur && cur.isNew) {
-        docs.forEach(function (f) { cur.pending.push({ name: f.name, type: f.type || guessMime(f.name), blob: f, on: true }); });
-        if (mails.length) for (i = 0; i < mails.length; i++) {
-          var q = await parseMailFile(mails[i]);
-          q.m.attachments.forEach(function (a) { cur.pending.push({ name: a.name, type: a.type, blob: new Blob([a.data], { type: a.type }), on: !a.inline, inline: a.inline }); });
-        }
+        var add = await expandFiles(docs.map(item).concat(mails.map(item)));
+        add.forEach(function (f) { cur.pending.push({ name: f.name, type: f.type, blob: f.blob, on: true }); });
         renderDetail(cur); toast('Toegevoegd aan de nieuwe vergadering. Klik op Opslaan.', 'ok'); return;
       }
       if (!mails.length) { toast('Sleep een mail (.msg of .eml) om een vergadering te maken. Losse documenten sleep je op een geopende vergadering.', 'warn'); return; }
-      if (mails.length === 1) { A.draft = await draftFromMail(mails[0]); location.hash = '#/nieuw'; route(); return; }
-      var made = 0;
-      for (i = 0; i < mails.length; i++) { var d = await draftFromMail(mails[i]); if (!findDup(d)) { await saveDraft(d); made++; } }
-      route(); toast(made + ' vergadering(en) aangemaakt' + (made < mails.length ? ' (' + (mails.length - made) + ' bestonden al)' : '') + '.', 'ok');
+      var made = 0, moved = [], same0 = 0, last = null;
+      for (i = 0; i < mails.length; i++) {
+        var d = await draftFromMail(mails[i]), ex = sameDay(d);
+        /* bestaat deze vergadering op die dag al, dan is het een verplaatsing: alleen de tijd bijwerken */
+        if (ex) { if (d.start && (ex.start !== d.start || ex.end !== d.end)) { ex.start = d.start; if (d.end) ex.end = d.end; ex.updated = new Date().toISOString(); moved.push(ex); } else same0++; last = ex; continue; }
+        if (mails.length === 1) { A.draft = d; location.hash = '#/nieuw'; route(); return; }
+        await saveDraft(d); made++;
+      }
+      if (moved.length) await persist();
+      var msg = [];
+      if (made) msg.push(made + ' vergadering' + (made === 1 ? '' : 'en') + ' aangemaakt');
+      if (moved.length) msg.push(moved.length === 1 ? 'De vergadering "' + moved[0].title + '" op ' + fmtShort(moved[0].date) + ' bestond al: de tijd is bijgewerkt naar ' + moved[0].start + (moved[0].end ? '–' + moved[0].end : '') : moved.length + ' vergaderingen bestonden al: de tijd is bijgewerkt');
+      if (same0) msg.push(same0 + ' bestond' + (same0 === 1 ? '' : 'en') + ' al, met dezelfde tijd');
+      if (mails.length === 1 && last) { location.hash = '#/v/' + encodeURIComponent(last.id); route(); } else route();
+      toast(msg.join('. ') + '.', 'ok');
     } catch (e) { console.error(e); toast('Kon de mail niet lezen: ' + (e.message || e), 'err'); }
   }
+  /* dezelfde vergadering op dezelfde dag (zelfde titel, zonder voorvoegsels als "Bijgewerkt:") */
+  function sameDay(d) { if (!d.date) return null; var t = calNorm(d.title); return A.data.meetings.filter(function (m) { return m.date === d.date && calNorm(m.title) === t; })[0] || null; }
 
 
   var MEET_DIR = 'Vergaderingen', ACTS_DIR = 'Actielijst';
@@ -4361,8 +4154,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   function calNorm(t) { return cleanSubject(t || '').toLowerCase(); }
   function hasStuk(m, name) { var a = name.toLowerCase(), b = safe(name).toLowerCase(); return m.files.some(function (f) { return [f.name, f.pdf || ''].some(function (x) { x = x.toLowerCase(); return x === a || x === b; }); }); }
-  function isMailAtt(a) { return /\.(msg|eml)$/i.test(a.name) || /ms-outlook|rfc822/i.test(a.type || ''); }
-  function attTarget(a) { return isMailAtt(a) ? a.name.replace(/\.[^.]*$/, '') + '.pdf' : a.name; } /* mails worden als PDF opgeslagen */
+  function attTarget(a) { return a.name; } /* elk stuk houdt zijn eigen naam en formaat */
   /* Stap 1: het bestand lezen en laten zien wat er gebeurt. Er wordt nog niets opgeslagen. */
   async function importCalendars(files) {
     if (!A.store) { toast('Kies eerst waar de gegevens bewaard worden.', 'warn'); return; }
@@ -4499,11 +4291,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
           var a = p.atts[j], blob = new Blob([a.data], { type: a.type || guessMime(a.name) });
           toast('Stukken toevoegen… (' + (nAtt + failAtt.length + 1) + '/' + totalAtt + ') ' + a.name);
           try {
-            if (isMailAtt(a)) {
-              var cv = null; try { cv = await convertToPdf(a.name, a.type || guessMime(a.name), blob); } catch (e) { console.error(e); }
-              if (cv && cv.bytes) await addFileTo(m, attTarget(a), 'application/pdf', new Blob([cv.bytes], { type: 'application/pdf' }));
-              else await addFileTo(m, a.name, a.type, blob);
-            } else await addFileTo(m, a.name, a.type, blob);
+            /* een mail blijft een mail; zijn bijlagen komen als losse stukken erachter. Een zip wordt uitgepakt. */
+            var parts = await expandFiles([{ name: a.name, type: a.type || guessMime(a.name), blob: blob }]);
+            for (var q = 0; q < parts.length; q++) if (q === 0 || !hasStuk(m, parts[q].name)) await addFileTo(m, parts[q].name, parts[q].type, parts[q].blob);
             nAtt++;
           } catch (e) { console.error(e); failAtt.push(a.name); }
         }
@@ -4536,12 +4326,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (h === '#/weekagenda') { var wr = A.wkRes; A.wkRes = null; return renderWeekImport(wr); }
     if (h === '#/verslagen') return renderReports();
     if (h === '#/acties') return renderActions();
-    if (h === '#/annotaties') { location.replace('#/meeneempunten'); return; } /* oude adressen */
-    if (/^#\/annotatie\//.test(h)) { location.replace(h.replace('#/annotatie/', '#/meeneempunt/')); return; }
-    if (h === '#/bespreekpunten') { location.replace('#/meeneempunten'); return; } /* Bespreekpunten heet nu Meeneempunten */
-    if (/^#\/bespreekpunt\//.test(h)) { location.replace(h.replace('#/bespreekpunt/', '#/meeneempunt/')); return; }
-    if (h === '#/meeneempunten') return renderAnnos();
-    var anm = /^#\/meeneempunt\/(.+)$/.exec(h); if (anm) { var ao = annoById(decodeURIComponent(anm[1])); if (ao) return renderAnno(ao); location.hash = '#/meeneempunten'; return; }
+    /* het tabblad Meeneempunten (eerder Bespreekpunten, Annotaties) bestaat niet meer: zulke oude adressen gaan naar het startscherm */
+    if (/^#\/(meeneempunt|bespreekpunt|annotatie)/.test(h)) { location.replace('#/'); return; }
     if (h === '#/bestanden') return renderFiles(true);
     renderHome();
   }
@@ -4552,7 +4338,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function renderSide() {
     var s = $('#side'), h = '', hs = location.hash || '#/';
     var nOpen = A.store ? openCount() : 0;
-    h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/meeneempunten" class="' + (/^#\/meeneempunt/.test(hs) ? 'on' : '') + '">Meeneempunten</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
+    h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
     if (A.store) {
       h += '<span class="tinfo" title="Hier worden alle vergaderingen, stukken en aantekeningen bewaard">📁 ' + (A.store.kind === 'map' ? 'Map: <b>' + esc(A.store.name) + '</b>' : 'In de browser') + ' <button class="link" id="chgStore">' + (A.store.kind === 'map' ? 'wijzig' : 'map kiezen') + '</button></span>';
     }
@@ -4603,7 +4389,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     h += '<section class="card wk"><h2>2. De datamap</h2>' +
       (A.store && A.store.kind === 'map' ? '<p class="okline">✓ De gegevens staan in de map <b>' + esc(A.store.name) + '</b>.</p>' : A.store ? '<p>De gegevens worden nu in de browser bewaard. Wil je ze in een map op je computer? Klik dan op <b>Datamap kiezen</b>.</p>' : '') +
       '<p>Klik op <b>Datamap kiezen</b> en kies de map <b>MeMeet</b> waar <code>MeMeet.html</code> in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan, met de submappen <b>Vergaderingen</b>, <b>Aantekeningen</b> en <b>Actielijst</b>, en zet het icoon <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</p>' +
-      '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    Meeneempunten\\\n    memeet.json</pre>' +
+      '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    memeet.json</pre>' +
       '<p><button class="btn' + (A.store && A.store.kind === 'map' ? '' : ' pri') + '" id="insPick">📁 Datamap kiezen…</button></p></section>';
     h += '<section class="card wk"><h2>3. Snelkoppeling op het bureaublad en in de taakbalk</h2>' +
       '<p>De snelkoppeling start <code>explorer.exe</code> met MeMeet als bestand. Omdat het doel een programma is, kun je hem daarna ook naar de taakbalk slepen.</p><ol>' +
@@ -4742,7 +4528,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       if (nd && m.minutesFile) { try { await nd.removeEntry(m.minutesFile); } catch (e) {} }
       A.data.meetings = A.data.meetings.filter(function (x) { return x !== m; });
       if (A.hsel) delete A.hsel[m.id];
-      annos().forEach(function (x) { if (x.mid === m.id) x.mid = null; });
     }
     await persist();
     try { await writeNotesFiles(null); } catch (e) {}
@@ -4759,27 +4544,27 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       var miss = []; if (!m.date) miss.push('datum'); if (!m.start) miss.push('tijd');
       h += '<div class="info ' + (miss.length ? 'warn' : 'ok') + '">' + (m.source.how === 'agenda-export' ? 'Gegevens overgenomen uit je Outlook-agenda.' : m.source.how === 'agenda-uitnodiging' ? 'Gegevens overgenomen uit de agenda-uitnodiging.' + (m.source.recurring ? ' Dit is een terugkerende afspraak: datum en tijd zijn van de eerstvolgende keer.' : '') : 'Gegevens uit de tekst van de mail gehaald.') + (miss.length ? ' Er is geen ' + miss.join(' en ') + ' gevonden. Vul dat zelf in.' : ' Controleer alles en klik op Opslaan.') + '</div>';
     }
-    h += '<form class="card meta" id="frm" autocomplete="off"><div class="mtop"><input class="ttl" name="title" required placeholder="Titel van de vergadering" value="' + esc(m.title) + '">' +
-      '<button type="submit" class="btn pri" id="save">Opslaan</button>' + (isNew ? '' : '<button type="button" class="btn' + (A.notesOpen ? ' on' : '') + '" id="npToggle" title="Kolom voor aantekeningen tijdens de vergadering">✎ Aantekeningen</button><button type="button" class="btn" id="exp">Exporteer als één PDF</button><button type="button" class="btn red" id="del" title="Vergadering verwijderen">Verwijder</button>') + '<a class="btn" href="#/">Terug</a></div>';
-    h += '<div class="mrow"><label>Datum<input type="date" name="date" value="' + esc(m.date) + '"></label><label>Van<input type="time" name="start" value="' + esc(m.start) + '"></label><label>Tot<input type="time" name="end" value="' + esc(m.end) + '"></label>' +
-      '<label class="grow">Locatie<input name="location" value="' + esc(m.location) + '"></label>' +
-      '<label class="grow2">Vergaderlink<span class="lk"><input name="link" type="url" placeholder="Geen link gevonden. Plak hier eventueel een Teams- of andere link" value="' + esc(m.link || '') + '"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a></span></label>' +
-      '<label class="grow2">iBabs-link<span class="lk"><input name="ibabs" type="url" placeholder="Plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>Stukken in iBabs</button>' + (isNew ? '' : '<button type="button" class="btn sm" id="ibSide" title="iBabs links en je aantekeningen rechts op het scherm, elk in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>Naast elkaar</button>') + '</span></label>' +
-      '<label class="grow">Genodigden<input name="invitees" placeholder="Namen, gescheiden door komma\'s. De eerste is de voorzitter" value="' + esc(m.invitees) + '"></label></div></form>';
-    h += '<div class="ws' + (A.notesOpen && !isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="annoAdd" title="Meeneempunten bij deze vergadering maken">+ Meeneempunten</button>') + '</span></div>';
-    /* meeneempunten bovenaan de stukken: gekoppeld aan deze vergadering, of wachtend op (of vastgepind bij) een vergadering met deze titel */
-    if (!isNew) { var linked = annos().filter(function (x) { return annoShowsAt(x, m); }).sort(function (x, y) { return (x.created || '').localeCompare(y.created || ''); }); if (linked.length) h += '<ul class="docs annos">' + linked.map(function (x) {
-      var op = !!(A.annOpen && A.annOpen[x.id]), np = openPointCount(x), wt = !x.mid && !x.archived;
-      return '<li class="annitem' + (op ? ' open' : '') + (x.archived ? ' isarch' : '') + '" data-annid="' + esc(x.id) + '"><div class="annrow"><button type="button" class="annlink" aria-expanded="' + op + '" title="Klik om open of dicht te klappen"><span class="aic">' + (op ? '▾' : '▸') + '</span><span class="fn">' + esc(x.title || 'Meeneempunten') + '</span>' + (np ? '<span class="atag">' + np + ' punt' + (np === 1 ? '' : 'en') + '</span>' : '') + (x.archived ? '<span class="atag">archief</span>' : wt ? '<span class="atag" title="' + (x.pin ? 'Vastgepind: staat bij elke vergadering met ' : 'Wacht op de eerstvolgende vergadering met ') + esc(waitLabel(x)) + '">' + (x.pin ? 'vast' : 'wacht') + '</span>' : '') + '</button>' + (wt ? '<button type="button" class="annskip" data-skip="' + esc(x.id) + '" title="' + (x.pin ? 'Niet bij deze vergadering tonen' : 'Niet bij deze vergadering; het lijstje wacht op de volgende passende vergadering') + '">Niet hier</button>' : '') + '<a class="annedit" href="#/meeneempunt/' + encodeURIComponent(x.id) + '" title="Openen en bewerken">✎</a></div>' + (op ? '<div class="annbody">' + annoBodyHtml(x) + '</div>' : '') + '</li>'; }).join('') + '</ul>'; }
+    /* één compacte regel: titel, datum, tijd, locatie, links en knoppen (zo blijft er zoveel mogelijk ruimte voor de stukken).
+       Een bestaande vergadering wordt vanzelf bewaard zodra je een veld wijzigt; alleen een nieuwe vergadering heeft Opslaan. */
+    h += '<form class="card meta mline" id="frm" autocomplete="off"><input class="ttl" name="title" required placeholder="Titel van de vergadering" title="Titel" value="' + esc(m.title) + '">' +
+      '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
+      '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
+      '<span class="lk"><input name="link" type="url" placeholder="Vergaderlink" title="Vergaderlink: plak hier eventueel een Teams- of andere link" value="' + esc(m.link || '') + '"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" href="' + esc(m.link || '#') + '"' + (m.link ? '' : ' hidden') + '>Deelnemen</a></span>' +
+      '<span class="lk"><input name="ibabs" type="url" placeholder="iBabs-link" title="iBabs-link: plak hier eventueel de link naar de stukken in iBabs" value="' + esc(m.ibabs || '') + '"><button type="button" class="btn sm ibabs" id="ibBtn" title="De stukken in iBabs openen, in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>iBabs</button>' + (isNew ? '' : '<button type="button" class="btn sm" id="ibSide" title="iBabs links en je aantekeningen rechts op het scherm, elk in een eigen venster"' + (m.ibabs ? '' : ' hidden') + '>Naast elkaar</button>') + '</span>' +
+      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm' + (A.notesOpen ? ' on' : '') + '" id="npToggle" title="Kolom voor aantekeningen tijdens de vergadering">✎ Aantekeningen</button><button type="button" class="btn sm red" id="del" title="Vergadering verwijderen">Verwijder</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">Terug</a></span></form>';
+    h += '<div class="ws' + (A.notesOpen && !isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">📋 Meeneempunten</button>') + '</span></div>';
+    /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
+    if (!isNew) h += vervolgRowHtml(m);
+    var dsel = isNew ? {} : docSel(m);
     h += '<ul class="docs" id="docs">';
     list.forEach(function (f, i) {
       if (isNew) {
         h += '<li data-sel="' + i + '"><div class="dl1"><input type="checkbox" data-p="' + i + '"' + (f.on ? ' checked' : '') + ' title="Meenemen bij opslaan"><span class="fn">' + esc(f.name) + '</span></div>' +
           (f.inline ? '<div class="dl2"><small>afbeelding uit de mailtekst</small></div>' : '') + '</li>';
       } else {
-        var badge = f.conv === 'vervangen' ? '<span class="bdg ok">eigen PDF</span>' : f.conv === 'niet' ? '<span class="bdg no" title="' + esc(f.convErr || 'Dit bestandstype kan niet worden omgezet') + '">geen PDF</span>' : '';
+        var badge = f.conv === 'vervangen' ? '<span class="bdg ok" title="De viewer toont de PDF-versie die je erbij hebt gezet">eigen PDF</span>' : !canView(f.name, f.type) ? '<span class="bdg no" title="Dit bestandstype kan de viewer niet tonen. Download het origineel om het te openen.">niet te tonen</span>' : '';
         var na = annCount(f.ann);
-        h += '<li data-sel="' + i + '"><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(f.name) + '">' + esc(f.name) + '</span></div>' +
+        h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(f.name) + '">' + esc(f.name) + '</span></div>' +
           '<div class="dl2">' + badge + (na ? '<span class="bdg ann" title="Aantekeningen">✎ ' + na + '</span>' : '') + '<span class="sp"></span>' +
           '<button type="button" class="link" data-up="' + i + '" title="Omhoog"' + (i ? '' : ' disabled') + '>▲</button><button type="button" class="link" data-down="' + i + '" title="Omlaag"' + (i < list.length - 1 ? '' : ' disabled') + '>▼</button>' +
           '<button type="button" class="link" data-dl="' + i + '" title="Origineel downloaden">⤓</button><button type="button" class="link red" data-rm="' + i + '" title="Verwijderen">✕</button></div></li>';
@@ -4790,7 +4575,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     /* Outlook-items in de mail (bij terugkerende afspraken vaak tientallen naamloze uitzonderingen) worden stil overgeslagen */
     if (m.source && m.source.how === 'agenda-export') h += '<p class="note">Uit je Outlook-agenda.</p>';
     else if (m.source) h += '<p class="note">Uit de mail' + (m.source.from ? ' van ' + esc(m.source.from) : '') + (m.source.sent ? ', ' + esc(new Date(m.source.sent).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' })) : '') + '.' + (m.source.file && !isNew ? ' <a href="#" id="origMail">Originele mail</a>' : '') + '</p>';
-    h += '</section><section class="card pv" id="pv"></section><section class="card np" id="np"></section></div>';
+    h += '</section>' + (isNew ? '' : '<div class="lsgrip" id="lsgrip" title="Sleep om de kolom met stukken breder of smaller te maken (dubbelklik: standaard)"></div>') + '<section class="card pv" id="pv"></section><section class="card np" id="np"></section></div>';
     setHTML($('#main'), h); $('#main').classList.add('detail');
 
     var frm = $('#frm');
@@ -4805,45 +4590,33 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
           $('#save').disabled = true;
           var saved = await saveDraft(m); A.draft = null; A.sel = { id: saved.id, i: 0 };
           toast('Vergadering "' + saved.title + '" opgeslagen met ' + saved.files.length + ' stuk(ken).', 'ok'); location.hash = '#/v/' + encodeURIComponent(saved.id);
-        } else { m.updated = new Date().toISOString(); await persist(); toast('Opgeslagen.', 'ok'); renderSide(); }
-      } catch (er) { $('#save').disabled = false; toast('Opslaan mislukt: ' + (er.message || er), 'err'); }
+        } else { await autoSave(); }
+      } catch (er) { var sb = $('#save'); if (sb) sb.disabled = false; toast('Opslaan mislukt: ' + (er.message || er), 'err'); }
     };
+    /* een bestaande vergadering: elk gewijzigd veld wordt meteen bewaard */
+    async function autoSave() {
+      if (isNew) return; readForm();
+      if (!m.title) { toast('Vul een titel in.', 'warn'); return; }
+      m.updated = new Date().toISOString(); await persist(); renderSide();
+      var st = $('#svst'); if (st) { st.textContent = 'opgeslagen ✓'; clearTimeout(autoSave.t); autoSave.t = setTimeout(function () { var s2 = $('#svst'); if (s2) s2.textContent = ''; }, 1800); }
+    }
+    if (!isNew) $$('[name]', frm).forEach(function (x) { if (x.name !== 'link' && x.name !== 'ibabs') x.addEventListener('change', autoSave); });
     var del = $('#del'); if (del) del.onclick = async function () {
       if (!confirm('Vergadering "' + m.title + '" verwijderen?\n\nAlle bestanden van deze vergadering worden gewist: de stukken, de originele mail en alle gewijzigde versies.' + (m.minutes ? '\nJe aantekeningen blijven staan in de map Aantekeningen.' : ''))) return;
       try { await A.store.delMeeting(m); } catch (er) { toast('Verwijderen van de bestanden mislukt: ' + (er.message || er), 'err'); return; }
-      A.data.meetings = A.data.meetings.filter(function (x) { return x !== m; }); annos().forEach(function (x) { if (x.mid === m.id) x.mid = null; }); await persist();
+      A.data.meetings = A.data.meetings.filter(function (x) { return x !== m; }); await persist();
       try { await writeNotesFiles(null); } catch (e) {}
       toast('Verwijderd.'); location.hash = '#/';
     };
-    var ex = $('#exp'); if (ex) ex.onclick = function () { readForm(); exportMeeting(m); };
     $('#addDocs').onclick = function () { readForm(); $('#pickDocs').click(); };
     $('#addDocs').onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } };
-    /* + Meeneempunten: zijn er al meeneempunten bij deze vergadering, dan die uitklappen; anders een nieuw lijstje maken */
-    var aa = $('#annoAdd'); if (aa) aa.onclick = function () {
-      var items = $$('.annitem'); if (!items.length) return newAnno(m.id);
-      items.forEach(function (li) { if (!li.classList.contains('open')) $('.annlink', li).click(); li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash'); });
-      items[0].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-    };
-    /* meeneempunten open- en dichtklappen in de kolom, elk hoogstens een kwart van de kolom hoog */
-    function annFit() { var col = $('.ws .card.list'), mh = col ? Math.max(110, Math.round(col.clientHeight * 0.25)) : 200; $$('.annbody').forEach(function (b) { b.style.maxHeight = mh + 'px'; }); }
-    $$('.annitem').forEach(function (li) {
-      var id = li.dataset.annid;
-      $('.annlink', li).onclick = function () {
-        A.annOpen = A.annOpen || {}; var x = annoById(id), body = $('.annbody', li), btn = $('.annlink', li);
-        if (body) { li.removeChild(body); li.classList.toggle('open', false); delete A.annOpen[id]; $('.aic', li).textContent = '▸'; btn.setAttribute('aria-expanded', 'false'); return; }
-        if (!x) return; body = D.createElement('div'); body.className = 'annbody'; setHTML(body, annoBodyHtml(x)); linkify(body); li.appendChild(body); bindAnnBody(body, x);
-        li.classList.add('open'); A.annOpen[id] = 1; $('.aic', li).textContent = '▾'; btn.setAttribute('aria-expanded', 'true'); annFit();
-      };
-      var sk = $('[data-skip]', li); if (sk) sk.onclick = async function () { var x = annoById(id); if (!x) return; readForm(); await skipAnnoAt(x, m); renderDetail(m); };
-    });
-    /* punten in een lijstje afvinken of verbergen, zonder de vergaderpagina opnieuw op te bouwen */
-    function bindAnnBody(body, x) { bindPoints(body, x, function () { setHTML(body, annoBodyHtml(x)); linkify(body); bindAnnBody(body, x); var li = body.closest('.annitem'), np = openPointCount(x), tg = li && li.querySelector('.annlink .atag'); if (tg && /punt/.test(tg.textContent)) { if (np) tg.textContent = np + ' punt' + (np === 1 ? '' : 'en'); else tg.remove(); } }); }
-    $$('.annbody').forEach(function (b) { linkify(b); var x = annoById(b.closest('.annitem').dataset.annid); if (x) bindAnnBody(b, x); });
-    var aul = $('.docs.annos'); if (aul) aul.addEventListener('click', function (e) { var l = e.target.closest && e.target.closest('.annbody a'); if (l && !/^#/.test(l.getAttribute('href') || '')) { e.preventDefault(); W.open(l.href, '_blank', 'noopener'); } });
-    annFit();
-    if (!A.annFitBound) { A.annFitBound = true; W.addEventListener('resize', function () { if ($('.annbody')) annFit(); }); }
+    /* Meeneempunten: het vervolgdocument van het vorige overleg met deze titel, als popup */
+    var vb = $('#vvBtn'); if (vb) vb.onclick = function () { openVervolg(prevMeeting(m), m); };
+    bindVervolgRow(m);
     $$('[data-p]').forEach(function (c) { c.onclick = function (e) { e.stopPropagation(); }; c.onchange = function () { m.pending[+c.dataset.p].on = c.checked; }; });
-    $$('#docs li[data-sel]').forEach(function (li) { li.onclick = function (e) { if (e.target.closest('button,input')) return; pvShow(m, +li.dataset.sel); }; });
+    if (isNew) $$('#docs li[data-sel]').forEach(function (li) { li.onclick = function (e) { if (e.target.closest('button,input')) return; pvShow(m, +li.dataset.sel); }; });
+    else bindDocList(m);
+    bindListGrip();
     $$('[data-up],[data-down]').forEach(function (b) { b.onclick = async function () { var i = +(b.dataset.up || b.dataset.down), j = b.dataset.up != null ? i - 1 : i + 1; if (j < 0 || j >= m.files.length) return; readForm(); var t = m.files[i]; m.files[i] = m.files[j]; m.files[j] = t; if (A.sel && A.sel.i === i) A.sel.i = j; await persist(); renderDetail(m); }; });
     $$('[data-dl]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.dl]; dl(await A.store.get(m, f.name), f.name); }; });
     $$('[data-rm]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.rm]; if (!confirm('"' + f.name + '" verwijderen' + (annCount(f.ann) ? ', inclusief je aantekeningen' : '') + '?')) return; readForm(); await A.store.del(m, f.name); if (f.pdf && f.pdf !== f.name) await A.store.del(m, f.pdf); if (f.backup) await A.store.del(m, f.backup); m.files.splice(+a.dataset.rm, 1); await persist(); renderDetail(m); }; });
@@ -4865,6 +4638,67 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     }
     if (A.notesOpen && !isNew) renderNotes(m);
     pvShow(m, sel);
+  }
+  /* ---------- stukken: meer tegelijk selecteren (Ctrl+klik, Shift+klik) en slepen om de volgorde te veranderen */
+  function docSel(m) {
+    A.docSel = A.docSel || {}; var s = A.docSel[m.id] || (A.docSel[m.id] = {});
+    Object.keys(s).forEach(function (k) { if (!m.files.some(function (f) { return f.name === k; })) delete s[k]; });
+    return s;
+  }
+  function isDocDrag(e) { return Array.prototype.indexOf.call((e.dataTransfer && e.dataTransfer.types) || [], 'text/x-memeet-stukken') >= 0; }
+  function bindDocList(m) {
+    var ul = $('#docs'); if (!ul) return; var sel = docSel(m);
+    function items() { return $$('#docs li[data-sel]'); }
+    function paint() { items().forEach(function (li) { var f = m.files[+li.dataset.sel]; li.classList.toggle('picked', !!(f && sel[f.name])); }); }
+    function clear() { Object.keys(sel).forEach(function (k) { delete sel[k]; }); }
+    function marks() { items().forEach(function (li) { li.classList.remove('drop-before', 'drop-after'); }); }
+    items().forEach(function (li) {
+      var i = +li.dataset.sel, f = m.files[i];
+      li.onclick = function (e) {
+        if (e.target.closest('button,input,a')) return;
+        if (e.ctrlKey || e.metaKey) { if (sel[f.name]) delete sel[f.name]; else sel[f.name] = 1; A.docAnchor = { id: m.id, i: i }; paint(); return; }
+        if (e.shiftKey && A.docAnchor && A.docAnchor.id === m.id) { clear(); for (var k = Math.min(A.docAnchor.i, i); k <= Math.max(A.docAnchor.i, i); k++) sel[m.files[k].name] = 1; paint(); return; }
+        clear(); sel[f.name] = 1; A.docAnchor = { id: m.id, i: i }; paint(); pvShow(m, i);
+      };
+      li.addEventListener('dragstart', function (e) {
+        if (!sel[f.name]) { clear(); sel[f.name] = 1; paint(); }
+        e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/x-memeet-stukken', Object.keys(sel).join('\n'));
+        ul.classList.add('dragging');
+      });
+      li.addEventListener('dragend', function () { ul.classList.remove('dragging'); marks(); });
+      li.addEventListener('dragover', function (e) {
+        if (!isDocDrag(e)) return; e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+        var r = li.getBoundingClientRect(), after = e.clientY > r.top + r.height / 2; marks(); li.classList.add(after ? 'drop-after' : 'drop-before');
+      });
+      li.addEventListener('drop', function (e) {
+        if (!isDocDrag(e)) return; e.preventDefault(); e.stopPropagation();
+        var r = li.getBoundingClientRect(); marks(); moveDocs(m, i, e.clientY > r.top + r.height / 2);
+      });
+    });
+  }
+  /* de geselecteerde stukken (in hun huidige volgorde) vóór of na stuk nummer target zetten */
+  async function moveDocs(m, target, after) {
+    var sel = docSel(m), tf = m.files[target]; if (!tf || sel[tf.name]) return;
+    var viewed = m.files[A.sel && A.sel.id === m.id ? A.sel.i : 0];
+    var moving = m.files.filter(function (f) { return sel[f.name]; }), rest = m.files.filter(function (f) { return !sel[f.name]; });
+    if (!moving.length) return;
+    var at = rest.indexOf(tf) + (after ? 1 : 0); rest.splice.apply(rest, [at, 0].concat(moving)); m.files = rest;
+    if (viewed) A.sel = { id: m.id, i: m.files.indexOf(viewed) };
+    m.updated = new Date().toISOString(); await persist(); renderDetail(m);
+  }
+  /* ---------- de kolom met stukken breder of smaller slepen */
+  function lwDefault() { var ws = $('.ws'); return ws && ws.classList.contains('n3') ? 260 : 300; }
+  function applyLw() { var ws = $('.ws'); if (!ws) return; var w = 0; try { w = +localStorage.getItem('memeet-lw') || 0; } catch (e) {} ws.style.setProperty('--lw', (w || lwDefault()) + 'px'); }
+  function bindListGrip() {
+    applyLw(); var g = $('#lsgrip'); if (!g) return;
+    function relayout() { if (PV.fit && $('#pvp') && PV.pages) layoutPages(); }
+    g.onmousedown = function (e) {
+      e.preventDefault(); var ws = $('.ws'), left = ws.getBoundingClientRect().left; D.body.classList.add('lsdrag');
+      function mv(ev) { var w = Math.round(Math.max(180, Math.min(ev.clientX - left, ws.clientWidth * 0.55))); ws.style.setProperty('--lw', w + 'px'); try { localStorage.setItem('memeet-lw', String(w)); } catch (er) {} }
+      function up() { D.removeEventListener('mousemove', mv); D.removeEventListener('mouseup', up); D.body.classList.remove('lsdrag'); relayout(); }
+      D.addEventListener('mousemove', mv); D.addEventListener('mouseup', up);
+    };
+    g.ondblclick = function () { try { localStorage.removeItem('memeet-lw'); } catch (e) {} applyLw(); relayout(); };
   }
   function annCount(a) { if (!a) return 0; return Object.keys(a).reduce(function (n, k) { return n + (a[k] ? a[k].length : 0); }, 0); }
 
@@ -4981,7 +4815,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var editable = !isNew;
     if (!editable && PV.tool !== 'select') PV.tool = 'select';
     var editMode = PV.mode === 'edit' && !isNew && canEdit(f);
-    var tabs = !isNew && canEdit(f) ? '<div class="vtabs"><button type="button" data-mode="pdf" class="' + (editMode ? '' : 'on') + '">PDF</button><button type="button" data-mode="edit" class="' + (editMode ? 'on' : '') + '" title="Het originele bestand bewerken">Bewerken</button></div>' : '';
+    var tabs = !isNew && canEdit(f) ? '<div class="vtabs"><button type="button" data-mode="pdf" class="' + (editMode ? '' : 'on') + '">Bekijken</button><button type="button" data-mode="edit" class="' + (editMode ? 'on' : '') + '" title="Het originele bestand bewerken">Bewerken</button></div>' : '';
     if (editMode) {
       setHTML(el, '<div class="pvbar"><div class="pvt">' + tabs + '<b class="pvname" title="' + esc(f.name) + '">' + (i + 1) + '. ' + esc(f.name) + '</b></div><div class="pvtools"><button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + '>‹</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + '>›</button><button type="button" class="tl" data-act="orig" title="Origineel downloaden">⤓</button>' + maxBtn() + '</div></div><div class="edwrap" id="edw"></div>');
       $$('[data-mode]', el).forEach(function (b) { b.onclick = function () { switchMode(m, i, b.dataset.mode); }; });
@@ -4989,7 +4823,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       A.edCtl = await mountEditor(m, f, $('#edw'), function () { renderDocList(m); });
       return;
     }
-    var hint = !editable ? 'Sla de vergadering eerst op. Daarna kun je markeren en opmerkingen maken.' : f.conv === 'omgezet' ? 'Automatisch omgezet naar PDF. De opmaak kan afwijken van het origineel.' : '';
+    var hint = !editable ? 'Sla de vergadering eerst op. Daarna kun je markeren en opmerkingen maken.' : !/\.pdf$/i.test(f.name) && !(f.pdf && f.conv === 'vervangen') ? 'Weergave van het origineel (' + ((/\.([^.]+)$/.exec(f.name) || ['', '?'])[1]).toUpperCase() + '). De opmaak kan iets afwijken; het bestand zelf blijft ongewijzigd.' : '';
     var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">i</span>' : '') + '<span class="pvst" id="pvst"></span>';
     TOOLS.forEach(function (t) { hb += '<button type="button" class="tl' + (PV.tool === t[0] ? ' on' : '') + '" data-tool="' + t[0] + '" title="' + t[1] + ': ' + t[2] + '"' + (!editable && t[0] !== 'select' ? ' disabled' : '') + '><span class="tic">' + t[3] + '</span><span class="tlb">' + t[1] + '</span></button>'; });
     hb += '<span class="cols" id="pvcols">' + COLORS.map(function (c) { return '<button type="button" class="col" data-color="' + c + '" title="Kleur" style="--c:' + c + '"></button>'; }).join('') + '</span>';
@@ -4999,7 +4833,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     hb += maxBtn() + '<button type="button" class="tl" data-act="more" title="Meer">⋯</button><div class="pvmenu" id="pvmenu" hidden>' +
       (editable ? '<button type="button" data-act="dlann">PDF met aantekeningen downloaden</button><button type="button" data-act="clear">Alle aantekeningen in dit stuk wissen</button>' : '') +
       '<button type="button" data-act="orig">Origineel downloaden</button><button type="button" data-act="tab">PDF openen in nieuw tabblad</button></div><span class="sp"></span><span class="srch"><input id="pvq" type="search" placeholder="Zoeken in PDF (Ctrl+F)" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)">‹</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)">›</button></span></div></div>';
-    hb += '<div class="pvpages" id="pvp"><div class="pvmsg">PDF wordt klaargemaakt…</div></div>';
+    hb += '<div class="pvpages" id="pvp"><div class="pvmsg">Stuk wordt klaargemaakt…</div></div>';
     setHTML(el, hb);
     $$('[data-color]', el).forEach(function (b) { b.onclick = function () { if (PV.tool !== 'mark' && PV.tool !== 'note') setTool('mark'); PV.colors[PV.tool] = b.dataset.color; markColor(); }; });
     $$('button[data-tool]', el).forEach(function (b) { b.onclick = function () { setTool(b.dataset.tool); }; });
@@ -5012,7 +4846,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var blob = null; try { blob = isNew ? await draftPdf(f) : await getPdf(m, f); } catch (e) { console.error(e); }
     if (tok !== PV.tok) return;
     var pvp = $('#pvp');
-    if (!blob) { setHTML(pvp, '<div class="pvmsg">Dit bestand kan niet als PDF worden getoond.<br><small>Open het origineel in Word of Excel, sla het op als PDF en sleep die PDF op deze vergadering.</small><br><button type="button" class="btn" id="pvorig">Origineel downloaden</button></div>'); $('#pvorig').onclick = function () { pvAct('orig', m, i); }; return; }
+    if (!blob) { setHTML(pvp, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het origineel om het te openen. Of sla het in Word of Excel op als PDF en sleep die PDF op deze vergadering: dan toont de viewer die.</small><br><button type="button" class="btn" id="pvorig">Origineel downloaden</button></div>'); $('#pvorig').onclick = function () { pvAct('orig', m, i); }; return; }
     var data = new Uint8Array(await blob.arrayBuffer()), pdf;
     try { pdf = await W.pdfjsLib.getDocument(pdfOpts(data.slice())).promise; }
     catch (e) { console.error(e); if (tok === PV.tok) setHTML(pvp, '<div class="pvmsg">Deze PDF kan niet worden getoond (' + esc(e.message || e) + ').<br><button type="button" class="btn" id="pvtab">Openen in nieuw tabblad</button></div>'); var pt = $('#pvtab'); if (pt) pt.onclick = function () { pvAct('tab', m, i); }; return; }
@@ -5329,25 +5163,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
   /* ------------------------------------------------------------- export */
   function exportName(m) { return safe((m.title || 'Vergadering') + ' - ' + (m.date ? fmtShort(m.date) : 'zonder datum') + (m.start ? ' ' + m.start.replace(':', '.') + (m.end ? '-' + m.end.replace(':', '.') : '') : '')).slice(0, 150) + '.pdf'; }
-  async function exportMeeting(m) {
-    var btn = $('#exp'); if (btn) btn.disabled = true;
-    try {
-      var items = [];
-      for (var i = 0; i < m.files.length; i++) {
-        toast('Stuk ' + (i + 1) + ' van ' + m.files.length + ' klaarmaken…');
-        var f = m.files[i], b = await getPdf(m, f).catch(function () { return null; });
-        items.push({ f: f, how: f.conv, ann: f.ann, bytes: b ? new Uint8Array(await b.arrayBuffer()) : null });
-      }
-      toast('PDF samenvoegen…');
-      var bytes = await mergeMeeting(m, items), name = exportName(m), blob = new Blob([bytes], { type: 'application/pdf' });
-      dl(blob, name);
-      var where = 'in je map Downloads';
-      if (A.store.kind === 'map') { try { await A.store.put(m, name, blob); where += ' en in de map van de vergadering'; } catch (e) {} }
-      var missing = items.filter(function (x) { return !x.bytes || !x.pages; }).length;
-      toast('"' + name + '" staat ' + where + '.' + (missing ? ' ' + missing + ' stuk(ken) konden niet worden opgenomen.' : ''), missing ? 'warn' : 'ok');
-    } catch (e) { console.error(e); toast('Exporteren mislukt: ' + (e.message || e), 'err'); }
-    finally { if (btn) btn.disabled = false; }
-  }
   function openBlob(b, name, type) {
     var blob = type && b.type !== type ? new Blob([b], { type: type }) : b;
     if (/\.(pdf|png|jpe?g|gif|txt)$/i.test(name)) { var u = URL.createObjectURL(blob); W.open(u, '_blank'); setTimeout(function () { URL.revokeObjectURL(u); }, 60000); }
@@ -5412,7 +5227,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     route();
   }
   start().catch(function (e) { setHTML($('#main'), '<div class="card welcome"><h1>Er ging iets mis bij het starten</h1><p>' + esc(e.message || e) + '</p><button class="btn" id="useIdb">In de browser bewaren</button></div>'); $('#useIdb').onclick = function () { useStore(new BrowserStore()); }; });
-  if (W.__VA_TEST) W.__va = { htmlPathWin: htmlPathWin, findBase: findBase, baseCandidates: baseCandidates, detectBase: detectBase, kvSet: kvSet, findLink: findLink, convertToPdf: convertToPdf, mergeMeeting: mergeMeeting, A: A, useStore: useStore, FolderStore: FolderStore, BrowserStore: BrowserStore, handleDrop: handleDrop };
+  if (W.__VA_TEST) W.__va = { htmlPathWin: htmlPathWin, findBase: findBase, baseCandidates: baseCandidates, detectBase: detectBase, kvSet: kvSet, findLink: findLink, convertToPdf: convertToPdf, expandFiles: expandFiles, prevMeeting: prevMeeting, A: A, useStore: useStore, FolderStore: FolderStore, BrowserStore: BrowserStore, handleDrop: handleDrop };
 
 })();
 </script></body></html>

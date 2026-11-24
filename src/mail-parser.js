@@ -179,8 +179,9 @@
     if (pt === 0) { R.f = 'D'; R.I = Math.max(1, Math.round(period / 1440)); }
     else if (pt === 1) { R.f = 'W'; R.I = Math.max(1, period); R.days = mask(u32()); }
     else if (pt === 2) { R.f = 'M'; R.I = Math.max(1, period); R.mday = u32(); }
-    else if (pt === 3) { R.f = 'M'; R.I = Math.max(1, period); R.days = mask(u32()); var n = u32(); R.nth = n >= 5 ? -1 : n; }
-    else if (pt === 4) { R.f = 'M'; R.I = Math.max(1, period); R.mday = -1; u32(); }
+    /* 3 = laatste dag van de maand (MonthEnd), 4 = de n-de weekdag van de maand (MonthNth; n = 5 betekent de laatste) */
+    else if (pt === 3) { R.f = 'M'; R.I = Math.max(1, period); R.mday = -1; u32(); }
+    else if (pt === 4) { R.f = 'M'; R.I = Math.max(1, period); R.days = mask(u32()); var n = u32(); R.nth = n >= 5 ? -1 : n; }
     else return null; /* Hijri-kalender e.d. */
     if (freq === 0x200D && R.f === 'M' && R.I < 12) R.I = 12;
     var endType = u32(), cnt = u32(); R.wkst = u32() % 7;
@@ -403,28 +404,59 @@
     }
     function ft(v) { return v && (v.lo || v.hi) ? new Date((v.hi * 4294967296 + v.lo) / 1e4 - 11644473600000) : null; }
     function tag(id, t) { return id == null ? -1 : ((id << 16) | t) >>> 0; }
-    var props = fixed(top, 32);
-    var html = str(top, 0x1013); if (!html) { var hb = bin(top, 0x1013); if (hb) html = decodeText(hb, 'utf-8'); }
-    var body = str(top, 0x1000) || (html ? htmlToText(html) : '');
+    /* een bericht lezen: het hoofdbericht (eigenschappenkop 32 bytes) of een bericht dat als bijlage is ingesloten (kop 24 bytes) */
+    function readMsg(st0, hdr, depth) {
+      var props = fixed(st0, hdr);
+      var html = str(st0, 0x1013); if (!html) { var hb = bin(st0, 0x1013); if (hb) html = decodeText(hb, 'utf-8'); }
+      var atts = [], skipped = [];
+      Object.keys(st0).filter(function (n) { return /^__attach_version1\.0_#/i.test(n); }).sort().forEach(function (n) {
+        var st = c.kids(st0[n]), fp = fixed(st, 8);
+        var name = str(st, 0x3707) || str(st, 0x3704) || str(st, 0x3001) || 'bijlage';
+        var data = bin(st, 0x3701), hid = fp[0x7FFE000B], fl = fp[0x37140003];
+        if (!data) {
+          var sub = st['__substg1.0_3701000D']; if (!sub) return;
+          /* Een ingesloten bericht. Een echte mail wordt een losse .eml (met zijn eigen bijlagen erin). Uitzonderingen van een
+             terugkerende afspraak (verborgen, of klasse IPM.OLE.CLASS) slaat Outlook ook zo op; die worden overgeslagen. */
+          var es = c.kids(sub), cls = str(es, 0x001A);
+          if (depth >= 3 || /^IPM\.OLE\.CLASS/i.test(cls) || (fl && fl.lo & 2) || (hid && hid.lo & 1)) { skipped.push(name); return; }
+          var em = readMsg(es, 24, depth + 1);
+          atts.push({ name: (em.subject || name || 'Bijgevoegde mail').replace(/[\\/:*?"<>|\u0000-\u001f]/g, '_').trim().slice(0, 90).replace(/(\.eml|\.msg)?$/i, '.eml'), type: 'message/rfc822', data: msgToEml(em), inline: false });
+          return;
+        }
+        var mime = str(st, 0x370E) || guessMime(name);
+        atts.push({ name: name, type: mime, data: data,
+          inline: !!(hid && hid.lo & 1) || !!(fl && fl.lo & 4) || (!!str(st, 0x3712) && /^image\//.test(mime) && /^image\d+\./i.test(name)) });
+      });
+      return { props: props, subject: str(st0, 0x37), from: str(st0, 0x0C1A) || str(st0, 0x42), sent: ft(props[0x00390040]),
+        text: str(st0, 0x1000) || (html ? htmlToText(html) : ''), html: html || '', attachments: atts, skipped: skipped };
+    }
+    var mm = readMsg(top, 32, 0), props = mm.props;
     var start = ft(props[tag(named[APPT + ':' + 0x820D], 0x40)]) || ft(props[0x00600040]);
     var end = ft(props[tag(named[APPT + ':' + 0x820E], 0x40)]) || ft(props[0x00610040]);
     var allDay = props[tag(named[APPT + ':' + 0x8215], 0x0B)]; allDay = !!(allDay && allDay.lo & 1);
     var next = null; try { next = outlookRecur(bin(top, named[APPT + ':' + 0x8216])); } catch (er) { console.warn('Herhaling niet gelezen', er); }
-    var atts = [], skipped = [];
-    Object.keys(top).filter(function (n) { return /^__attach_version1\.0_#/i.test(n); }).sort().forEach(function (n) {
-      var st = c.kids(top[n]), fp = fixed(st, 8);
-      var name = str(st, 0x3707) || str(st, 0x3704) || str(st, 0x3001) || 'bijlage';
-      var data = bin(st, 0x3701);
-      if (!data) { if (st['__substg1.0_3701000D']) skipped.push(name); return; }
-      var mime = str(st, 0x370E) || guessMime(name), hid = fp[0x7FFE000B], fl = fp[0x37140003];
-      atts.push({ name: name, type: mime, data: data,
-        inline: !!(hid && hid.lo & 1) || !!(fl && fl.lo & 4) || (!!str(st, 0x3712) && /^image\//.test(mime) && /^image\d+\./i.test(name)) });
-    });
     return {
-      subject: str(top, 0x37), from: str(top, 0x0C1A) || str(top, 0x42), sent: ft(props[0x00390040]),
-      text: body, start: start, end: end, allDay: allDay, next: next, location: str(top, named[APPT + ':' + 0x8208]),
-      attachments: atts, skipped: skipped, html: html || ''
+      subject: mm.subject, from: mm.from, sent: mm.sent,
+      text: mm.text, start: start, end: end, allDay: allDay, next: next, location: str(top, named[APPT + ':' + 0x8208]),
+      attachments: mm.attachments, skipped: mm.skipped, html: mm.html
     };
+  }
+  /* een gelezen bericht als .eml (MIME): tekst, HTML en bijlagen */
+  function msgToEml(mm) {
+    var bnd = '----MeMeet-' + Math.random().toString(36).slice(2), alt = bnd + '-alt', te = new TextEncoder();
+    function ew(t) { t = String(t || ''); return /^[\x20-\x7e]*$/.test(t) ? t : '=?utf-8?B?' + btoa(unescape(encodeURIComponent(t))) + '?='; }
+    function b64l(u8) { var s = '', C = 0x8000; for (var i = 0; i < u8.length; i += C) s += String.fromCharCode.apply(null, u8.subarray(i, i + C)); return btoa(s).replace(/.{76}/g, '$&\r\n'); }
+    var o = ['From: ' + ew(mm.from), 'Subject: ' + ew(mm.subject)];
+    if (mm.sent && !isNaN(mm.sent)) o.push('Date: ' + mm.sent.toUTCString());
+    o.push('MIME-Version: 1.0', 'Content-Type: multipart/mixed; boundary="' + bnd + '"', '', '--' + bnd);
+    var textPart = ['Content-Type: text/plain; charset=utf-8', 'Content-Transfer-Encoding: base64', '', b64l(te.encode(mm.text || ''))];
+    if (mm.html) o.push('Content-Type: multipart/alternative; boundary="' + alt + '"', '', '--' + alt, textPart.join('\r\n'), '--' + alt, 'Content-Type: text/html; charset=utf-8', 'Content-Transfer-Encoding: base64', '', b64l(te.encode(mm.html)), '--' + alt + '--');
+    else o.push(textPart.join('\r\n'));
+    (mm.attachments || []).forEach(function (a) {
+      o.push('--' + bnd, 'Content-Type: ' + (a.type || 'application/octet-stream') + '; name="' + ew(a.name) + '"', 'Content-Disposition: ' + (a.inline ? 'inline' : 'attachment') + '; filename="' + ew(a.name) + '"', 'Content-Transfer-Encoding: base64', '', b64l(a.data));
+    });
+    o.push('--' + bnd + '--', '');
+    return te.encode(o.join('\r\n'));
   }
 
   /* ------------------------------------------------------------------ datum/tijd/locatie uit tekst */
@@ -461,7 +493,7 @@
   }
   function addHour(t) { var p = t.split(':'); return pad((+p[0] + 1) % 24) + ':' + p[1]; }
   function cleanSubject(s) {
-    var re = /^\s*(re|fw|fwd|tr|doorst|antw|wg|aw|uitnodiging|invitation|bijgewerkte uitnodiging|updated invitation|geaccepteerd|accepted|voorlopig|tentative)\s*:\s*/i;
+    var re = /^\s*(re|fw|fwd|tr|doorst|antw|wg|aw|uitnodiging|invitation|bijgewerkte uitnodiging|updated invitation|bijgewerkt|gewijzigd|verplaatst|updated|geaccepteerd|accepted|voorlopig|tentative)\s*:\s*/i;
     s = (s || '').trim(); while (re.test(s)) s = s.replace(re, '');
     return s.replace(/\s+/g, ' ').trim();
   }

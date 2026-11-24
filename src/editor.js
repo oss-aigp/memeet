@@ -502,7 +502,7 @@
     async function doSave() {
       if (save.disabled) return;
       save.disabled = true; st.textContent = 'Opslaan…'; st.className = 'edst';
-      try { var nb = await ed.save(); await saveEdited(m, f, nb); dirty = false; if (ed.init && ext === 'docx') { /* nieuwe toestand is basis voor volgende opslag */ var fresh = await mountEditor(m, f, box, done); A.edCtl = fresh; toast('Opgeslagen. De PDF is bijgewerkt.', 'ok'); return; } st.textContent = 'Opgeslagen ✓ (PDF bijgewerkt)'; st.className = 'edst ok'; stateBtns(); done && done(); }
+      try { var nb = await ed.save(); await saveEdited(m, f, nb); dirty = false; if (ed.init && ext === 'docx') { /* nieuwe toestand is basis voor volgende opslag */ var fresh = await mountEditor(m, f, box, done); A.edCtl = fresh; toast('Opgeslagen.', 'ok'); return; } st.textContent = 'Opgeslagen ✓'; st.className = 'edst ok'; stateBtns(); done && done(); }
       catch (e) { console.error(e); save.disabled = false; st.textContent = 'Opslaan mislukt: ' + (e.message || e); st.className = 'edst err'; }
     }
     save.onclick = doSave;
@@ -513,5 +513,7 @@
     var ext = (/\.[^.]*$/.exec(f.name) || [''])[0], base = f.name.slice(0, f.name.length - ext.length);
     if (!f.backup) { var bn = uniqueName(m, base + ' (oorspronkelijk)' + ext); await A.store.put(m, bn, await A.store.get(m, f.name)); f.backup = bn; }
     await A.store.put(m, f.name, blob); f.size = blob.size; f.edited = new Date().toISOString();
-    await makePdf(m, f, blob); m.updated = f.edited; await persist();
+    /* geen PDF meer bijmaken: de viewer zet het bewerkte origineel opnieuw om. Een automatisch gemaakte PDF van vóór versie 1.1 vervalt daarom. */
+    if (f.pdf && f.conv === 'omgezet') { try { await A.store.del(m, f.pdf); } catch (e) {} f.pdf = null; delete f.conv; delete f.convV; }
+    forgetPdf(m, f); m.updated = f.edited; await persist();
   }

@@ -69,15 +69,16 @@
     var cols = [['name', 'Naam'], ['date', 'Datum'], ['changed', 'Gewijzigd']];
     var h = '<div class="head"><h1>Verslagen</h1></div><section class="card"><div class="filters"><input id="rq" type="search" placeholder="Zoeken in verslagen…" value="' + esc(f.q) + '">' +
       '<label class="chk"><input type="checkbox" id="rall"' + (f.all ? ' checked' : '') + '> Ook vergaderingen zonder aantekeningen</label></div>';
-    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '</tr></thead><tbody>';
+    h += '<div class="tw"><table><thead><tr>' + cols.map(function (c) { var on = f.key === c[0]; return '<th class="' + (on ? 'on' : '') + '" data-rsort="' + c[0] + '">' + c[1] + '<i>' + (on ? (f.dir < 0 ? '▼' : '▲') : '↕') + '</i></th>'; }).join('') + '<th class="nosort">Besluiten, acties en meeneempunten</th></tr></thead><tbody>';
     h += list.length ? list.map(function (m) {
-      var chg = m.minutesUpdated ? new Date(m.minutesUpdated) : null;
-      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><b>' + esc(m.title || 'Vergadering') + '</b></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td></tr>';
-    }).join('') : '<tr><td colspan="3" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
+      var chg = m.minutesUpdated ? new Date(m.minutesUpdated) : null, vv = vervolgOf(m);
+      return '<tr class="rrow" data-rid="' + esc(m.id) + '"><td><b>' + esc(m.title || 'Vergadering') + '</b></td><td>' + esc(fmtShort(m.date)) + '</td><td>' + (chg ? esc(pad(chg.getDate()) + '-' + pad(chg.getMonth() + 1) + '-' + chg.getFullYear() + ' ' + pad(chg.getHours()) + ':' + pad(chg.getMinutes())) : '—') + '</td><td>' + (vv.n ? '<button type="button" class="link vvl" data-vv="' + esc(m.id) + '" title="Besluiten, acties en meeneempunten van deze vergadering">📋 ' + esc(vervolgSummary(vv)) + '</button>' : '<span class="muted">—</span>') + '</td></tr>';
+    }).join('') : '<tr><td colspan="4" class="empty">' + (A.data.meetings.length ? 'Geen verslagen gevonden. Maak aantekeningen bij een vergadering, of vink hierboven de vergaderingen zonder aantekeningen aan.' : 'Nog geen vergaderingen.') + '</td></tr>';
     h += '</tbody></table></div><p class="note">' + list.length + ' verslag' + (list.length === 1 ? '' : 'en') + ' · Klik op een kolomkop om te sorteren, en op een verslag om het te bewerken.</p></section>';
     setHTML($('#main'), h);
     $$('[data-rsort]').forEach(function (th) { th.onclick = function () { var k = th.dataset.rsort; f.dir = f.key === k ? -f.dir : (k === 'name' ? 1 : -1); f.key = k; renderReports(); }; });
-    $$('.rrow').forEach(function (r) { r.onclick = function () { location.hash = '#/verslag/' + encodeURIComponent(r.dataset.rid); }; });
+    $$('.rrow').forEach(function (r) { r.onclick = function (e) { if (e.target.closest('button')) return; location.hash = '#/verslag/' + encodeURIComponent(r.dataset.rid); }; });
+    $$('[data-vv]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); openVervolg(byId(b.dataset.vv), null); }; });
     var qi = $('#rq'); qi.oninput = function () { f.q = qi.value; var pos = qi.selectionStart; renderReports(); var n = $('#rq'); n.focus(); n.setSelectionRange(pos, pos); };
     $('#rall').onchange = function () { f.all = this.checked; renderReports(); };
   }
@@ -202,16 +203,17 @@
   }
   function mailMinutes(m) { return mailText('Aantekeningen: ' + (m.title || 'Vergadering') + (m.date ? ' (' + fmtShort(m.date) + ')' : ''), minutesMailText(m)); }
   function renderReport(m) {
-    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
+    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">📋 Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">✉ Mailen</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar vergadering</a><a class="btn" href="#/verslagen">Terug naar verslagen</a></div></div>';
     h += '<section class="card repcard"><div class="edwrap" id="repbox"></div></section>';
     setHTML($('#main'), h);
     var E = repEditor($('#repbox'), {
-      html: repHtmlOf(m), actions: true, foot: 'Begin een regel met ! voor een actie (komt in de Actielijst), = voor een besluit, > voor een meeneempunt (> MT: punt).',
+      html: repHtmlOf(m), actions: true, foot: 'Begin een regel met ! voor een actie (komt in de Actielijst), = voor een besluit, > voor een meeneempunt voor het vervolgoverleg.',
       status: m.minutesUpdated ? 'Laatst gewijzigd ' + new Date(m.minutesUpdated).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }) : '',
       onSave: async function (r) { m.minutesHtml = r.html; m.minutes = r.text; await saveMinutes(m); },
       download: function (r) { m.minutes = r.text; dl(new Blob(['﻿' + minutesText(m)], { type: 'text/plain' }), minutesFileName(m)); }
     });
     A.flushNotes = E.flush;
     $('#repMail').onclick = async function () { await E.flush(); mailMinutes(m); };
+    $('#repVv').onclick = async function () { await E.flush(); openVervolg(m, null); };
     E.ed.focus();
   }

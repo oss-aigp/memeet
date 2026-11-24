@@ -21,33 +21,13 @@
     String(m.minutes || '').split(/\r?\n/).forEach(function (l) { var c = ACT_RE.exec(l); if (!c) return; var id = actId(m, c[2]); if (seen[id]) return; seen[id] = 1; out.push({ id: id, text: c[2] }); });
     return out;
   }
-  /* ---------- meeneempunten uit de aantekeningen: "> label: tekst". De regel blijft staan; het punt wordt er telkens uit afgeleid, zoals bij acties. */
+  /* ---------- meeneempunten: regels die met > beginnen ("> begroting opnieuw bespreken"). Die neem je mee naar het vervolgoverleg
+     (de volgende vergadering met dezelfde titel). De regel blijft in de aantekening staan; het punt wordt er telkens uit afgeleid. */
   var PT_RE = /^\s*>\s*(.*?)\s*$/;
-  function ptMeta(id) { return (A.data.pts || {})[id] || {}; }
-  function setPtMeta(id, k, v) { A.data.pts = A.data.pts || {}; var o = A.data.pts[id] || (A.data.pts[id] = {}); if (v == null || v === '') delete o[k]; else o[k] = v; if (!Object.keys(o).length) delete A.data.pts[id]; }
-  function pointsOf(m) {
-    var out = [], seen = {};
-    String(m.minutes || '').split(/\r?\n/).forEach(function (l) {
-      var c = PT_RE.exec(l); if (!c || !c[1]) return;
-      var body = c[1], lb = /^([^:]{1,40}?)\s*:\s+(\S.*)$/.exec(body), label = '', text = body, key = '', wait = '', exact = false;
-      if (lb) { label = lb[1].trim(); text = lb[2].trim(); }
-      else if (/:$/.test(body)) return; /* "> Linda:" is nog niet af */
-      if (label && /^volgende vergadering$/i.test(label)) { /* de titel van de vergadering waarin je typt, zonder getallen en datums */
-        var pt = plainTitle(m.title); if (pt) { key = 'titel:' + pt; label = m.title; wait = m.title; exact = true; } else label = '';
-      } else if (label) { var mw = matchWords(label).join(' '); key = 'label:' + (mw || label.toLowerCase()); wait = label; }
-      var id = m.id + ':p' + hashStr(key + '|' + text.toLowerCase()); if (seen[id]) return; seen[id] = 1;
-      out.push({ id: id, key: key, label: label, wait: wait, exact: exact, text: text, m: m });
-    });
-    return out;
-  }
-  function allPoints() {
-    var out = [];
-    A.data.meetings.slice().sort(function (x, y) { return ((x.date || '') + (x.start || '')).localeCompare((y.date || '') + (y.start || '')); })
-      .forEach(function (m) { if (m.minutes && m.minutes.indexOf('>') >= 0) out = out.concat(pointsOf(m)); });
-    return out;
-  }
+  function pointsOf(m) { var out = []; String(m.minutes || '').split(/\r?\n/).forEach(function (l) { var c = PT_RE.exec(l); if (c && c[1]) out.push(c[1]); }); return out; }
   /* ---------- besluiten: regels die met = beginnen ("= livegang schuift naar maart"); een regel van alleen =-tekens telt niet */
   var DEC_RE = /^\s*=(?!=)\s*(\S.*?)\s*$/;
+  function decisionsOf(m) { var out = []; String(m.minutes || '').split(/\r?\n/).forEach(function (l) { var c = DEC_RE.exec(l); if (c) out.push(c[1]); }); return out; }
   function isDone(id) { return !!meta(id).done; }
   function allActions() {
     var out = [], t = todayIso();
@@ -105,7 +85,6 @@
   async function saveMinutes(m) {
     m.minutesUpdated = new Date().toISOString();
     try { await writeNotesFiles(m); } catch (e) { console.error(e); toast('Aantekeningenbestand opslaan mislukt: ' + (e.message || e), 'err'); }
-    try { await syncPointLists(); } catch (e) { console.error('Meeneempunten bijwerken mislukt', e); }
     await persist(); renderSide();
   }
   /* ---------- links in tekst */
@@ -134,7 +113,7 @@
       $('#npclose').onclick = toggleNotes; $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
       $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; bindGrip(); return;
     }
-    h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt: &gt; Linda: praten over Jozef&#10;&#10;Acties komen in de Actielijst, meeneempunten bij Meeneempunten.">' + esc(m.minutes || '') + '</textarea>';
+    h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
     setHTML(np, h);
     var ta = $('#npt'), t;
     function queue() { var st = $('#npst'); if (st) { st.textContent = 'opslaan…'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { s2.textContent = 'opgeslagen ✓'; s2.className = 'npst ok'; } }, 800); }
@@ -181,7 +160,7 @@
       '<header><div class="t"><b>' + esc(m.title || 'Vergadering') + '</b><small>' + esc(m.date ? fmtLong(m.date) : '') + (m.start ? ', ' + esc(m.start) : '') + '</small></div><span id="st"></span>' +
       '<button id="mail" title="Het verslag mailen">✉ Mailen</button><button id="back" title="Terugzetten in MeMeet">⇤ Terug</button></header>' +
       '<textarea id="t" spellcheck="true" placeholder="Typ hier je aantekeningen…"></textarea><div id="links"></div>' +
-      '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt (&gt; MT: punt). Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
+      '<footer>Begin een regel met ! voor een actie, = voor een besluit, &gt; voor een meeneempunt voor het vervolgoverleg. Alles wordt vanzelf bewaard in MeMeet.</footer></body></html>');
     d.close();
     var ta = d.getElementById('t'), st = d.getElementById('st'), lk = d.getElementById('links'), t = null;
     ta.value = m.minutes || ''; lk.innerHTML = linkListHtml(m.minutes);
@@ -223,7 +202,7 @@
   }
   function toggleNotes() {
     A.notesOpen = !A.notesOpen; try { localStorage.setItem('memeet-notes', A.notesOpen ? '1' : '0'); } catch (e) {}
-    var ws = $('.ws'); if (ws) ws.classList.toggle('n3', A.notesOpen);
+    var ws = $('.ws'); if (ws) { ws.classList.toggle('n3', A.notesOpen); applyLw(); }
     var b = $('#npToggle'); if (b) b.classList.toggle('on', A.notesOpen);
     if (A.notesOpen) { var m = currentMeeting(); if (m) renderNotes(m); var t = $('#npt'); if (t) t.focus(); }
     if (PV.fit && $('#pvp')) setTimeout(layoutPages, 50);

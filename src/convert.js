@@ -342,6 +342,11 @@
     else return null;
     return { bytes: out, how: 'omgezet' };
   }
+  /* kan de viewer dit bestand tonen? (dezelfde soorten als convertToPdf) */
+  function canView(name, type) {
+    var ext = (String(name || '').split('.').pop() || '').toLowerCase();
+    return /^(pdf|docx|docm|dotx|xlsx|xlsm|pptx|pptm|ppsx|odt|rtf|png|jpe?g|gif|bmp|webp|svg|eml|msg|html?|txt|csv|md|log|xml|json)$/.test(ext) || /pdf|^image\/|^text\/|rfc822|ms-outlook/.test(type || '');
+  }
 
   /* ---------- aantekeningen in een PDF branden */
   function hexRgb(h) { var n = parseInt(String(h || '#000').slice(1), 16); return PL.rgb((n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255); }
@@ -408,84 +413,3 @@
     return d.save();
   }
 
-  /* ---------- vergadering -> één PDF */
-  function pdfStr(t) { return PL.PDFHexString.fromText(t); }
-  function addOutline(doc, items) {
-    if (!items.length) return;
-    var ctxp = doc.context, root = ctxp.nextRef(), refs = items.map(function () { return ctxp.nextRef(); });
-    items.forEach(function (it, i) {
-      var d = { Title: pdfStr(it.title), Parent: root, Dest: [it.page.ref, PL.PDFName.of('Fit')] };
-      if (i > 0) d.Prev = refs[i - 1]; if (i < items.length - 1) d.Next = refs[i + 1];
-      ctxp.assign(refs[i], ctxp.obj(d));
-    });
-    ctxp.assign(root, ctxp.obj({ Type: 'Outlines', First: refs[0], Last: refs[refs.length - 1], Count: items.length }));
-    doc.catalog.set(PL.PDFName.of('Outlines'), root);
-    doc.catalog.set(PL.PDFName.of('PageMode'), PL.PDFName.of('UseOutlines'));
-  }
-  async function buildCover(m, items, startPage) {
-    var ctx = await newDoc(), w = new Writer(ctx, A4, 60); w.newPage();
-    w.para([{ t: 'AGENDA', b: true, color: GREY }], { size: 9, after: 4 });
-    w.para([{ t: m.title || 'Vergadering', b: true, color: BLUE }], { size: 22, after: 4 });
-    w.y -= 10;
-    var meta = [['Datum', m.date ? fmtLong(m.date) : '—'], ['Tijd', m.start ? m.start + (m.end ? ' – ' + m.end : '') : '—'], ['Locatie', m.location], ['Voorzitter', names(m.invitees)[0] || m.chair], ['Leden', names(m.invitees).slice(1).join(', ')]].filter(function (r) { return r[1]; });
-    meta.forEach(function (r) {
-      var lines = w.layout([{ t: r[1] }], 11, w.W() - 100), h = Math.max(1, lines.length) * 14.5;
-      w.ensure(h); w.page.drawText(r[0], { x: w.m, y: w.y - 11, size: 10, font: ctx.F.b, color: GREY }); w.drawLines(w.page, lines, w.m + 100, w.y, 11, { lh: 1.32 }); w.y -= h + 3;
-    });
-    w.y -= 10; w.para([{ t: 'Stukken', b: true, color: BLUE }], { size: 12.5, after: 6 });
-    if (!items.length) w.para([{ t: 'Geen stukken.', i: true, color: GREY }]);
-    items.forEach(function (it, i) {
-      var label = (i + 1) + '.  ' + it.f.name, pg = startPage ? 'p. ' + startPage[i] : '', pw = ctx.F.r.widthOfTextAtSize(pg, 10.5);
-      var lines = w.layout([{ t: label }], 10.5, w.W() - pw - 30), h = Math.max(1, lines.length) * 14;
-      w.ensure(h + 4);
-      w.drawLines(w.page, lines, w.m, w.y, 10.5, { lh: 1.33 });
-      if (pg) w.page.drawText(pg, { x: w.m + w.W() - pw, y: w.y - 10.5, size: 10.5, font: ctx.F.r, color: GREY });
-      var tag = !it.bytes ? 'niet opgenomen' : annCount(it.ann) ? 'met aantekeningen' : it.how === 'omgezet' ? 'omgezet naar PDF' : '';
-      if (tag) w.page.drawText(tag, { x: w.m + w.W() - pw - 90, y: w.y - 10, size: 7.5, font: ctx.F.i, color: GREY });
-      w.y -= h + 4;
-      w.page.drawLine({ start: { x: w.m, y: w.y + 2 }, end: { x: w.m + w.W(), y: w.y + 2 }, thickness: 0.4, color: LINE });
-    });
-    w.y -= 14; w.para([{ t: 'Samengesteld met MeMeet op ' + new Date().toLocaleString('nl-NL', { dateStyle: 'long', timeStyle: 'short' }), i: true, color: GREY }], { size: 8 });
-    return ctx.doc;
-  }
-  async function mergeMeeting(m, items, progress) {
-    var out = await PL.PDFDocument.create(), fr = await out.embedFont(PL.StandardFonts.Helvetica), fb = await out.embedFont(PL.StandardFonts.HelveticaBold);
-    out.setTitle((m.title || 'Vergadering') + (m.date ? ' – ' + fmtShort(m.date) : '')); out.setCreator('MeMeet'); out.setProducer('MeMeet');
-    for (var i = 0; i < items.length; i++) {
-      progress && progress(i + 1, items.length);
-      var it = items[i]; it.pages = null;
-      if (!it.bytes) continue;
-      try { var src = await PL.PDFDocument.load(it.bytes, { ignoreEncryption: true, updateMetadata: false }); it.pages = await out.copyPages(src, src.getPageIndices()); }
-      catch (e) { console.error(e); it.pages = null; it.err = 'beveiligd of beschadigd'; }
-    }
-    var cover1 = await buildCover(m, items, null), coverN = cover1.getPageCount(), p = coverN + 1, starts = [];
-    items.forEach(function (it) { starts.push(p); p += it.pages ? it.pages.length : 1; });
-    var cover = await buildCover(m, items, starts);
-    if (cover.getPageCount() !== coverN) { coverN = cover.getPageCount(); p = coverN + 1; starts = []; items.forEach(function (it) { starts.push(p); p += it.pages ? it.pages.length : 1; }); cover = await buildCover(m, items, starts); }
-    var total = p - 1, outline = [], cp = await out.copyPages(cover, cover.getPageIndices());
-    cp.forEach(function (pg, k) { out.addPage(pg); if (!k) outline.push({ title: 'Agenda', page: pg }); });
-    items.forEach(function (it, i) {
-      var label = 'Stuk ' + (i + 1) + ' · ' + it.f.name;
-      if (!it.pages) {
-        var ph = out.addPage(A4);
-        ph.drawText(san(label), { x: 60, y: 760, size: 14, font: fb, color: BLUE });
-        ph.drawText(san('Dit stuk kon niet in de PDF worden opgenomen' + (it.err ? ' (' + it.err + ')' : ' (bestandstype wordt niet ondersteund)') + '.'), { x: 60, y: 735, size: 10.5, font: fr, color: INK });
-        ph.drawText('Open het origineel vanuit MeMeet.', { x: 60, y: 718, size: 10.5, font: fr, color: INK });
-        outline.push({ title: (i + 1) + '. ' + it.f.name, page: ph });
-        return;
-      }
-      it.pages.forEach(function (pg, k) {
-        out.addPage(pg);
-        if (it.ann && it.ann[k + 1]) drawPageAnn(pg, it.ann[k + 1], fr);
-        if (!k) outline.push({ title: (i + 1) + '. ' + it.f.name, page: pg });
-        try {
-          if ((pg.getRotation().angle || 0) % 360 !== 0) return;
-          var mb = pg.getMediaBox(), t = san(label).slice(0, 90), tw = fr.widthOfTextAtSize(t, 7);
-          pg.drawText(t, { x: mb.x + mb.width - tw - 18, y: mb.y + mb.height - 14, size: 7, font: fr, color: GREY });
-          var pn = 'pagina ' + (starts[i] + k) + ' van ' + total; pg.drawText(pn, { x: mb.x + (mb.width - fr.widthOfTextAtSize(pn, 7)) / 2, y: mb.y + 8, size: 7, font: fr, color: GREY });
-        } catch (e) {}
-      });
-    });
-    addOutline(out, outline);
-    return out.save();
-  }

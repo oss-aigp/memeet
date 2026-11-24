@@ -54,15 +54,14 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 |---|---|
 | **Mail → vergadering** | Sleep een `.msg` (Outlook) of `.eml` in het venster. MeMeet haalt de titel, datum, tijd, locatie en de **vergaderlink** (Teams, Zoom, Webex en Google Meet, ook als de link in Safe Links verpakt is) eruit en zet de bijlagen als stukken bij de vergadering. Bij een **terugkerende afspraak** krijgt de vergadering de datum en tijd van de eerstvolgende keer, met overgeslagen en verplaatste keren meegerekend. Een link naar **iBabs** komt in een eigen veld, apart van de vergaderlink. |
 | **Overzicht** | Bovenaan een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap (met ↻ zie je een andere). Daaronder de blokken **Vandaag** (met een knop *Deelnemen*, en *iBabs* als de stukken in iBabs staan; in- en uit te klappen, na 20:30 standaard ingeklapt) en **Morgen** (ook in- en uit te klappen), en een lijst **Volgende vergaderingen** (vanaf overmorgen) die je kunt sorteren en die standaard is ingeklapt (klik op *weergeven*). Vergaderingen die geweest zijn, staan onder een **Archief** dat je ook openklapt. De zoekbalk verschijnt zodra een van beide lijsten open is. |
-| **Stukken als PDF** | Word, Excel, PowerPoint, afbeeldingen, tekst en mails worden automatisch omgezet naar PDF. PowerPoint-dia's worden getrouw weergegeven: thema en diamaster, achtergronden, vormen, afbeeldingen, tabellen, grafieken en SmartArt. Zoeken in de PDF werkt ook voor dia's. |
+| **Stukken** | Elk stuk blijft in zijn eigen formaat: Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails. Een **zip** wordt uitgepakt; bij een **mail** komen de bijlagen als losse stukken erachter. De viewer toont alles: andere bestanden dan PDF worden bij het openen omgezet om te tonen, zonder dat er een PDF wordt bewaard. PowerPoint-dia's worden getrouw weergegeven: thema en diamaster, achtergronden, vormen, afbeeldingen, tabellen, grafieken en SmartArt. Ordenen doe je door te slepen, ook met meer stukken tegelijk. |
 | **Viewer** | Je kunt zoeken in de PDF (Ctrl+F), tekst selecteren en kopiëren, **markeren** in geel of groen, en **opmerkingen** maken. Opmerkingen staan in de rechtermarge, met een pijltje naar het woord, in 9 pt. Ongedaan maken en Opnieuw werken tot 20 stappen. Ook **ingescande PDF's** worden getoond, in zwart-wit en in kleur; heeft de scanner tekstherkenning (OCR) gedaan, dan kun je er ook in zoeken. |
 | **Bewerken** | Een bewerkomgeving voor Word (stijlen, vet, cursief, onderstrepen, uitlijnen), Excel (raster, formulebalk, formules) en PowerPoint (dia's met miniaturen). Het originele bestand blijft netjes en opent gewoon in Office. Ongedaan maken en Opnieuw werken tot 20 stappen. |
-| **Exporteren** | De hele vergadering wordt één PDF: een agendapagina, daarna alle stukken met paginanummers, bladwijzers en je aantekeningen. |
-| **iBabs** | Staan de stukken in iBabs, dan opent **Stukken in iBabs** de vergadering in een eigen venster. **Naast elkaar** zet iBabs links en je aantekeningen rechts op het scherm. |
-| **Aantekeningen** | Een kolom om aantekeningen te maken tijdens de vergadering. Een regel die begint met `!` wordt een actie, met `=` een besluit en met `>` een meeneempunt voor een andere vergadering. Alles wordt opgeslagen als `jjjjmmdd Titel.txt`. |
+| **iBabs** | Staan de stukken in iBabs, dan opent de knop **iBabs** de vergadering in een eigen venster. **Naast elkaar** zet iBabs links en je aantekeningen rechts op het scherm. |
+| **Aantekeningen** | Een kolom om aantekeningen te maken tijdens de vergadering. Een regel die begint met `!` wordt een actie, met `=` een besluit en met `>` een meeneempunt voor het vervolgoverleg. Alles wordt opgeslagen als `jjjjmmdd Titel.txt`. |
 | **Verslagen** | Alle aantekeningen op een rij, te sorteren op naam, datum en datum gewijzigd. Klik op een verslag om het te bewerken in een Word-achtige editor (koppen, vet, cursief, onderstreept, lijsten). Wijzigingen worden automatisch bewaard. Webadressen worden vanzelf links die je met een klik in een nieuw tabblad opent. |
 | **Actielijst** | Alle acties (uit vergaderingen en losse acties die je zelf toevoegt) met de vergaderdatum. Je kunt acties bewerken, afvinken en van de lijst halen (de regel blijft in de aantekeningen staan). Je kunt een begindatum opgeven en **snoozen** naar morgen, overmorgen, volgende week of een datum die je kiest. |
-| **Meeneempunten** | Lijstjes met punten om mee te nemen naar een vergadering (heette eerder Bespreekpunten), met dezelfde editor als de verslagen. Koppel een lijstje aan een vergadering, laat het **wachten op een vergadering met een bepaalde titel** (bijvoorbeeld *Linda* of *MT*), of laat het los staan. Punten die je in je aantekeningen typt als `> MT: punt`, komen er vanzelf in. |
+| **Vervolgoverleg** | Heeft een vergadering een eerdere vergadering met dezelfde titel, dan staan de **besluiten, acties en meeneempunten van de vorige keer** klaar onder **📋 Meeneempunten**, als popup. Op het tabblad **Verslagen** staat dat overzicht bij elk verslag. |
 | **Bestanden** | Een verkenner met alle bestanden: zoeken, filteren per kolom, openen, downloaden, **mailen** (als conceptmail met bijlage) en naar de vergadering springen. Met **Verwijderen** haal je een bestand uit het overzicht zonder het uit de vergadering te halen. Bestanden kun je hier alleen bekijken, niet bewerken. | Hetzelfde bestand in een ander formaat of een vorige versie (PDF-versie, *(oorspronkelijk)*) staat op één regel; klik met de **rechtermuisknop** (of op *versies*) om alle versies te zien, elk met een eigen download- en mailknop. Aantekeningen, de actielijst en originele mails staan niet in dit overzicht: die vind je in de tabbladen Verslagen en Actielijst en in de vergadering zelf.
 
 <p align="center"><img src="docs/viewer.png" width="760" alt="Viewer met markeringen en opmerkingen in de marge"></p>
@@ -118,7 +117,6 @@ Documenten\MeMeet\
     Vergaderingen\    per vergadering een submap met de stukken
     Aantekeningen\    de aantekeningen per vergadering (jjjjmmdd Titel.txt)
     Actielijst\       Actielijst.txt
-    Meeneempunten\    de lijstjes met meeneempunten (Titel [code].txt)
     memeet.json       het register van MeMeet (niet zelf aanpassen)
 ```
 
@@ -161,18 +159,15 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 - Sla in Outlook je agenda op als `.ics`: ga naar **Agenda**, kies **Bestand › Agenda opslaan in bestand › Meer opties**, kies een datumbereik (bijvoorbeeld *Volgende 7 dagen*) en **Volledige details**.
 - Kies dat bestand in MeMeet, of sleep het erin. Je ziet eerst een lijst van alle afspraken. **Vink uit wat je niet wilt** en klik op **Importeer geselecteerde**. Blokken, reistijd, uitloop en korte afspraken (tot 20 minuten) die direct naast een andere vergadering liggen, worden niet geïmporteerd. Met **⚙ Niet importeren…** pas je de trefwoorden en de minuten aan en zie je welke titels je eerder hebt uitgevinkt. Afspraken waarvan geen titel te vinden is, worden niet geïmporteerd. Wat je uitvinkt, staat de volgende keer ook uit.
 - Elke aangevinkte afspraak wordt een vergadering, met datum, tijd, locatie, vergaderlink en genodigden (de organisator vooraan). Een link naar iBabs in de tekst van de afspraak komt in het veld **iBabs-link**. Een import zonder iBabs-link laat een bestaande of zelf geplakte link staan.
-- **Bijlagen** van een afspraak worden stukken. Mails die als bijlage in de afspraak zitten (`.msg` of `.eml`), worden omgezet naar PDF. Vink daarvoor in Outlook bij **Meer opties** onder **Geavanceerd** ook **Bijlagen bij agenda-items opnemen** aan.
+- **Bijlagen** van een afspraak worden stukken, in hun eigen formaat. Een mail die als bijlage in de afspraak zit (`.msg` of `.eml`), blijft een mail; zijn bijlagen komen er als losse stukken achter. Een zip wordt uitgepakt. Vink daarvoor in Outlook bij **Meer opties** onder **Geavanceerd** ook **Bijlagen bij agenda-items opnemen** aan.
 - Je kunt elke week opnieuw importeren. Bestaande vergaderingen worden bijgewerkt, ook als je ze eerder via een uitnodiging hebt aangemaakt. Stukken en aantekeningen blijven staan.
 - Hele-dag-afspraken, geannuleerde afspraken en afspraken die al geweest zijn, worden overgeslagen. Een afspraak die je in Outlook verwijdert, blijft in MeMeet staan.
 - **Sneltoets zonder macro:** voeg via **Bestand › Opties › Werkbalk Snelle toegang** de opdracht **Opslaan als agenda** toe (kies *Alle opdrachten*). In de agenda opent **Alt + het cijfer van die knop** dan meteen het venster om de agenda op te slaan.
 - **Sneltoets met macro (optioneel):** de macro in [`outlook/MeMeet-weekagenda.bas`](outlook/MeMeet-weekagenda.bas) slaat met één klik de komende 7 dagen op in je map Downloads. Op de importpagina staat hoe je hem instelt, met een knop om de code te kopiëren. Dit werkt alleen in de klassieke Outlook voor Windows en alleen als je organisatie macro's toestaat.
 
-**Genodigden**
-- Vul de namen in, gescheiden door komma's. De **eerste naam is de voorzitter**.
-
 **iBabs**
 - Een vergadering heeft twee links: de **Vergaderlink** (Teams, Zoom en dergelijke) voor **Deelnemen**, en de **iBabs-link** naar de stukken. MeMeet herkent een iBabs-link aan `https://vergaderen.rijksweb.nl/` of aan "ibabs" in de domeinnaam, bij inslepen en bij de weekimport. Een link naar een vergadering (`/Meeting/View/`) gaat voor. Je kunt de link ook zelf plakken of wijzigen.
-- **Stukken in iBabs** (op de vergaderpagina, en als oranje knop *iBabs* bij Vandaag en Morgen) opent iBabs in een eigen venster, zonder tabbladen. Een klik bij een andere vergadering laadt die in hetzelfde venster.
+- De oranje knop **iBabs** (op de vergaderpagina en bij Vandaag en Morgen) opent iBabs in een eigen venster, zonder tabbladen. Een klik bij een andere vergadering laadt die in hetzelfde venster.
 - **Naast elkaar** zet iBabs links op het scherm en je aantekeningen rechts, elk in een eigen venster. Houdt Edge het tweede venster tegen, sta dan één keer pop-ups toe voor MeMeet. De vensters komen op het scherm waar MeMeet staat; het venster van MeMeet zelf verschuift niet. iBabs in MeMeet zelf tonen kan niet: iBabs staat dat niet toe.
 - Bij oudere vergaderingen kan de iBabs-link nog in het veld Vergaderlink staan (dan opende *Deelnemen* iBabs). Knip hem daar weg en plak hem bij iBabs-link.
 
@@ -182,7 +177,10 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 
 **Stukken**
 - Sleep documenten op een geopende vergadering.
-- Met ▲▼ bepaal je de volgorde, die ook geldt voor de export.
+- **Volgorde**: sleep een stuk omhoog of omlaag. Met **Ctrl+klik** selecteer je meer stukken, met **Shift+klik** een reeks; sleep je er een, dan gaan ze allemaal mee. ▲▼ werken ook.
+- De kolom met stukken maak je **breder of smaller** door de rand rechts ervan te verslepen (dubbelklik: standaardbreedte).
+- Elk stuk blijft in zijn **eigen formaat**; MeMeet maakt er geen PDF van. Een **zip** wordt uitgepakt: de bestanden erin worden losse stukken.
+- Sleep je een **mail met bijlagen** op een vergadering, dan kies je: **alleen de mail**, of **de mail én de bijlagen**, elk als apart stuk. Zit er in die mail weer een mail met bijlagen, dan komen die er ook apart bij.
 - Sleep je een bestand met **dezelfde naam** op de vergadering, dan vraagt MeMeet of het de oude versie moet vervangen. Zo werk je een stuk bij dat je in Word zelf hebt aangepast.
 
 **Viewer**
@@ -209,7 +207,7 @@ Alle knoppen staan op één regel boven het stuk. In een smalle kolom tonen Teks
 
 **Aantekeningen en acties**
 - Klik op **✎ Aantekeningen** voor de kolom rechts. Versleep de linkerrand om de kolom breder of smaller te maken, of klik op **⧉ Apart venster** om de aantekeningen in een eigen venster rechts op je scherm te zetten, naast andere programma's. Een regel die met `!` begint, wordt een actie, bijvoorbeeld `! Jan stuurt de notitie rond`.
-- Een regel die met `=` begint, is een **besluit**, bijvoorbeeld `= livegang schuift naar maart`. Een regel die met `>` begint, is een **meeneempunt** voor een andere vergadering (zie Meeneempunten). Je tekst blijft staan zoals je hem typt, ook in het tekstbestand.
+- Een regel die met `=` begint, is een **besluit**, bijvoorbeeld `= livegang schuift naar maart`. Een regel die met `>` begint, is een **meeneempunt** voor het vervolgoverleg, bijvoorbeeld `> begroting opnieuw bespreken`. Je tekst blijft staan zoals je hem typt, ook in het tekstbestand.
 - In het tabblad **Actielijst** voeg je ook **losse acties** toe, zonder vergadering: typ ze in het vak bovenaan en klik op **+ Toevoegen** (of Enter). Je kunt acties bewerken, afvinken, ⏰ snoozen, een begindatum geven en van de lijst halen. Wat je van de lijst haalt, staat onder *Verwijderd* en kun je terugzetten.
 
 **Verslag mailen**
@@ -219,23 +217,12 @@ Alle knoppen staan op één regel boven het stuk. In een smalle kolom tonen Teks
 **Downloads**
 - Bij elke download (PDF, conceptmail, tekstbestand) staat rechtsonder even een balkje met **Opnieuw downloaden**. Blokkeert de browser de download omdat die pas na wat rekenwerk begint, dan helpt die knop. Komt er dan nog niets, sta automatische downloads toe in Edge: *Instellingen › Cookies en sitemachtigingen › Automatische downloads*.
 
-**Meeneempunten** (heette eerder Bespreekpunten)
-- Het tabblad **Meeneempunten** bevat lijstjes in verslagvorm, voor punten die je wilt inbrengen, voorbereiding, ideeën of gespreksnotities. Koppel een lijstje aan een vergadering, laat het wachten op een vergadering met een bepaalde titel, of laat het los. Op de vergaderpagina staan de lijstjes bovenaan de stukken. Klik op de titel om de inhoud in de kolom open of dicht te klappen (hoogstens een kwart van de kolom, met een schuifbalk); met ✎ open je het lijstje om te bewerken. Met **+ Meeneempunten** bovenaan de stukken maak je direct een lijstje bij die vergadering; zijn er al lijstjes, dan klapt de knop ze open. De grijze tekst op de lege eerste regel is dan *Meeneempunten bij* de vergadering; druk op Enter en die tekst wordt de vette titel, waarna je verder typt op de volgende regel. Een nieuw lijstje dat je leeg laat, wordt niet bewaard.
-- Met **+ Meeneempuntenlijstje toevoegen** maak je een nieuw lijstje; dat opent direct als leeg document. De eerste regel is de titel (vanzelf vet); er is geen apart titelveld.
-- **Wachten op een vergadering.** Vul bij **of wacht op titel** een naam of woord in, bijvoorbeeld *Linda* of *MT*. Het lijstje staat dan bij de eerstvolgende vergadering (vandaag of later) met dat woord in de titel, ook als die vergadering pas later wordt geïmporteerd of ingesleept. Er wordt gezocht op hele woorden, zonder hoofdletters en accenten: *Linda* past bij *bila Linda* en *PO Linda*, niet bij *Belinda*. De woorden bila, po, overleg, bijpraten, met, de, het en een tellen niet mee.
-  - **Niet hier** (bij het lijstje op de vergaderpagina) slaat die vergadering over; het lijstje wacht dan op de volgende.
-  - Is de vergadering voorbij en is het lijstje niet gearchiveerd, dan schuift het door naar de volgende passende vergadering.
-  - **Vastpinnen** maakt er een vaste lijst opletpunten van: die staat bij elke passende vergadering en schuift niet door.
-- **Punten uit je aantekeningen.** Een regel als `> MT: begroting agenderen` in je aantekeningen komt als punt in het lijstje *MT*. Bestaat dat lijstje nog niet, dan maakt MeMeet het aan, wachtend op een vergadering met MT in de titel. Punten met hetzelfde label uit verschillende vergaderingen komen in hetzelfde lijstje. Een punt staat bij de volgende passende vergadering, niet bij de vergadering waarin je het typte.
-  - `> volgende vergadering: …` gaat naar de volgende vergadering met dezelfde titel (losse getallen en datums tellen niet mee). Zonder label, zoals `> idee uitwerken`, komt het punt in het lijstje *Nog te plaatsen*.
-  - In het lijstje staan deze punten bovenaan als afvinkbare regels, met de vergadering waar ze vandaan komen; daaronder staat je eigen tekst. Met ✕ verberg je een punt. De regel blijft in je aantekeningen staan, net als bij acties.
-  - Meeneempunten zijn privé: ze gaan niet mee als je je aantekeningen mailt.
-- Het tabblad toont drie groepen: **Bij een vergadering of los**, **Wachtend op een vergadering** (met de volgende vergadering, of hoe lang het lijstje al wacht) en het **Archief**.
-- Met **Archiveren** (in de lijst of bovenaan een lijstje) zet je een lijstje in het **Archief** onderaan het tabblad. Dat is standaard ingeklapt; met **Terugzetten** haal je het terug. Bij de vergadering blijft het zichtbaar, met het label *archief*. Bij een wachtend lijstje legt MeMeet vast bij welke vergadering het op dat moment stond.
-- Lijstjes worden ook als tekstbestand bewaard in `memeet-data\Meeneempunten`, met de punten uit je aantekeningen erbij. Had je een map `Bespreekpunten` (of nog eerder `Annotaties`), dan zet MeMeet die bestanden eenmalig over naar `Meeneempunten`. Lukt dat niet, dan blijft MeMeet de oude map gebruiken. Bestaat `Meeneempunten` al, dan blijft de oude map onaangeroerd staan.
-
-**Exporteren**
-- **Exporteer als één PDF** maakt `Titel - dd-mm-jjjj uu.mm-uu.mm.pdf`. Het bestand komt in Downloads en in de map van de vergadering.
+**Vervolgoverleg: besluiten, acties en meeneempunten**
+- Bij elke vergadering maakt MeMeet uit je aantekeningen een kort overzicht: de **besluiten** (`=`), **acties** (`!`) en **meeneempunten** (`>`). Op het tabblad **Verslagen** staat het bij elk verslag; klik erop voor een popup. Op een verslag zelf doet de knop **📋 Besluiten en acties** hetzelfde.
+- Bij de volgende vergadering met dezelfde titel staat bovenaan de stukken **Vorig overleg**, met het aantal besluiten, acties en meeneempunten van de vorige keer. Klik erop, of op **📋 Meeneempunten**, voor de popup. Losse getallen, datums en voorvoegsels als *Bijgewerkt:* in de titel tellen niet mee. Een actie vink je in de popup af; **Esc** sluit hem.
+- Klopt de koppeling niet, kies dan onderin de popup bij **Vervolg van** zelf de juiste vergadering, of *Geen vorige vergadering*.
+- Meeneempunten zijn privé: ze gaan niet mee als je je aantekeningen mailt.
+- Het tabblad *Meeneempunten* van versie 1.0 bestaat niet meer. Lijstjes die je daar had, blijven bewaard in `memeet.json` en als tekstbestand in de map `memeet-data\Meeneempunten`.
 
 **Bestanden**
 - Hier zie je alle bestanden uit de datamap. Je kunt ze openen, downloaden, ✉ mailen en met **Vergadering ›** naar de bijbehorende vergadering gaan.
@@ -250,7 +237,7 @@ Alle knoppen staan op één regel boven het stuk. In een smalle kolom tonen Teks
 
 | Map of bestand | Inhoud |
 |---|---|
-| `Vergaderingen\2026-11-12 Titel [ab12]\` | De originele stukken, de PDF-versies, `(oorspronkelijk)`-kopieën, de originele mail en exports. |
+| `Vergaderingen\2026-11-12 Titel [ab12]\` | De stukken in hun eigen formaat, `(oorspronkelijk)`-kopieën en de originele mail. Bij stukken uit versie 1.0 ook de PDF-versies en exports. |
 | `Aantekeningen\20261112 Titel.txt` | Kop met datum, locatie, voorzitter en leden, daarna je aantekeningen en acties. |
 | `Actielijst\Actielijst.txt` | Alle acties, ingedeeld in open, gesnoozed en afgerond. |
 | `memeet.json` | Het register: vergaderingen, aantekeningen, markeringen en acties. **Niet met de hand aanpassen.** |
@@ -292,8 +279,8 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 | **Er gebeurt niets als ik een mail sleep** | Sleep de mail eerst naar het bureaublad en daarna naar MeMeet. Of gebruik **Mail importeren…**. |
 | **"Map kiezen lukt niet"** | Je beheerder heeft toegang tot mappen misschien geblokkeerd. Kies **bewaar alles in de browser**. |
 | **Edge vraagt elke keer om toegang** | Dat is normaal, het is een beveiligingsregel van de browser. Klik op **Map openen** en dan op **Toestaan**. |
-| **Een stuk heeft het label "geen PDF"** | Oude formaten (`.doc`, `.xls`, `.ppt`) kunnen niet worden omgezet. Open het bestand in Word of Excel, kies **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |
-| **De opmaak van een omgezet stuk wijkt af** | Het omzetten gebeurt zonder Word, dus de tekst klopt maar de opmaak is vereenvoudigd. Gebruik voor de exacte opmaak de PDF-route hierboven. |
+| **Een stuk heeft het label "niet te tonen"** | Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen. Download het origineel met ⤓ en open het in Word of Excel. Wil je het in de viewer zien, kies dan in Word of Excel **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |
+| **De opmaak van een stuk in de viewer wijkt af** | De viewer zet Word, Excel en PowerPoint zonder Office om om ze te tonen; de tekst klopt maar de opmaak is soms vereenvoudigd. Het bestand zelf blijft ongewijzigd. Gebruik voor de exacte opmaak de PDF-route hierboven. |
 | **Een gescande PDF: zoeken en markeren werkt niet** | Een scan zonder tekstherkenning (OCR) is alleen een afbeelding, zonder tekst. Opmerkingen werken wel. Heeft de scanner OCR gedaan, dan werken zoeken en markeren ook. |
 | **Een gescande PDF toont lege witte pagina's** | Dat kwam voor in versie 1.0.0, bij scans in zwart-wit (CCITT-fax of JBIG2) of JPEG 2000. Vanaf versie 1.0.1 worden die gewoon getoond. Werk MeMeet bij en open het stuk opnieuw. |
 | **De viewer blijft leeg** | Kies in ⋯ voor **PDF openen in nieuw tabblad**. |
@@ -341,13 +328,13 @@ memeet/
 ├─ src/
 │  ├─ app.html           ← HTML-sjabloon en alle CSS
 │  ├─ mail-parser.js     ← .msg (CFB/OLE) en .eml (MIME) lezen; datum/tijd/locatie/link herkennen
-│  ├─ convert.js         ← omzetten naar PDF (Word/Excel/tekst/afbeelding), aantekeningen
-│  ├─ pptx-render.js     ← PowerPoint-dia's getrouw tekenen (voor de PDF en de bewerkomgeving)
-│  │                       in de PDF zetten, vergadering exporteren als één PDF
+│  ├─ convert.js         ← stukken omzetten om ze in de viewer te tonen (Word/Excel/tekst/afbeelding/mail),
+│  │                       aantekeningen in een PDF zetten
+│  ├─ pptx-render.js     ← PowerPoint-dia's getrouw tekenen (voor de viewer en de bewerkomgeving)
 │  ├─ editor.js          ← bewerkomgevingen Word/Excel/PowerPoint/tekst met ongedaan maken en opnieuw
 │  ├─ notes.js           ← aantekeningen tijdens de vergadering en de actielijst (snooze, begindatum)
 │  ├─ reports.js         ← tabblad Verslagen (lijst en Word-achtige editor), mailen
-│  ├─ annotations.js     ← tabblad Meeneempunten
+│  ├─ vervolg.js         ← besluiten, acties en meeneempunten voor het vervolgoverleg
 │  ├─ files.js           ← tabblad Bestanden (alleen lezen, zoeken, filteren, mailen)
 │  ├─ help.js            ← helppaneel per pagina (knop ? en F1)
 │  ├─ app-ui.js          ← opslag (map / IndexedDB), routes, overzicht, vergaderpagina,
@@ -370,9 +357,9 @@ memeet/
 ## Bekende beperkingen
 
 - **Alleen Edge of Chrome**, vanwege de File System Access API.
-- **Omzetten naar PDF gebeurt zonder Office:** bij Word en Excel is de opmaak vereenvoudigd. Oude formaten (`.doc`, `.xls`, `.ppt`) worden niet omgezet.
+- **De viewer zet stukken zonder Office om:** bij Word en Excel is de weergave vereenvoudigd. Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen.
 - **PowerPoint:** dia's worden als afbeelding in de PDF gezet, met de tekst er onzichtbaar overheen (zodat zoeken werkt). Grafieken worden eenvoudig nagetekend (staaf, lijn, vlak, cirkel, ring); andere soorten grafieken, 3D-effecten, schaduwen, animaties en afbeeldingen in EMF/WMF-formaat worden niet of vereenvoudigd getoond. Lettertypen die niet op je computer staan, worden vervangen. Verborgen dia's komen niet in de PDF.
-- **Oudere PowerPoint-stukken** worden de eerste keer dat je ze opent opnieuw omgezet met de nieuwe weergave, behalve als je er al aantekeningen op hebt gezet. Dan blijft de oude PDF staan; sleep het bestand opnieuw op de vergadering voor de nieuwe weergave.
+- **PowerPoint-stukken uit versie 1.0** met een opgeslagen PDF van vóór de nieuwe dia-weergave worden de eerste keer dat je ze opent opnieuw getoond met de nieuwe weergave, behalve als je er al aantekeningen op hebt gezet. Dan blijft de oude PDF staan.
 - **Bewerken:** in Word kun je geen afbeeldingen of tabellen invoegen, en alinea's met een afbeelding kun je niet bewerken. In Excel kun je de opmaak van cellen niet veranderen. In PowerPoint kun je geen vormen of dia's toevoegen. Voor zulke dingen download je het bestand en bewerk je het in Office zelf.
 - **Mappen openen in Verkenner** vanuit MeMeet kan niet, want een browser mag dat niet. Open de map zelf via Verkenner.
 - **Toestemming:** Edge vraagt bij elke start één keer of MeMeet de map opnieuw mag gebruiken.
