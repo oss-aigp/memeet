@@ -154,7 +154,7 @@
         '<td class="c-ext">' + esc(it.vers.map(function (v) { return v.ext.toUpperCase(); }).filter(function (e, i, a) { return a.indexOf(e) === i; }).join(', ')) + '</td><td class="c-size">' + esc(fxShown(it, 'size')) + '</td>' +
         '<td class="c-go">' + (it.m ? '<button type="button" class="btn sm go" data-go="1" title="Open de vergadering' + (it.kind === 'Stuk' || it.kind === 'PDF-versie' || it.kind === 'Vorige versie' ? ' met dit stuk in de viewer' : '') + '">Vergadering ' + ic('chevron_right') + '</button>' : '') + '</td><td class="fxact"><button class="link" data-ra="open" title="Openen">' + ic('visibility') + '</button><button class="link" data-ra="dl" title="Downloaden">' + ic('download') + '</button><button class="link" data-ra="mail" title="Mailen">' + ic('mail') + '</button>' + (FX.showHidden ? '<button class="link" data-ra="restore" title="Terugzetten in het overzicht">' + ic('restore_from_trash') + '</button>' : '<button class="link" data-ra="hide" title="Uit het overzicht verwijderen (blijft in de vergadering)">' + ic('delete') + '</button>') + '</td></tr>';
     }).join('') : '<tr><td colspan="' + (FXCOLS.length + 3) + '" class="empty">' + (all.length ? 'Geen bestanden met deze zoekopdracht of filters.' : 'Nog geen bestanden.') + '</td></tr>';
-    h += '</tbody></table></div><p class="note">' + list.length + (FX.group ? ' regels (' + flat.length + ' bestanden)' : ' van ' + all.length + ' bestanden') + ' · alleen lezen · dubbelklik om te openen · rechtermuisknop toont de versies · sleep naar een map om te ordenen</p></section></div>';
+    h += '</tbody></table></div><p class="note">' + list.length + (FX.group ? ' regels (' + flat.length + ' bestanden)' : ' van ' + all.length + ' bestanden') + ' · alleen lezen · dubbelklik om te openen · rechtermuisknop toont de versies · Shift+klik selecteert een reeks, Ctrl+klik één erbij · sleep naar een map om te ordenen</p></section></div>';
     h += '<div class="vermenu" id="vermenu" hidden></div>';
     setHTML(main, h);
     $$('[data-folder]').forEach(function (b) { b.onclick = function () { FX.folder = b.dataset.folder; FX.sel = {}; renderFiles(); }; });
@@ -189,7 +189,14 @@
       inp.addEventListener(ev, function () { FX.f[inp.dataset.ff] = inp.value; var k = inp.dataset.ff, pos = inp.selectionStart; renderFiles(); var n = $('[data-ff="' + k + '"]'); if (n && n.tagName === 'INPUT') { n.focus(); n.setSelectionRange(pos, pos); } });
       inp.addEventListener('click', function (e) { e.stopPropagation(); });
     });
-    $('#fxall').onchange = function () { var on = this.checked; list.forEach(function (it) { if (on) FX.sel[it.id] = 1; else delete FX.sel[it.id]; }); renderFiles(); };
+    $('#fxall').onchange = function () { var on = this.checked; list.forEach(function (it) { if (on) FX.sel[it.id] = 1; else delete FX.sel[it.id]; }); updSel(); };
+    /* de selectie bijwerken zonder de lijst opnieuw op te bouwen: zo blijft hij staan waar hij stond */
+    function updSel() {
+      $$('.fxtb tbody tr[data-fi]').forEach(function (tr) { var on = !!FX.sel[list[+tr.dataset.fi].id]; tr.classList.toggle('sel', on); var cb = $('td.cb input', tr); if (cb) cb.checked = on; });
+      var n = list.filter(function (x) { return FX.sel[x.id]; }).length, fs = $('.fxsel'); if (fs) fs.textContent = n ? n + ' geselecteerd' : '';
+      $$('[data-fa]').forEach(function (b) { b.disabled = !n; });
+      var al = $('#fxall'); if (al) al.checked = !!list.length && list.every(function (x) { return FX.sel[x.id]; });
+    }
     $$('.fxtb tbody tr[data-fi]').forEach(function (tr) {
       var it = list[+tr.dataset.fi];
       tr.onclick = function (e) {
@@ -197,10 +204,14 @@
         if (e.target.closest('[data-go]')) { e.stopPropagation(); goMeeting(it); return; }
         var vm = e.target.closest('[data-vm]'); if (vm) { e.stopPropagation(); var vr = vm.getBoundingClientRect(); showVersions(it, vr.left, vr.bottom + 4); return; }
         var ra = e.target.closest('[data-ra]'); if (ra) { e.stopPropagation(); fileAction(ra.dataset.ra, ra.dataset.ra === 'hide' || ra.dataset.ra === 'restore' ? it.vers : [it], ra); return; }
-        if (e.target.type === 'checkbox' || e.ctrlKey || e.metaKey) { if (FX.sel[it.id]) delete FX.sel[it.id]; else FX.sel[it.id] = 1; }
-        else { FX.sel = {}; FX.sel[it.id] = 1; }
-        renderFiles();
+        /* Shift+klik: alles van het vorige aangeklikte bestand tot en met dit bestand; Ctrl+klik of het vinkje: één erbij of eraf */
+        var idx = +tr.dataset.fi, anc = FX.anchor != null ? list.findIndex(function (x) { return x.id === FX.anchor; }) : -1;
+        if (e.shiftKey && anc >= 0) { if (!e.ctrlKey && !e.metaKey) FX.sel = {}; var lo = Math.min(anc, idx), hi = Math.max(anc, idx); for (var k = lo; k <= hi; k++) FX.sel[list[k].id] = 1; }
+        else if (e.target.type === 'checkbox' || e.ctrlKey || e.metaKey) { if (FX.sel[it.id]) delete FX.sel[it.id]; else FX.sel[it.id] = 1; FX.anchor = it.id; }
+        else { FX.sel = {}; FX.sel[it.id] = 1; FX.anchor = it.id; }
+        updSel();
       };
+      tr.addEventListener('mousedown', function (e) { if (e.shiftKey) e.preventDefault(); }); /* geen tekst selecteren bij Shift+klik */
       tr.oncontextmenu = function (e) { e.preventDefault(); showVersions(it, e.clientX, e.clientY); };
       tr.ondblclick = function (e) { if (!e.target.closest('a,button,input')) fileAction('open', [it]); };
     });
@@ -218,19 +229,6 @@
     A.sel = { id: m.id, i: idx >= 0 ? idx : 0 };
     if (it.kind === 'Aantekeningen') A.notesOpen = true;
     location.hash = '#/v/' + encodeURIComponent(m.id);
-  }
-  function openTab(blob, type) { var u = URL.createObjectURL(type && blob.type !== type ? new Blob([blob], { type: type }) : blob); var w = W.open(u, '_blank'); setTimeout(function () { URL.revokeObjectURL(u); }, 300000); if (!w) toast('Je browser blokkeerde het nieuwe tabblad. Sta pop-ups toe voor MeMeet.', 'warn'); }
-  async function openItem(it) {
-    var f = await it.get(), ext = it.ext;
-    if (ext === 'pdf') return openTab(f, 'application/pdf');
-    if (/^(png|jpe?g|gif|webp|bmp|svg)$/.test(ext)) return openTab(f, guessMime(it.name));
-    if (/^(txt|csv|md|log|json)$/.test(ext)) return openTab(f, 'text/plain;charset=utf-8');
-    var rec = it.m && it.kind === 'Stuk' ? it.m.files.filter(function (x) { return x.name === it.name; })[0] : null;
-    if (rec && rec.pdf && rec.pdf !== rec.name) { try { return openTab(await A.store.get(it.m, rec.pdf), 'application/pdf'); } catch (e) {} }
-    toast('Omzetten naar PDF om te bekijken…');
-    var r = null; try { r = await convertToPdf(it.name, f.type || guessMime(it.name), f); } catch (e) { console.error(e); }
-    if (r) return openTab(new Blob([r.bytes], { type: 'application/pdf' }), 'application/pdf');
-    toast('Dit bestandstype kan niet worden getoond. Het wordt gedownload.', 'warn'); dl(f, it.name);
   }
   function b64Lines(u8) { var s = '', C = 0x8000; for (var i = 0; i < u8.length; i += C) s += String.fromCharCode.apply(null, u8.subarray(i, i + C)); return btoa(s).replace(/.{76}/g, '$&\r\n'); }
   function encWord(t) { return /^[\x20-\x7e]*$/.test(t) ? t : '=?utf-8?B?' + btoa(unescape(encodeURIComponent(t))) + '?='; }
@@ -254,7 +252,8 @@
       toast(a === 'hide' ? (items.length === 1 ? '"' + items[0].name + '" is' : items.length + ' bestanden zijn') + ' uit het overzicht gehaald. In de vergadering staan ze er nog. Terugzetten kan via "Verwijderd tonen".' : 'Weer zichtbaar in het overzicht.', 'ok');
       return;
     }
-    if (a === 'open') { if (items.length > 5 && !confirm(items.length + ' bestanden openen in nieuwe tabbladen?')) return; for (var i = 0; i < items.length; i++) { await openItem(items[i]); } return; }
+    /* openen: in de viewer als pop-up (Esc sluit hem); bij meer bestanden staan ze links in de pop-up */
+    if (a === 'open') { openFilePopup(items.map(function (it) { return { name: it.name, size: it.size, type: guessMime(it.name), sub: (it.m ? it.m.title + (it.m.date ? ' · ' + fmtShort(it.m.date) : '') : ''), get: it.get }; }), 0, items.length > 1 ? null : items[0].name); return; }
     if (a === 'dl') { for (var j = 0; j < items.length; j++) { dl(await items[j].get(), items[j].name); await sleep(350); } if (items.length > 1) toast(items.length + ' bestanden staan in je map Downloads. Vraagt Edge om toestemming voor meerdere downloads? Klik dan op Toestaan.', 'ok'); return; }
     if (a === 'mail') {
       try { var em = await buildEml(items); dl(em.blob, em.name); toast('Open het gedownloade bestand "' + em.name + '" (onderaan of in Downloads). Outlook opent dan een nieuwe mail met ' + (items.length === 1 ? 'de bijlage' : 'de ' + items.length + ' bijlagen') + ', klaar om te versturen.', 'ok'); }

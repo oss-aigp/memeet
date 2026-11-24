@@ -541,6 +541,22 @@ body.fxdragging .fxdir{outline:1px dashed var(--line);outline-offset:-2px}
 .tact{display:grid;grid-template-columns:96px 70px 124px;gap:10px;align-items:center;flex:none}
 .tact>span{display:flex;align-items:center;min-height:30px}.tst{justify-content:flex-end}.tib,.tjn{justify-content:flex-start;min-width:0}
 .tact .btn.sm{width:100%}
+/* Eén lijn voor alle secties: elk blok (kaart) op elke pagina heeft dezelfde blauwe bovenlijn van 3 px */
+.card,.today,.today.arch,.tomorrow,.today.tomorrow.arch,.meta,.welcome{border-top:3px solid var(--hemel)}
+.dlg .card,.card .card{border-top:0}
+/* Volgende vergaderingen en Archief: vaste kolombreedtes, zodat beide lijsten precies gelijk lopen */
+.mtb{table-layout:fixed;width:100%}
+.mtb th.cb,.mtb td.cb{width:40px}
+.mtb .c-title{width:auto}
+.mtb .c-date{width:120px}.mtb .c-start,.mtb .c-end{width:84px}.mtb .c-location{width:24%}.mtb .c-files{width:96px}
+.mtb td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mtb td.c-title b{overflow:hidden;text-overflow:ellipsis}
+/* Archief: dezelfde binnenmarge als Volgende vergaderingen, zodat de kolommen van beide lijsten recht onder elkaar staan */
+.card.arch>.tw{padding:0 22px 16px}.card.arch .upbody>.tw{padding-left:0;padding-right:0}
+/* viewer-pop-up voor bestanden: één bestand zonder lijst links */
+.mabody.one{grid-template-columns:minmax(0,1fr)}.mabody.one .malist{display:none}
+.mastatic{font-size:17px;font-weight:700;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.fxtb tbody tr{user-select:none}
 /* ---- iconen (Material Symbols Rounded, Apache-2.0) */
 .i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 .btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}

@@ -58,11 +58,33 @@
     if (!$('#maDlg')) return;
     MA.items = items;
     setHTML($('#maList', bg), items.map(function (it, i) {
-      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '' + ic('mail') + '' : '' + ic('attach_file') + '') : '' + ic('mail') + '') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob.size || 0)) + '</small>' : '') + '</button></li>';
+      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '' + ic('mail') + '' : '' + ic('attach_file') + '') : '' + ic('mail') + '') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob ? it.blob.size : it.size || 0)) + '</small>' : '') + '</button></li>';
     }).join('') + (items.length > 1 ? '' : '<li class="muted manone">Geen bijlagen</li>'));
     $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); }; });
     $('#maDl', bg).onclick = function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob, it.name); };
     showMailItem(0);
+  }
+  /* Dezelfde viewer als pop-up voor bestanden (tabblad Bestanden): links de bestanden, rechts het bestand. Esc sluit hem.
+     items: [{ name, size, get() }], start: het bestand dat eerst getoond wordt. */
+  function openFilePopup(items, start, title) {
+    closeMailAct();
+    MA.focus = D.activeElement;
+    var bg = D.createElement('div'); bg.className = 'dlgbg mabg'; bg.id = 'maDlg';
+    var it0 = items[start || 0];
+    setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-labelledby="maT">' +
+      '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('description') + '</span><div class="mattl"><b id="maT" class="mastatic">' + esc(title || it0.name) + '</b><small class="muted" id="maSub">' + esc(items.length > 1 ? items.length + ' bestanden' : (it0.sub || '')) + '</small></div>' +
+      '<button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<div class="mabody' + (items.length > 1 ? '' : ' one') + '"><ul class="malist" id="maList">' + items.map(function (it, i) {
+        return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + ic(isMailItem(it) ? 'mail' : 'description') + '</span><span class="fn">' + esc(it.name) + '</span>' + (it.size ? '<small class="muted">' + esc(kb(it.size)) + '</small>' : '') + '</button></li>';
+      }).join('') + '</ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
+    D.body.appendChild(bg);
+    MA.items = items;
+    bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
+    $('#maX', bg).onclick = closeMailAct;
+    $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); if (items.length > 1) $('#maT').textContent = items[+b.dataset.mi].name; }; });
+    $('#maDl', bg).onclick = async function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob || await it.get(), it.name); };
+    try { $('#maX', bg).focus(); } catch (e) {}
+    showMailItem(start || 0);
   }
   async function showMailItem(i) {
     var it = MA.items && MA.items[i], pv = $('#maPv'); if (!it || !pv) return;
@@ -71,7 +93,7 @@
     if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
     setHTML(pv, '<div class="pvmsg">Wordt klaargemaakt…</div>');
     var out = null;
-    try { var r = await convertToPdf(it.name, it.type, it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
+    try { if (!it.blob) it.blob = await it.get(); var r = await convertToPdf(it.name, it.type || guessMime(it.name), it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
     if (tok !== MA.tok) return;
     if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">' + ic('download') + ' Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
     var pdf;

@@ -63,7 +63,7 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 | **Actielijst** | Alle acties (uit vergaderingen en losse acties die je zelf toevoegt) met de vergaderdatum. Je kunt acties bewerken, afvinken en van de lijst halen (de regel blijft in de aantekeningen staan). Je kunt een begindatum opgeven en **snoozen** naar morgen, overmorgen, volgende week of een datum die je kiest. Sleep je een **mail** naar de Actielijst, dan wordt het onderwerp een actie; een klik erop toont de mail en de bijlagen. |
 | **Vervolgoverleg** | Heeft een vergadering een eerdere vergadering met dezelfde titel, dan staan de **besluiten, acties en meeneempunten van de vorige keer** klaar onder **📋 Meeneempunten**, als popup. Op het tabblad **Verslagen** staat dat overzicht bij elk verslag. |
 | **Donkere modus** | Met de knop met de maan rechtsboven zet je de donkere modus aan (de zon zet hem weer uit). MeMeet onthoudt je keuze; zonder keuze volgt MeMeet de instelling van Windows. De viewer, de pop-ups en de aantekeningen blijven wit met zwarte letters. |
-| **Bestanden** | Een verkenner met alle bestanden: zoeken, filteren per kolom, openen, downloaden, **mailen** (als conceptmail met bijlage) en naar de vergadering springen. Met **Verwijderen** haal je een bestand uit het overzicht zonder het uit de vergadering te halen. Links onder **Mijn mappen** maak je eigen mappen en sleep je bestanden erin om ze te ordenen; de standaardweergave blijft *Alle bestanden*. Bestanden kun je hier alleen bekijken, niet bewerken. | Hetzelfde bestand in een ander formaat of een vorige versie (PDF-versie, *(oorspronkelijk)*) staat op één regel; klik met de **rechtermuisknop** (of op *versies*) om alle versies te zien, elk met een eigen download- en mailknop. Aantekeningen, de actielijst en originele mails staan niet in dit overzicht: die vind je in de tabbladen Verslagen en Actielijst en in de vergadering zelf.
+| **Bestanden** | Een verkenner met alle bestanden: zoeken, filteren per kolom, openen, downloaden, **mailen** (als conceptmail met bijlage) en naar de vergadering springen. Met **Verwijderen** haal je een bestand uit het overzicht zonder het uit de vergadering te halen. Links onder **Mijn mappen** maak je eigen mappen en sleep je bestanden erin om ze te ordenen (met **Shift+klik** selecteer je een reeks en sleep je het hele pakket in één keer); de standaardweergave blijft *Alle bestanden*. Dubbelklik opent een bestand in de viewer, als pop-up; **Esc** sluit hem. Bestanden kun je hier alleen bekijken, niet bewerken. | Hetzelfde bestand in een ander formaat of een vorige versie (PDF-versie, *(oorspronkelijk)*) staat op één regel; klik met de **rechtermuisknop** (of op *versies*) om alle versies te zien, elk met een eigen download- en mailknop. Aantekeningen, de actielijst en originele mails staan niet in dit overzicht: die vind je in de tabbladen Verslagen en Actielijst en in de vergadering zelf.
 
 <p align="center"><img src="docs/viewer.png" width="760" alt="Viewer met markeringen en opmerkingen in de marge"></p>
 
@@ -152,7 +152,7 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 
 **Een vergadering aanmaken**
 - Sleep een mail of uitnodiging uit Outlook naar het MeMeet-venster. Controleer de gegevens en klik op **Opslaan**.
-- Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail dan eerst naar je bureaublad en vandaar naar MeMeet. Of gebruik **Mail importeren…**.
+- Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail dan eerst naar je bureaublad en vandaar naar MeMeet.
 - Sleep je meerdere mails tegelijk, dan maakt MeMeet ze allemaal in één keer aan.
 
 **Weekagenda importeren**
@@ -278,7 +278,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 
 | Probleem | Oplossing |
 |---|---|
-| **Er gebeurt niets als ik een mail sleep** | Sleep de mail eerst naar het bureaublad en daarna naar MeMeet. Of gebruik **Mail importeren…**. |
+| **Er gebeurt niets als ik een mail sleep** | Sleep de mail eerst naar het bureaublad en daarna naar MeMeet. |
 | **"Map kiezen lukt niet"** | Je beheerder heeft toegang tot mappen misschien geblokkeerd. Kies **bewaar alles in de browser**. |
 | **Edge vraagt elke keer om toegang** | Dat is normaal, het is een beveiligingsregel van de browser. Klik op **Map openen** en dan op **Toestaan**. |
 | **De viewer kan een stuk niet tonen** | Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen. Download het origineel via **⋯** › *Origineel downloaden* en open het in Word of Excel. Wil je het in de viewer zien, kies dan in Word of Excel **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |

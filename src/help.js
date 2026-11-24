@@ -71,7 +71,7 @@
       '<h3>Een vergadering maken</h3><ul>' +
       '<li><b>Sleep een mail of uitnodiging</b> uit Outlook naar het venster. MeMeet haalt titel, datum, tijd, locatie, vergaderlink en iBabs-link eruit en zet de bijlagen als stukken klaar (een mail als bijlage komt er met zijn eigen bijlagen apart bij). Controleer alles en klik op <b>Opslaan</b>.</li>' +
       '<li>Bestaat de vergadering op die dag al (dezelfde titel), dan is het een verplaatsing: MeMeet werkt alleen de tijd bij.</li>' +
-      '<li>Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail eerst naar het bureaublad en dan naar MeMeet, of gebruik <b>Mail importeren…</b>.</li>' +
+      '<li>Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail eerst naar het bureaublad en dan naar MeMeet.</li>' +
       '<li>Meerdere mails tegelijk slepen maakt meerdere vergaderingen in één keer.</li>' +
       '<li>Bij een <b>terugkerende afspraak</b> krijgt de vergadering de datum en tijd van de eerstvolgende keer.</li>' +
       '<li><b>' + ic('calendar_month') + ' Importeer weekagenda</b> leest je hele Outlook-agenda van de komende dagen in één keer in.</li>' +
@@ -152,10 +152,10 @@
       '<li>Links kies je een map, of <b>Alle bestanden</b> (dat is de standaard). Zoek met het zoekvak en filter per kolom.</li>' +
       '<li><b>Mijn mappen</b>: met <b>' + ic('create_new_folder') + ' Nieuwe map</b> maak je een eigen map. Sleep bestanden (één regel, of alle geselecteerde regels) naar die map om ze te ordenen; klik op de map om alleen die bestanden te zien. Dubbelklik op een map om de naam te wijzigen, ' + ic('close') + ' haalt de map weg. Met <b>Geselecteerde bestanden uit deze map halen</b> haal je bestanden er weer uit. De mappen zijn een indeling binnen MeMeet: de bestanden zelf blijven bij hun vergadering en staan altijd onder Alle bestanden.</li>' +
       '<li>Hetzelfde stuk in een ander formaat of een vorige versie (PDF-versie, "(oorspronkelijk)") staat op één regel. Klik met de rechtermuisknop of op <b>versies</b> om alle versies te zien, elk met openen, mailen en downloaden.</li>' +
-      '<li>Dubbelklik of <b>' + ic('visibility') + '</b> opent een bestand, <b>' + ic('download') + '</b> downloadt het, <b>' + ic('mail') + '</b> maakt een conceptmail met het bestand als bijlage: open het gedownloade bestand en Outlook start een nieuwe mail.</li>' +
+      '<li>Dubbelklik of <b>' + ic('visibility') + '</b> opent een bestand in de viewer, als pop-up (<b>Esc</b> sluit hem). Kies je <b>Openen</b> met meer bestanden geselecteerd, dan staan ze links in de pop-up en klik je van het een naar het ander.</li><li><b>' + ic('download') + '</b> downloadt het, <b>' + ic('mail') + '</b> maakt een conceptmail met het bestand als bijlage: open het gedownloade bestand en Outlook start een nieuwe mail.</li>' +
       '<li><b>Vergadering ›</b> opent de bijbehorende vergadering, met het stuk in de viewer.</li>' +
       '<li><b>' + ic('delete') + ' Verwijderen</b> haalt een bestand alleen uit dit overzicht; in de vergadering blijft het staan. Met <b>Verwijderd tonen</b> en <b>' + ic('restore_from_trash') + ' Terugzetten</b> haal je het terug.</li>' +
-      '<li>Selecteer meerdere bestanden met de vinkjes (of Ctrl+klik) om ze in één keer te openen, downloaden, mailen of verwijderen.</li></ul>' },
+      '<li>Selecteer meerdere bestanden met de vinkjes of met <b>Ctrl+klik</b>. Met <b>Shift+klik</b> selecteer je een reeks: klik op het eerste bestand, houd Shift ingedrukt en klik op het laatste. Daarna kun je ze in één keer openen, downloaden, mailen of verwijderen, of het hele pakket naar een van <b>Mijn mappen</b> slepen.</li></ul>' },
     week: { t: 'Weekagenda importeren', h:
       '<p>Je Outlook-agenda van de komende dagen in één keer inlezen als vergaderingen.</p>' +
       '<h3>1. Agenda opslaan in Outlook</h3><ol><li>Ga naar <b>Agenda</b> en klik links op je eigen agenda.</li><li>Kies <b>Bestand › Agenda opslaan in bestand</b> en klik op <b>Meer opties</b>.</li>' +

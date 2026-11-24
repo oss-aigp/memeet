@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.3.0 -->
+<!-- MeMeet-versie: 1.3.1 -->
 <!--
-  MeMeet 1.3.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.3.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -548,6 +548,22 @@ body.fxdragging .fxdir{outline:1px dashed var(--line);outline-offset:-2px}
 .tact{display:grid;grid-template-columns:96px 70px 124px;gap:10px;align-items:center;flex:none}
 .tact>span{display:flex;align-items:center;min-height:30px}.tst{justify-content:flex-end}.tib,.tjn{justify-content:flex-start;min-width:0}
 .tact .btn.sm{width:100%}
+/* Eén lijn voor alle secties: elk blok (kaart) op elke pagina heeft dezelfde blauwe bovenlijn van 3 px */
+.card,.today,.today.arch,.tomorrow,.today.tomorrow.arch,.meta,.welcome{border-top:3px solid var(--hemel)}
+.dlg .card,.card .card{border-top:0}
+/* Volgende vergaderingen en Archief: vaste kolombreedtes, zodat beide lijsten precies gelijk lopen */
+.mtb{table-layout:fixed;width:100%}
+.mtb th.cb,.mtb td.cb{width:40px}
+.mtb .c-title{width:auto}
+.mtb .c-date{width:120px}.mtb .c-start,.mtb .c-end{width:84px}.mtb .c-location{width:24%}.mtb .c-files{width:96px}
+.mtb td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mtb td.c-title b{overflow:hidden;text-overflow:ellipsis}
+/* Archief: dezelfde binnenmarge als Volgende vergaderingen, zodat de kolommen van beide lijsten recht onder elkaar staan */
+.card.arch>.tw{padding:0 22px 16px}.card.arch .upbody>.tw{padding-left:0;padding-right:0}
+/* viewer-pop-up voor bestanden: één bestand zonder lijst links */
+.mabody.one{grid-template-columns:minmax(0,1fr)}.mabody.one .malist{display:none}
+.mastatic{font-size:17px;font-weight:700;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.fxtb tbody tr{user-select:none}
 /* ---- iconen (Material Symbols Rounded, Apache-2.0) */
 .i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 .btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}
@@ -597,7 +613,6 @@ body.fxdragging .fxdir{outline:1px dashed var(--line);outline-offset:-2px}
 .i-task_alt{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-80q-85%200-158-30.5T195-195q-54-54-84.5-127T80-480q0-84%2030.5-157T195-764q54-54%20127-85t158-31q60%200%20117%2017.5T704-811q11%207%2013.5%2019t-5.5%2022q-8%2010-20%2011t-23-6q-42-27-90-41t-99-14q-145%200-242.5%2097.5T140-480q0%20145%2097.5%20242.5T480-140q145%200%20242.5-97.5T820-480q0-19-1.5-37t-5.5-35q-2-13%204-24t18-13q13-3%2024%204.5t13%2020.5q4%2020%206%2041t2%2043q0%2085-31%20158t-85%20127q-54%2054-127%2084.5T480-80Zm-59-309%20392-392q9-9%2022-9t23%209q10%2010%2010%2023t-10%2023L442-319q-9%209-21%209t-21-9L278-442q-9-9-8.5-22.5T279-487q9-9%2022.5-9t22.5%209l97%2098Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-undo{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M289-200q-13%200-21.5-8.5T259-230q0-13%208.5-21.5T289-260h280q70%200%20120.5-46.5T740-422q0-69-50.5-115.5T569-584H274l93%2093q9%209%209%2021t-9%2021q-9%209-21%209t-21-9L181-593q-5-5-7-10t-2-11q0-6%202-11t7-10l144-144q9-9%2021-9t21%209q9%209%209%2021t-9%2021l-93%2093h294q95%200%20163.5%2064T800-422q0%2094-68.5%20158T568-200H289Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-unfold_more{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22m480-208%20114-114q9.13-9%2022.07-9%2012.93%200%2021.93%209.1%209%209.11%209%2022%200%2012.9-9%2021.9L501-141q-5%205-10.13%207-5.14%202-11%202-5.87%200-10.87-2-5-2-10-7L322-278q-9-9.13-9-22.07%200-12.93%209.1-21.93%209.11-9%2022-9%2012.9%200%2021.9%209l114%20114Zm0-540L366-634q-9.13%209-22.07%209-12.93%200-21.93-9.1-9-9.11-9-22%200-12.9%209-21.9l137-137q5-5%2010.13-7%205.14-2%2011-2%205.87%200%2010.87%202%205%202%2010%207l137%20137q9%209.13%209%2022.07%200%2012.93-9.1%2021.93-9.11%209-22%209-12.9%200-21.9-9L480-748Z%22%2F%3E%3C%2Fsvg%3E")}
-.i-upload_file{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M452-403v171q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-171l61%2061q3%203%2015-2t22.5-9q10.5-4%2014.5-3.5T615-342q9-9%208.5-21t-9.5-21L501-494q-5-5-10.13-7-5.14-2-11-2-5.87%200-10.87%202-5%202-10%207L347-382q-9%209-9%2021t9%2021.39q9%208.61%2021%208.61t21-9l63-63ZM220-80q-24%200-42-18t-18-42v-680q0-24%2018-42t42-18h336q12.44%200%2023.72%205T599-862l183%20183q8%208%2013%2019.28%205%2011.28%205%2023.72v496q0%2024-18%2042t-42%2018H220Zm331-584v-156H220v680h520v-494H581q-12.75%200-21.37-8.63Q551-651.25%20551-664ZM220-820v186-186%20680-680Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-videocam{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18t-18-42v-520q0-24%2018-42t42-18h520q24%200%2042%2018t18%2042v215l134-134q7-7%2016.5-3.46T880-649v338q0%209.92-9.5%2013.46Q861-294%20854-301L720-435v215q0%2024-18%2042t-42%2018H140Zm0-60h520v-520H140v520Zm0%200v-520%20520Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-visibility{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M600.5-379.62q49.5-49.62%2049.5-120.5T600.38-620.5Q550.76-670%20479.88-670T359.5-620.38Q310-570.76%20310-499.88t49.62%20120.38q49.62%2049.5%20120.5%2049.5t120.38-49.62Zm-200-41.12q-32.5-32.73-32.5-79.5%200-46.76%2032.74-79.26%2032.73-32.5%2079.5-32.5%2046.76%200%2079.26%2032.74%2032.5%2032.73%2032.5%2079.5%200%2046.76-32.74%2079.26-32.73%2032.5-79.5%2032.5-46.76%200-79.26-32.74ZM234.5-276Q124-352%2057-470q-4-7.13-6-14.65-2-7.52-2-15.43%200-7.92%202-15.38%202-7.47%206-14.54%2067-118%20177.5-194T480-800q135%200%20245.5%2076T903-530q4%207.12%206%2014.65%202%207.52%202%2015.43%200%207.92-2%2015.38-2%207.47-6%2014.54-67%20118-177.5%20194T480-200q-135%200-245.5-76ZM480-500Zm222.5%20174.5Q804-391%20857-500q-53-109-154.33-174.5Q601.34-740%20480.17-740T257.5-674.5Q156-609%20102-500q54%20109%20155.33%20174.5Q358.66-260%20479.83-260t222.67-65.5Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-zoom_in{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M346-556h-52q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h52v-51q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v51h51q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5h-51v52q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-52Zm32%20227q-108.16%200-183.08-75Q120-479%20120-585t75-181q75-75%20181.5-75t181%2075Q632-691%20632-584.85%20632-542%20618-502q-14%2040-42%2075l242%20240q9%208.56%209%2021.78T818-143q-9%209-22.22%209-13.22%200-21.78-9L533-384q-30%2026-69.96%2040.5Q423.08-329%20378-329Zm-1-60q81.25%200%20138.13-57.5Q572-504%20572-585t-56.87-138.5Q458.25-781%20377-781q-82.08%200-139.54%2057.5Q180-666%20180-585t57.46%20138.5Q294.92-389%20377-389Z%22%2F%3E%3C%2Fsvg%3E")}
@@ -3266,11 +3281,33 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (!$('#maDlg')) return;
     MA.items = items;
     setHTML($('#maList', bg), items.map(function (it, i) {
-      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '' + ic('mail') + '' : '' + ic('attach_file') + '') : '' + ic('mail') + '') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob.size || 0)) + '</small>' : '') + '</button></li>';
+      return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + (i ? (isMailItem(it) ? '' + ic('mail') + '' : '' + ic('attach_file') + '') : '' + ic('mail') + '') + '</span><span class="fn">' + esc(i ? it.name : 'Mail') + '</span>' + (i ? '<small class="muted">' + esc(kb(it.blob ? it.blob.size : it.size || 0)) + '</small>' : '') + '</button></li>';
     }).join('') + (items.length > 1 ? '' : '<li class="muted manone">Geen bijlagen</li>'));
     $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); }; });
     $('#maDl', bg).onclick = function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob, it.name); };
     showMailItem(0);
+  }
+  /* Dezelfde viewer als pop-up voor bestanden (tabblad Bestanden): links de bestanden, rechts het bestand. Esc sluit hem.
+     items: [{ name, size, get() }], start: het bestand dat eerst getoond wordt. */
+  function openFilePopup(items, start, title) {
+    closeMailAct();
+    MA.focus = D.activeElement;
+    var bg = D.createElement('div'); bg.className = 'dlgbg mabg'; bg.id = 'maDlg';
+    var it0 = items[start || 0];
+    setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-labelledby="maT">' +
+      '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('description') + '</span><div class="mattl"><b id="maT" class="mastatic">' + esc(title || it0.name) + '</b><small class="muted" id="maSub">' + esc(items.length > 1 ? items.length + ' bestanden' : (it0.sub || '')) + '</small></div>' +
+      '<button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<div class="mabody' + (items.length > 1 ? '' : ' one') + '"><ul class="malist" id="maList">' + items.map(function (it, i) {
+        return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + ic(isMailItem(it) ? 'mail' : 'description') + '</span><span class="fn">' + esc(it.name) + '</span>' + (it.size ? '<small class="muted">' + esc(kb(it.size)) + '</small>' : '') + '</button></li>';
+      }).join('') + '</ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
+    D.body.appendChild(bg);
+    MA.items = items;
+    bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
+    $('#maX', bg).onclick = closeMailAct;
+    $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); if (items.length > 1) $('#maT').textContent = items[+b.dataset.mi].name; }; });
+    $('#maDl', bg).onclick = async function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob || await it.get(), it.name); };
+    try { $('#maX', bg).focus(); } catch (e) {}
+    showMailItem(start || 0);
   }
   async function showMailItem(i) {
     var it = MA.items && MA.items[i], pv = $('#maPv'); if (!it || !pv) return;
@@ -3279,7 +3316,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
     setHTML(pv, '<div class="pvmsg">Wordt klaargemaakt…</div>');
     var out = null;
-    try { var r = await convertToPdf(it.name, it.type, it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
+    try { if (!it.blob) it.blob = await it.get(); var r = await convertToPdf(it.name, it.type || guessMime(it.name), it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
     if (tok !== MA.tok) return;
     if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">' + ic('download') + ' Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
     var pdf;
@@ -3773,7 +3810,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
         '<td class="c-ext">' + esc(it.vers.map(function (v) { return v.ext.toUpperCase(); }).filter(function (e, i, a) { return a.indexOf(e) === i; }).join(', ')) + '</td><td class="c-size">' + esc(fxShown(it, 'size')) + '</td>' +
         '<td class="c-go">' + (it.m ? '<button type="button" class="btn sm go" data-go="1" title="Open de vergadering' + (it.kind === 'Stuk' || it.kind === 'PDF-versie' || it.kind === 'Vorige versie' ? ' met dit stuk in de viewer' : '') + '">Vergadering ' + ic('chevron_right') + '</button>' : '') + '</td><td class="fxact"><button class="link" data-ra="open" title="Openen">' + ic('visibility') + '</button><button class="link" data-ra="dl" title="Downloaden">' + ic('download') + '</button><button class="link" data-ra="mail" title="Mailen">' + ic('mail') + '</button>' + (FX.showHidden ? '<button class="link" data-ra="restore" title="Terugzetten in het overzicht">' + ic('restore_from_trash') + '</button>' : '<button class="link" data-ra="hide" title="Uit het overzicht verwijderen (blijft in de vergadering)">' + ic('delete') + '</button>') + '</td></tr>';
     }).join('') : '<tr><td colspan="' + (FXCOLS.length + 3) + '" class="empty">' + (all.length ? 'Geen bestanden met deze zoekopdracht of filters.' : 'Nog geen bestanden.') + '</td></tr>';
-    h += '</tbody></table></div><p class="note">' + list.length + (FX.group ? ' regels (' + flat.length + ' bestanden)' : ' van ' + all.length + ' bestanden') + ' · alleen lezen · dubbelklik om te openen · rechtermuisknop toont de versies · sleep naar een map om te ordenen</p></section></div>';
+    h += '</tbody></table></div><p class="note">' + list.length + (FX.group ? ' regels (' + flat.length + ' bestanden)' : ' van ' + all.length + ' bestanden') + ' · alleen lezen · dubbelklik om te openen · rechtermuisknop toont de versies · Shift+klik selecteert een reeks, Ctrl+klik één erbij · sleep naar een map om te ordenen</p></section></div>';
     h += '<div class="vermenu" id="vermenu" hidden></div>';
     setHTML(main, h);
     $$('[data-folder]').forEach(function (b) { b.onclick = function () { FX.folder = b.dataset.folder; FX.sel = {}; renderFiles(); }; });
@@ -3808,7 +3845,14 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       inp.addEventListener(ev, function () { FX.f[inp.dataset.ff] = inp.value; var k = inp.dataset.ff, pos = inp.selectionStart; renderFiles(); var n = $('[data-ff="' + k + '"]'); if (n && n.tagName === 'INPUT') { n.focus(); n.setSelectionRange(pos, pos); } });
       inp.addEventListener('click', function (e) { e.stopPropagation(); });
     });
-    $('#fxall').onchange = function () { var on = this.checked; list.forEach(function (it) { if (on) FX.sel[it.id] = 1; else delete FX.sel[it.id]; }); renderFiles(); };
+    $('#fxall').onchange = function () { var on = this.checked; list.forEach(function (it) { if (on) FX.sel[it.id] = 1; else delete FX.sel[it.id]; }); updSel(); };
+    /* de selectie bijwerken zonder de lijst opnieuw op te bouwen: zo blijft hij staan waar hij stond */
+    function updSel() {
+      $$('.fxtb tbody tr[data-fi]').forEach(function (tr) { var on = !!FX.sel[list[+tr.dataset.fi].id]; tr.classList.toggle('sel', on); var cb = $('td.cb input', tr); if (cb) cb.checked = on; });
+      var n = list.filter(function (x) { return FX.sel[x.id]; }).length, fs = $('.fxsel'); if (fs) fs.textContent = n ? n + ' geselecteerd' : '';
+      $$('[data-fa]').forEach(function (b) { b.disabled = !n; });
+      var al = $('#fxall'); if (al) al.checked = !!list.length && list.every(function (x) { return FX.sel[x.id]; });
+    }
     $$('.fxtb tbody tr[data-fi]').forEach(function (tr) {
       var it = list[+tr.dataset.fi];
       tr.onclick = function (e) {
@@ -3816,10 +3860,14 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
         if (e.target.closest('[data-go]')) { e.stopPropagation(); goMeeting(it); return; }
         var vm = e.target.closest('[data-vm]'); if (vm) { e.stopPropagation(); var vr = vm.getBoundingClientRect(); showVersions(it, vr.left, vr.bottom + 4); return; }
         var ra = e.target.closest('[data-ra]'); if (ra) { e.stopPropagation(); fileAction(ra.dataset.ra, ra.dataset.ra === 'hide' || ra.dataset.ra === 'restore' ? it.vers : [it], ra); return; }
-        if (e.target.type === 'checkbox' || e.ctrlKey || e.metaKey) { if (FX.sel[it.id]) delete FX.sel[it.id]; else FX.sel[it.id] = 1; }
-        else { FX.sel = {}; FX.sel[it.id] = 1; }
-        renderFiles();
+        /* Shift+klik: alles van het vorige aangeklikte bestand tot en met dit bestand; Ctrl+klik of het vinkje: één erbij of eraf */
+        var idx = +tr.dataset.fi, anc = FX.anchor != null ? list.findIndex(function (x) { return x.id === FX.anchor; }) : -1;
+        if (e.shiftKey && anc >= 0) { if (!e.ctrlKey && !e.metaKey) FX.sel = {}; var lo = Math.min(anc, idx), hi = Math.max(anc, idx); for (var k = lo; k <= hi; k++) FX.sel[list[k].id] = 1; }
+        else if (e.target.type === 'checkbox' || e.ctrlKey || e.metaKey) { if (FX.sel[it.id]) delete FX.sel[it.id]; else FX.sel[it.id] = 1; FX.anchor = it.id; }
+        else { FX.sel = {}; FX.sel[it.id] = 1; FX.anchor = it.id; }
+        updSel();
       };
+      tr.addEventListener('mousedown', function (e) { if (e.shiftKey) e.preventDefault(); }); /* geen tekst selecteren bij Shift+klik */
       tr.oncontextmenu = function (e) { e.preventDefault(); showVersions(it, e.clientX, e.clientY); };
       tr.ondblclick = function (e) { if (!e.target.closest('a,button,input')) fileAction('open', [it]); };
     });
@@ -3837,19 +3885,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     A.sel = { id: m.id, i: idx >= 0 ? idx : 0 };
     if (it.kind === 'Aantekeningen') A.notesOpen = true;
     location.hash = '#/v/' + encodeURIComponent(m.id);
-  }
-  function openTab(blob, type) { var u = URL.createObjectURL(type && blob.type !== type ? new Blob([blob], { type: type }) : blob); var w = W.open(u, '_blank'); setTimeout(function () { URL.revokeObjectURL(u); }, 300000); if (!w) toast('Je browser blokkeerde het nieuwe tabblad. Sta pop-ups toe voor MeMeet.', 'warn'); }
-  async function openItem(it) {
-    var f = await it.get(), ext = it.ext;
-    if (ext === 'pdf') return openTab(f, 'application/pdf');
-    if (/^(png|jpe?g|gif|webp|bmp|svg)$/.test(ext)) return openTab(f, guessMime(it.name));
-    if (/^(txt|csv|md|log|json)$/.test(ext)) return openTab(f, 'text/plain;charset=utf-8');
-    var rec = it.m && it.kind === 'Stuk' ? it.m.files.filter(function (x) { return x.name === it.name; })[0] : null;
-    if (rec && rec.pdf && rec.pdf !== rec.name) { try { return openTab(await A.store.get(it.m, rec.pdf), 'application/pdf'); } catch (e) {} }
-    toast('Omzetten naar PDF om te bekijken…');
-    var r = null; try { r = await convertToPdf(it.name, f.type || guessMime(it.name), f); } catch (e) { console.error(e); }
-    if (r) return openTab(new Blob([r.bytes], { type: 'application/pdf' }), 'application/pdf');
-    toast('Dit bestandstype kan niet worden getoond. Het wordt gedownload.', 'warn'); dl(f, it.name);
   }
   function b64Lines(u8) { var s = '', C = 0x8000; for (var i = 0; i < u8.length; i += C) s += String.fromCharCode.apply(null, u8.subarray(i, i + C)); return btoa(s).replace(/.{76}/g, '$&\r\n'); }
   function encWord(t) { return /^[\x20-\x7e]*$/.test(t) ? t : '=?utf-8?B?' + btoa(unescape(encodeURIComponent(t))) + '?='; }
@@ -3873,7 +3908,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       toast(a === 'hide' ? (items.length === 1 ? '"' + items[0].name + '" is' : items.length + ' bestanden zijn') + ' uit het overzicht gehaald. In de vergadering staan ze er nog. Terugzetten kan via "Verwijderd tonen".' : 'Weer zichtbaar in het overzicht.', 'ok');
       return;
     }
-    if (a === 'open') { if (items.length > 5 && !confirm(items.length + ' bestanden openen in nieuwe tabbladen?')) return; for (var i = 0; i < items.length; i++) { await openItem(items[i]); } return; }
+    /* openen: in de viewer als pop-up (Esc sluit hem); bij meer bestanden staan ze links in de pop-up */
+    if (a === 'open') { openFilePopup(items.map(function (it) { return { name: it.name, size: it.size, type: guessMime(it.name), sub: (it.m ? it.m.title + (it.m.date ? ' · ' + fmtShort(it.m.date) : '') : ''), get: it.get }; }), 0, items.length > 1 ? null : items[0].name); return; }
     if (a === 'dl') { for (var j = 0; j < items.length; j++) { dl(await items[j].get(), items[j].name); await sleep(350); } if (items.length > 1) toast(items.length + ' bestanden staan in je map Downloads. Vraagt Edge om toestemming voor meerdere downloads? Klik dan op Toestaan.', 'ok'); return; }
     if (a === 'mail') {
       try { var em = await buildEml(items); dl(em.blob, em.name); toast('Open het gedownloade bestand "' + em.name + '" (onderaan of in Downloads). Outlook opent dan een nieuwe mail met ' + (items.length === 1 ? 'de bijlage' : 'de ' + items.length + ' bijlagen') + ', klaar om te versturen.', 'ok'); }
@@ -3954,7 +3990,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<h3>Een vergadering maken</h3><ul>' +
       '<li><b>Sleep een mail of uitnodiging</b> uit Outlook naar het venster. MeMeet haalt titel, datum, tijd, locatie, vergaderlink en iBabs-link eruit en zet de bijlagen als stukken klaar (een mail als bijlage komt er met zijn eigen bijlagen apart bij). Controleer alles en klik op <b>Opslaan</b>.</li>' +
       '<li>Bestaat de vergadering op die dag al (dezelfde titel), dan is het een verplaatsing: MeMeet werkt alleen de tijd bij.</li>' +
-      '<li>Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail eerst naar het bureaublad en dan naar MeMeet, of gebruik <b>Mail importeren…</b>.</li>' +
+      '<li>Lukt slepen niet (soms in de nieuwe Outlook)? Sleep de mail eerst naar het bureaublad en dan naar MeMeet.</li>' +
       '<li>Meerdere mails tegelijk slepen maakt meerdere vergaderingen in één keer.</li>' +
       '<li>Bij een <b>terugkerende afspraak</b> krijgt de vergadering de datum en tijd van de eerstvolgende keer.</li>' +
       '<li><b>' + ic('calendar_month') + ' Importeer weekagenda</b> leest je hele Outlook-agenda van de komende dagen in één keer in.</li>' +
@@ -4035,10 +4071,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Links kies je een map, of <b>Alle bestanden</b> (dat is de standaard). Zoek met het zoekvak en filter per kolom.</li>' +
       '<li><b>Mijn mappen</b>: met <b>' + ic('create_new_folder') + ' Nieuwe map</b> maak je een eigen map. Sleep bestanden (één regel, of alle geselecteerde regels) naar die map om ze te ordenen; klik op de map om alleen die bestanden te zien. Dubbelklik op een map om de naam te wijzigen, ' + ic('close') + ' haalt de map weg. Met <b>Geselecteerde bestanden uit deze map halen</b> haal je bestanden er weer uit. De mappen zijn een indeling binnen MeMeet: de bestanden zelf blijven bij hun vergadering en staan altijd onder Alle bestanden.</li>' +
       '<li>Hetzelfde stuk in een ander formaat of een vorige versie (PDF-versie, "(oorspronkelijk)") staat op één regel. Klik met de rechtermuisknop of op <b>versies</b> om alle versies te zien, elk met openen, mailen en downloaden.</li>' +
-      '<li>Dubbelklik of <b>' + ic('visibility') + '</b> opent een bestand, <b>' + ic('download') + '</b> downloadt het, <b>' + ic('mail') + '</b> maakt een conceptmail met het bestand als bijlage: open het gedownloade bestand en Outlook start een nieuwe mail.</li>' +
+      '<li>Dubbelklik of <b>' + ic('visibility') + '</b> opent een bestand in de viewer, als pop-up (<b>Esc</b> sluit hem). Kies je <b>Openen</b> met meer bestanden geselecteerd, dan staan ze links in de pop-up en klik je van het een naar het ander.</li><li><b>' + ic('download') + '</b> downloadt het, <b>' + ic('mail') + '</b> maakt een conceptmail met het bestand als bijlage: open het gedownloade bestand en Outlook start een nieuwe mail.</li>' +
       '<li><b>Vergadering ›</b> opent de bijbehorende vergadering, met het stuk in de viewer.</li>' +
       '<li><b>' + ic('delete') + ' Verwijderen</b> haalt een bestand alleen uit dit overzicht; in de vergadering blijft het staan. Met <b>Verwijderd tonen</b> en <b>' + ic('restore_from_trash') + ' Terugzetten</b> haal je het terug.</li>' +
-      '<li>Selecteer meerdere bestanden met de vinkjes (of Ctrl+klik) om ze in één keer te openen, downloaden, mailen of verwijderen.</li></ul>' },
+      '<li>Selecteer meerdere bestanden met de vinkjes of met <b>Ctrl+klik</b>. Met <b>Shift+klik</b> selecteer je een reeks: klik op het eerste bestand, houd Shift ingedrukt en klik op het laatste. Daarna kun je ze in één keer openen, downloaden, mailen of verwijderen, of het hele pakket naar een van <b>Mijn mappen</b> slepen.</li></ul>' },
     week: { t: 'Weekagenda importeren', h:
       '<p>Je Outlook-agenda van de komende dagen in één keer inlezen als vergaderingen.</p>' +
       '<h3>1. Agenda opslaan in Outlook</h3><ol><li>Ga naar <b>Agenda</b> en klik links op je eigen agenda.</li><li>Kies <b>Bestand › Agenda opslaan in bestand</b> en klik op <b>Meer opties</b>.</li>' +
@@ -4763,7 +4799,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
     var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
-    h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><button class="btn" id="imp">' + ic('upload_file') + ' Mail importeren…</button><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
+    h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
     /* alle vier de onderdelen (vandaag, morgen, volgende, archief) staan standaard open; dichtklappen geldt tot je MeMeet opnieuw opent */
@@ -4808,7 +4844,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     $('#upc').onclick = function () { keepScroll(function () { A.showUp = !A.showUp; }); };
     $('#tdy').onclick = function () { keepScroll(function () { A.showToday = !A.showToday; }); };
     $('#tmr').onclick = function () { keepScroll(function () { A.showTomorrow = !A.showTomorrow; }); };
-    $('#imp').onclick = function () { $('#pickMail').click(); };
     var qn = $('#qnext'); if (qn) qn.onclick = function () { A.qi = qPick(); var f = $('#quote'); f.classList.remove('in'); void f.offsetWidth; $('#qtxt').textContent = Q[A.qi][0]; $('#qwho').textContent = Q[A.qi][1]; f.classList.add('in'); };
     bindFolders($('#main'));
     $('#new').onclick = function () { A.draft = blankDraft(); };
