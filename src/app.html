@@ -632,27 +632,37 @@ html[data-theme=dark] :is(.ibbadge,.ibgrp .tag){color:#f1d27a;border-color:#6b5a
 /* in een smalle kolom aantekeningen is "Apart venster" alleen een symbool (de naam staat in de tooltip) */
 .np{container-type:inline-size}
 @container (max-width:400px){.nphead #nppop .bt{display:none}.nphead #nppop{width:30px;padding:0}}
-/* ---- annotatie van een medewerker */
-.nptabs{display:flex;gap:2px;min-width:0;overflow:hidden;align-self:stretch}
-.nptab{border:0;background:none;padding:0 6px;font:inherit;font-weight:700;font-size:13.5px;color:var(--mute);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
-.nptab.on{color:var(--brand);border-bottom-color:var(--acc)}.nptab .muted{font-weight:400;font-size:12px}
-.nphead.hasann{padding-left:4px}
-.annwrap{flex:1;min-height:0;overflow:auto;padding:8px 10px 10px}
-.annh{display:flex;align-items:center;gap:10px}.annh>div{flex:1;min-width:0}.annfile{font-size:12px;overflow-wrap:anywhere}.annfile .link{padding:0;font-size:12px}
-.annintro{font-size:12.5px;margin:6px 0 10px}.annintro code{font-family:Consolas,monospace;color:var(--acc)}
-.ai{border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin-bottom:10px}
-.ai .aib{font-size:13px;color:var(--ink);margin:2px 0 6px}
-.aifb{width:100%;min-height:54px;resize:none;font:13.5px/1.45 var(--font);padding:6px 8px;overflow:hidden}
-.ai .ac{padding:3px 0;font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:3px 4px;align-items:center}.ai .ac[hidden]{display:none}
-.aipv{font-size:12.5px;margin-top:4px}.aipv>div{padding:1px 0}.aipv .k{font-family:Consolas,monospace;font-weight:700;color:var(--acc)}.aipv .why{color:var(--mute);font-size:12px}
+/* ---- annotatie: sleepvak in het venster */
 .anndz{border:2px dashed var(--licht);border-radius:8px;padding:18px;text-align:center;margin-top:10px;background:var(--row)}.anndz.on{border-color:var(--hemel);background:var(--soft)}.anndz p{margin:8px 0 0;font-size:12.5px}
-.dlg.annmail{width:min(720px,100%)}.annwarn{color:#9a6700;margin:0;font-size:13px}.annpriv{margin:8px 0;color:var(--mute);font-size:12.5px}
-.mailh{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:13px;margin:8px 0}.mailh span{color:var(--mute)}
-.annbody{max-height:45vh;overflow:auto}
+.btn[hidden]{display:none!important}
 /* viewer-pop-up voor bestanden: één bestand zonder lijst links */
 .mabody.one{grid-template-columns:minmax(0,1fr)}.mabody.one .malist{display:none}
 .mastatic{font-size:17px;font-weight:700;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .fxtb tbody tr{user-select:none}
+/* ---- viewer 1.6: licht en rustig. Geen grijs kader: een witte, dunne achtergrond en een subtiele rand om de pagina. */
+.pvpages,.mapv{background:#f4f6f8!important;background-image:none!important;padding:10px!important;gap:10px}
+.pg{box-shadow:0 0 0 1px #dfe4ea,0 1px 4px rgba(16,24,40,.06)!important}.mapg{box-shadow:0 0 0 1px #dfe4ea,0 1px 4px rgba(16,24,40,.06)}
+.pgn{color:#98a2b3}
+.pvmsg{color:var(--mute)}.pvpages .pvmsg{color:#5d6875}
+.pvbar.simple{gap:4px;padding:4px 8px}.pvbar.simple .pvname{flex:0 1 auto;min-width:40px;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:4px}
+.pvbar.simple .sp{flex:1 1 8px}.pvbar.simple .srch{flex:0 1 220px;min-width:110px;margin:0 2px}
+#pv.max .pvpages{padding:14px!important}
+.mapv.editing{padding:0!important;display:flex;flex-direction:column;align-items:stretch;background:var(--card)!important}.mapv.editing .edwrap{flex:1;min-height:0}
+.edbody{background:#f4f6f8}
+/* drie kolommen (stukken, viewer, aantekeningen) vanaf 900 px breed; daaronder komen de aantekeningen onder de viewer */
+@media (min-width:900px){
+ .ws.n3{grid-template-columns:min(var(--lw,260px),32vw) minmax(0,1fr) min(var(--npw,340px),45vw)!important}
+ .ws.n3 .np{grid-column:auto!important;position:static;height:100%!important}
+ main.detail{height:calc(100vh - var(--hdr))!important;display:flex!important}
+ main.detail .ws>.card{height:100%!important}main.detail .pv{height:100%!important}
+ .ws.n3 .lsgrip{display:block;left:calc(min(var(--lw,260px),32vw) + 2px)}
+ .ws.n3.pvwide{grid-template-columns:minmax(0,1fr) min(var(--npw,340px),45vw)!important}
+}
+@media (min-width:900px) and (max-width:1250px){.ws.n3{grid-template-columns:min(var(--lw,220px),32vw) minmax(0,1fr) min(var(--npw,300px),45vw)!important}}
+/* knoppen in de kop van de aantekeningen: symbool en tekst netjes op één lijn */
+.nphead .btn.sm{display:inline-flex;align-items:center;gap:4px;line-height:1}.nphead .btn.sm .i{width:16px;height:16px;vertical-align:0;flex:none}
+.nphead .btn.sm .bt{display:inline-block;line-height:16px}
+@container (max-width:400px){.nphead #nppop .bt{display:none}.nphead #nppop{width:30px;padding:0}}
 /* ---- iconen (Material Symbols Rounded, Apache-2.0) */
 .i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 .btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}

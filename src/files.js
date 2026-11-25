@@ -253,7 +253,8 @@
       return;
     }
     /* openen: in de viewer als pop-up (Esc sluit hem); bij meer bestanden staan ze links in de pop-up */
-    if (a === 'open') { openFilePopup(items.map(function (it) { return { name: it.name, size: it.size, type: guessMime(it.name), sub: (it.m ? it.m.title + (it.m.date ? ' · ' + fmtShort(it.m.date) : '') : ''), get: it.get }; }), 0, items.length > 1 ? null : items[0].name); return; }
+    if (a === 'open') { openFilePopup(items.map(function (it) { var rec = it.m && it.kind === 'Stuk' ? it.m.files.filter(function (x) { return x.name === it.name; })[0] : null;
+      return { name: it.name, size: it.size, type: guessMime(it.name), sub: (it.m ? it.m.title + (it.m.date ? ' · ' + fmtShort(it.m.date) : '') : ''), get: rec ? function () { return A.store.get(it.m, rec.name); } : it.get, m: it.m, rec: rec }; }), 0, items.length > 1 ? null : items[0].name); return; }
     if (a === 'dl') { for (var j = 0; j < items.length; j++) { dl(await items[j].get(), items[j].name); await sleep(350); } if (items.length > 1) toast(items.length + ' bestanden staan in je map Downloads. Vraagt Edge om toestemming voor meerdere downloads? Klik dan op Toestaan.', 'ok'); return; }
     if (a === 'mail') {
       try { var em = await buildEml(items); dl(em.blob, em.name); toast('Open het gedownloade bestand "' + em.name + '" (onderaan of in Downloads). Outlook opent dan een nieuwe mail met ' + (items.length === 1 ? 'de bijlage' : 'de ' + items.length + ' bijlagen') + ', klaar om te versturen.', 'ok'); }

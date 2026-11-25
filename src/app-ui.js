@@ -95,6 +95,7 @@
     if (d && d.meetings) { A.data = d; if (!A.data.types || !A.data.types.length) A.data.types = DEFAULT_TYPES.slice(); if (st.fromOld) await st.save(A.data); /* ingelezen uit een oud register: meteen als memeet.json bewaren */ }
     else { A.data = { version: 1, types: DEFAULT_TYPES.slice(), meetings: [] }; await st.save(A.data); }
     migrateActions();
+    if (migrateAnnotations()) await st.save(A.data); /* aparte annotaties van versie 1.5 worden tekst in de aantekeningen */
     if (st.kind === 'map') await migrateLayout(st);
     await kvSet('mode', st.kind);
     route();
@@ -1044,37 +1045,21 @@
     if (PV.io) { PV.io.disconnect(); PV.io = null; }
     PV.pages = null; PV.hits = []; PV.hi = -1;
     if (!f) { setHTML(el, '<div class="pvmsg">Nog geen stukken.<br><small>Sleep documenten of een mail naar dit venster.</small></div>'); return; }
+    /* De viewer toont elk stuk in zijn eigen opmaak, zonder werkbalk vol gereedschap: alleen zoomen, zoeken, downloaden (het
+       originele bestand) en vergroten. Markeren, opmerkingen en meeneempunten gaan via het menuutje bij geselecteerde tekst.
+       Bewerken gebeurt in het tabblad Bestanden. */
     var editable = !isNew;
-    if (!editable && PV.tool !== 'select') PV.tool = 'select';
-    var editMode = PV.mode === 'edit' && !isNew && canEdit(f);
-    var tabs = !isNew && canEdit(f) ? '<div class="vtabs"><button type="button" data-mode="pdf" class="' + (editMode ? '' : 'on') + '">Bekijken</button><button type="button" data-mode="edit" class="' + (editMode ? 'on' : '') + '" title="Het originele bestand bewerken">Bewerken</button></div>' : '';
-    if (editMode) {
-      setHTML(el, '<div class="pvbar"><div class="pvt">' + tabs + '<b class="pvname" title="' + esc(f.name) + '">' + (i + 1) + '. ' + esc(f.name) + '</b></div><div class="pvtools"><button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button><button type="button" class="tl" data-act="orig" title="Origineel downloaden">' + ic('download') + '</button>' + maxBtn() + '</div></div><div class="edwrap" id="edw"></div>');
-      $$('[data-mode]', el).forEach(function (b) { b.onclick = function () { switchMode(m, i, b.dataset.mode); }; });
-      $$('[data-act]', el).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); pvAct(b.dataset.act, m, i); }; });
-      A.edCtl = await mountEditor(m, f, $('#edw'), function () { renderDocList(m); });
-      return;
-    }
-    var hint = !editable ? 'Sla de vergadering eerst op. Daarna kun je markeren en opmerkingen maken.' : !/\.pdf$/i.test(f.name) && !(f.pdf && f.conv === 'vervangen') ? 'Weergave van het origineel (' + ((/\.([^.]+)$/.exec(f.name) || ['', '?'])[1]).toUpperCase() + '). De opmaak kan iets afwijken; het bestand zelf blijft ongewijzigd.' : '';
-    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">' + ic('info') + '</span>' : '') + '<span class="pvst" id="pvst"></span><span class="pvnc" id="pvnc" hidden></span><span class="pvtip" title="Selecteer tekst in het stuk: dan kun je markeren, een opmerking maken of er een meeneempunt van maken">Selecteer tekst: markeren, opmerking of meeneempunt</span>';
-    TOOLS.forEach(function (t) { hb += '<button type="button" class="tl' + (PV.tool === t[0] ? ' on' : '') + '" data-tool="' + t[0] + '" title="' + t[1] + ': ' + t[2] + '"' + (!editable && t[0] !== 'select' ? ' disabled' : '') + '><span class="tic">' + t[3] + '</span><span class="tlb">' + t[1] + '</span></button>'; });
-    hb += '<span class="cols" id="pvcols">' + COLORS.map(function (c) { return '<button type="button" class="col" data-color="' + c + '" title="Kleur" style="--c:' + c + '"></button>'; }).join('') + '</span>';
-    hb += '<button type="button" class="tl" data-act="undo" title="Ongedaan maken (Ctrl+Z)"' + (editable ? '' : ' disabled') + '>' + ic('undo') + '</button><button type="button" class="tl" data-act="redo" title="Opnieuw (Ctrl+Y)"' + (editable ? '' : ' disabled') + '>' + ic('redo') + '</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="zout" title="Kleiner" aria-label="Kleiner">' + ic('zoom_out') + '</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Groter" aria-label="Groter">' + ic('zoom_in') + '</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button>';
-    hb += maxBtn() + '<button type="button" class="tl" data-act="more" title="Meer">' + ic('more_horiz') + '</button><div class="pvmenu" id="pvmenu" hidden>' +
-      (editable ? '<button type="button" data-act="dlann">PDF met aantekeningen downloaden</button><button type="button" data-act="clear">Alle aantekeningen in dit stuk wissen</button>' : '') +
-      '<button type="button" data-act="orig">Origineel downloaden</button><button type="button" data-act="tab">PDF openen in nieuw tabblad</button></div><span class="sp"></span><span class="srch"><input id="pvq" type="search" placeholder="Zoeken in PDF (Ctrl+F)" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)" aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)" aria-label="Volgende">' + ic('chevron_right') + '</button></span></div></div>';
+    PV.tool = 'select'; PV.mode = 'pdf';
+    var hb = '<div class="pvbar one simple"><b class="pvname" title="' + esc(f.name) + '">' + esc(f.name) + '</b><span class="pvst" id="pvst"></span><span class="pvnc" id="pvnc" hidden></span><span class="sp"></span>';
+    hb += '<button type="button" class="tl" data-act="zout" title="Uitzoomen" aria-label="Uitzoomen">' + ic('zoom_out') + '</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Inzoomen" aria-label="Inzoomen">' + ic('zoom_in') + '</button>';
+    hb += '<span class="srch"><input id="pvq" type="search" placeholder="Zoeken (Ctrl+F)" aria-label="Zoeken in het stuk" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)" aria-label="Vorige treffer">' + ic('keyboard_arrow_up') + '</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)" aria-label="Volgende treffer">' + ic('keyboard_arrow_down') + '</button></span>';
+    hb += '<button type="button" class="tl" data-act="orig" title="Downloaden (het originele bestand)" aria-label="Downloaden">' + ic('download') + '</button>' + maxBtn() + '</div>';
     hb += '<div class="pvpages" id="pvp"><div class="pvmsg">Stuk wordt klaargemaakt…</div></div>';
     setHTML(el, hb);
-    $$('[data-color]', el).forEach(function (b) { b.onclick = function () { if (PV.tool !== 'mark' && PV.tool !== 'note') setTool('mark'); PV.colors[PV.tool] = b.dataset.color; markColor(); }; });
-    $$('button[data-tool]', el).forEach(function (b) { b.onclick = function () { setTool(b.dataset.tool); }; });
-    $$('[data-mode]', el).forEach(function (b) { b.onclick = function () { switchMode(m, i, b.dataset.mode); }; });
     $$('[data-act]', el).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); pvAct(b.dataset.act, m, i); }; });
     var qi = $('#pvq'), qt;
     qi.addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { doSearch(qi.value); }, 250); });
     qi.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); if (PV.q !== qi.value) doSearch(qi.value); else gotoHit(PV.hi + (e.shiftKey ? -1 : 1)); } else if (e.key === 'Escape') { qi.value = ''; doSearch(''); } });
-    markColor();
     var blob = null; try { blob = isNew ? await draftPdf(f) : await getPdf(m, f); } catch (e) { console.error(e); }
     if (tok !== PV.tok) return;
     var pvp = $('#pvp');

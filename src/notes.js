@@ -106,22 +106,12 @@
   function renderNotes(m) {
     var np = $('#np'); if (!np) return;
     npWidth();
-    /* met een annotatie: twee tabbladen (Aantekeningen en Annotatie [voornaam]); de knoppen worden dan alleen een symbool */
-    var ann = !m.isNew && m.annotation && m.annotation.items, tab = ann && (A.npTab || {})[m.id] === 'ann' ? 'ann' : 'notes';
-    var label = ann ? '<span class="nptabs" role="tablist"><button type="button" role="tab" class="nptab' + (tab === 'notes' ? ' on' : '') + '" data-nptab="notes" aria-selected="' + (tab === 'notes') + '">Aantekeningen</button><button type="button" role="tab" class="nptab' + (tab === 'ann' ? ' on' : '') + '" data-nptab="ann" aria-selected="' + (tab === 'ann') + '" title="Annotatie van ' + esc(m.annotation.from) + '">Annotatie ' + esc(annFirst(m.annotation)) + ' <span class="muted" id="annProg">' + annProgress(m.annotation) + '</span></button></span>' : '<b>Aantekeningen</b>';
-    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead' + (ann ? ' hasann' : '') + '">' + label + '<span class="npst" id="npst"></span>' + (m.isNew ? '' : (ann ? '' : '<button type="button" class="btn sm icon" id="annUp" title="+ Annotatie: een memo van een medewerker met advies per agendapunt" aria-label="Annotatie toevoegen">' + ic('note_add') + '</button>') + '<button type="button" class="btn sm' + (ann ? ' icon' : '') + '" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail" aria-label="Verslag mailen">' + ic('mail') + (ann ? '' : ' Mail') + '</button><button type="button" class="btn sm' + (ann ? ' icon' : '') + '" id="nppop" title="In een apart venster openen, rechts op je scherm" aria-label="Apart venster">' + ic('open_in_new') + (ann ? '' : '<span class="bt"> Apart venster</span>') + '</button>') + '</div>';
+    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm icon" id="annUp" title="+ Annotatie: de tekst van een memo (.docx, .txt of mail) onderaan je aantekeningen zetten" aria-label="Annotatie toevoegen">' + ic('note_add') + '</button><button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail" aria-label="Verslag mailen">' + ic('mail') + '<span class="bt">Mail</span></button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm" aria-label="Apart venster">' + ic('open_in_new') + '<span class="bt">Apart venster</span></button>') + '</div>';
     if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); bindGrip(); return; }
     if (npPopped(m)) {
       setHTML(np, h + '<div class="pvmsg">De aantekeningen staan in een apart venster.<br><button type="button" class="btn sm" id="npfocus">Naar het venster</button> <button type="button" class="btn sm" id="npback">Terugzetten in MeMeet</button></div>');
       $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
-      $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; bindGrip(); return;
-    }
-    if (tab === 'ann') {
-      setHTML(np, h + annTabHtml(m));
-      $('#npmail').onclick = function () { mailMinutes(m); }; $('#nppop').onclick = function () { popNotes(m); };
-      $('#annRe').onclick = function () { annUpload(m); };
-      $$('[data-nptab]', np).forEach(function (b) { b.onclick = function () { if (A.flushNotes) A.flushNotes(); A.npTab[m.id] = b.dataset.nptab; renderNotes(m); }; });
-      annBind(m); bindGrip(); return;
+      $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; $('#annUp').onclick = function () { annUpload(m); }; bindGrip(); return;
     }
     /* boven: wat je hier inbrengt (geel vak, alleen als er iets is); midden: het tekstvak; onder: Herkend en de uitleg van de tekens */
     var ibA = ibAll(), ibPv = ibPreviewHtml(m, ibA);
@@ -139,7 +129,6 @@
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
     ibBind(m);
     var au = $('#annUp'); if (au) au.onclick = function () { annUpload(m); };
-    $$('[data-nptab]', np).forEach(function (b) { b.onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } A.npTab = A.npTab || {}; A.npTab[m.id] = b.dataset.nptab; renderNotes(m); }; });
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
     $('#nppop').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } popNotes(m); };
     var dlb = $('#npdl'); if (dlb) dlb.onclick = function () { dl(new Blob(['﻿' + minutesText(m)], { type: 'text/plain' }), minutesFileName(m)); };

@@ -31,13 +31,15 @@
   /* ---------- viewer: de mail en de bijlagen */
   var MA = { tok: 0, pdf: null };
   function closeMailAct() {
+    if (MA.ed && MA.ed.isDirty() && !confirm('Je hebt wijzigingen in het bestand die nog niet zijn opgeslagen. Weggooien?')) return false;
+    MA.ed = null;
     var d = $('#maDlg'); if (d) d.remove();
     if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
     MA.tok++; MA.items = null;
     if (MA.focus && MA.focus.isConnected) { try { MA.focus.focus(); } catch (e) {} } MA.focus = null;
   }
   async function openMailAct(x) {
-    closeMailAct();
+    if (closeMailAct() === false) return;
     MA.focus = D.activeElement;
     var bg = D.createElement('div'); bg.className = 'dlgbg mabg'; bg.id = 'maDlg';
     var sent = x.mail.sent ? new Date(x.mail.sent) : null;
@@ -67,13 +69,13 @@
   /* Dezelfde viewer als pop-up voor bestanden (tabblad Bestanden): links de bestanden, rechts het bestand. Esc sluit hem.
      items: [{ name, size, get() }], start: het bestand dat eerst getoond wordt. */
   function openFilePopup(items, start, title) {
-    closeMailAct();
+    if (closeMailAct() === false) return;
     MA.focus = D.activeElement;
     var bg = D.createElement('div'); bg.className = 'dlgbg mabg'; bg.id = 'maDlg';
     var it0 = items[start || 0];
     setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-labelledby="maT">' +
       '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('description') + '</span><div class="mattl"><b id="maT" class="mastatic">' + esc(title || it0.name) + '</b><small class="muted" id="maSub">' + esc(items.length > 1 ? items.length + ' bestanden' : (it0.sub || '')) + '</small></div>' +
-      '<button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<button type="button" class="btn sm" id="maEd" hidden title="Het bestand hier bewerken (Word, Excel, PowerPoint of tekst)">' + ic('edit') + ' Bewerken</button><button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="mabody' + (items.length > 1 ? '' : ' one') + '"><ul class="malist" id="maList">' + items.map(function (it, i) {
         return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + ic(isMailItem(it) ? 'mail' : 'description') + '</span><span class="fn">' + esc(it.name) + '</span>' + (it.size ? '<small class="muted">' + esc(kb(it.size)) + '</small>' : '') + '</button></li>';
       }).join('') + '</ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
@@ -81,8 +83,18 @@
     MA.items = items;
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
     $('#maX', bg).onclick = closeMailAct;
-    $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); if (items.length > 1) $('#maT').textContent = items[+b.dataset.mi].name; }; });
+    $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { if (MA.ed && MA.ed.isDirty() && !confirm('Je hebt wijzigingen die nog niet zijn opgeslagen. Weggooien?')) return; MA.ed = null; showMailItem(+b.dataset.mi); if (items.length > 1) $('#maT').textContent = items[+b.dataset.mi].name; }; });
     $('#maDl', bg).onclick = async function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob || await it.get(), it.name); };
+    /* bewerken (alleen een stuk van een vergadering in een formaat dat MeMeet kan bewerken) */
+    $('#maEd', bg).onclick = async function () {
+      var it = MA.items[MA.cur || 0], pv = $('#maPv'), b = $('#maEd');
+      if (MA.ed) { if (MA.ed.isDirty() && !confirm('Je hebt wijzigingen die nog niet zijn opgeslagen. Weggooien?')) return; MA.ed = null; it.blob = null; showMailItem(MA.cur || 0); return; }
+      MA.tok++; if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
+      pv.classList.add('editing'); setHTML(pv, '<div class="edwrap" id="maEdw"></div>');
+      setHTML(b, ic('visibility') + ' Bekijken'); b.title = 'Terug naar bekijken';
+      MA.ed = await mountEditor(it.m, it.rec, $('#maEdw'), function () {}) || null;
+      it.blob = null;
+    };
     try { $('#maX', bg).focus(); } catch (e) {}
     showMailItem(start || 0);
   }
@@ -90,6 +102,8 @@
     var it = MA.items && MA.items[i], pv = $('#maPv'); if (!it || !pv) return;
     MA.cur = i; var tok = ++MA.tok;
     $$('#maList [data-mi]').forEach(function (b) { b.classList.toggle('on', +b.dataset.mi === i); });
+    pv.classList.remove('editing');
+    var eb = $('#maEd'); if (eb) { eb.hidden = !(it.m && it.rec && canEdit(it.rec)); setHTML(eb, ic('edit') + ' Bewerken'); eb.title = 'Het bestand hier bewerken (Word, Excel, PowerPoint of tekst)'; }
     if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
     setHTML(pv, '<div class="pvmsg">Wordt klaargemaakt…</div>');
     var out = null;
@@ -110,5 +124,5 @@
       await pg.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
     }
   }
-  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#maDlg')) { e.preventDefault(); e.stopPropagation(); closeMailAct(); } }, true);
+  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#maDlg') && !e.target.closest('.edbody')) { e.preventDefault(); e.stopPropagation(); closeMailAct(); } }, true);
   W.addEventListener('hashchange', function () { if ($('#maDlg')) closeMailAct(); });

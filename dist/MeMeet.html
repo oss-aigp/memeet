@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.5.0 -->
+<!-- MeMeet-versie: 1.6.0 -->
 <!--
-  MeMeet 1.5.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.6.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -639,27 +639,37 @@ html[data-theme=dark] :is(.ibbadge,.ibgrp .tag){color:#f1d27a;border-color:#6b5a
 /* in een smalle kolom aantekeningen is "Apart venster" alleen een symbool (de naam staat in de tooltip) */
 .np{container-type:inline-size}
 @container (max-width:400px){.nphead #nppop .bt{display:none}.nphead #nppop{width:30px;padding:0}}
-/* ---- annotatie van een medewerker */
-.nptabs{display:flex;gap:2px;min-width:0;overflow:hidden;align-self:stretch}
-.nptab{border:0;background:none;padding:0 6px;font:inherit;font-weight:700;font-size:13.5px;color:var(--mute);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
-.nptab.on{color:var(--brand);border-bottom-color:var(--acc)}.nptab .muted{font-weight:400;font-size:12px}
-.nphead.hasann{padding-left:4px}
-.annwrap{flex:1;min-height:0;overflow:auto;padding:8px 10px 10px}
-.annh{display:flex;align-items:center;gap:10px}.annh>div{flex:1;min-width:0}.annfile{font-size:12px;overflow-wrap:anywhere}.annfile .link{padding:0;font-size:12px}
-.annintro{font-size:12.5px;margin:6px 0 10px}.annintro code{font-family:Consolas,monospace;color:var(--acc)}
-.ai{border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin-bottom:10px}
-.ai .aib{font-size:13px;color:var(--ink);margin:2px 0 6px}
-.aifb{width:100%;min-height:54px;resize:none;font:13.5px/1.45 var(--font);padding:6px 8px;overflow:hidden}
-.ai .ac{padding:3px 0;font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:3px 4px;align-items:center}.ai .ac[hidden]{display:none}
-.aipv{font-size:12.5px;margin-top:4px}.aipv>div{padding:1px 0}.aipv .k{font-family:Consolas,monospace;font-weight:700;color:var(--acc)}.aipv .why{color:var(--mute);font-size:12px}
+/* ---- annotatie: sleepvak in het venster */
 .anndz{border:2px dashed var(--licht);border-radius:8px;padding:18px;text-align:center;margin-top:10px;background:var(--row)}.anndz.on{border-color:var(--hemel);background:var(--soft)}.anndz p{margin:8px 0 0;font-size:12.5px}
-.dlg.annmail{width:min(720px,100%)}.annwarn{color:#9a6700;margin:0;font-size:13px}.annpriv{margin:8px 0;color:var(--mute);font-size:12.5px}
-.mailh{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:13px;margin:8px 0}.mailh span{color:var(--mute)}
-.annbody{max-height:45vh;overflow:auto}
+.btn[hidden]{display:none!important}
 /* viewer-pop-up voor bestanden: één bestand zonder lijst links */
 .mabody.one{grid-template-columns:minmax(0,1fr)}.mabody.one .malist{display:none}
 .mastatic{font-size:17px;font-weight:700;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .fxtb tbody tr{user-select:none}
+/* ---- viewer 1.6: licht en rustig. Geen grijs kader: een witte, dunne achtergrond en een subtiele rand om de pagina. */
+.pvpages,.mapv{background:#f4f6f8!important;background-image:none!important;padding:10px!important;gap:10px}
+.pg{box-shadow:0 0 0 1px #dfe4ea,0 1px 4px rgba(16,24,40,.06)!important}.mapg{box-shadow:0 0 0 1px #dfe4ea,0 1px 4px rgba(16,24,40,.06)}
+.pgn{color:#98a2b3}
+.pvmsg{color:var(--mute)}.pvpages .pvmsg{color:#5d6875}
+.pvbar.simple{gap:4px;padding:4px 8px}.pvbar.simple .pvname{flex:0 1 auto;min-width:40px;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:4px}
+.pvbar.simple .sp{flex:1 1 8px}.pvbar.simple .srch{flex:0 1 220px;min-width:110px;margin:0 2px}
+#pv.max .pvpages{padding:14px!important}
+.mapv.editing{padding:0!important;display:flex;flex-direction:column;align-items:stretch;background:var(--card)!important}.mapv.editing .edwrap{flex:1;min-height:0}
+.edbody{background:#f4f6f8}
+/* drie kolommen (stukken, viewer, aantekeningen) vanaf 900 px breed; daaronder komen de aantekeningen onder de viewer */
+@media (min-width:900px){
+ .ws.n3{grid-template-columns:min(var(--lw,260px),32vw) minmax(0,1fr) min(var(--npw,340px),45vw)!important}
+ .ws.n3 .np{grid-column:auto!important;position:static;height:100%!important}
+ main.detail{height:calc(100vh - var(--hdr))!important;display:flex!important}
+ main.detail .ws>.card{height:100%!important}main.detail .pv{height:100%!important}
+ .ws.n3 .lsgrip{display:block;left:calc(min(var(--lw,260px),32vw) + 2px)}
+ .ws.n3.pvwide{grid-template-columns:minmax(0,1fr) min(var(--npw,340px),45vw)!important}
+}
+@media (min-width:900px) and (max-width:1250px){.ws.n3{grid-template-columns:min(var(--lw,220px),32vw) minmax(0,1fr) min(var(--npw,300px),45vw)!important}}
+/* knoppen in de kop van de aantekeningen: symbool en tekst netjes op één lijn */
+.nphead .btn.sm{display:inline-flex;align-items:center;gap:4px;line-height:1}.nphead .btn.sm .i{width:16px;height:16px;vertical-align:0;flex:none}
+.nphead .btn.sm .bt{display:inline-block;line-height:16px}
+@container (max-width:400px){.nphead #nppop .bt{display:none}.nphead #nppop{width:30px;padding:0}}
 /* ---- iconen (Material Symbols Rounded, Apache-2.0) */
 .i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 .btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}
@@ -676,12 +686,12 @@ html[data-theme=dark] :is(.ibbadge,.ibgrp .tag){color:#f1d27a;border-color:#6b5a
 .i-chevron_right{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M530-481%20353-658q-9-9-8.5-21t9.5-21q9-9%2021.5-9t21.5%209l198%20198q5%205%207%2010t2%2011q0%206-2%2011t-7%2010L396-261q-9%209-21%208.5t-21-9.5q-9-9-9-21.5t9-21.5l176-176Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-close{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-438%20270-228q-9%209-21%209t-21-9q-9-9-9-21t9-21l210-210-210-210q-9-9-9-21t9-21q9-9%2021-9t21%209l210%20210%20210-210q9-9%2021-9t21%209q9%209%209%2021t-9%2021L522-480l210%20210q9%209%209%2021t-9%2021q-9%209-21%209t-21-9L480-438Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-close_fullscreen{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M420-378%20143-101q-9%209-21%209t-21-9q-9-9-9-21t9-21l277-277H190q-13%200-21.5-8.5T160-450q0-13%208.5-21.5T190-480h260q13%200%2021.5%208.5T480-450v260q0%2013-8.5%2021.5T450-160q-13%200-21.5-8.5T420-190v-188Zm162-162h188q13%200%2021.5%208.5T800-510q0%2013-8.5%2021.5T770-480H510q-13%200-21.5-8.5T480-510v-260q0-13%208.5-21.5T510-800q13%200%2021.5%208.5T540-770v188l277-277q9-9%2021-9t21%209q9%209%209%2021t-9%2021L582-540Z%22%2F%3E%3C%2Fsvg%3E")}
-.i-content_copy{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M300-200q-24%200-42-18t-18-42v-560q0-24%2018-42t42-18h440q24%200%2042%2018t18%2042v560q0%2024-18%2042t-42%2018H300Zm0-60h440v-560H300v560ZM180-80q-24%200-42-18t-18-42v-590q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v590h470q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32Q662.75-80%20650-80H180Zm120-180v-560%20560Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-create_new_folder{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18.5T80-220v-520q0-23%2018-41.5t42-18.5h256q12.44%200%2023.72%205t19.37%2013.09L481-740h339q23%200%2041.5%2018.5T880-680v460q0%2023-18.5%2041.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0%200v-520%20520Zm410-190v60q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-60h60q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5h-60v-60q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v60h-60q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5h60Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-dark_mode{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-120q-150%200-255-105T120-480q0-135%2079.5-229T408-830q20-5%2034-1t22%2015q8%2010%207.5%2025t-8.5%2035q-9%2023-14%2047t-5%2049q0%2090%2063%20153t153%2063q25%200%2048.5-4.5T754-461q22-8%2038-7t26%209q10%208%2013%2023t-2%2036q-27%20121-121%20200.5T480-120Zm0-60q109%200%20190-67.5T771-406q-25%2011-53.5%2016.5T660-384q-115%200-195.5-80.5T384-660q0-24%205-51.5t18-62.5q-98%2027-162.5%20109.5T180-480q0%20125%2087.5%20212.5T480-180Zm-4-297Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-delete{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M261-120q-24.75%200-42.37-17.63Q201-155.25%20201-180v-570h-11q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h158q0-13%208.63-21.5%208.62-8.5%2021.37-8.5h204q12.75%200%2021.38%208.62Q612-822.75%20612-810h158q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5h-11v570q0%2024.75-17.62%2042.37Q723.75-120%20699-120H261Zm438-630H261v570h438v-570ZM418.5-274.63q8.5-8.62%208.5-21.37v-339q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v339q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63Zm166%200q8.5-8.62%208.5-21.37v-339q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v339q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63ZM261-750v570-570Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-description{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M349-250h262q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5Zm0-170h262q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5ZM220-80q-24%200-42-18t-18-42v-680q0-24%2018-42t42-18h336q12.44%200%2023.72%205T599-862l183%20183q8%208%2013%2019.28%205%2011.28%205%2023.72v496q0%2024-18%2042t-42%2018H220Zm331-584v-156H220v680h520v-494H581q-12.75%200-21.37-8.63Q551-651.25%20551-664ZM220-820v186-186%20680-680Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-download{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36%209.11-21.36%209.39-9%2021.89-9t21.5%209l98%2099v-341q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v341l99-99q8.8-9%2020.9-8.5%2012.1.5%2021.49%209.5%208.61%209%208.61%2021.5t-9%2021.5L501-334q-5%205-10.13%207-5.14%202-11%202-5.87%200-10.87-2ZM220-160q-24%200-42-18t-18-42v-113q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v113h520v-113q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v113q0%2024-18%2042t-42%2018H220Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-edit{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M180-180h44l472-471-44-44-472%20471v44Zm-30%2060q-13%200-21.5-8.5T120-150v-73q0-12%205-23.5t13-19.5l557-556q8-8%2019-12.5t23-4.5q11%200%2022%204.5t20%2012.5l44%2044q9%209%2013%2020t4%2022q0%2011-4.5%2022.5T823-694L266-138q-8%208-19.5%2013t-23.5%205h-73Zm629-617-41-41%2041%2041Zm-105%2064-22-22%2044%2044-22-22Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-edit_note{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M190-410q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h240q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H190Zm0-165q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h410q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H190Zm0-165q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h410q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H190Zm330%20550v-81q0-5.57%202-10.78%202-5.22%207-10.22l211.61-210.77q9.11-9.12%2020.25-13.18Q772-520%20783-520q12%200%2023%204.5t20%2013.5l37%2037q9%209%2013%2020t4%2022q0%2011-4.5%2022.5t-13.58%2020.62L652-169q-5%205-10.22%207-5.21%202-10.78%202h-81q-12.75%200-21.37-8.63Q520-177.25%20520-190Zm300-233-37-37%2037%2037ZM580-220h38l121-122-18-19-19-18-122%20121v38Zm141-141-19-18%2037%2037-18-19Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-event{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M528-248.18q-28-28.19-28-69Q500-358%20528.18-386q28.19-28%2069-28Q638-414%20666-385.82q28%2028.19%2028%2069Q694-276%20665.82-248q-28.19%2028-69%2028Q556-220%20528-248.18ZM180-80q-24%200-42-18t-18-42v-620q0-24%2018-42t42-18h65v-28q0-13.6%209-22.8%209-9.2%2023.02-9.2t23.5%209.2Q310-861.6%20310-848v28h340v-28q0-13.6%209-22.8%209-9.2%2023.02-9.2t23.5%209.2Q715-861.6%20715-848v28h65q24%200%2042%2018t18%2042v620q0%2024-18%2042t-42%2018H180Zm0-60h600v-430H180v430Zm0-490h600v-130H180v130Zm0%200v-130%20130Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-folder{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18.5T80-220v-520q0-23%2018-41.5t42-18.5h256q12.44%200%2023.72%205t19.37%2013.09L481-740h339q23%200%2041.5%2018.5T880-680v460q0%2023-18.5%2041.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0%200v-520%20520Z%22%2F%3E%3C%2Fsvg%3E")}
@@ -691,10 +701,10 @@ html[data-theme=dark] :is(.ibbadge,.ibgrp .tag){color:#f1d27a;border-color:#6b5a
 .i-format_list_numbered{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M150-80q-13%200-21.5-8.5T120-110q0-13%208.5-21.5T150-140h70v-30h-30q-13%200-21.5-8.5T160-200q0-13%208.5-21.5T190-230h30v-30h-70q-13%200-21.5-8.5T120-290q0-13%208.5-21.5T150-320h90q17%200%2028.5%2011.5T280-280v40q0%2017-11.5%2028.5T240-200q17%200%2028.5%2011.5T280-160v40q0%2017-11.5%2028.5T240-80h-90Zm-7-280q-9%200-16-7t-7-16v-87q0-17%2011.5-28.5T160-510h60v-30h-70q-13%200-21.5-8.5T120-570q0-13%208.5-21.5T150-600h90q17%200%2028.5%2011.5T280-560v70q0%2017-11.5%2028.5T240-450h-60v30h70q13%200%2021.5%208.5T280-390q0%2013-8.5%2021.5T250-360H143Zm45.5-288.5Q180-657%20180-670v-150h-30q-13%200-21.5-8.5T120-850q0-13%208.5-21.5T150-880h68q9%200%2015.5%206.5T240-858v188q0%2013-8.5%2021.5T210-640q-13%200-21.5-8.5ZM399-209q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Zm0-243q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Zm0-243q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-group{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M38-254q0-35%2018-63.5t50-42.5q73-32%20131.5-46T358-420q62%200%20120%2014t131%2046q32%2014%2050.5%2042.5T678-254v34q0%2025-17.5%2042.5T618-160H98q-25%200-42.5-17.5T38-220v-34Zm824%2094H724q5-15%209.5-29.5T738-220v-34q0-63-29-101.5T622-420q69%208%20130%2022t99%2034q33%2019%2052%2047t19%2063v34q0%2025-17.5%2042.5T862-160ZM250-523q-42-42-42-108t42-108q42-42%20108-42t108%2042q42%2042%2042%20108t-42%20108q-42%2042-108%2042t-108-42Zm426%200q-42%2042-108%2042-11%200-24.5-1.5T519-488q24-25%2036.5-61.5T568-631q0-45-12.5-79.5T519-774q11-3%2024.5-5t24.5-2q66%200%20108%2042t42%20108q0%2066-42%20108ZM98-220h520v-34q0-16-9.5-31T585-306q-72-32-121-43t-106-11q-57%200-106.5%2011T130-306q-14%206-23%2021t-9%2031v34Zm324.5-346.5Q448-592%20448-631t-25.5-64.5Q397-721%20358-721t-64.5%2025.5Q268-670%20268-631t25.5%2064.5Q319-541%20358-541t64.5-25.5ZM358-220Zm0-411Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-help{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M511-258.03q11-11.03%2011-27T510.97-312q-11.03-11-27-11T457-311.97q-11%2011.03-11%2027T457.03-258q11.03%2011%2027%2011T511-258.03ZM480.27-80q-82.74%200-155.5-31.5Q252-143%20197.5-197.5t-86-127.34Q80-397.68%2080-480.5t31.5-155.66Q143-709%20197.5-763t127.34-85.5Q397.68-880%20480.5-880t155.66%2031.5Q709-817%20763-763t85.5%20127Q880-563%20880-480.27q0%2082.74-31.5%20155.5Q817-252%20763-197.68q-54%2054.31-127%2086Q563-80%20480.27-80Zm.23-60Q622-140%20721-239.5t99-241Q820-622%20721.19-721T480-820q-141%200-240.5%2098.81T140-480q0%20141%2099.5%20240.5t241%2099.5Zm-.5-340Zm2.77-180Q513-660%20536-641.5q23%2018.5%2023%2047.2%200%2026.3-15.65%2045.73Q527.7-529.14%20508-512q-23%2019-40%2042.38-17%2023.39-17%2052.62%200%2011%208.4%2017.5T479-393q12%200%2019.88-8%207.87-8%2010.12-20%203-21%2016-38t30.23-30.78Q580-510%20596-537q16-27%2016-58.61%200-50.39-37.5-83.89T485.55-713Q450-713%20417-698t-54%2044q-7%2010-6.5%2021.5t9.47%2018.5q11.41%208%2023.65%205%2012.23-3%2020.38-14%2012.75-17.9%2031.88-27.45Q461-660%20482.77-660Z%22%2F%3E%3C%2Fsvg%3E")}
-.i-info{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M504.5-288.63q8.5-8.62%208.5-21.37v-180q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v180q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63Zm-1-314.57q9.5-9.2%209.5-22.8%200-14.45-9.48-24.22-9.48-9.78-23.5-9.78t-23.52%209.78Q447-640.45%20447-626q0%2013.6%209.48%2022.8%209.48%209.2%2023.5%209.2t23.52-9.2ZM480.27-80q-82.74%200-155.5-31.5Q252-143%20197.5-197.5t-86-127.34Q80-397.68%2080-480.5t31.5-155.66Q143-709%20197.5-763t127.34-85.5Q397.68-880%20480.5-880t155.66%2031.5Q709-817%20763-763t85.5%20127Q880-563%20880-480.27q0%2082.74-31.5%20155.5Q817-252%20763-197.68q-54%2054.31-127%2086Q563-80%20480.27-80Zm.23-60Q622-140%20721-239.5t99-241Q820-622%20721.19-721T480-820q-141%200-240.5%2098.81T140-480q0%20141%2099.5%20240.5t241%2099.5Zm-.5-340Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-ink_eraser{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M678-220h173q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H618l60-60Zm-486%2060q-5.91%200-11.46-2-5.54-2-10.54-7l-72-75q-18-17-17.5-41.5T97-327l458-498q16-17%2040.57-17%2024.56%200%2041.43%2017l205%20215q17%2017%2018%2042t-16%2042L512-170q-4.55%205-10.24%207.5T490-160H192Zm288-60%20324-352-207-217-455%20503%2064%2066h274Zm0-260Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-ink_highlighter{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M554-407%20439-522%20217-300l115%20115%20222-222Zm-72-158%20115%20115%20213-213-115-115-213%20213Zm-64-21%20200%20200-234%20234q-19%2019-52.5%2019T279-152l-11-11-25%2025q-8%208-19.5%2013t-23.5%205h-94q-10%200-13.5-9.5T96-146l94-94-4-4q-22-22-21.5-55.5T187-355l231-231Zm0%200%20237-237q17-17%2043-17t43%2017l112%20112q17%2017%2016.5%2045.5T852-620L618-386%20418-586Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-keyboard_arrow_down{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M469-358q-5-2-10-7L261-563q-9-9-8.5-21.5T262-606q9-9%2021.5-9t21.5%209l175%20176%20176-176q9-9%2021-8.5t21%209.5q9%209%209%2021.5t-9%2021.5L501-365q-5%205-10%207t-11%202q-6%200-11-2Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-keyboard_arrow_up{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-554%20304-378q-9%209-21%208.5t-21-9.5q-9-9-9-21.5t9-21.5l197-197q9-9%2021-9t21%209l198%20198q9%209%209%2021t-9%2021q-9%209-21.5%209t-21.5-9L480-554Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-light_mode{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M579-380.76q41-40.77%2041-99Q620-538%20579.24-579q-40.77-41-99-41Q422-620%20381-579.24q-41%2040.77-41%2099Q340-422%20380.76-381q40.77%2041%2099%2041Q538-340%20579-380.76ZM338.5-338.5Q280-397%20280-480t58.5-141.5Q397-680%20480-680t141.5%2058.5Q680-563%20680-480t-58.5%20141.5Q563-280%20480-280t-141.5-58.5ZM70-450q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32Q57.25-510%2070-510h100q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H70Zm720%200q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h100q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H790ZM458.5-768.63Q450-777.25%20450-790v-100q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v100q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63Zm0%20720Q450-57.25%20450-70v-100q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v100q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63ZM240-678l-57-56q-9-9-8.63-21.6.37-12.61%208.53-21.5%208.89-8.9%2021.5-8.9%2012.6%200%2021.6%209l56%2057q8%209%208%2021t-8%2020.5q-8%208.5-20.5%208.5t-21.5-8Zm494%20495-56-57q-8-9-8-21.38%200-12.37%208.5-20.62%208.5-9%2020.5-9t21%209l57%2056q9%209%208.63%2021.6-.37%2012.61-8.53%2021.5-8.89%208.9-21.5%208.9-12.6%200-21.6-9Zm-56-495q-9-9-9-21t9-21l56-57q9-9%2021.6-8.63%2012.61.37%2021.5%208.53%208.9%208.89%208.9%2021.5%200%2012.6-9%2021.6l-57%2056q-8%208-20.36%208-12.37%200-21.64-8ZM182.9-182.9q-8.9-8.89-8.9-21.5%200-12.6%209-21.6l57-56q8.8-9%2020.9-9%2012.1%200%2020.71%209%209.39%209%209.39%2021t-9%2021l-56%2057q-9%209-21.6%208.63-12.61-.37-21.5-8.53ZM480-480Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-link{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M280-280q-83%200-141.5-58.5T80-480q0-83%2058.5-141.5T280-680h140q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H280q-58.33%200-99.17%2040.76-40.83%2040.77-40.83%2099Q140-422%20180.83-381q40.84%2041%2099.17%2041h140q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H280Zm75-170q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h250q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H355Zm185%20170q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h140q58.33%200%2099.17-40.76%2040.83-40.77%2040.83-99Q820-538%20779.17-579q-40.84-41-99.17-41H540q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h140q83%200%20141.5%2058.5T880-480q0%2083-58.5%20141.5T680-280H540Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-mail{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18t-18-42v-520q0-24%2018-42t42-18h680q24%200%2042%2018t18%2042v520q0%2024-18%2042t-42%2018H140Zm680-525L496-473q-4%202-7.5%203.5T480-468q-5%200-8.5-1.5T464-473L140-685v465h680v-465ZM480-522l336-218H145l335%20218ZM140-685v7-39.32.73V-740v23-.91V-678v-7%20465-465Z%22%2F%3E%3C%2Fsvg%3E")}
@@ -3135,22 +3145,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function renderNotes(m) {
     var np = $('#np'); if (!np) return;
     npWidth();
-    /* met een annotatie: twee tabbladen (Aantekeningen en Annotatie [voornaam]); de knoppen worden dan alleen een symbool */
-    var ann = !m.isNew && m.annotation && m.annotation.items, tab = ann && (A.npTab || {})[m.id] === 'ann' ? 'ann' : 'notes';
-    var label = ann ? '<span class="nptabs" role="tablist"><button type="button" role="tab" class="nptab' + (tab === 'notes' ? ' on' : '') + '" data-nptab="notes" aria-selected="' + (tab === 'notes') + '">Aantekeningen</button><button type="button" role="tab" class="nptab' + (tab === 'ann' ? ' on' : '') + '" data-nptab="ann" aria-selected="' + (tab === 'ann') + '" title="Annotatie van ' + esc(m.annotation.from) + '">Annotatie ' + esc(annFirst(m.annotation)) + ' <span class="muted" id="annProg">' + annProgress(m.annotation) + '</span></button></span>' : '<b>Aantekeningen</b>';
-    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead' + (ann ? ' hasann' : '') + '">' + label + '<span class="npst" id="npst"></span>' + (m.isNew ? '' : (ann ? '' : '<button type="button" class="btn sm icon" id="annUp" title="+ Annotatie: een memo van een medewerker met advies per agendapunt" aria-label="Annotatie toevoegen">' + ic('note_add') + '</button>') + '<button type="button" class="btn sm' + (ann ? ' icon' : '') + '" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail" aria-label="Verslag mailen">' + ic('mail') + (ann ? '' : ' Mail') + '</button><button type="button" class="btn sm' + (ann ? ' icon' : '') + '" id="nppop" title="In een apart venster openen, rechts op je scherm" aria-label="Apart venster">' + ic('open_in_new') + (ann ? '' : '<span class="bt"> Apart venster</span>') + '</button>') + '</div>';
+    var h = '<div class="npgrip" id="npgrip" title="Sleep om de kolom breder of smaller te maken (dubbelklik: standaard)"></div><div class="nphead"><b>Aantekeningen</b><span class="npst" id="npst"></span>' + (m.isNew ? '' : '<button type="button" class="btn sm icon" id="annUp" title="+ Annotatie: de tekst van een memo (.docx, .txt of mail) onderaan je aantekeningen zetten" aria-label="Annotatie toevoegen">' + ic('note_add') + '</button><button type="button" class="btn sm" id="npmail" title="Het verslag mailen; Outlook opent een nieuwe mail" aria-label="Verslag mailen">' + ic('mail') + '<span class="bt">Mail</span></button><button type="button" class="btn sm" id="nppop" title="In een apart venster openen, rechts op je scherm" aria-label="Apart venster">' + ic('open_in_new') + '<span class="bt">Apart venster</span></button>') + '</div>';
     if (m.isNew) { setHTML(np, h + '<div class="pvmsg">Sla de vergadering eerst op. Daarna kun je hier aantekeningen maken.</div>'); bindGrip(); return; }
     if (npPopped(m)) {
       setHTML(np, h + '<div class="pvmsg">De aantekeningen staan in een apart venster.<br><button type="button" class="btn sm" id="npfocus">Naar het venster</button> <button type="button" class="btn sm" id="npback">Terugzetten in MeMeet</button></div>');
       $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
-      $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; bindGrip(); return;
-    }
-    if (tab === 'ann') {
-      setHTML(np, h + annTabHtml(m));
-      $('#npmail').onclick = function () { mailMinutes(m); }; $('#nppop').onclick = function () { popNotes(m); };
-      $('#annRe').onclick = function () { annUpload(m); };
-      $$('[data-nptab]', np).forEach(function (b) { b.onclick = function () { if (A.flushNotes) A.flushNotes(); A.npTab[m.id] = b.dataset.nptab; renderNotes(m); }; });
-      annBind(m); bindGrip(); return;
+      $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; $('#annUp').onclick = function () { annUpload(m); }; bindGrip(); return;
     }
     /* boven: wat je hier inbrengt (geel vak, alleen als er iets is); midden: het tekstvak; onder: Herkend en de uitleg van de tekens */
     var ibA = ibAll(), ibPv = ibPreviewHtml(m, ibA);
@@ -3168,7 +3168,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
     ibBind(m);
     var au = $('#annUp'); if (au) au.onclick = function () { annUpload(m); };
-    $$('[data-nptab]', np).forEach(function (b) { b.onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } A.npTab = A.npTab || {}; A.npTab[m.id] = b.dataset.nptab; renderNotes(m); }; });
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
     $('#nppop').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } popNotes(m); };
     var dlb = $('#npdl'); if (dlb) dlb.onclick = function () { dl(new Blob(['﻿' + minutesText(m)], { type: 'text/plain' }), minutesFileName(m)); };
@@ -3428,7 +3427,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     function add(it) { if (!it || seen[it.id]) return; seen[it.id] = 1; out.push(it); }
     if (src.rem) { var it = ibParse(/^\s*[>?]/.test(src.rem.line) ? src.rem.line : '> ' + src.rem.line, src, ctx); if (it) { it.where = 'rem'; add(it); } return out; }
     String(src.minutes || '').split(/\r?\n/).forEach(function (l, i) { var it = ibParse(l, src, ctx); if (it) { it.where = 'notes'; it.line = i; add(it); } });
-    var an = src.annotation; if (an && an.items) an.items.forEach(function (x, ai) { String(x.fb || '').split(/\r?\n/).forEach(function (l, li) { var it = ibParse(l, src, ctx); if (it) { it.where = 'ann'; it.ai = ai; it.al = li; add(it); } }); });
     return out;
   }
   function ibSources() { return A.data.meetings.concat(ibRems().map(ibRemSrc)); }
@@ -3485,7 +3483,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     return all.pts.filter(function (p) { return p.r.path.indexOf(m) >= 0 || (p.r.st === 'done' && p.r.m === m); });
   }
   function ibSrcLink(p) {
-    return '<button type="button" class="link ibsrc" data-ibctx="' + esc(p.id) + '" title="Bekijk waar dit punt vandaan komt">uit ' + esc(ibName(p.src)) + (p.where === 'ann' ? ' (annotatie)' : '') + '</button>';
+    return '<button type="button" class="link ibsrc" data-ibctx="' + esc(p.id) + '" title="Bekijk waar dit punt vandaan komt">uit ' + esc(ibName(p.src)) + '</button>';
   }
   function ibInbHtml(m, all) {
     var pts = ibHereList(m, all); if (!pts.length) return '';
@@ -3591,11 +3589,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       head = '<h2 id="ibCtxT">Losse herinnering</h2><p class="muted">Toegevoegd op ' + esc(fmtLong(s.date)) + ' om ' + esc(s.start) + '</p>';
       body = '<pre class="ibnotes"><mark>' + esc(s.rem.line) + '</mark></pre><p class="muted ibsmall">Deze herinnering heb je los van een overleg toegevoegd, op het tabblad Herinneringen.</p>';
       acts = '<a class="btn" href="#/herinneringen">Naar Herinneringen</a>';
-    } else if (p.where === 'ann' && s.annotation) {
-      var x = s.annotation.items[p.ai] || { t: '', body: '', fb: '' };
-      head = '<p class="muted ibsmall">Waar dit punt vandaan komt</p><h2 id="ibCtxT">' + esc(s.title) + '</h2><p class="muted">' + esc(fmtLong(s.date)) + (s.start ? ', ' + esc(s.start) : '') + ' · annotatie van ' + esc(s.annotation.from || '') + '</p>';
-      body = '<div class="ait">' + esc(x.t) + '</div><div class="aib">' + esc(x.body) + '</div><p class="muted ibsmall">Jouw terugkoppeling</p><pre class="ibnotes">' + String(x.fb || '').split(/\r?\n/).map(function (l, i) { return i === p.al ? '<mark>' + esc(l) + '</mark>' : esc(l); }).join('\n') + '</pre>';
-      acts = '<a class="btn" href="#/v/' + esc(encodeURIComponent(s.id)) + '" data-ibann="' + esc(s.id) + '">Open dat overleg</a>';
     } else {
       head = '<p class="muted ibsmall">Waar dit punt vandaan komt</p><h2 id="ibCtxT">' + esc(s.title) + '</h2><p class="muted">' + esc(fmtLong(s.date)) + (s.start ? ', ' + esc(s.start) : '') + (names(s.invitees).length ? ' · ' + esc(names(s.invitees).join(', ')) : '') + '</p>';
       body = '<pre class="ibnotes">' + String(s.minutes || '').split(/\r?\n/).map(function (l, i) { return i === p.line ? '<mark>' + esc(l) + '</mark>' : esc(l); }).join('\n') + '</pre>' +
@@ -3607,7 +3600,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     D.body.appendChild(bg);
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeIbCtx(); });
     $('#ibCtxX', bg).onclick = closeIbCtx; $('#ibCtxOk', bg).onclick = closeIbCtx;
-    $$('a.btn', bg).forEach(function (a) { a.addEventListener('click', function () { if (a.dataset.ibann) A.npTab = Object.assign(A.npTab || {}, (function () { var o = {}; o[a.dataset.ibann] = 'ann'; return o; })()); closeIbCtx(); }); });
+    $$('a.btn', bg).forEach(function (a) { a.addEventListener('click', function () { closeIbCtx(); }); });
     var mk = $('mark', bg); if (mk) mk.scrollIntoView({ block: 'center' });
     try { $('#ibCtxOk', bg).focus(); } catch (e) {}
   }
@@ -3652,7 +3645,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   async function ibRelink(it, to) {
     var nl = '> ' + to + ' ' + it.text, s = it.src;
     if (it.where === 'rem') s.rem.line = nl;
-    else if (it.where === 'ann' && s.annotation) { var x = s.annotation.items[it.ai], fl = String(x.fb || '').split(/\r?\n/); fl[it.al] = nl; x.fb = fl.join('\n'); }
     else { var ls = String(s.minutes || '').split(/\r?\n/); ls[it.line] = nl; s.minutes = ls.join('\n'); delete s.minutesHtml; if (typeof saveMinutes === 'function') { await saveMinutes(s); return; } }
     await persist();
   }
@@ -3725,17 +3717,14 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   }
 
   /* ================================================================== Annotatie van een medewerker
-     Een memo met advies per agendapunt (.docx, .txt of een mail). MeMeet herkent de agendapunten aan nummering ("1.", "2)"),
-     Word-kopstijlen of "Agendapunt …"; "Van: …" (of de afzender van de mail) bepaalt van wie hij is. Per agendapunt is er een vak
-     "Wat ik heb ingebracht…". Regels daarin die met > of ? beginnen, zijn meeneempunten en ideeën (zie inbreng.js) en gaan nooit
-     mee in de mail terug. Opslag per vergadering: m.annotation = { from, mail, file, items: [{ t, body, fb }], added }. */
+     Een memo met advies (.docx, .txt of een mail). MeMeet zet de platte tekst ervan onderaan de aantekeningen; de terugkoppeling
+     typ je er zelf onder, en mailen gaat met de gewone knop Mail. Regels met > of ? blijven daarbij privé, zoals altijd. */
 
-  /* de tekst van een Word-document, per alinea; koppen krijgen "# " en genummerde alinea's hun nummer */
+  /* de tekst van een Word-document, per alinea; genummerde alinea's krijgen hun nummer */
   async function annDocxText(bytes) {
     var z = await JSZip.loadAsync(bytes), mf = z.file('word/document.xml');
     if (!mf) throw new Error('Geen Word-document');
-    var x = xmlDoc(await mf.async('string')), styleNames = {}, sf = z.file('word/styles.xml'), numKind = {}, nf = z.file('word/numbering.xml');
-    if (sf) desc(xmlDoc(await sf.async('string')), 'style').forEach(function (s) { styleNames[s.getAttribute('w:styleId')] = wv(ch(s, 'name')).toLowerCase(); });
+    var x = xmlDoc(await mf.async('string')), numKind = {}, nf = z.file('word/numbering.xml');
     if (nf) {
       var nx = xmlDoc(await nf.async('string')), abs = {};
       desc(nx, 'abstractNum').forEach(function (a) { var lv = kids(a).filter(function (l) { return l.localName === 'lvl'; })[0]; abs[a.getAttribute('w:abstractNumId')] = lv ? wv(ch(lv, 'numFmt')) : ''; });
@@ -3744,78 +3733,47 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var out = [], cnt = {};
     desc(x, 'p').forEach(function (p) {
       var txt = desc(p, 't').map(function (t) { return t.textContent; }).join('').replace(/\s+/g, ' ').trim(); if (!txt) return;
-      var pPr = ch(p, 'pPr'), sname = styleNames[wv(ch(pPr, 'pStyle'))] || wv(ch(pPr, 'pStyle')).toLowerCase(), numPr = ch(pPr, 'numPr');
-      if (/heading|kop|title|titel/.test(sname)) { out.push('# ' + txt); return; }
-      if (numPr && wv(ch(numPr, 'numId')) !== '0' && +(wv(ch(numPr, 'ilvl')) || 0) === 0 && numKind[wv(ch(numPr, 'numId'))] !== 'bullet') { var id = wv(ch(numPr, 'numId')); cnt[id] = (cnt[id] || 0) + 1; out.push(cnt[id] + '. ' + txt); return; }
+      var numPr = ch(ch(p, 'pPr'), 'numPr');
+      if (numPr && wv(ch(numPr, 'numId')) !== '0') {
+        var id = wv(ch(numPr, 'numId')), lvl = +(wv(ch(numPr, 'ilvl')) || 0);
+        if (numKind[id] === 'bullet') { out.push((lvl ? '  ' : '') + '- ' + txt); return; }
+        if (!lvl) { cnt[id] = (cnt[id] || 0) + 1; out.push(cnt[id] + '. ' + txt); return; }
+      }
       out.push(txt);
     });
     return out.join('\n');
   }
-  /* agendapunten herkennen */
-  function annParse(text, fallbackFrom) {
-    var lines = String(text || '').replace(/\r/g, '').split('\n'), from = fallbackFrom || '', items = [], cur = null, title = '';
-    lines.forEach(function (l) {
-      var t = l.trim(), mm; if (!t) return;
-      if ((mm = /^van\s*:\s*(.+)$/i.exec(t)) && !items.length) { from = mm[1].trim(); return; }
-      if (!items.length && /^(aan|datum|onderwerp|betreft)\s*:/i.test(t)) return;
-      var isHead = /^#+\s*\S/.test(t) || /^\d{1,2}\s*[.)]\s+\S/.test(t) || /^agendapunt\b/i.test(t);
-      if (isHead && t.length <= 120) {
-        var tt = t.replace(/^#+\s*/, '').replace(/^agendapunt\s*/i, '').replace(/^(\d{1,2})\s*[.)]?\s*[:.-]?\s*/, '$1. ').trim();
-        if (!items.length && /^#/.test(t) && !/^\d/.test(tt) && /^annotatie/i.test(tt)) { title = tt; return; } /* de titel van het memo zelf */
-        cur = { t: tt, body: '', fb: '' }; items.push(cur); return;
-      }
-      if (!cur) { cur = { t: 'Algemeen', body: '', fb: '' }; items.push(cur); }
-      cur.body += (cur.body ? '\n' : '') + t;
-    });
-    return { from: from || 'medewerker', items: items, title: title };
+  /* de platte tekst van een annotatiebestand; bij een mail met de afzender erboven */
+  async function annText(f) {
+    var n = f.name || '';
+    if (/\.docx$/i.test(n)) return annDocxText(await f.arrayBuffer());
+    if (/\.(eml|msg)$/i.test(n)) { var mm = await readMail(f, n); return (mm.from && !/^\s*van\s*:/im.test(mm.text || '') ? 'Van: ' + mm.from + '\n' : '') + String(mm.text || '').trim(); }
+    return (await f.text()).replace(/^﻿/, '');
   }
-  async function annRead(f) {
-    var n = f.name || '', a;
-    if (/\.docx$/i.test(n)) a = annParse(await annDocxText(await f.arrayBuffer()), n.replace(/\.[^.]+$/, ''));
-    else if (/\.(eml|msg)$/i.test(n)) {
-      var mm = await readMail(f, n); a = annParse(mm.text || '', mm.from || '');
-      if (mm.from && !/^van\s*:/im.test(mm.text || '')) a.from = mm.from;
-      a.mail = mm.fromAddr || ''; a.subject = mm.subject || '';
-    } else a = annParse(await f.text(), n.replace(/\.[^.]+$/, ''));
-    a.file = n; a.mail = a.mail || ((/[^\s<>"]+@[^\s<>"]+/.exec(a.from) || [])[0] || '');
-    a.from = a.from.replace(/\s*<[^>]*>\s*$/, '').trim();
-    return a;
-  }
-  function annFirst(a) { return String(a.from || '').split(/\s+/)[0] || 'medewerker'; }
-  function annMailable(fb) { return ibStripPriv(fb).trim(); }
-  function annProgress(a) { return a.items.filter(function (x) { return annMailable(x.fb); }).length + '/' + a.items.length; }
-
-  /* opslaan: bij de vergadering, en het bestand ook als stuk (zodat je erin kunt markeren); een vorige annotatie vervangt hij */
-  async function annSet(m, a, file) {
-    var old = m.files.filter(function (f) { return f.annDoc; });
-    for (var i = 0; i < old.length; i++) { try { await A.store.del(m, old[i].name); } catch (e) {} }
-    m.files = m.files.filter(function (f) { return !f.annDoc; });
-    var name = await addFileTo(m, file.name, file.type || guessMime(file.name), file);
-    var rec = m.files.filter(function (f) { return f.name === name; })[0]; if (rec) rec.annDoc = true;
-    m.annotation = { from: a.from, mail: a.mail || '', file: name, items: a.items, added: new Date().toISOString() };
-    m.updated = new Date().toISOString(); await persist();
-    A.npTab = A.npTab || {}; A.npTab[m.id] = 'ann';
-    if (currentMeeting() === m) route();
-    toast('Annotatie van ' + a.from + ' toegevoegd: ' + a.items.length + ' agendapunt' + (a.items.length === 1 ? '' : 'en') + '. Hij staat ook bij de stukken.', 'ok');
+  /* onderaan de aantekeningen zetten, met een witregel ervoor, en het tekstvak meteen bijwerken */
+  async function annInsert(m, f, text) {
+    var body = String(text || '').replace(/\r\n?/g, '\n').replace(/[ \t]+$/gm, '').replace(/\n{3,}/g, '\n\n').trim();
+    if (!body) { toast('In dit bestand vond MeMeet geen tekst.', 'warn'); return; }
+    var ta = currentMeeting() === m ? $('#npt') : null, cur = ta ? ta.value : String(m.minutes || ''), pre = cur.trim() ? (/\n\n$/.test(cur) ? '' : /\n$/.test(cur) ? '\n' : '\n\n') : '';
+    var nv = cur + pre + 'Annotatie: ' + (f.name || 'bestand') + '\n' + body + '\n';
+    if (ta) { ta.value = nv; ta.focus(); ta.setSelectionRange(nv.length, nv.length); ta.scrollTop = ta.scrollHeight; ta.dispatchEvent(new Event('input')); }
+    else { m.minutes = nv; delete m.minutesHtml; await saveMinutes(m); }
+    toast('De tekst van de annotatie staat onderaan je aantekeningen. Zet je terugkoppeling eronder.', 'ok');
   }
   function closeAnnDlg() { var d = $('#annDlg'); if (d) d.remove(); }
   function annUpload(m) {
     closeAnnDlg();
     var bg = D.createElement('div'); bg.className = 'dlgbg'; bg.id = 'annDlg';
-    setHTML(bg, '<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="annDlgT"><div class="vvhead"><div><h2 id="annDlgT">' + (m.annotation ? 'Annotatie vervangen' : 'Annotatie toevoegen') + '</h2><p class="muted">Een memo van een medewerker met advies per agendapunt</p></div><button type="button" class="vvx" id="annX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+    setHTML(bg, '<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="annDlgT"><div class="vvhead"><div><h2 id="annDlgT">Annotatie toevoegen</h2><p class="muted">De tekst komt onderaan je aantekeningen</p></div><button type="button" class="vvx" id="annX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="anndz" id="annDz">Sleep het bestand hierheen, of <label class="btn pri sm">Kies bestand…<input type="file" id="annF" accept=".docx,.txt,.md,.eml,.msg" hidden></label>' +
-      '<p class="muted">Word (.docx), tekst (.txt) of een mail (.eml of .msg). MeMeet herkent de agendapunten aan nummers (1., 2)), kopjes of "Agendapunt".' + (m.annotation ? ' De huidige annotatie en je terugkoppeling worden vervangen.' : '') + '</p></div></div>');
+      '<p class="muted">Word (.docx), tekst (.txt) of een mail (.eml of .msg).</p></div></div>');
     D.body.appendChild(bg);
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeAnnDlg(); });
     $('#annX', bg).onclick = closeAnnDlg;
     async function take(f) {
       if (!f) return;
-      try {
-        var a = await annRead(f);
-        if (!a.items.length) { toast('In dit bestand vond MeMeet geen tekst.', 'warn'); return; }
-        if (m.annotation && m.annotation.items.some(function (x) { return (x.fb || '').trim(); }) && !confirm('De huidige annotatie heeft al terugkoppeling. Vervangen?')) return;
-        closeAnnDlg(); await annSet(m, a, f);
-      } catch (e) { console.error(e); toast('Dit bestand kon MeMeet niet lezen. Probeer een .docx, .txt of een mail.', 'err'); }
+      try { var t = await annText(f); closeAnnDlg(); await annInsert(m, f, t); }
+      catch (e) { console.error(e); toast('Dit bestand kon MeMeet niet lezen. Probeer een .docx, .txt of een mail.', 'err'); }
     }
     $('#annF', bg).onchange = function () { take(this.files[0]); };
     var dz = $('#annDz', bg);
@@ -3826,69 +3784,19 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#annDlg')) { e.preventDefault(); e.stopPropagation(); closeAnnDlg(); } }, true);
   W.addEventListener('hashchange', closeAnnDlg);
 
-  /* ---------- het tabblad Annotatie in de kolom aantekeningen */
-  function annTabHtml(m) {
-    var a = m.annotation;
-    return '<div class="annwrap" id="annWrap"><div class="annh"><div><b>' + esc(a.from) + '</b><div class="muted annfile">' + esc(a.file || '') + ' · <button type="button" class="link" id="annRe" title="Een andere annotatie laden">Vervangen…</button></div></div><button type="button" class="btn sm pri" id="annMail" title="Terugkoppeling mailen naar ' + esc(a.from) + '">' + ic('mail') + ' Mail terug</button></div>' +
-      '<p class="muted annintro">Per agendapunt het advies van ' + esc(annFirst(a)) + '. Zet eronder wat jij hebt ingebracht of wat er is besloten. Een regel met <code>&gt;</code> wordt een meeneempunt.</p>' +
-      a.items.map(function (x, i) {
-        return '<div class="ai"><div class="ait">' + esc(x.t) + '</div><div class="aib">' + esc(x.body) + '</div>' +
-          '<textarea class="aifb" data-fb="' + i + '" spellcheck="true" placeholder="Wat ik heb ingebracht…" aria-label="Terugkoppeling bij ' + esc(x.t) + '">' + esc(x.fb || '') + '</textarea><div class="ac" data-annac="' + i + '" hidden></div><div class="aipv" data-aipv="' + i + '"></div></div>';
-      }).join('') + '</div>';
-  }
-  function annPv(m, i) {
-    var box = $('[data-aipv="' + i + '"]'); if (!box) return;
-    var all = ibAll(), byId = {}; all.pts.forEach(function (p) { byId[p.id] = p; });
-    var its = ibItemsOf(m).filter(function (it) { return it.where === 'ann' && it.ai === i; });
-    /* een regel die ook in de aantekeningen staat, telt maar één keer: dan zoeken we hem hier zelf op */
-    String((m.annotation.items[i] || {}).fb || '').split(/\r?\n/).forEach(function (l, li) { var it = ibParse(l, m, { people: all.people }); if (it && !its.some(function (x) { return x.id === it.id; })) { it.where = 'ann'; it.ai = i; it.al = li; its.push(it); } });
-    setHTML(box, its.map(function (it) {
-      if (it.k === '?') return '<div><span class="k">?</span> ' + esc(it.text) + ' <span class="to">→ Ideeën-inbox</span></div>';
-      var p = byId[it.id], r = p ? p.r : ibResolve(it);
-      return '<div><span class="k">&gt;</span> ' + esc(it.text) + ' ' + (r.st === 'open' ? '<span class="to go">→ ' + esc(ibName(r.m)) + '</span>' : r.st === 'done' ? '<span class="to go">' + ic('check') + ' besproken</span>' : '<span class="to wait">⏳ wacht: ' + esc(ibWaitWhy(it, all.people)) + '</span>') + '</div>';
-    }).join('') + (its.length ? '<div class="why">Privé: gaat niet mee in de mail.</div>' : ''));
-  }
-  function annBind(m) {
-    var a = m.annotation, t = null;
-    function save() { clearTimeout(t); t = setTimeout(async function () { t = null; m.updated = new Date().toISOString(); await persist(); var st = $('#npst'); if (st) { setHTML(st, ic('check')); st.title = 'Opgeslagen'; st.className = 'npst ok'; } }, 600); }
-    A.flushNotes = function () { if (t) { clearTimeout(t); t = null; return persist(); } };
-    $$('[data-fb]').forEach(function (el) {
-      var i = +el.dataset.fb, box = $('[data-annac="' + i + '"]');
-      function fit() { el.style.height = 'auto'; el.style.height = Math.max(54, el.scrollHeight + 2) + 'px'; }
-      fit(); annPv(m, i);
-      el.addEventListener('input', function () {
-        a.items[i].fb = el.value; fit(); annPv(m, i); ibAc(el, box); save();
-        var c = $('#annProg'); if (c) c.textContent = annProgress(a);
-        var st = $('#npst'); if (st) { st.textContent = '…'; st.className = 'npst'; }
-      });
-      el.addEventListener('keydown', function (e) { e.stopPropagation(); });
-      el.addEventListener('blur', function () { setTimeout(function () { if (box && D.activeElement !== el) box.hidden = true; }, 150); });
+  /* Versie 1.5 bewaarde een annotatie apart (m.annotation, met terugkoppeling per agendapunt). Die zetten we eenmalig om naar
+     platte tekst onderaan de aantekeningen; er gaat niets verloren. Geeft true als er iets is omgezet. */
+  function migrateAnnotations() {
+    var n = 0;
+    A.data.meetings.forEach(function (m) {
+      var a = m.annotation; if (!a) return;
+      if (a.items && a.items.length) {
+        var t = 'Annotatie: ' + (a.file || 'annotatie') + (a.from ? '\nVan: ' + a.from : '') + '\n' + a.items.map(function (x) { return [x.t, x.body, String(x.fb || '').trim()].filter(Boolean).join('\n'); }).join('\n\n');
+        var cur = String(m.minutes || ''); m.minutes = cur + (cur.trim() ? (/\n$/.test(cur) ? '\n' : '\n\n') : '') + t + '\n'; delete m.minutesHtml;
+      }
+      delete m.annotation; n++;
     });
-    $('#annMail').onclick = async function () { if (t) { clearTimeout(t); t = null; await persist(); } openAnnMail(m); };
-  }
-
-  /* ---------- mail terug: per agendapunt "Jouw annotatie" en "Terugkoppeling", zonder regels met > of ? */
-  function annMailSubject(m) { return 'Terugkoppeling annotatie ' + (m.title || 'vergadering') + (m.date ? ' ' + fmtShort(m.date) : ''); }
-  function annMailText(m) {
-    var a = m.annotation;
-    return 'Hoi ' + annFirst(a) + ',\n\nDank voor je annotatie bij het ' + (m.title || 'overleg') + (m.date ? ' van ' + fmtLong(m.date) : '') + '. Hieronder per agendapunt wat ik heb ingebracht.\n\n' +
-      a.items.map(function (x) { return x.t + '\nJouw annotatie: ' + String(x.body || '').replace(/\s+/g, ' ').trim() + '\nTerugkoppeling: ' + (annMailable(x.fb) || 'Niet aan toegekomen.'); }).join('\n\n') + '\n\nGroet,';
-  }
-  function annPrivCount(m) { return m.annotation.items.reduce(function (n, x) { return n + String(x.fb || '').split(/\r?\n/).filter(function (l) { return ibIsPriv(l) && l.replace(/^\s*[>?]\s*/, '').trim(); }).length; }, 0); }
-  function openAnnMail(m) {
-    closeAnnDlg();
-    var a = m.annotation, body = annMailText(m), open = a.items.filter(function (x) { return !annMailable(x.fb); }).length, priv = annPrivCount(m), subj = annMailSubject(m);
-    var bg = D.createElement('div'); bg.className = 'dlgbg'; bg.id = 'annDlg';
-    setHTML(bg, '<div class="dlg annmail" role="dialog" aria-modal="true" aria-labelledby="annMT"><div class="vvhead"><div><h2 id="annMT">Terugkoppeling mailen</h2>' +
-      (open ? '<p class="annwarn">' + open + ' agendapunt' + (open === 1 ? ' heeft' : 'en hebben') + ' nog geen terugkoppeling.</p>' : '<p class="muted">Alle agendapunten hebben een terugkoppeling.</p>') + '</div><button type="button" class="vvx" id="annX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
-      (priv ? '<p class="why annpriv">' + priv + ' meeneempunt' + (priv === 1 ? '' : 'en') + ' uit je terugkoppeling ' + (priv === 1 ? 'blijft' : 'blijven') + ' privé en ' + (priv === 1 ? 'gaat' : 'gaan') + ' niet mee.</p>' : '') +
-      '<div class="mailh"><span>Aan</span><b>' + esc(a.from) + (a.mail ? ' &lt;' + esc(a.mail) + '&gt;' : '') + '</b><span>Onderwerp</span><b>' + esc(subj) + '</b></div><pre class="ibnotes annbody">' + esc(body) + '</pre>' +
-      '<div class="dlgacts"><button type="button" class="btn" id="annCopy">' + ic('content_copy') + ' Tekst kopiëren</button><span class="sp"></span><button type="button" class="btn pri" id="annOut">' + ic('mail') + ' Openen in Outlook</button></div></div>');
-    D.body.appendChild(bg);
-    bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeAnnDlg(); });
-    $('#annX', bg).onclick = closeAnnDlg;
-    $('#annCopy', bg).onclick = async function () { try { await navigator.clipboard.writeText(body); toast('Gekopieerd.', 'ok'); } catch (e) { toast('Kopiëren lukte niet. Selecteer de tekst en druk op Ctrl+C.', 'warn'); } };
-    $('#annOut', bg).onclick = function () { closeAnnDlg(); mailText(subj, body, a.mail || ''); };
+    return n > 0;
   }
 
   /* ================================================================== Mails op de actielijst
@@ -3924,13 +3832,15 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   /* ---------- viewer: de mail en de bijlagen */
   var MA = { tok: 0, pdf: null };
   function closeMailAct() {
+    if (MA.ed && MA.ed.isDirty() && !confirm('Je hebt wijzigingen in het bestand die nog niet zijn opgeslagen. Weggooien?')) return false;
+    MA.ed = null;
     var d = $('#maDlg'); if (d) d.remove();
     if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
     MA.tok++; MA.items = null;
     if (MA.focus && MA.focus.isConnected) { try { MA.focus.focus(); } catch (e) {} } MA.focus = null;
   }
   async function openMailAct(x) {
-    closeMailAct();
+    if (closeMailAct() === false) return;
     MA.focus = D.activeElement;
     var bg = D.createElement('div'); bg.className = 'dlgbg mabg'; bg.id = 'maDlg';
     var sent = x.mail.sent ? new Date(x.mail.sent) : null;
@@ -3960,13 +3870,13 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   /* Dezelfde viewer als pop-up voor bestanden (tabblad Bestanden): links de bestanden, rechts het bestand. Esc sluit hem.
      items: [{ name, size, get() }], start: het bestand dat eerst getoond wordt. */
   function openFilePopup(items, start, title) {
-    closeMailAct();
+    if (closeMailAct() === false) return;
     MA.focus = D.activeElement;
     var bg = D.createElement('div'); bg.className = 'dlgbg mabg'; bg.id = 'maDlg';
     var it0 = items[start || 0];
     setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-labelledby="maT">' +
       '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('description') + '</span><div class="mattl"><b id="maT" class="mastatic">' + esc(title || it0.name) + '</b><small class="muted" id="maSub">' + esc(items.length > 1 ? items.length + ' bestanden' : (it0.sub || '')) + '</small></div>' +
-      '<button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<button type="button" class="btn sm" id="maEd" hidden title="Het bestand hier bewerken (Word, Excel, PowerPoint of tekst)">' + ic('edit') + ' Bewerken</button><button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="mabody' + (items.length > 1 ? '' : ' one') + '"><ul class="malist" id="maList">' + items.map(function (it, i) {
         return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + ic(isMailItem(it) ? 'mail' : 'description') + '</span><span class="fn">' + esc(it.name) + '</span>' + (it.size ? '<small class="muted">' + esc(kb(it.size)) + '</small>' : '') + '</button></li>';
       }).join('') + '</ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
@@ -3974,8 +3884,18 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     MA.items = items;
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
     $('#maX', bg).onclick = closeMailAct;
-    $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { showMailItem(+b.dataset.mi); if (items.length > 1) $('#maT').textContent = items[+b.dataset.mi].name; }; });
+    $$('[data-mi]', bg).forEach(function (b) { b.onclick = function () { if (MA.ed && MA.ed.isDirty() && !confirm('Je hebt wijzigingen die nog niet zijn opgeslagen. Weggooien?')) return; MA.ed = null; showMailItem(+b.dataset.mi); if (items.length > 1) $('#maT').textContent = items[+b.dataset.mi].name; }; });
     $('#maDl', bg).onclick = async function () { var it = MA.items && MA.items[MA.cur || 0]; if (it) dl(it.blob || await it.get(), it.name); };
+    /* bewerken (alleen een stuk van een vergadering in een formaat dat MeMeet kan bewerken) */
+    $('#maEd', bg).onclick = async function () {
+      var it = MA.items[MA.cur || 0], pv = $('#maPv'), b = $('#maEd');
+      if (MA.ed) { if (MA.ed.isDirty() && !confirm('Je hebt wijzigingen die nog niet zijn opgeslagen. Weggooien?')) return; MA.ed = null; it.blob = null; showMailItem(MA.cur || 0); return; }
+      MA.tok++; if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
+      pv.classList.add('editing'); setHTML(pv, '<div class="edwrap" id="maEdw"></div>');
+      setHTML(b, ic('visibility') + ' Bekijken'); b.title = 'Terug naar bekijken';
+      MA.ed = await mountEditor(it.m, it.rec, $('#maEdw'), function () {}) || null;
+      it.blob = null;
+    };
     try { $('#maX', bg).focus(); } catch (e) {}
     showMailItem(start || 0);
   }
@@ -3983,6 +3903,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var it = MA.items && MA.items[i], pv = $('#maPv'); if (!it || !pv) return;
     MA.cur = i; var tok = ++MA.tok;
     $$('#maList [data-mi]').forEach(function (b) { b.classList.toggle('on', +b.dataset.mi === i); });
+    pv.classList.remove('editing');
+    var eb = $('#maEd'); if (eb) { eb.hidden = !(it.m && it.rec && canEdit(it.rec)); setHTML(eb, ic('edit') + ' Bewerken'); eb.title = 'Het bestand hier bewerken (Word, Excel, PowerPoint of tekst)'; }
     if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
     setHTML(pv, '<div class="pvmsg">Wordt klaargemaakt…</div>');
     var out = null;
@@ -4003,7 +3925,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       await pg.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
     }
   }
-  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#maDlg')) { e.preventDefault(); e.stopPropagation(); closeMailAct(); } }, true);
+  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#maDlg') && !e.target.closest('.edbody')) { e.preventDefault(); e.stopPropagation(); closeMailAct(); } }, true);
   W.addEventListener('hashchange', function () { if ($('#maDlg')) closeMailAct(); });
 
   /* ================================================================== Verslagen: aantekeningen in een Word-achtige editor */
@@ -4564,7 +4486,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       return;
     }
     /* openen: in de viewer als pop-up (Esc sluit hem); bij meer bestanden staan ze links in de pop-up */
-    if (a === 'open') { openFilePopup(items.map(function (it) { return { name: it.name, size: it.size, type: guessMime(it.name), sub: (it.m ? it.m.title + (it.m.date ? ' · ' + fmtShort(it.m.date) : '') : ''), get: it.get }; }), 0, items.length > 1 ? null : items[0].name); return; }
+    if (a === 'open') { openFilePopup(items.map(function (it) { var rec = it.m && it.kind === 'Stuk' ? it.m.files.filter(function (x) { return x.name === it.name; })[0] : null;
+      return { name: it.name, size: it.size, type: guessMime(it.name), sub: (it.m ? it.m.title + (it.m.date ? ' · ' + fmtShort(it.m.date) : '') : ''), get: rec ? function () { return A.store.get(it.m, rec.name); } : it.get, m: it.m, rec: rec }; }), 0, items.length > 1 ? null : items[0].name); return; }
     if (a === 'dl') { for (var j = 0; j < items.length; j++) { dl(await items[j].get(), items[j].name); await sleep(350); } if (items.length > 1) toast(items.length + ' bestanden staan in je map Downloads. Vraagt Edge om toestemming voor meerdere downloads? Klik dan op Toestaan.', 'ok'); return; }
     if (a === 'mail') {
       try { var em = await buildEml(items); dl(em.blob, em.name); toast('Open het gedownloade bestand "' + em.name + '" (onderaan of in Downloads). Outlook opent dan een nieuwe mail met ' + (items.length === 1 ? 'de bijlage' : 'de ' + items.length + ' bijlagen') + ', klaar om te versturen.', 'ok'); }
@@ -4680,29 +4603,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Grijze punten kwamen hier langs, maar zijn doorgeschoven of elders besproken; erachter staat waar ze nu zijn.</li>' +
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt: de aantekeningen van dat overleg, met de regel geel gemarkeerd, en de stukken. <b>Esc</b> sluit het venster.</li>' +
       '<li>De besluiten, acties en meeneempunten van een eerder overleg vind je op het tabblad <b>Verslagen</b>.</li></ul>' +
-      '<h3>Annotatie van een medewerker</h3><ul>' +
-      '<li>Een annotatie is een memo met advies per agendapunt. Klik in de kolom Aantekeningen op ' + ic('note_add') + ' (<b>+ Annotatie</b>) en kies of sleep een Word-bestand (.docx), tekst (.txt) of mail (.eml of .msg). MeMeet herkent de agendapunten aan nummers (1., 2)), kopjes of "Agendapunt …". "Van: …" bepaalt van wie hij is; bij een mail de afzender.</li>' +
-      '<li>Er komt een tabblad <b>Annotatie [voornaam]</b> naast Aantekeningen, met de voortgang (bijvoorbeeld 2/5). Per agendapunt staat het advies, met een vak <b>Wat ik heb ingebracht…</b>. Met <b>Vervangen…</b> laad je een andere annotatie.</li>' +
-      '<li>Regels in die vakken die met <code>&gt;</code> of <code>?</code> beginnen, zijn meeneempunten en ideeën, net als in de aantekeningen. Onder het vak zie je waar ze heen gaan; ze zijn privé.</li>' +
-      '<li>De annotatie staat ook bij de stukken, zodat je erin kunt markeren.</li>' +
-      '<li><b>Mail terug</b> maakt een concept-mail aan de afzender, met per agendapunt "Jouw annotatie" en "Terugkoppeling". Regels met <code>&gt;</code> of <code>?</code> gaan niet mee; staat er verder niets, dan komt er "Niet aan toegekomen.". De voortgang en de waarschuwing voor lege punten tellen alleen tekst die wél gemaild wordt.</li></ul>' +
-      '<h3>De viewer (tabblad Bekijken)</h3><ul>' +
-      '<li><b>Tekst selecteren</b> (met <b>Tekst</b> aan, de standaard): er verschijnt een kleine werkbalk met <b>Markeren</b> (geel), <b>Opmerking</b> (de tekst wordt oranje onderstreept en er komt een geel briefje in de kantlijn, op dezelfde hoogte) en <b>+ Meeneempunt</b> (de tekst komt als <code>&gt; …</code> onderaan je aantekeningen, met de cursor direct na <code>&gt; </code>, zodat je er een naam of <code>Overleg:</code> voor typt). Klik op een markering voor <b>Markering weghalen</b>. Kopiëren kan ook: Ctrl+C.</li>' +
-      '<li>In de werkbalk zie je hoeveel opmerkingen er in het stuk staan. Een briefje bewerk je door erop te klikken; met het kruisje haal je het weg.</li>' +
-      '<li><b>Markeren</b>: selecteer tekst; die wordt geel of groen gemarkeerd. Kies de kleur met de bolletjes.</li>' +
-      '<li><b>Opmerking</b>: klik op een woord en typ. De opmerking komt in de rechtermarge; Ctrl+Enter is klaar.</li>' +
-      '<li><b>Gum</b>: klik op een markering of opmerking om hem weg te halen.</li>' +
-      '<li><b>' + ic('undo') + ' ' + ic('redo') + '</b>: ongedaan maken en opnieuw, tot 20 stappen (Ctrl+Z en Ctrl+Y).</li>' +
-      '<li><b>Zoeken</b>: Ctrl+F, daarna Enter voor de volgende treffer en Shift+Enter voor de vorige.</li>' +
-      '<li>Een stuk dat geen PDF is, toont de viewer als weergave van het origineel; de opmaak kan iets afwijken, het bestand zelf blijft ongewijzigd. Een melding over het stuk staat achter het rondje <b>i</b>.</li>' +
-      '<li>Alle knoppen boven het stuk staan op één regel. Is de kolom smal, dan tonen ze alleen een symbool (Aa = tekst, ' + ic('ink_highlighter') + ' = markeren, ' + ic('add_comment') + ' = opmerking, ' + ic('ink_eraser') + ' = gum); wijs een knop aan voor de naam.</li>' +
-      '<li><b>− 100% +</b>: kleiner en groter. Klik op het percentage om de pagina weer passend te maken.</li>' +
-      '<li><b>' + ic('open_in_full') + ' Vergroten</b>: de viewer neemt de kolom met stukken over; je aantekeningen blijven zichtbaar. <b>' + ic('close_fullscreen') + ' Verkleinen</b> of Esc zet hem terug. Esc sluit eerst een open venster, dan de selectiewerkbalk, en dan pas het vergroten.</li>' +
-      '<li><b>' + ic('more_horiz') + '</b>: het stuk als PDF downloaden met je aantekeningen, alle aantekeningen wissen, het origineel downloaden of de weergave in een nieuw tabblad openen.</li></ul>' +
-      '<h3>Bewerken</h3><ul><li>Het tabblad <b>Bewerken</b> boven de viewer past het originele bestand aan.</li>' +
-      '<li>Word: stijlen, vet, cursief, onderstrepen, opsomming en uitlijnen. Excel: typ in een cel; Enter, Tab en de pijltjes bewegen, F2 past een cel aan, Delete wist, met = begin je een formule. PowerPoint: klik in een tekstvak op de dia.</li>' +
-      '<li>Opslaan met <b>💾 Opslaan</b> of Ctrl+S. De eerste keer bewaart MeMeet een kopie "(oorspronkelijk)". De viewer toont daarna de nieuwe versie.</li>' +
-      '<li>Liever in Office zelf? Download het stuk via <b>' + ic('more_horiz') + '</b> › <i>Origineel downloaden</i>, bewerk het en sleep het met dezelfde naam terug op de vergadering.</li></ul>' +
+      '<h3>Annotatie van een medewerker</h3><ul><li>Klik in de kolom Aantekeningen op ' + ic('note_add') + ' (<b>+ Annotatie</b>) en kies of sleep een Word-bestand (.docx), tekst (.txt) of mail (.eml of .msg). De platte tekst ervan komt onderaan je aantekeningen; zet je terugkoppeling er gewoon onder. Mailen gaat met de knop <b>' + ic('mail') + ' Mail</b>, zoals altijd (regels met <code>&gt;</code> en <code>?</code> gaan niet mee).</li></ul>' +
+      '<h3>De viewer</h3><ul>' +
+      '<li>De viewer toont elk stuk in zijn eigen opmaak: een PDF als PDF, een Word-document als pagina\'s, Excel als tabel, PowerPoint als dia\'s, een mail met afzender en tekst, tekst als tekst. Het bestand zelf blijft zoals het is.</li>' +
+      '<li>Boven het stuk staan alleen <b>' + ic('zoom_out') + ' ' + ic('zoom_in') + '</b> (uit- en inzoomen; klik op het percentage om de pagina weer passend te maken), het <b>zoekvak</b> (Ctrl+F; Enter voor de volgende treffer, Shift+Enter voor de vorige), <b>' + ic('download') + '</b> (het originele bestand downloaden) en <b>' + ic('open_in_full') + ' Vergroten</b> (de viewer neemt de kolom met stukken over; nog eens klikken of Esc zet hem terug).</li>' +
+      '<li><b>Tekst selecteren</b>: er verschijnt een menuutje met <b>Markeren</b> (geel), <b>Opmerking</b> (de tekst wordt onderstreept en er komt een geel briefje in de kantlijn) en <b>+ Meeneempunt</b> (de tekst komt als <code>&gt; …</code> onderaan je aantekeningen; typ er een naam of <code>Overleg:</code> voor). Klik op een markering voor <b>Markering weghalen</b>; klik op een briefje om het te bewerken, het kruisje haalt het weg. Ctrl+Z maakt ongedaan.</li>' +
+      '<li>Een stuk bewerken doe je in het tabblad <b>Bestanden</b>.</li></ul>' +
       '<h3>Aantekeningen en acties</h3><ul><li>Rechts staat altijd de kolom <b>Aantekeningen</b>. Alles wordt vanzelf bewaard en ook als tekstbestand in de map Aantekeningen gezet.</li>' +
       '<li>Een regel die begint met <code>!</code> wordt een actie, bijvoorbeeld <code>! Jan stuurt de notitie rond</code>. Die staat daarna in de Actielijst.</li>' +
       '<li>Een regel die begint met <code>=</code> is een besluit, bijvoorbeeld <code>= livegang schuift naar maart</code>. Bij <b>' + ic('mail') + ' Mail</b> staan de besluiten bovenaan, dan de acties, dan de rest van je aantekeningen.</li>' +
@@ -4744,7 +4650,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>Van de lijst halen</b> verwijdert de actie uit dit overzicht; de regel blijft in de aantekeningen staan. Onder Verwijderd zet je hem terug.</li>' +
       '<li>Klik op de vergadering om ernaartoe te gaan. De actielijst staat ook als <code>Actielijst.txt</code> in de map Actielijst; mails die je als actie hebt toegevoegd, staan in <code>Actielijst\\Mails</code>.</li></ul>' },
     files: { t: 'Bestanden', h:
-      '<p>Een verkenner met alle stukken uit je datamap. Je kunt hier bestanden bekijken, downloaden en mailen, maar niet bewerken.</p><ul>' +
+      '<p>Een verkenner met alle stukken uit je datamap. Je kunt hier bestanden bekijken, bewerken, downloaden en mailen.</p><ul>' +
+      '<li><b>Bewerken</b>: open een stuk (dubbelklik) en klik in de pop-up op <b>' + ic('edit') + ' Bewerken</b>. Dat kan bij Word, Excel, PowerPoint en tekst. Word: stijlen, vet, cursief, onderstrepen, opsomming en uitlijnen. Excel: typ in een cel; Enter, Tab en de pijltjes bewegen, F2 past een cel aan, met = begin je een formule. PowerPoint: klik in een tekstvak op de dia. Opslaan met <b>Opslaan</b> of Ctrl+S; de eerste keer bewaart MeMeet een kopie "(oorspronkelijk)". Met <b>Bekijken</b> zie je het resultaat.</li>' +
       '<li>Links kies je een map, of <b>Alle bestanden</b> (dat is de standaard). Zoek met het zoekvak en filter per kolom.</li>' +
       '<li><b>Mijn mappen</b>: met <b>' + ic('create_new_folder') + ' Nieuwe map</b> maak je een eigen map. Sleep bestanden (één regel, of alle geselecteerde regels) naar die map om ze te ordenen; klik op de map om alleen die bestanden te zien. Dubbelklik op een map om de naam te wijzigen, ' + ic('close') + ' haalt de map weg. Met <b>Geselecteerde bestanden uit deze map halen</b> haal je bestanden er weer uit. De mappen zijn een indeling binnen MeMeet: de bestanden zelf blijven bij hun vergadering en staan altijd onder Alle bestanden.</li>' +
       '<li>Hetzelfde stuk in een ander formaat of een vorige versie (PDF-versie, "(oorspronkelijk)") staat op één regel. Klik met de rechtermuisknop of op <b>versies</b> om alle versies te zien, elk met openen, mailen en downloaden.</li>' +
@@ -4915,6 +4822,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (d && d.meetings) { A.data = d; if (!A.data.types || !A.data.types.length) A.data.types = DEFAULT_TYPES.slice(); if (st.fromOld) await st.save(A.data); /* ingelezen uit een oud register: meteen als memeet.json bewaren */ }
     else { A.data = { version: 1, types: DEFAULT_TYPES.slice(), meetings: [] }; await st.save(A.data); }
     migrateActions();
+    if (migrateAnnotations()) await st.save(A.data); /* aparte annotaties van versie 1.5 worden tekst in de aantekeningen */
     if (st.kind === 'map') await migrateLayout(st);
     await kvSet('mode', st.kind);
     route();
@@ -5864,37 +5772,21 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (PV.io) { PV.io.disconnect(); PV.io = null; }
     PV.pages = null; PV.hits = []; PV.hi = -1;
     if (!f) { setHTML(el, '<div class="pvmsg">Nog geen stukken.<br><small>Sleep documenten of een mail naar dit venster.</small></div>'); return; }
+    /* De viewer toont elk stuk in zijn eigen opmaak, zonder werkbalk vol gereedschap: alleen zoomen, zoeken, downloaden (het
+       originele bestand) en vergroten. Markeren, opmerkingen en meeneempunten gaan via het menuutje bij geselecteerde tekst.
+       Bewerken gebeurt in het tabblad Bestanden. */
     var editable = !isNew;
-    if (!editable && PV.tool !== 'select') PV.tool = 'select';
-    var editMode = PV.mode === 'edit' && !isNew && canEdit(f);
-    var tabs = !isNew && canEdit(f) ? '<div class="vtabs"><button type="button" data-mode="pdf" class="' + (editMode ? '' : 'on') + '">Bekijken</button><button type="button" data-mode="edit" class="' + (editMode ? 'on' : '') + '" title="Het originele bestand bewerken">Bewerken</button></div>' : '';
-    if (editMode) {
-      setHTML(el, '<div class="pvbar"><div class="pvt">' + tabs + '<b class="pvname" title="' + esc(f.name) + '">' + (i + 1) + '. ' + esc(f.name) + '</b></div><div class="pvtools"><button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button><button type="button" class="tl" data-act="orig" title="Origineel downloaden">' + ic('download') + '</button>' + maxBtn() + '</div></div><div class="edwrap" id="edw"></div>');
-      $$('[data-mode]', el).forEach(function (b) { b.onclick = function () { switchMode(m, i, b.dataset.mode); }; });
-      $$('[data-act]', el).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); pvAct(b.dataset.act, m, i); }; });
-      A.edCtl = await mountEditor(m, f, $('#edw'), function () { renderDocList(m); });
-      return;
-    }
-    var hint = !editable ? 'Sla de vergadering eerst op. Daarna kun je markeren en opmerkingen maken.' : !/\.pdf$/i.test(f.name) && !(f.pdf && f.conv === 'vervangen') ? 'Weergave van het origineel (' + ((/\.([^.]+)$/.exec(f.name) || ['', '?'])[1]).toUpperCase() + '). De opmaak kan iets afwijken; het bestand zelf blijft ongewijzigd.' : '';
-    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">' + ic('info') + '</span>' : '') + '<span class="pvst" id="pvst"></span><span class="pvnc" id="pvnc" hidden></span><span class="pvtip" title="Selecteer tekst in het stuk: dan kun je markeren, een opmerking maken of er een meeneempunt van maken">Selecteer tekst: markeren, opmerking of meeneempunt</span>';
-    TOOLS.forEach(function (t) { hb += '<button type="button" class="tl' + (PV.tool === t[0] ? ' on' : '') + '" data-tool="' + t[0] + '" title="' + t[1] + ': ' + t[2] + '"' + (!editable && t[0] !== 'select' ? ' disabled' : '') + '><span class="tic">' + t[3] + '</span><span class="tlb">' + t[1] + '</span></button>'; });
-    hb += '<span class="cols" id="pvcols">' + COLORS.map(function (c) { return '<button type="button" class="col" data-color="' + c + '" title="Kleur" style="--c:' + c + '"></button>'; }).join('') + '</span>';
-    hb += '<button type="button" class="tl" data-act="undo" title="Ongedaan maken (Ctrl+Z)"' + (editable ? '' : ' disabled') + '>' + ic('undo') + '</button><button type="button" class="tl" data-act="redo" title="Opnieuw (Ctrl+Y)"' + (editable ? '' : ' disabled') + '>' + ic('redo') + '</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="zout" title="Kleiner" aria-label="Kleiner">' + ic('zoom_out') + '</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Groter" aria-label="Groter">' + ic('zoom_in') + '</button><span class="sep"></span>';
-    hb += '<button type="button" class="tl" data-act="prev" title="Vorig stuk"' + (i ? '' : ' disabled') + ' aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="next" title="Volgend stuk"' + (i < list.length - 1 ? '' : ' disabled') + ' aria-label="Volgende">' + ic('chevron_right') + '</button>';
-    hb += maxBtn() + '<button type="button" class="tl" data-act="more" title="Meer">' + ic('more_horiz') + '</button><div class="pvmenu" id="pvmenu" hidden>' +
-      (editable ? '<button type="button" data-act="dlann">PDF met aantekeningen downloaden</button><button type="button" data-act="clear">Alle aantekeningen in dit stuk wissen</button>' : '') +
-      '<button type="button" data-act="orig">Origineel downloaden</button><button type="button" data-act="tab">PDF openen in nieuw tabblad</button></div><span class="sp"></span><span class="srch"><input id="pvq" type="search" placeholder="Zoeken in PDF (Ctrl+F)" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)" aria-label="Vorige">' + ic('chevron_left') + '</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)" aria-label="Volgende">' + ic('chevron_right') + '</button></span></div></div>';
+    PV.tool = 'select'; PV.mode = 'pdf';
+    var hb = '<div class="pvbar one simple"><b class="pvname" title="' + esc(f.name) + '">' + esc(f.name) + '</b><span class="pvst" id="pvst"></span><span class="pvnc" id="pvnc" hidden></span><span class="sp"></span>';
+    hb += '<button type="button" class="tl" data-act="zout" title="Uitzoomen" aria-label="Uitzoomen">' + ic('zoom_out') + '</button><button type="button" class="tl zl" data-act="fit" id="pvz" title="Passend maken">100%</button><button type="button" class="tl" data-act="zin" title="Inzoomen" aria-label="Inzoomen">' + ic('zoom_in') + '</button>';
+    hb += '<span class="srch"><input id="pvq" type="search" placeholder="Zoeken (Ctrl+F)" aria-label="Zoeken in het stuk" value="' + esc(PV.q) + '"><span id="pvqc" class="qc"></span><button type="button" class="tl" data-act="qprev" title="Vorige (Shift+Enter)" aria-label="Vorige treffer">' + ic('keyboard_arrow_up') + '</button><button type="button" class="tl" data-act="qnext" title="Volgende (Enter)" aria-label="Volgende treffer">' + ic('keyboard_arrow_down') + '</button></span>';
+    hb += '<button type="button" class="tl" data-act="orig" title="Downloaden (het originele bestand)" aria-label="Downloaden">' + ic('download') + '</button>' + maxBtn() + '</div>';
     hb += '<div class="pvpages" id="pvp"><div class="pvmsg">Stuk wordt klaargemaakt…</div></div>';
     setHTML(el, hb);
-    $$('[data-color]', el).forEach(function (b) { b.onclick = function () { if (PV.tool !== 'mark' && PV.tool !== 'note') setTool('mark'); PV.colors[PV.tool] = b.dataset.color; markColor(); }; });
-    $$('button[data-tool]', el).forEach(function (b) { b.onclick = function () { setTool(b.dataset.tool); }; });
-    $$('[data-mode]', el).forEach(function (b) { b.onclick = function () { switchMode(m, i, b.dataset.mode); }; });
     $$('[data-act]', el).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); pvAct(b.dataset.act, m, i); }; });
     var qi = $('#pvq'), qt;
     qi.addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { doSearch(qi.value); }, 250); });
     qi.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); if (PV.q !== qi.value) doSearch(qi.value); else gotoHit(PV.hi + (e.shiftKey ? -1 : 1)); } else if (e.key === 'Escape') { qi.value = ''; doSearch(''); } });
-    markColor();
     var blob = null; try { blob = isNew ? await draftPdf(f) : await getPdf(m, f); } catch (e) { console.error(e); }
     if (tok !== PV.tok) return;
     var pvp = $('#pvp');

@@ -85,7 +85,6 @@
     function add(it) { if (!it || seen[it.id]) return; seen[it.id] = 1; out.push(it); }
     if (src.rem) { var it = ibParse(/^\s*[>?]/.test(src.rem.line) ? src.rem.line : '> ' + src.rem.line, src, ctx); if (it) { it.where = 'rem'; add(it); } return out; }
     String(src.minutes || '').split(/\r?\n/).forEach(function (l, i) { var it = ibParse(l, src, ctx); if (it) { it.where = 'notes'; it.line = i; add(it); } });
-    var an = src.annotation; if (an && an.items) an.items.forEach(function (x, ai) { String(x.fb || '').split(/\r?\n/).forEach(function (l, li) { var it = ibParse(l, src, ctx); if (it) { it.where = 'ann'; it.ai = ai; it.al = li; add(it); } }); });
     return out;
   }
   function ibSources() { return A.data.meetings.concat(ibRems().map(ibRemSrc)); }
@@ -142,7 +141,7 @@
     return all.pts.filter(function (p) { return p.r.path.indexOf(m) >= 0 || (p.r.st === 'done' && p.r.m === m); });
   }
   function ibSrcLink(p) {
-    return '<button type="button" class="link ibsrc" data-ibctx="' + esc(p.id) + '" title="Bekijk waar dit punt vandaan komt">uit ' + esc(ibName(p.src)) + (p.where === 'ann' ? ' (annotatie)' : '') + '</button>';
+    return '<button type="button" class="link ibsrc" data-ibctx="' + esc(p.id) + '" title="Bekijk waar dit punt vandaan komt">uit ' + esc(ibName(p.src)) + '</button>';
   }
   function ibInbHtml(m, all) {
     var pts = ibHereList(m, all); if (!pts.length) return '';
@@ -248,11 +247,6 @@
       head = '<h2 id="ibCtxT">Losse herinnering</h2><p class="muted">Toegevoegd op ' + esc(fmtLong(s.date)) + ' om ' + esc(s.start) + '</p>';
       body = '<pre class="ibnotes"><mark>' + esc(s.rem.line) + '</mark></pre><p class="muted ibsmall">Deze herinnering heb je los van een overleg toegevoegd, op het tabblad Herinneringen.</p>';
       acts = '<a class="btn" href="#/herinneringen">Naar Herinneringen</a>';
-    } else if (p.where === 'ann' && s.annotation) {
-      var x = s.annotation.items[p.ai] || { t: '', body: '', fb: '' };
-      head = '<p class="muted ibsmall">Waar dit punt vandaan komt</p><h2 id="ibCtxT">' + esc(s.title) + '</h2><p class="muted">' + esc(fmtLong(s.date)) + (s.start ? ', ' + esc(s.start) : '') + ' · annotatie van ' + esc(s.annotation.from || '') + '</p>';
-      body = '<div class="ait">' + esc(x.t) + '</div><div class="aib">' + esc(x.body) + '</div><p class="muted ibsmall">Jouw terugkoppeling</p><pre class="ibnotes">' + String(x.fb || '').split(/\r?\n/).map(function (l, i) { return i === p.al ? '<mark>' + esc(l) + '</mark>' : esc(l); }).join('\n') + '</pre>';
-      acts = '<a class="btn" href="#/v/' + esc(encodeURIComponent(s.id)) + '" data-ibann="' + esc(s.id) + '">Open dat overleg</a>';
     } else {
       head = '<p class="muted ibsmall">Waar dit punt vandaan komt</p><h2 id="ibCtxT">' + esc(s.title) + '</h2><p class="muted">' + esc(fmtLong(s.date)) + (s.start ? ', ' + esc(s.start) : '') + (names(s.invitees).length ? ' · ' + esc(names(s.invitees).join(', ')) : '') + '</p>';
       body = '<pre class="ibnotes">' + String(s.minutes || '').split(/\r?\n/).map(function (l, i) { return i === p.line ? '<mark>' + esc(l) + '</mark>' : esc(l); }).join('\n') + '</pre>' +
@@ -264,7 +258,7 @@
     D.body.appendChild(bg);
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeIbCtx(); });
     $('#ibCtxX', bg).onclick = closeIbCtx; $('#ibCtxOk', bg).onclick = closeIbCtx;
-    $$('a.btn', bg).forEach(function (a) { a.addEventListener('click', function () { if (a.dataset.ibann) A.npTab = Object.assign(A.npTab || {}, (function () { var o = {}; o[a.dataset.ibann] = 'ann'; return o; })()); closeIbCtx(); }); });
+    $$('a.btn', bg).forEach(function (a) { a.addEventListener('click', function () { closeIbCtx(); }); });
     var mk = $('mark', bg); if (mk) mk.scrollIntoView({ block: 'center' });
     try { $('#ibCtxOk', bg).focus(); } catch (e) {}
   }
@@ -309,7 +303,6 @@
   async function ibRelink(it, to) {
     var nl = '> ' + to + ' ' + it.text, s = it.src;
     if (it.where === 'rem') s.rem.line = nl;
-    else if (it.where === 'ann' && s.annotation) { var x = s.annotation.items[it.ai], fl = String(x.fb || '').split(/\r?\n/); fl[it.al] = nl; x.fb = fl.join('\n'); }
     else { var ls = String(s.minutes || '').split(/\r?\n/); ls[it.line] = nl; s.minutes = ls.join('\n'); delete s.minutesHtml; if (typeof saveMinutes === 'function') { await saveMinutes(s); return; } }
     await persist();
   }
