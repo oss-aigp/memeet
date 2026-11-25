@@ -617,6 +617,18 @@ html[data-theme=dark] .ibbadge{color:#f1d27a;border-color:#6b5a22}
 .ibnew{margin-top:10px}.ibnew summary{display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:2px 0;font-size:13.5px}
 .ibnf{display:grid;grid-template-columns:2fr 1fr .8fr .8fr;gap:8px;margin-top:8px}.ibnf #nfP{grid-column:1/4}.ibnf .btn{grid-column:4}
 @media (max-width:700px){.ibnf{grid-template-columns:1fr 1fr}.ibnf #nfP,.ibnf .btn{grid-column:auto}}
+/* ---- viewer: selectiewerkbalk, opmerkingen-teller, tip, vergroten binnen de vergadering */
+.pvpages{position:relative}
+.seltb{position:absolute;z-index:8;display:flex;background:var(--lint);border-radius:7px;box-shadow:0 6px 18px rgba(0,0,0,.25);overflow:hidden}
+.seltb button{background:none;border:0;color:#fff;padding:6px 11px;font:inherit;font-size:12.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer}
+.seltb button+button{border-left:1px solid rgba(255,255,255,.2)}.seltb button:hover{background:rgba(255,255,255,.14)}.seltb .i{width:16px;height:16px}
+.seltb .sw{width:12px;height:12px;background:#fff176;border-radius:2px;display:inline-block}
+.pvnc{font-size:11.5px;font-weight:700;background:var(--warn);color:#7a5a00;border:1px solid #efd98a;border-radius:10px;padding:0 7px;white-space:nowrap}.pvnc[hidden]{display:none}
+.pvtip{font-size:11.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto;margin:0 4px}
+.mxl{margin-left:4px;font-size:12.5px}
+@container (max-width:1150px){.pvbar.one .pvtip{display:none}}
+@container (max-width:1150px){.pvbar.one .mxl{display:none}}
+.ws.n3.pvwide{grid-template-columns:minmax(0,1fr) var(--npw,340px)!important}.ws.pvwide>.card.list,.ws.pvwide .lsgrip{display:none}
 /* viewer-pop-up voor bestanden: één bestand zonder lijst links */
 .mabody.one{grid-template-columns:minmax(0,1fr)}.mabody.one .malist{display:none}
 .mastatic{font-size:17px;font-weight:700;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}

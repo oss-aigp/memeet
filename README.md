@@ -189,7 +189,7 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 
 | Knop | Wat het doet |
 |---|---|
-| **Tekst** | Tekst selecteren en kopiëren (Ctrl+C). |
+| **Tekst** | Tekst selecteren. Er verschijnt een kleine werkbalk: **Markeren** (geel), **Opmerking** (oranje onderstreping en een geel briefje in de kantlijn) en **+ Meeneempunt** (de tekst komt als `> …` onderaan je aantekeningen; typ er een naam of `Overleg:` voor). Klik op een markering om hem weg te halen. Kopiëren met Ctrl+C. |
 | **Markeren** | Selecteer tekst; die wordt gemarkeerd in geel of groen. |
 | **Opmerking** | Klik op een woord en typ. De opmerking komt in de rechtermarge. Ctrl+Enter = klaar. |
 | **Gum** | Klik op een markering of opmerking om die te verwijderen. |
@@ -197,6 +197,7 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 | Zoekvak | Zoeken in de PDF (Ctrl+F), daarna Enter voor de volgende treffer. |
 
 Alle knoppen staan op één regel boven het stuk. In een smalle kolom tonen Tekst, Markeren, Opmerking en Gum alleen een symbool (Aa, 🖍, 💬, ⌫); de naam staat in de tooltip.
+| Vergroten | De viewer neemt de kolom met stukken over; je aantekeningen blijven zichtbaar. Verkleinen of Esc zet hem terug. |
 | − 100% + | Kleiner en groter. Ingezoomd kun je met de horizontale schuifbalk de hele pagina zien. Klik op het percentage om de pagina weer passend te maken. |
 | ⛶ | De viewer tijdelijk vergroten tot het hele browservenster. Nog een keer klikken of Esc maakt hem weer klein. Werkt ook bij Bewerken. |
 | ⋯ | Het stuk downloaden met je aantekeningen, of het origineel downloaden. |

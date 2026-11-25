@@ -107,7 +107,8 @@
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt: de aantekeningen van dat overleg, met de regel geel gemarkeerd, en de stukken. <b>Esc</b> sluit het venster.</li>' +
       '<li>De besluiten, acties en meeneempunten van een eerder overleg vind je op het tabblad <b>Verslagen</b>.</li></ul>' +
       '<h3>De viewer (tabblad Bekijken)</h3><ul>' +
-      '<li><b>Tekst</b>: tekst selecteren en kopiëren (Ctrl+C).</li>' +
+      '<li><b>Tekst selecteren</b> (met <b>Tekst</b> aan, de standaard): er verschijnt een kleine werkbalk met <b>Markeren</b> (geel), <b>Opmerking</b> (de tekst wordt oranje onderstreept en er komt een geel briefje in de kantlijn, op dezelfde hoogte) en <b>+ Meeneempunt</b> (de tekst komt als <code>&gt; …</code> onderaan je aantekeningen, met de cursor direct na <code>&gt; </code>, zodat je er een naam of <code>Overleg:</code> voor typt). Klik op een markering voor <b>Markering weghalen</b>. Kopiëren kan ook: Ctrl+C.</li>' +
+      '<li>In de werkbalk zie je hoeveel opmerkingen er in het stuk staan. Een briefje bewerk je door erop te klikken; met het kruisje haal je het weg.</li>' +
       '<li><b>Markeren</b>: selecteer tekst; die wordt geel of groen gemarkeerd. Kies de kleur met de bolletjes.</li>' +
       '<li><b>Opmerking</b>: klik op een woord en typ. De opmerking komt in de rechtermarge; Ctrl+Enter is klaar.</li>' +
       '<li><b>Gum</b>: klik op een markering of opmerking om hem weg te halen.</li>' +
@@ -116,7 +117,7 @@
       '<li>Een stuk dat geen PDF is, toont de viewer als weergave van het origineel; de opmaak kan iets afwijken, het bestand zelf blijft ongewijzigd. Een melding over het stuk staat achter het rondje <b>i</b>.</li>' +
       '<li>Alle knoppen boven het stuk staan op één regel. Is de kolom smal, dan tonen ze alleen een symbool (Aa = tekst, ' + ic('ink_highlighter') + ' = markeren, ' + ic('add_comment') + ' = opmerking, ' + ic('ink_eraser') + ' = gum); wijs een knop aan voor de naam.</li>' +
       '<li><b>− 100% +</b>: kleiner en groter. Klik op het percentage om de pagina weer passend te maken.</li>' +
-      '<li><b>Vierkantje met hoekjes</b>: de viewer vergroten tot het hele venster. Nog eens klikken of Esc maakt hem weer klein.</li>' +
+      '<li><b>' + ic('open_in_full') + ' Vergroten</b>: de viewer neemt de kolom met stukken over; je aantekeningen blijven zichtbaar. <b>' + ic('close_fullscreen') + ' Verkleinen</b> of Esc zet hem terug. Esc sluit eerst een open venster, dan de selectiewerkbalk, en dan pas het vergroten.</li>' +
       '<li><b>' + ic('more_horiz') + '</b>: het stuk als PDF downloaden met je aantekeningen, alle aantekeningen wissen, het origineel downloaden of de weergave in een nieuw tabblad openen.</li></ul>' +
       '<h3>Bewerken</h3><ul><li>Het tabblad <b>Bewerken</b> boven de viewer past het originele bestand aan.</li>' +
       '<li>Word: stijlen, vet, cursief, onderstrepen, opsomming en uitlijnen. Excel: typ in een cel; Enter, Tab en de pijltjes bewegen, F2 past een cel aan, Delete wist, met = begin je een formule. PowerPoint: klik in een tekstvak op de dia.</li>' +

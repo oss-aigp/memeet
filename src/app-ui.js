@@ -1010,12 +1010,15 @@
   function isNote(s) { return s.t === 'note' || s.t === 'text'; }
   function hasNotes(ann) { return Object.keys(ann || {}).some(function (k) { return (ann[k] || []).some(isNote); }); }
   async function draftPdf(f) { if (f._pdf === undefined) { var r = await convertToPdf(f.name, f.type, f.blob); f._pdf = r ? new Blob([r.bytes], { type: 'application/pdf' }) : null; } return f._pdf; }
-  function maxLabel() { return A.pvMax ? 'Verkleinen (Esc)' : 'Vergroten tot volledig venster'; }
-  function maxBtn() { return '<button type="button" class="tl mx' + (A.pvMax ? ' on' : '') + '" data-act="max" title="' + maxLabel() + '" aria-label="' + maxLabel() + '">' + ic(A.pvMax ? 'fullscreen_exit' : 'fullscreen') + '</button>'; }
+  function maxLabel() { return A.pvMax ? 'Verkleinen (Esc)' : ($('.ws.n3') ? 'Vergroten: de viewer neemt de kolom met stukken over, je aantekeningen blijven zichtbaar' : 'Vergroten tot volledig venster'); }
+  /* in een vergadering met aantekeningen: de viewer neemt de kolom met stukken over; anders het hele venster */
+  function applyMax(el) { var ws = $('.ws.n3'), on = !!A.pvMax; if (ws) { ws.classList.toggle('pvwide', on); el.classList.remove('max'); } else el.classList.toggle('max', on); }
+  function maxBtn() { return '<button type="button" class="tl mx' + (A.pvMax ? ' on' : '') + '" data-act="max" title="' + maxLabel() + '" aria-label="' + maxLabel() + '">' + maxInner() + '</button>'; }
+  function maxInner() { return ic(A.pvMax ? 'close_fullscreen' : 'open_in_full') + '<span class="mxl">' + (A.pvMax ? 'Verkleinen' : 'Vergroten') + '</span>'; }
   function pvMax(on) {
     var el = $('#pv'); A.pvMax = !!on; if (!el) return;
-    el.classList.toggle('max', A.pvMax);
-    var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); setHTML(b, ic(A.pvMax ? 'fullscreen_exit' : 'fullscreen')); }
+    applyMax(el);
+    var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); setHTML(b, maxInner()); }
     requestAnimationFrame(function () { if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } });
   }
   /* Ingescande PDF's gebruiken vaak CCITT-fax, JBIG2 of JPEG 2000 voor de pagina-afbeelding. pdf.js pakt die uit met WebAssembly
@@ -1029,7 +1032,7 @@
   function pdfOpts(data) { return { data: data, isEvalSupported: false, wasmUrl: 'memeet-wasm/', useWorkerFetch: false, BinaryDataFactory: EmbeddedBinaryData }; }
   async function pvShow(m, i) {
     var el = $('#pv'); if (!el) return;
-    el.classList.toggle('max', !!A.pvMax);
+    applyMax(el);
     var isNew = !!m.isNew, list = isNew ? (m.pending || []) : m.files, f = list[i];
     if (A.edCtl && A.edCtl.isDirty() && !confirm('Je hebt wijzigingen in het bestand die nog niet zijn opgeslagen. Weggooien?')) return;
     A.edCtl = null;
@@ -1053,7 +1056,7 @@
       return;
     }
     var hint = !editable ? 'Sla de vergadering eerst op. Daarna kun je markeren en opmerkingen maken.' : !/\.pdf$/i.test(f.name) && !(f.pdf && f.conv === 'vervangen') ? 'Weergave van het origineel (' + ((/\.([^.]+)$/.exec(f.name) || ['', '?'])[1]).toUpperCase() + '). De opmaak kan iets afwijken; het bestand zelf blijft ongewijzigd.' : '';
-    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">' + ic('info') + '</span>' : '') + '<span class="pvst" id="pvst"></span>';
+    var hb = '<div class="pvbar one" title="' + esc((isNew ? '' : (i + 1) + '. ') + f.name) + '"><div class="pvtools">' + tabs + (hint ? '<span class="pvinfo' + (!editable ? ' warn' : '') + '" title="' + esc(hint) + '" aria-label="' + esc(hint) + '">' + ic('info') + '</span>' : '') + '<span class="pvst" id="pvst"></span><span class="pvnc" id="pvnc" hidden></span><span class="pvtip" title="Selecteer tekst in het stuk: dan kun je markeren, een opmerking maken of er een meeneempunt van maken">Selecteer tekst: markeren, opmerking of meeneempunt</span>';
     TOOLS.forEach(function (t) { hb += '<button type="button" class="tl' + (PV.tool === t[0] ? ' on' : '') + '" data-tool="' + t[0] + '" title="' + t[1] + ': ' + t[2] + '"' + (!editable && t[0] !== 'select' ? ' disabled' : '') + '><span class="tic">' + t[3] + '</span><span class="tlb">' + t[1] + '</span></button>'; });
     hb += '<span class="cols" id="pvcols">' + COLORS.map(function (c) { return '<button type="button" class="col" data-color="' + c + '" title="Kleur" style="--c:' + c + '"></button>'; }).join('') + '</span>';
     hb += '<button type="button" class="tl" data-act="undo" title="Ongedaan maken (Ctrl+Z)"' + (editable ? '' : ' disabled') + '>' + ic('undo') + '</button><button type="button" class="tl" data-act="redo" title="Opnieuw (Ctrl+Y)"' + (editable ? '' : ' disabled') + '>' + ic('redo') + '</button><span class="sep"></span>';
@@ -1084,7 +1087,7 @@
     PV.pdf = pdf; PV.data = data; PV.m = m; PV.f = f; PV.ann = editable ? f.ann : {}; PV.editable = editable; PV.undo = []; PV.redo = []; PV.pages = [];
     for (var n = 1; n <= pdf.numPages; n++) { var pg = await pdf.getPage(n); if (tok !== PV.tok) return; PV.pages.push({ n: n, page: pg }); }
     bindPvp(pvp);
-    layoutPages(); undoBtns();
+    layoutPages(); undoBtns(); noteCount();
     if (PV.q) doSearch(PV.q);
   }
   function switchMode(m, i, mode) {
@@ -1108,7 +1111,7 @@
     while (box.firstChild) box.removeChild(box.firstChild);
     if (PV.io) PV.io.disconnect();
     box.dataset.t = PV.tool;
-    PV.margin = PV.editable && (hasNotes(PV.ann) || PV.tool === 'note');
+    PV.margin = PV.editable && (hasNotes(PV.ann) || PV.tool === 'note' || !!PV.wantMrg);
     var M = PV.margin ? MARGIN : 0, maxW = Math.max.apply(null, PV.pages.map(function (p) { return p.page.getViewport({ scale: 1 }).width; }));
     if (PV.fit) PV.scale = Math.max(0.3, Math.min(3, (box.clientWidth - 36) / (maxW + M)));
     var z = $('#pvz'); if (z) z.textContent = Math.round(PV.scale * 100) + '%';
@@ -1268,11 +1271,11 @@
   function undoBtns() { var u = $('#pv [data-act=undo]'), r = $('#pv [data-act=redo]'); if (u) u.disabled = !PV.editable || !(PV.undo && PV.undo.length); if (r) r.disabled = !PV.editable || !(PV.redo && PV.redo.length); }
   function restoreAnn(st) { var prev = JSON.parse(st); Object.keys(PV.ann).forEach(function (k) { delete PV.ann[k]; }); Object.keys(prev).forEach(function (k) { PV.ann[k] = prev[k]; }); layoutPages(); changed(); undoBtns(); }
   function changed() {
-    var st = $('#pvst'); if (st) st.textContent = 'opslaan…';
+    var st = $('#pvst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; }
     clearTimeout(PV.saveT);
     var m = PV.m;
     PV.saveT = setTimeout(async function () {
-      try { m.updated = new Date().toISOString(); await persist(); var s2 = $('#pvst'); if (s2) setHTML(s2, 'opgeslagen ' + ic('check')); refreshAnnBadge(); }
+      try { m.updated = new Date().toISOString(); await persist(); var s2 = $('#pvst'); if (s2) { setHTML(s2, ic('check')); s2.title = 'Aantekeningen in het stuk opgeslagen'; } refreshAnnBadge(); noteCount(); }
       catch (e) { toast('Aantekeningen opslaan mislukt: ' + (e.message || e), 'err'); }
     }, 600);
   }
@@ -1285,40 +1288,94 @@
   }
   function commit(p, fn) {
     snapshot(); var arr = PV.ann[p.n] || (PV.ann[p.n] = []); fn(arr); if (!arr.length) delete PV.ann[p.n];
-    var needM = PV.editable && (hasNotes(PV.ann) || PV.tool === 'note');
+    var needM = PV.editable && (hasNotes(PV.ann) || PV.tool === 'note' || !!PV.wantMrg);
     if (needM !== !!PV.margin) layoutPages(); else drawAnn(p);
     changed();
   }
 
   /* ---------- interactie: markeren (uit selectie), opmerkingen, gum */
+  /* een tekstselectie omzetten naar rechthoeken (PDF-coördinaten) per pagina; regels op dezelfde hoogte samengevoegd */
+  function selRects(rg) {
+    var rects = Array.prototype.slice.call(rg.getClientRects()), out = [];
+    PV.pages.forEach(function (p) {
+      if (!p.tl) return;
+      var pr = p.el.getBoundingClientRect(), list = [];
+      rects.forEach(function (r) {
+        if (r.width < 1 || r.height < 1 || r.height > pr.height * 0.12) return;
+        if (r.right < pr.left || r.left > pr.right || r.bottom < pr.top || r.top > pr.bottom) return;
+        var a = p.vp.convertToPdfPoint(r.left - pr.left, r.top - pr.top), b = p.vp.convertToPdfPoint(r.right - pr.left, r.bottom - pr.top);
+        list.push([Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1])]);
+      });
+      if (!list.length) return;
+      list.sort(function (u, v) { return v[1] - u[1] || u[0] - v[0]; });
+      var merged = [];
+      list.forEach(function (r) { var l = merged[merged.length - 1]; if (l && Math.abs(l[1] - r[1]) < 2 && Math.abs(l[3] - r[3]) < 2 && r[0] <= l[2] + 2) { l[2] = Math.max(l[2], r[2]); l[0] = Math.min(l[0], r[0]); } else merged.push(r.slice()); });
+      out.push({ p: p, rects: merged.map(function (r) { return r.map(function (v) { return Math.round(v * 10) / 10; }); }) });
+    });
+    return out;
+  }
+  function markSel(rg, color) {
+    var made = false;
+    selRects(rg).forEach(function (x) { commit(x.p, function (arr) { arr.push({ t: 'mark', c: color || PV.colors.mark, rects: x.rects }); }); made = true; });
+    return made;
+  }
+  /* de kleine werkbalk bij een tekstselectie: markeren, opmerking of meeneempunt (en bij een markering: weghalen) */
+  function killSelTb() { var o = $('.seltb'); if (o) o.remove(); }
+  function selTb(x, y, btns) {
+    killSelTb(); var box = $('#pvp'); if (!box) return;
+    var r = box.getBoundingClientRect(), b = D.createElement('div'); b.className = 'seltb'; b.setAttribute('role', 'toolbar'); b.setAttribute('aria-label', 'Selectie');
+    btns.forEach(function (x0) { var e = D.createElement('button'); e.type = 'button'; setHTML(e, x0[0]); e.onmousedown = function (ev) { ev.preventDefault(); }; e.onclick = function () { killSelTb(); x0[1](); }; b.appendChild(e); });
+    box.appendChild(b);
+    b.style.left = Math.max(4, Math.min(x - r.left + box.scrollLeft - 20, box.scrollLeft + box.clientWidth - b.offsetWidth - 6)) + 'px';
+    b.style.top = (y - r.top + box.scrollTop + 12) + 'px';
+  }
+  /* een meeneempunt van de geselecteerde tekst: "> tekst" onderaan de aantekeningen, met de cursor direct na "> " */
+  function selToPoint(txt) {
+    var t = txt.length > 140 ? txt.slice(0, 137).replace(/\s+\S*$/, '') + '…' : txt, m = PV.m, ta = $('#npt');
+    if (!m) return;
+    var cur = ta ? ta.value : String(m.minutes || ''), pre = cur && !/\n$/.test(cur) ? '\n' : '', nv = cur + pre + '> ' + t, caret = cur.length + pre.length + 2;
+    if (ta) { ta.value = nv; ta.focus(); ta.setSelectionRange(caret, caret); ta.dispatchEvent(new Event('input')); ta.scrollTop = ta.scrollHeight; }
+    else { m.minutes = nv; delete m.minutesHtml; saveMinutes(m); }
+    toast('Toegevoegd aan je aantekeningen. Typ er nog een naam of “Overleg:” voor.', 'ok');
+  }
   function bindPvp(box) {
-    box.addEventListener('mouseup', function () {
-      if (PV.tool !== 'mark' || !PV.editable) return;
+    box.addEventListener('mouseup', function (e) {
+      if (!PV.editable || e.target.closest('.seltb,.nbox,.nedit')) return;
       setTimeout(function () {
-        var sel = W.getSelection(); if (!sel || sel.isCollapsed || !sel.rangeCount) return;
-        var rg = sel.getRangeAt(0), rects = Array.prototype.slice.call(rg.getClientRects()), made = false;
-        PV.pages.forEach(function (p) {
-          if (!p.tl) return;
-          var pr = p.el.getBoundingClientRect(), list = [];
-          rects.forEach(function (r) {
-            if (r.width < 1 || r.height < 1 || r.height > pr.height * 0.12) return;
-            if (r.right < pr.left || r.left > pr.right || r.bottom < pr.top || r.top > pr.bottom) return;
-            var a = p.vp.convertToPdfPoint(r.left - pr.left, r.top - pr.top), b = p.vp.convertToPdfPoint(r.right - pr.left, r.bottom - pr.top);
-            list.push([Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1])]);
-          });
-          if (!list.length) return;
-          list.sort(function (u, v) { return v[1] - u[1] || u[0] - v[0]; });
-          var merged = [];
-          list.forEach(function (r) { var l = merged[merged.length - 1]; if (l && Math.abs(l[1] - r[1]) < 2 && Math.abs(l[3] - r[3]) < 2 && r[0] <= l[2] + 2) { l[2] = Math.max(l[2], r[2]); l[0] = Math.min(l[0], r[0]); } else merged.push(r.slice()); });
-          merged = merged.map(function (r) { return r.map(function (v) { return Math.round(v * 10) / 10; }); });
-          commit(p, function (arr) { arr.push({ t: 'mark', c: PV.colors.mark, rects: merged }); }); made = true;
-        });
-        if (made) sel.removeAllRanges();
+        var sel = W.getSelection(); if (!sel || sel.isCollapsed || !sel.rangeCount) { return; }
+        var rg = sel.getRangeAt(0);
+        if (PV.tool === 'mark') { if (markSel(rg)) sel.removeAllRanges(); return; }
+        if (PV.tool !== 'select') return;
+        var txt = String(sel).replace(/\s+/g, ' ').trim(); if (txt.length < 3 || !selRects(rg).length) return;
+        var rg2 = rg.cloneRange();
+        selTb(e.clientX, e.clientY, [
+          ['<span class="sw"></span>Markeren', function () { markSel(rg2, PV.colors.mark || '#ffd400'); W.getSelection().removeAllRanges(); }],
+          [ic('add_comment') + ' Opmerking', function () {
+            var xs = selRects(rg2); if (!xs.length) return; var x = xs[0], r0 = x.rects[0];
+            W.getSelection().removeAllRanges(); PV.wantMrg = true; if (!x.p.mrg) layoutPages(); PV.wantMrg = false; noteEditor(PV.pages[x.p.n - 1], -1, [r0[2], r0[1]], r0);
+          }],
+          [ic('add') + ' Meeneempunt', function () { W.getSelection().removeAllRanges(); selToPoint(txt); }]
+        ]);
       }, 0);
     });
+    box.addEventListener('scroll', killSelTb);
+    box.addEventListener('mousedown', function (e) { if (!e.target.closest('.seltb')) killSelTb(); });
+  }
+  /* aantal opmerkingen in dit stuk, in de werkbalk van de viewer */
+  function noteCount() {
+    var el = $('#pvnc'); if (!el) return;
+    var n = Object.keys(PV.ann || {}).reduce(function (a, k) { return a + (PV.ann[k] || []).filter(isNote).length; }, 0);
+    el.hidden = !n; el.textContent = n + ' opmerking' + (n === 1 ? '' : 'en');
   }
   function bindPage(p) {
     p.el.addEventListener('click', function (e) {
+      if (PV.tool === 'select' && PV.editable && e.button === 0) {
+        var s0 = W.getSelection(); if (s0 && !s0.isCollapsed) return;
+        var r0 = p.el.getBoundingClientRect(), q0 = p.vp.convertToPdfPoint(e.clientX - r0.left, e.clientY - r0.top), arr0 = PV.ann[p.n] || [], hit = -1;
+        arr0.forEach(function (s, i) { if (s.t === 'mark' && (s.rects || []).some(function (rc) { return q0[0] >= rc[0] - 1 && q0[0] <= rc[2] + 1 && q0[1] >= rc[1] - 1 && q0[1] <= rc[3] + 1; })) hit = i; });
+        if (hit >= 0) selTb(e.clientX, e.clientY, [[ic('ink_eraser') + ' Markering weghalen', function () { commit(p, function (arr) { arr.splice(hit, 1); }); }]]);
+        return;
+      }
       if (PV.tool !== 'note' || e.button > 0) return;
       var sel = W.getSelection(); if (sel && !sel.isCollapsed) return;
       var r = p.el.getBoundingClientRect(), q = p.vp.convertToPdfPoint(e.clientX - r.left, e.clientY - r.top), wr = null;
@@ -1379,6 +1436,7 @@
   }
   function initPv() {
     D.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && $('.seltb') && !e.defaultPrevented && !$('.dlgbg')) { e.preventDefault(); killSelTb(); return; }
       if (e.key === 'Escape' && A.pvMax && $('#pv') && !e.defaultPrevented && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '') && !e.target.isContentEditable) { e.preventDefault(); pvMax(false); return; }
       if (!$('#pv') || !PV.pages) return;
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') { var qi = $('#pvq'); if (qi) { e.preventDefault(); qi.focus(); qi.select(); } return; }
