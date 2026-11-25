@@ -589,6 +589,34 @@ select.to{width:auto;max-width:100%;min-height:0;padding:1px 4px;border-color:va
 .minv{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--mute);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mdone{font-size:12px;border-radius:12px;padding:2px 10px;font-weight:700;background:var(--ok);color:var(--green);white-space:nowrap}
 html[data-theme=dark] .mdone{color:#8fd16a}
+/* ---- inbrengen: startscherm en Herinneringen */
+.tact{grid-template-columns:104px 96px 70px 124px}.tin{justify-content:flex-end}
+.ibbadge{display:inline-block;background:var(--warn);color:#7a5a00;border:1px solid #efd98a;border-radius:20px;padding:1px 9px;font-size:12px;font-weight:700;white-space:nowrap;vertical-align:1px}
+html[data-theme=dark] .ibbadge{color:#f1d27a;border-color:#6b5a22}
+.ibbanner{display:flex;align-items:center;gap:14px;background:linear-gradient(100deg,#123a66,#154273 60%,#1a5189);color:#fff;border-radius:var(--radius);padding:10px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
+.ibbanner .ibbtx{flex:1;min-width:0}.ibbwhen{color:#cfe3f3;font-size:12.5px}.ibbig{font-size:16px;font-weight:700;white-space:pre}
+.ibbanner ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;columns:2 260px;column-gap:28px}.ibbnone{font-size:13px;margin-top:2px;color:#dcecf7}
+.ibbanner .btn{background:#fff;color:var(--lint);border:0;font-weight:700}
+.ibgrid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px;align-items:start}.ibhome{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+@media (max-width:900px){.ibgrid{grid-template-columns:1fr}}
+.ibcard h2{font-size:16px;margin:0 0 6px}.ibempty{margin:0;font-size:13.5px}
+.iblist{list-style:none;margin:0;padding:0}.iblist li{padding:7px 0;border-top:1px solid var(--line);font-size:13.5px}.iblist li:first-child{border-top:0}
+.iblist .why{font-size:12.5px;color:#9a6700}.iblist .src,.ibgrp .src{font-size:12px;color:var(--mute)}.iblist .link,.ibgrp .link{padding:0;font-size:12px}
+.iblist .chip,.ibgrp .chip,.qprev .chip{display:inline-block;background:var(--soft);color:var(--brand);border-radius:12px;padding:0 7px;font-size:11.5px;margin:2px 4px 0 0;border:1px solid var(--licht)}
+.iblink{margin-top:4px;font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:3px;align-items:center}
+.ibx{padding:0 2px!important;color:var(--mute);vertical-align:-3px}.ibx:hover{color:var(--red)}.ibx .i{width:16px;height:16px}
+.ibgrp{border-top:1px solid var(--line);padding:8px 0}.ibgrp:first-of-type{border-top:0}
+.ibgrp h3{margin:0 0 4px;font-size:14px;display:flex;gap:8px;align-items:baseline}.ibgrp h3 a{font-weight:700;text-decoration:none}.ibgrp h3 .muted{font-weight:400;font-size:13px}
+.ibgrp ul{list-style:none;margin:0;padding:0 0 0 2px}.ibgrp li{padding:4px 0;display:flex;gap:8px;align-items:baseline;font-size:13.5px}.ibgrp li>div{flex:1;min-width:0}
+.ibgrp .tag{font-size:11.5px;background:var(--warn);border:1px solid #ead79b;border-radius:10px;padding:0 7px;margin-left:6px;color:#7a5a00;white-space:nowrap}
+.ibdot{width:7px;height:7px;border-radius:50%;background:#e0b100;flex:none;transform:translateY(-1px)}
+.qa{display:flex;gap:8px}.qa input{flex:1;font:15px Consolas,"Cascadia Mono",monospace;height:40px}
+#remAc{padding:4px 0;font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:3px 4px;align-items:center}#remAc[hidden]{display:none}
+.qprev{min-height:22px;font-size:13px;margin-top:4px}
+.iblegend2{font-size:12px;color:var(--mute);margin:6px 0 0}.iblegend2 code{font-family:Consolas,monospace;color:var(--acc)}
+.ibnew{margin-top:10px}.ibnew summary{display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:2px 0;font-size:13.5px}
+.ibnf{display:grid;grid-template-columns:2fr 1fr .8fr .8fr;gap:8px;margin-top:8px}.ibnf #nfP{grid-column:1/4}.ibnf .btn{grid-column:4}
+@media (max-width:700px){.ibnf{grid-template-columns:1fr 1fr}.ibnf #nfP,.ibnf .btn{grid-column:auto}}
 /* viewer-pop-up voor bestanden: één bestand zonder lijst links */
 .mabody.one{grid-template-columns:minmax(0,1fr)}.mabody.one .malist{display:none}
 .mastatic{font-size:17px;font-weight:700;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}

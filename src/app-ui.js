@@ -325,7 +325,7 @@
       '<p>Zo gaat het (onderaan staat hoe je hier een sneltoets voor maakt):</p><ol>' +
       '<li>Ga in Outlook naar <b>Agenda</b> en klik links op je eigen agenda.</li>' +
       '<li>Kies <b>Bestand</b> › <b>Agenda opslaan in bestand</b> en klik onderin op <b>Meer opties</b>.</li>' +
-      '<li>Kies bij <b>Datumbereik</b> bijvoorbeeld <i>Volgende 7 dagen</i> en bij <b>Detail</b> <i>Volledige details</i>. Wil je de bijlagen van afspraken als stukken, vink dan onder <b>Geavanceerd</b> ook <b>Bijlagen bij agenda-items opnemen</b> aan. Klik op <b>OK</b> en daarna op <b>Opslaan</b>.</li></ol>' +
+      '<li>Kies bij <b>Datumbereik</b> bijvoorbeeld <i>Volgende 30 dagen</i> en bij <b>Detail</b> <i>Volledige details</i>. Wil je de bijlagen van afspraken als stukken, vink dan onder <b>Geavanceerd</b> ook <b>Bijlagen bij agenda-items opnemen</b> aan. Klik op <b>OK</b> en daarna op <b>Opslaan</b>.</li></ol>' +
       '<h2>2. Lees het bestand hier in</h2>' +
       '<p class="muted">Blokken, reistijd, uitloop en korte afspraken direct naast een andere vergadering worden niet geïmporteerd. <button type="button" class="link" id="wkIgn2">Aanpassen…</button></p>' +
       '<div class="dz wkdz">Sleep het .ics-bestand hierheen of <button type="button" class="btn pri" id="icsPick">Kies het agendabestand…</button></div>' +
@@ -336,7 +336,7 @@
       '<li>Kies in Outlook <b>Bestand › Opties › Werkbalk Snelle toegang</b>.</li>' +
       '<li>Kies bij <b>Kies opdrachten uit</b> de optie <b>Alle opdrachten</b>, selecteer <b>Opslaan als agenda</b> en klik op <b>Toevoegen</b>. Klik op <b>OK</b>.</li>' +
       '<li>Ga naar <b>Agenda</b> en klik links op je eigen agenda. Druk op <b>Alt</b> om te zien welk cijfer bij de knop hoort: <b>Alt</b> plus dat cijfer opent het venster om de agenda op te slaan.</li>' +
-      '<li>Klik op <b>Meer opties</b>, kies <i>Volgende 7 dagen</i> en <i>Volledige details</i> (en eventueel <b>Bijlagen bij agenda-items opnemen</b>), klik op <b>OK</b> en <b>Opslaan</b>.</li></ol>' +
+      '<li>Klik op <b>Meer opties</b>, kies <i>Volgende 30 dagen</i> en <i>Volledige details</i> (en eventueel <b>Bijlagen bij agenda-items opnemen</b>), klik op <b>OK</b> en <b>Opslaan</b>.</li></ol>' +
       '<p class="muted">Zie je de werkbalk niet? Klik met de rechtermuisknop op het lint en kies <b>Werkbalk Snelle toegang weergeven</b>.</p></details></section>';
     h += '<section class="card wk"><details><summary><b>Sneltoets met macro</b> <span class="muted">(alleen als je organisatie macro\'s toestaat)</span></summary><ol>' +
       '<li>Druk in Outlook op <b>Alt+F11</b>. De Visual Basic-editor opent.</li>' +
@@ -344,7 +344,7 @@
       '<li>Klik hieronder op <b>Code kopiëren</b>, plak de code in de lege module (Ctrl+V), druk op <b>Ctrl+S</b> en sluit de editor.</li>' +
       '<li>Kies in Outlook <b>Bestand › Opties › Werkbalk Snelle toegang</b>. Kies bij <b>Kies opdrachten uit</b> de optie <b>Macro\'s</b>, selecteer <b>Project1.MeMeetWeekagenda</b> en klik op <b>Toevoegen</b>. Met <b>Wijzigen</b> geef je hem een icoon en de naam <i>MeMeet weekagenda</i>. Klik op <b>OK</b>.</li>' +
       '<li>De knop staat nu bovenin Outlook. Druk op <b>Alt</b> om te zien welk cijfer erbij hoort: <b>Alt</b> plus dat cijfer is je sneltoets. Zie je de werkbalk niet? Klik met de rechtermuisknop op het lint en kies <b>Werkbalk Snelle toegang weergeven</b>.</li></ol>' +
-      '<p class="muted">De macro slaat de komende 7 dagen op. Wil je een andere periode, verander dan in de code het getal achter <code>DAGEN As Integer =</code>. Vraagt Outlook bij het starten of je macro\'s wilt inschakelen, kies dan <b>Macro\'s inschakelen</b>. Krijg je bij het opslaan een melding over het digitale certificaat, of wordt de macro geblokkeerd, dan staat je organisatie geen macro\'s toe. Gebruik dan de sneltoets zonder macro.</p>' +
+      '<p class="muted">De macro slaat de komende 30 dagen op. Wil je een andere periode, verander dan in de code het getal achter <code>DAGEN As Integer =</code>. Vraagt Outlook bij het starten of je macro\'s wilt inschakelen, kies dan <b>Macro\'s inschakelen</b>. Krijg je bij het opslaan een melding over het digitale certificaat, of wordt de macro geblokkeerd, dan staat je organisatie geen macro\'s toe. Gebruik dan de sneltoets zonder macro.</p>' +
       '<textarea readonly class="macro" id="macro" spellcheck="false">' + esc(OUTLOOK_MACRO) + '</textarea>' +
       '<p><button type="button" class="btn sm" id="macroCopy">Code kopiëren</button></p></details></section>';
     setHTML($('#main'), h);
@@ -476,6 +476,7 @@
   /* Stap 2: de aangevinkte afspraken opslaan, met bijlagen als stukken (mails omgezet naar PDF). */
   async function applyPlan(plan) {
     var now = new Date().toISOString(), made = [], upd = [], nAtt = 0, failAtt = [], skipT = A.data.icsSkip || (A.data.icsSkip = {}), titlesOn = {};
+    var ibBefore = {}; ibAll().pts.forEach(function (p) { ibBefore[p.id] = p.r.st; });
     var todo = plan.items.filter(function (p) { return p.status !== 'ongewijzigd' && !p.minor; });
     todo.forEach(function (p) { if (p.on) titlesOn[calNorm(p.title)] = 1; });
     todo.forEach(function (p) { var k = calNorm(p.title); if (titlesOn[k]) delete skipT[k]; else skipT[k] = 1; });
@@ -507,7 +508,9 @@
       }
     } finally { await persist(); }
     A.wkPlan = null;
-    var res = '<div class="info ' + (failAtt.length ? 'warn' : 'ok') + '">Geïmporteerd: <b>' + made.length + ' nieuw</b>, ' + upd.length + ' bijgewerkt' + (nAtt ? ', ' + nAtt + ' stuk' + (nAtt === 1 ? '' : 'ken') + ' toegevoegd' : '') + '.' + (failAtt.length ? ' Niet gelukt: ' + esc(failAtt.join(', ')) + '.' : '') + '</div>';
+    var ibFound = ibAll().pts.filter(function (p) { return ibBefore[p.id] === 'wait' && p.r.st === 'open'; }).length;
+    var ibMsg = ibFound ? ' ' + ibFound + ' wachtend' + (ibFound === 1 ? ' punt heeft' : 'e punten hebben') + ' een plek gevonden.' : '';
+    var res = '<div class="info ' + (failAtt.length ? 'warn' : 'ok') + '">Geïmporteerd: <b>' + made.length + ' nieuw</b>, ' + upd.length + ' bijgewerkt' + (nAtt ? ', ' + nAtt + ' stuk' + (nAtt === 1 ? '' : 'ken') + ' toegevoegd' : '') + '.' + esc(ibMsg) + (failAtt.length ? ' Niet gelukt: ' + esc(failAtt.join(', ')) + '.' : '') + '</div>';
     var rows = made.map(function (m) { return [m, 'Nieuw']; }).concat(upd.map(function (m) { return [m, 'Bijgewerkt']; }))
       .sort(function (a, b) { return ((a[0].date || '') + (a[0].start || '')).localeCompare((b[0].date || '') + (b[0].start || '')); });
     if (rows.length) res += '<section class="card"><div class="tw"><table><thead><tr><th>Datum</th><th>Tijd</th><th>Vergadering</th><th>Stukken</th><th></th></tr></thead><tbody>' + rows.map(function (x) {
@@ -515,7 +518,7 @@
     }).join('') + '</tbody></table></div></section>';
     renderWeekImport(res);
     $$('#main tr[data-id]').forEach(function (tr) { tr.onclick = function () { location.hash = '#/v/' + encodeURIComponent(tr.dataset.id); }; });
-    toast('Import klaar.', 'ok');
+    toast('Import klaar.' + ibMsg, 'ok');
   }
 
   /* ------------------------------------------------------------- weergave */
@@ -533,6 +536,7 @@
     if (h === '#/weekagenda') { var wr = A.wkRes; A.wkRes = null; return renderWeekImport(wr); }
     if (h === '#/verslagen') return renderReports();
     if (h === '#/acties') return renderActions();
+    if (h === '#/herinneringen') return renderReminders();
     /* het tabblad Meeneempunten (eerder Bespreekpunten, Annotaties) bestaat niet meer: zulke oude adressen gaan naar het startscherm */
     if (/^#\/(meeneempunt|bespreekpunt|annotatie)/.test(h)) { location.replace('#/'); return; }
     if (h === '#/bestanden') return renderFiles(true);
@@ -544,8 +548,8 @@
 
   function renderSide() {
     var s = $('#side'), h = '', hs = location.hash || '#/';
-    var nOpen = A.store ? openCount() : 0;
-    h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
+    var nOpen = A.store ? openCount() : 0, nRem = A.store ? ibOpenCount() : 0;
+    h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/herinneringen" class="' + (hs === '#/herinneringen' ? 'on' : '') + '">Herinneringen' + (nRem ? ' <span class="cnt">' + nRem + '</span>' : '') + '</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
     if (A.store) {
       h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">' + ic('folder') + ' Wijzig datamap</button>';
     }
@@ -621,7 +625,7 @@
   function cell(m, c) {
     if (c === 'date') return esc(fmtShort(m.date));
     if (c === 'files') return m.files.length ? '<span class="pill">' + m.files.length + '</span>' : '';
-    if (c === 'title') return '<b>' + esc(m.title) + '</b>';
+    if (c === 'title') { var n = A.ibHome ? ibCountFor(m, A.ibHome) : 0; return '<b>' + esc(m.title) + '</b>' + (n ? ' <span class="ibbadge" title="Punten om in te brengen">' + n + ' inbrengen</span>' : ''); }
     return esc(m[c] || '');
   }
   /* rev: archief. Bij sorteren op datum staat in "Komend" de eerstvolgende vergadering bovenaan (datum + starttijd), en in het archief de laatste. */
@@ -636,10 +640,11 @@
     });
   }
   function renderHome() {
+    var ibA = ibAll(); A.ibHome = ibA; function ibC(m) { return ibCountFor(m, ibA); }
     var t = todayIso(), ms = A.data.meetings;
     var today = ms.filter(function (m) { return m.date === t; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
     function dayList(arr) { return '<ul class="tl">' + arr.map(function (m) {
-        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tib">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen tabblad">iBabs</button>' : '') + '</span><span class="tjn">' + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">' + ic('videocam') + ' Deelnemen</a>' : '') + '</span></span></li>';
+        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tin">' + (ibC(m) ? '<span class="ibbadge" title="Punten om in te brengen">' + ibC(m) + ' inbrengen</span>' : '') + '</span><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tib">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen tabblad">iBabs</button>' : '') + '</span><span class="tjn">' + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">' + ic('videocam') + ' Deelnemen</a>' : '') + '</span></span></li>';
       }).join('') + '</ul>'; }
     var tm0 = new Date(); tm0.setDate(tm0.getDate() + 1); var tmw = tm0.getFullYear() + '-' + pad(tm0.getMonth() + 1) + '-' + pad(tm0.getDate());
     var tomorrow = ms.filter(function (m) { return m.date === tmw; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
@@ -657,6 +662,7 @@
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
     var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
+    h += ibBannerHtml(ibA);
     h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
@@ -671,6 +677,9 @@
     if (A.showTomorrow == null) A.showTomorrow = true; /* standaard open */
     h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
       (A.showTomorrow && tomorrow.length ? dayList(tomorrow) : '') + '</section>';
+    /* wachtende punten en ideeën (alleen als er iets is) */
+    var nWait = ibA.pts.filter(function (p) { return p.r.st === 'wait'; }).length;
+    if (nWait || ibA.ideas.length) h += '<div class="ibgrid ibhome">' + (nWait ? ibWaitHtml(ibA) : '') + (ibA.ideas.length ? ibIdeasHtml(ibA) : '') + '</div>';
     if (A.showUp == null) A.showUp = true;
     if (A.showArch == null) A.showArch = true;
     var showF = A.showUp || A.showArch || q || f.year;
@@ -703,6 +712,7 @@
     $('#tdy').onclick = function () { keepScroll(function () { A.showToday = !A.showToday; }); };
     $('#tmr').onclick = function () { keepScroll(function () { A.showTomorrow = !A.showTomorrow; }); };
     var qn = $('#qnext'); if (qn) qn.onclick = function () { A.qi = qPick(); var f = $('#quote'); f.classList.remove('in'); void f.offsetWidth; $('#qtxt').textContent = Q[A.qi][0]; $('#qwho').textContent = Q[A.qi][1]; f.classList.add('in'); };
+    ibBindLists($('#main'), ibA, renderHome);
     bindFolders($('#main'));
     $('#new').onclick = function () { A.draft = blankDraft(); };
     $$('[data-ib]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); var im = byId(b.dataset.ib); if (im) openIbabs(im); }; });

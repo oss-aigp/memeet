@@ -79,6 +79,7 @@
       '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>' + ic('refresh') + '</b> zie je een andere.</p>' +
       '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
       '<li>Alle onderdelen (Vandaag, Morgen, Volgende vergaderingen en Archief) staan open. Met <b>verbergen</b> klap je er een in; als je MeMeet opnieuw opent, staat alles weer open. In de kop zie je hoeveel vergaderingen er zijn.</li></ul>' +
+      '<h3>Inbrengen</h3><ul><li>Bovenaan staat het <b>eerstvolgende overleg</b>, met de punten die je daar wilt inbrengen. Bij elke vergadering zie je hoeveel punten er klaarliggen (<b>3 inbrengen</b>).</li><li><b>Wacht op overleg</b> en de <b>Ideeën-inbox</b> verschijnen als er iets in staat; meer daarover op het tabblad Herinneringen.</li></ul>' +
       '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten staan standaard open. Klik op de kop of op <b>verbergen</b> om er een in te klappen.</li>' +
       '<li>Volgende vergaderingen begint bij overmorgen. Het Archief bevat de vergaderingen die geweest zijn.</li>' +
       '<li>Klik op een kolomkop om te sorteren. Met het zoekvak zoek je op titel, locatie, namen en aantekeningen; met het keuzemenu kies je een jaar.</li></ul>' +
@@ -142,6 +143,14 @@
       '<li>Achter de titel van een vergadering staat rechts <b>' + ic('checklist') + ' Meeneempunten</b> als er besluiten, acties of meeneempunten zijn (de Besluiten, acties en meeneempunten; met de muis erop zie je hoeveel). Klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>' + ic('checklist') + ' Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>' + ic('checklist') + ' Meeneempunten</b>.</li>' +
       '<li><b>' + ic('mail') + ' Mail</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
       '<li>Elk verslag staat ook als tekstbestand in de map <code>memeet-data\\Aantekeningen</code>, als <code>jjjjmmdd Titel.txt</code>. Pas die bestanden niet buiten MeMeet aan: MeMeet schrijft ze opnieuw bij de volgende wijziging.</li></ul>' },
+    reminders: { t: 'Herinneringen', h:
+      '<p>Alles wat je ergens wilt inbrengen, op één plek. De teller in het tabblad is het aantal open punten.</p><ul>' +
+      '<li><b>Nieuwe herinnering</b>: typ een punt los van een overleg en druk op Enter. Dezelfde tekens als in de aantekeningen: <code>&gt; Jan …</code> (eerstvolgende overleg met Jan), <code>&gt; Stuurgroep Huisvesting: …</code> (overleg met die titel), <code>&gt; MT: 15-1 …</code> (niet vóór 15 januari). Hier betekent een dubbele punt altijd een overleg, ook als het nog niet in je agenda staat. Zonder naam of overleg gaat de herinnering naar de Ideeën-inbox. Het teken <code>&gt;</code> mag je weglaten. Onder het vak zie je meteen waar hij heen gaat.</li>' +
+      '<li><b>Komt op</b>: alle open punten, per overleg en op tijd. Klik op de naam van het overleg om het te openen, en op <b>uit …</b> om te zien waar een punt vandaan komt. Met ' + ic('close') + ' verwijder je een losse herinnering.</li>' +
+      '<li><b>Wacht op overleg</b>: punten zonder passend overleg, met de reden. Na de volgende agenda-import (of als je het overleg zelf aanmaakt) verschijnen ze vanzelf.</li>' +
+      '<li><b>Ideeën-inbox</b>: alle regels die met <code>?</code> beginnen. Klik bij <b>Koppel aan</b> op een persoon of overleg: de regel wordt dan op zijn plek <code>&gt; Jan …</code> of <code>&gt; MT: …</code>.</li>' +
+      '<li><b>Besproken</b>: de punten die je hebt afgevinkt, met het overleg waarin ze besproken zijn.</li>' +
+      '<li><b>Nieuw overleg aanmaken</b>: voor een overleg dat nog niet in je agenda staat (titel, datum, tijd, deelnemers). Wachtende punten die erbij passen, schuiven er direct naartoe.</li></ul>' },
     actions: { t: 'Actielijst', h:
       '<p>Alle acties: uit de aantekeningen van vergaderingen, en losse acties die je hier zelf toevoegt.</p><ul>' +
       '<li><b>Losse actie toevoegen</b>: typ de actie in het vak bovenaan, kies eventueel een begindatum, en klik op <b>+ Toevoegen</b> of druk op Enter. Klik op de tekst om hem te wijzigen; <b>' + ic('close') + '</b> verwijdert een losse actie.</li>' +
@@ -165,7 +174,7 @@
     week: { t: 'Weekagenda importeren', h:
       '<p>Je Outlook-agenda van de komende dagen in één keer inlezen als vergaderingen.</p>' +
       '<h3>1. Agenda opslaan in Outlook</h3><ol><li>Ga naar <b>Agenda</b> en klik links op je eigen agenda.</li><li>Kies <b>Bestand › Agenda opslaan in bestand</b> en klik op <b>Meer opties</b>.</li>' +
-      '<li>Kies bijvoorbeeld <i>Volgende 7 dagen</i> en <i>Volledige details</i>. Wil je bijlagen als stukken, vink dan onder Geavanceerd <b>Bijlagen bij agenda-items opnemen</b> aan.</li></ol>' +
+      '<li>Kies bijvoorbeeld <i>Volgende 30 dagen</i> en <i>Volledige details</i>. Wil je bijlagen als stukken, vink dan onder Geavanceerd <b>Bijlagen bij agenda-items opnemen</b> aan.</li></ol>' +
       '<p>Sneller: zet de opdracht <b>Opslaan als agenda</b> in de werkbalk Snelle toegang. Hoe dat gaat, staat onderaan de pagina.</p>' +
       '<h3>2. Inlezen en kiezen</h3><ul><li>Kies het .ics-bestand of sleep het in MeMeet. Je ziet eerst een lijst: <b>Nieuw</b>, <b>Bijwerken</b> of <b>Staat er al</b>.</li>' +
       '<li>Klik op een regel om hem aan of uit te zetten en klik op <b>Importeer geselecteerde</b>. Wat je uitvinkt, staat de volgende keer ook uit.</li>' +
@@ -187,6 +196,7 @@
     if (h === '#/nieuw' || /^#\/v\//.test(h)) return 'meeting';
     if (/^#\/verslag/.test(h)) return 'reports';
     if (h === '#/acties') return 'actions';
+    if (h === '#/herinneringen') return 'reminders';
     if (h === '#/bestanden') return 'files';
     if (h === '#/weekagenda') return 'week';
     if (h === '#/installatie') return 'install';

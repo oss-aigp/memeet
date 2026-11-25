@@ -4,7 +4,7 @@ Attribute VB_Name = "MeMeet"
 Option Explicit
 
 Public Sub MeMeetWeekagenda()
-    Const DAGEN As Integer = 7                      ' aantal dagen vanaf vandaag
+    Const DAGEN As Integer = 30                     ' aantal dagen vanaf vandaag
     Const BESTAND As String = "MeMeet weekagenda.ics"
     Dim map As String, pad As String
     Dim exporteur As Outlook.CalendarSharing

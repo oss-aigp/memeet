@@ -270,3 +270,113 @@
   }
   D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#ibCtx')) { e.preventDefault(); e.stopPropagation(); closeIbCtx(); } }, true);
   W.addEventListener('hashchange', function () { closeIbCtx(); });
+
+  /* ================================================================== startscherm en tabblad Herinneringen */
+  function ibCountFor(m, all) { return all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === m; }).length; }
+  function ibOpenCount() { return ibAll().pts.filter(function (p) { return p.r.st !== 'done'; }).length; }
+  /* banner met het eerstvolgende overleg en wat je daar inbrengt */
+  function ibBannerHtml(all) {
+    var next = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort)[0];
+    if (!next) return '';
+    var pts = all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === next; }), today = todayIso();
+    return '<section class="ibbanner"><div class="ibbtx"><div class="ibbwhen">Eerstvolgend overleg' + (next.date === today ? ', vandaag' : ', ' + esc(fmtLong(next.date))) + '</div>' +
+      '<div class="ibbig">' + esc(next.start || '') + '  ' + esc(next.title) + '</div>' +
+      (pts.length ? '<ul>' + pts.slice(0, 6).map(function (p) { return '<li>' + esc(p.text) + '</li>'; }).join('') + (pts.length > 6 ? '<li>… en nog ' + (pts.length - 6) + '</li>' : '') + '</ul>' : '<div class="ibbnone">Niets om in te brengen.</div>') +
+      '</div><a class="btn" href="#/v/' + esc(encodeURIComponent(next.id)) + '">Openen</a></section>';
+  }
+  function ibWaitHtml(all) {
+    var w = all.pts.filter(function (p) { return p.r.st === 'wait'; });
+    return '<section class="card ibcard"><h2>Wacht op overleg <span class="muted">' + w.length + '</span></h2>' + (w.length ? '<ul class="iblist">' + w.map(function (p) {
+      return '<li><b>' + esc(p.text) + '</b>' + (p.src.rem ? ' <button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') +
+        '<div>' + ibChips(p, all.people) + '</div><div class="why">' + esc(ibWaitWhy(p, all.people)) + '</div><div class="src">' + ibSrcLink(p) + '</div></li>';
+    }).join('') + '</ul>' : '<p class="muted ibempty">Alles heeft een plek gevonden.</p>') + '</section>';
+  }
+  /* de Ideeën-inbox: alle ?-regels. Koppelen herschrijft de regel op de plek waar hij staat naar "> Jan tekst" of "> MT: tekst". */
+  function ibLinkTargets(all) {
+    var cnt = {}; A.data.meetings.forEach(function (m) { if (m.date >= addDays(todayIso(), -60)) ibInvFirst(m).forEach(function (f) { cnt[f] = (cnt[f] || 0) + 1; }); });
+    var ppl = Object.keys(cnt).filter(function (k) { return all.people[k]; }).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8).map(function (k) { return { to: all.people[k], label: all.people[k] }; });
+    var seen = {}, ttl = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort).map(function (m) { return cleanSubject(m.title || '').trim(); })
+      .filter(function (t) { var k = ibNorm(t); if (!t || seen[k] || all.people[k]) return false; seen[k] = 1; return true; }).slice(0, 6).map(function (t) { return { to: t + ':', label: t }; });
+    return ppl.concat(ttl);
+  }
+  function ibIdeasHtml(all) {
+    var ideas = all.ideas, tg = ibLinkTargets(all);
+    return '<section class="card ibcard"><h2>Ideeën-inbox <span class="muted">' + ideas.length + '</span></h2>' + (ideas.length ? '<ul class="iblist">' + ideas.map(function (it, i) {
+      return '<li><b>' + esc(it.text) + '</b>' + (it.src.rem ? ' <button type="button" class="link ibx" data-ibdel="' + esc(it.src.id) + '" title="Idee verwijderen" aria-label="Idee verwijderen">' + ic('close') + '</button>' : '') + '<div class="src">' + ibSrcLink(it) + '</div>' +
+        (tg.length ? '<div class="iblink">Koppel aan: ' + tg.map(function (t) { return '<button type="button" class="chip btn" data-ibidea="' + i + '" data-to="' + esc(t.to) + '">' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') + '</li>';
+    }).join('') + '</ul>' : '<p class="muted ibempty">Leeg. Begin een regel met <code>?</code> voor een los idee.</p>') + '</section>';
+  }
+  async function ibRelink(it, to) {
+    var nl = '> ' + to + ' ' + it.text, s = it.src;
+    if (it.where === 'rem') s.rem.line = nl;
+    else if (it.where === 'ann' && s.annotation) { var x = s.annotation.items[it.ai], fl = String(x.fb || '').split(/\r?\n/); fl[it.al] = nl; x.fb = fl.join('\n'); }
+    else { var ls = String(s.minutes || '').split(/\r?\n/); ls[it.line] = nl; s.minutes = ls.join('\n'); delete s.minutesHtml; if (typeof saveMinutes === 'function') { await saveMinutes(s); return; } }
+    await persist();
+  }
+  /* knoppen in de lijsten (startscherm en Herinneringen); after: opnieuw tekenen */
+  function ibBindLists(root, all, after) {
+    $$('[data-ibidea]', root).forEach(function (b) { b.onclick = async function () {
+      var it = all.ideas[+b.dataset.ibidea]; await ibRelink(it, b.dataset.to); after();
+      toast('Gekoppeld aan ' + b.dataset.to.replace(/:$/, '') + '. Het ligt klaar bij het eerstvolgende passende overleg.', 'ok');
+    }; });
+    $$('[data-ibdel]', root).forEach(function (b) { b.onclick = async function (e) {
+      e.stopPropagation(); A.data.rem = ibRems().filter(function (r) { return r.id !== b.dataset.ibdel; }); await persist(); after(); toast('Herinnering verwijderd.', 'ok');
+    }; });
+    ibBindCtx(root);
+  }
+
+  /* ---------- tabblad Herinneringen */
+  function renderReminders() {
+    var all = ibAll(), main = $('#main');
+    var h = '<div class="head"><h1>Herinneringen</h1><span class="hhint">Alles wat je ergens wilt inbrengen, op één plek</span></div><div class="ibgrid"><div>';
+    h += '<section class="card ibcard"><h2>Nieuwe herinnering</h2><div class="qa"><input id="remIn" autocomplete="off" spellcheck="false" placeholder="> Jan: opleidingsbudget bespreken" aria-label="Nieuwe herinnering"><button type="button" class="btn pri" id="remAdd">' + ic('add') + ' Toevoegen</button></div>' +
+      '<div class="ac" id="remAc" hidden></div><div class="qprev" id="remPv"></div>' +
+      '<p class="iblegend2"><code>&gt; Jan …</code> eerstvolgende overleg met Jan · <code>&gt; Stuurgroep Huisvesting: …</code> overleg met die titel, ook als het nog niet in je agenda staat · <code>&gt; MT: 15-1 …</code> niet vóór 15 januari · zonder naam of overleg: naar de Ideeën-inbox</p>' +
+      '<details class="ibnew"><summary class="link">' + ic('event') + ' Nieuw overleg aanmaken dat nog niet in je agenda staat</summary><form class="ibnf" id="ibNew" autocomplete="off">' +
+      '<input id="nfT" placeholder="Titel, bijvoorbeeld Overleg wethouder" aria-label="Titel"><input id="nfD" type="date" value="' + addDays(todayIso(), 7) + '" aria-label="Datum"><input id="nfS" type="time" value="10:00" aria-label="Begintijd"><input id="nfE" type="time" value="11:00" aria-label="Eindtijd">' +
+      '<input id="nfP" placeholder="Deelnemers, gescheiden door komma’s (bijvoorbeeld Jan de Vries, Petra Smit)" aria-label="Deelnemers"><button type="submit" class="btn">Overleg aanmaken</button></form></details></section>';
+    var groups = {}, order = [];
+    all.pts.forEach(function (p) { if (p.r.st !== 'open') return; var id = p.r.m.id; if (!groups[id]) { groups[id] = []; order.push(p.r.m); } groups[id].push(p); });
+    order.sort(ibSort);
+    var nOpen = order.reduce(function (a, m) { return a + groups[m.id].length; }, 0);
+    h += '<section class="card ibcard"><h2>Komt op <span class="muted">' + nOpen + '</span></h2>' + (order.length ? order.map(function (m) {
+      return '<div class="ibgrp"><h3><a href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + esc(m.title) + '</a><span class="muted">' + esc(fmtLong(m.date)) + (m.start ? ', ' + esc(m.start) : '') + '</span></h3><ul>' +
+        groups[m.id].map(function (p) { return '<li><span class="ibdot"></span><div><span>' + esc(p.text) + '</span>' + (p.r.carried ? '<span class="tag">' + p.r.carried + '× doorgeschoven</span>' : '') + '<div class="src">' + ibSrcLink(p) + ibChips(p, all.people) + '</div></div>' + (p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') + '</li>'; }).join('') + '</ul></div>';
+    }).join('') : '<p class="muted ibempty">Er ligt niets klaar.</p>') + '</section>';
+    var done = all.pts.filter(function (p) { return p.r.st === 'done'; });
+    h += '<section class="card ibcard"><details><summary class="link"><b>Besproken</b> (' + done.length + ')</summary><ul class="iblist">' +
+      done.map(function (p) { return '<li><s>' + esc(p.text) + '</s><div class="src">besproken in ' + esc(ibName(p.r.m)) + ' · ' + ibSrcLink(p) + '</div></li>'; }).join('') + '</ul></details></section>';
+    h += '</div><div>' + ibWaitHtml(all) + ibIdeasHtml(all) + '</div></div>';
+    setHTML(main, h);
+    ibBindLists(main, all, renderReminders);
+    var qa = $('#remIn'), box = $('#remPv');
+    function lineOf(v) { return /^\s*[>?]/.test(v) ? v : '> ' + v; }
+    function prev() {
+      var v = qa.value.trim(); if (!v) { setHTML(box, ''); return; }
+      var src = ibRemSrc({ id: 'tmp', created: new Date().toISOString(), line: lineOf(v) }), it = ibParse(lineOf(v), src);
+      if (!it || it.k === '?') { setHTML(box, '<span class="to wait">Geen naam of overleg herkend: gaat naar de Ideeën-inbox.</span>'); return; }
+      var r = ibResolve(it);
+      setHTML(box, ibChips(it, all.people) + ' ' + (r.st === 'open' ? '<span class="to go">→ ' + esc(ibName(r.m)) + '</span>' : '<span class="to wait">⏳ wacht: ' + esc(ibWaitWhy(it, all.people)) + '</span>'));
+    }
+    async function add() {
+      var v = qa.value.trim(); if (!v) { qa.focus(); return; }
+      var r = { id: 'R' + uid(), created: new Date().toISOString(), line: lineOf(v) }; ibRems().push(r); await persist();
+      var it = ibItemsOf(ibRemSrc(r))[0], rr = it && it.k === '>' ? ibResolve(it) : null;
+      renderReminders(); renderSide(); var n = $('#remIn'); if (n) n.focus();
+      toast(!rr ? 'In de Ideeën-inbox gezet.' : rr.st === 'open' ? 'Komt op bij ' + ibName(rr.m) + '.' : 'Bewaard. Wacht tot er een passend overleg in je agenda staat.', 'ok');
+    }
+    qa.addEventListener('input', function () { prev(); ibAc(qa, $('#remAc'), true); });
+    qa.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); add(); } });
+    qa.addEventListener('blur', function () { setTimeout(function () { var b = $('#remAc'); if (b && D.activeElement !== qa) b.hidden = true; }, 150); });
+    $('#remAdd').onclick = add;
+    $('#ibNew').onsubmit = async function (e) {
+      e.preventDefault(); var t = $('#nfT').value.trim(), dt = $('#nfD').value;
+      if (!t || !dt) { toast('Vul een titel en een datum in.', 'warn'); return; }
+      var before = {}; ibAll().pts.forEach(function (p) { before[p.id] = p.r.st; });
+      var d = blankDraft(); d.title = t; d.date = dt; d.start = $('#nfS').value || ''; d.end = $('#nfE').value || ''; d.invitees = names($('#nfP').value).join(', '); d.type = guessType(t);
+      var m = await saveDraft(d);
+      var found = ibAll().pts.filter(function (p) { return before[p.id] === 'wait' && p.r.st === 'open' && p.r.m === m; }).length;
+      renderReminders(); renderSide();
+      toast('Overleg “' + t + '” aangemaakt' + (found ? '. ' + found + ' wachtend punt' + (found === 1 ? ' komt' : 'en komen') + ' er nu op.' : '.'), 'ok');
+    };
+  }

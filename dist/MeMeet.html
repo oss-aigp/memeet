@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.4.1 -->
+<!-- MeMeet-versie: 1.4.2 -->
 <!--
-  MeMeet 1.4.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.4.2 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -596,6 +596,34 @@ select.to{width:auto;max-width:100%;min-height:0;padding:1px 4px;border-color:va
 .minv{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--mute);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mdone{font-size:12px;border-radius:12px;padding:2px 10px;font-weight:700;background:var(--ok);color:var(--green);white-space:nowrap}
 html[data-theme=dark] .mdone{color:#8fd16a}
+/* ---- inbrengen: startscherm en Herinneringen */
+.tact{grid-template-columns:104px 96px 70px 124px}.tin{justify-content:flex-end}
+.ibbadge{display:inline-block;background:var(--warn);color:#7a5a00;border:1px solid #efd98a;border-radius:20px;padding:1px 9px;font-size:12px;font-weight:700;white-space:nowrap;vertical-align:1px}
+html[data-theme=dark] .ibbadge{color:#f1d27a;border-color:#6b5a22}
+.ibbanner{display:flex;align-items:center;gap:14px;background:linear-gradient(100deg,#123a66,#154273 60%,#1a5189);color:#fff;border-radius:var(--radius);padding:10px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
+.ibbanner .ibbtx{flex:1;min-width:0}.ibbwhen{color:#cfe3f3;font-size:12.5px}.ibbig{font-size:16px;font-weight:700;white-space:pre}
+.ibbanner ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;columns:2 260px;column-gap:28px}.ibbnone{font-size:13px;margin-top:2px;color:#dcecf7}
+.ibbanner .btn{background:#fff;color:var(--lint);border:0;font-weight:700}
+.ibgrid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px;align-items:start}.ibhome{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+@media (max-width:900px){.ibgrid{grid-template-columns:1fr}}
+.ibcard h2{font-size:16px;margin:0 0 6px}.ibempty{margin:0;font-size:13.5px}
+.iblist{list-style:none;margin:0;padding:0}.iblist li{padding:7px 0;border-top:1px solid var(--line);font-size:13.5px}.iblist li:first-child{border-top:0}
+.iblist .why{font-size:12.5px;color:#9a6700}.iblist .src,.ibgrp .src{font-size:12px;color:var(--mute)}.iblist .link,.ibgrp .link{padding:0;font-size:12px}
+.iblist .chip,.ibgrp .chip,.qprev .chip{display:inline-block;background:var(--soft);color:var(--brand);border-radius:12px;padding:0 7px;font-size:11.5px;margin:2px 4px 0 0;border:1px solid var(--licht)}
+.iblink{margin-top:4px;font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:3px;align-items:center}
+.ibx{padding:0 2px!important;color:var(--mute);vertical-align:-3px}.ibx:hover{color:var(--red)}.ibx .i{width:16px;height:16px}
+.ibgrp{border-top:1px solid var(--line);padding:8px 0}.ibgrp:first-of-type{border-top:0}
+.ibgrp h3{margin:0 0 4px;font-size:14px;display:flex;gap:8px;align-items:baseline}.ibgrp h3 a{font-weight:700;text-decoration:none}.ibgrp h3 .muted{font-weight:400;font-size:13px}
+.ibgrp ul{list-style:none;margin:0;padding:0 0 0 2px}.ibgrp li{padding:4px 0;display:flex;gap:8px;align-items:baseline;font-size:13.5px}.ibgrp li>div{flex:1;min-width:0}
+.ibgrp .tag{font-size:11.5px;background:var(--warn);border:1px solid #ead79b;border-radius:10px;padding:0 7px;margin-left:6px;color:#7a5a00;white-space:nowrap}
+.ibdot{width:7px;height:7px;border-radius:50%;background:#e0b100;flex:none;transform:translateY(-1px)}
+.qa{display:flex;gap:8px}.qa input{flex:1;font:15px Consolas,"Cascadia Mono",monospace;height:40px}
+#remAc{padding:4px 0;font-size:12.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:3px 4px;align-items:center}#remAc[hidden]{display:none}
+.qprev{min-height:22px;font-size:13px;margin-top:4px}
+.iblegend2{font-size:12px;color:var(--mute);margin:6px 0 0}.iblegend2 code{font-family:Consolas,monospace;color:var(--acc)}
+.ibnew{margin-top:10px}.ibnew summary{display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:2px 0;font-size:13.5px}
+.ibnf{display:grid;grid-template-columns:2fr 1fr .8fr .8fr;gap:8px;margin-top:8px}.ibnf #nfP{grid-column:1/4}.ibnf .btn{grid-column:4}
+@media (max-width:700px){.ibnf{grid-template-columns:1fr 1fr}.ibnf #nfP,.ibnf .btn{grid-column:auto}}
 /* viewer-pop-up voor bestanden: één bestand zonder lijst links */
 .mabody.one{grid-template-columns:minmax(0,1fr)}.mabody.one .malist{display:none}
 .mastatic{font-size:17px;font-weight:700;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
@@ -3540,6 +3568,116 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#ibCtx')) { e.preventDefault(); e.stopPropagation(); closeIbCtx(); } }, true);
   W.addEventListener('hashchange', function () { closeIbCtx(); });
 
+  /* ================================================================== startscherm en tabblad Herinneringen */
+  function ibCountFor(m, all) { return all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === m; }).length; }
+  function ibOpenCount() { return ibAll().pts.filter(function (p) { return p.r.st !== 'done'; }).length; }
+  /* banner met het eerstvolgende overleg en wat je daar inbrengt */
+  function ibBannerHtml(all) {
+    var next = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort)[0];
+    if (!next) return '';
+    var pts = all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === next; }), today = todayIso();
+    return '<section class="ibbanner"><div class="ibbtx"><div class="ibbwhen">Eerstvolgend overleg' + (next.date === today ? ', vandaag' : ', ' + esc(fmtLong(next.date))) + '</div>' +
+      '<div class="ibbig">' + esc(next.start || '') + '  ' + esc(next.title) + '</div>' +
+      (pts.length ? '<ul>' + pts.slice(0, 6).map(function (p) { return '<li>' + esc(p.text) + '</li>'; }).join('') + (pts.length > 6 ? '<li>… en nog ' + (pts.length - 6) + '</li>' : '') + '</ul>' : '<div class="ibbnone">Niets om in te brengen.</div>') +
+      '</div><a class="btn" href="#/v/' + esc(encodeURIComponent(next.id)) + '">Openen</a></section>';
+  }
+  function ibWaitHtml(all) {
+    var w = all.pts.filter(function (p) { return p.r.st === 'wait'; });
+    return '<section class="card ibcard"><h2>Wacht op overleg <span class="muted">' + w.length + '</span></h2>' + (w.length ? '<ul class="iblist">' + w.map(function (p) {
+      return '<li><b>' + esc(p.text) + '</b>' + (p.src.rem ? ' <button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') +
+        '<div>' + ibChips(p, all.people) + '</div><div class="why">' + esc(ibWaitWhy(p, all.people)) + '</div><div class="src">' + ibSrcLink(p) + '</div></li>';
+    }).join('') + '</ul>' : '<p class="muted ibempty">Alles heeft een plek gevonden.</p>') + '</section>';
+  }
+  /* de Ideeën-inbox: alle ?-regels. Koppelen herschrijft de regel op de plek waar hij staat naar "> Jan tekst" of "> MT: tekst". */
+  function ibLinkTargets(all) {
+    var cnt = {}; A.data.meetings.forEach(function (m) { if (m.date >= addDays(todayIso(), -60)) ibInvFirst(m).forEach(function (f) { cnt[f] = (cnt[f] || 0) + 1; }); });
+    var ppl = Object.keys(cnt).filter(function (k) { return all.people[k]; }).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8).map(function (k) { return { to: all.people[k], label: all.people[k] }; });
+    var seen = {}, ttl = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort).map(function (m) { return cleanSubject(m.title || '').trim(); })
+      .filter(function (t) { var k = ibNorm(t); if (!t || seen[k] || all.people[k]) return false; seen[k] = 1; return true; }).slice(0, 6).map(function (t) { return { to: t + ':', label: t }; });
+    return ppl.concat(ttl);
+  }
+  function ibIdeasHtml(all) {
+    var ideas = all.ideas, tg = ibLinkTargets(all);
+    return '<section class="card ibcard"><h2>Ideeën-inbox <span class="muted">' + ideas.length + '</span></h2>' + (ideas.length ? '<ul class="iblist">' + ideas.map(function (it, i) {
+      return '<li><b>' + esc(it.text) + '</b>' + (it.src.rem ? ' <button type="button" class="link ibx" data-ibdel="' + esc(it.src.id) + '" title="Idee verwijderen" aria-label="Idee verwijderen">' + ic('close') + '</button>' : '') + '<div class="src">' + ibSrcLink(it) + '</div>' +
+        (tg.length ? '<div class="iblink">Koppel aan: ' + tg.map(function (t) { return '<button type="button" class="chip btn" data-ibidea="' + i + '" data-to="' + esc(t.to) + '">' + esc(t.label) + '</button>'; }).join('') + '</div>' : '') + '</li>';
+    }).join('') + '</ul>' : '<p class="muted ibempty">Leeg. Begin een regel met <code>?</code> voor een los idee.</p>') + '</section>';
+  }
+  async function ibRelink(it, to) {
+    var nl = '> ' + to + ' ' + it.text, s = it.src;
+    if (it.where === 'rem') s.rem.line = nl;
+    else if (it.where === 'ann' && s.annotation) { var x = s.annotation.items[it.ai], fl = String(x.fb || '').split(/\r?\n/); fl[it.al] = nl; x.fb = fl.join('\n'); }
+    else { var ls = String(s.minutes || '').split(/\r?\n/); ls[it.line] = nl; s.minutes = ls.join('\n'); delete s.minutesHtml; if (typeof saveMinutes === 'function') { await saveMinutes(s); return; } }
+    await persist();
+  }
+  /* knoppen in de lijsten (startscherm en Herinneringen); after: opnieuw tekenen */
+  function ibBindLists(root, all, after) {
+    $$('[data-ibidea]', root).forEach(function (b) { b.onclick = async function () {
+      var it = all.ideas[+b.dataset.ibidea]; await ibRelink(it, b.dataset.to); after();
+      toast('Gekoppeld aan ' + b.dataset.to.replace(/:$/, '') + '. Het ligt klaar bij het eerstvolgende passende overleg.', 'ok');
+    }; });
+    $$('[data-ibdel]', root).forEach(function (b) { b.onclick = async function (e) {
+      e.stopPropagation(); A.data.rem = ibRems().filter(function (r) { return r.id !== b.dataset.ibdel; }); await persist(); after(); toast('Herinnering verwijderd.', 'ok');
+    }; });
+    ibBindCtx(root);
+  }
+
+  /* ---------- tabblad Herinneringen */
+  function renderReminders() {
+    var all = ibAll(), main = $('#main');
+    var h = '<div class="head"><h1>Herinneringen</h1><span class="hhint">Alles wat je ergens wilt inbrengen, op één plek</span></div><div class="ibgrid"><div>';
+    h += '<section class="card ibcard"><h2>Nieuwe herinnering</h2><div class="qa"><input id="remIn" autocomplete="off" spellcheck="false" placeholder="> Jan: opleidingsbudget bespreken" aria-label="Nieuwe herinnering"><button type="button" class="btn pri" id="remAdd">' + ic('add') + ' Toevoegen</button></div>' +
+      '<div class="ac" id="remAc" hidden></div><div class="qprev" id="remPv"></div>' +
+      '<p class="iblegend2"><code>&gt; Jan …</code> eerstvolgende overleg met Jan · <code>&gt; Stuurgroep Huisvesting: …</code> overleg met die titel, ook als het nog niet in je agenda staat · <code>&gt; MT: 15-1 …</code> niet vóór 15 januari · zonder naam of overleg: naar de Ideeën-inbox</p>' +
+      '<details class="ibnew"><summary class="link">' + ic('event') + ' Nieuw overleg aanmaken dat nog niet in je agenda staat</summary><form class="ibnf" id="ibNew" autocomplete="off">' +
+      '<input id="nfT" placeholder="Titel, bijvoorbeeld Overleg wethouder" aria-label="Titel"><input id="nfD" type="date" value="' + addDays(todayIso(), 7) + '" aria-label="Datum"><input id="nfS" type="time" value="10:00" aria-label="Begintijd"><input id="nfE" type="time" value="11:00" aria-label="Eindtijd">' +
+      '<input id="nfP" placeholder="Deelnemers, gescheiden door komma’s (bijvoorbeeld Jan de Vries, Petra Smit)" aria-label="Deelnemers"><button type="submit" class="btn">Overleg aanmaken</button></form></details></section>';
+    var groups = {}, order = [];
+    all.pts.forEach(function (p) { if (p.r.st !== 'open') return; var id = p.r.m.id; if (!groups[id]) { groups[id] = []; order.push(p.r.m); } groups[id].push(p); });
+    order.sort(ibSort);
+    var nOpen = order.reduce(function (a, m) { return a + groups[m.id].length; }, 0);
+    h += '<section class="card ibcard"><h2>Komt op <span class="muted">' + nOpen + '</span></h2>' + (order.length ? order.map(function (m) {
+      return '<div class="ibgrp"><h3><a href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + esc(m.title) + '</a><span class="muted">' + esc(fmtLong(m.date)) + (m.start ? ', ' + esc(m.start) : '') + '</span></h3><ul>' +
+        groups[m.id].map(function (p) { return '<li><span class="ibdot"></span><div><span>' + esc(p.text) + '</span>' + (p.r.carried ? '<span class="tag">' + p.r.carried + '× doorgeschoven</span>' : '') + '<div class="src">' + ibSrcLink(p) + ibChips(p, all.people) + '</div></div>' + (p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') + '</li>'; }).join('') + '</ul></div>';
+    }).join('') : '<p class="muted ibempty">Er ligt niets klaar.</p>') + '</section>';
+    var done = all.pts.filter(function (p) { return p.r.st === 'done'; });
+    h += '<section class="card ibcard"><details><summary class="link"><b>Besproken</b> (' + done.length + ')</summary><ul class="iblist">' +
+      done.map(function (p) { return '<li><s>' + esc(p.text) + '</s><div class="src">besproken in ' + esc(ibName(p.r.m)) + ' · ' + ibSrcLink(p) + '</div></li>'; }).join('') + '</ul></details></section>';
+    h += '</div><div>' + ibWaitHtml(all) + ibIdeasHtml(all) + '</div></div>';
+    setHTML(main, h);
+    ibBindLists(main, all, renderReminders);
+    var qa = $('#remIn'), box = $('#remPv');
+    function lineOf(v) { return /^\s*[>?]/.test(v) ? v : '> ' + v; }
+    function prev() {
+      var v = qa.value.trim(); if (!v) { setHTML(box, ''); return; }
+      var src = ibRemSrc({ id: 'tmp', created: new Date().toISOString(), line: lineOf(v) }), it = ibParse(lineOf(v), src);
+      if (!it || it.k === '?') { setHTML(box, '<span class="to wait">Geen naam of overleg herkend: gaat naar de Ideeën-inbox.</span>'); return; }
+      var r = ibResolve(it);
+      setHTML(box, ibChips(it, all.people) + ' ' + (r.st === 'open' ? '<span class="to go">→ ' + esc(ibName(r.m)) + '</span>' : '<span class="to wait">⏳ wacht: ' + esc(ibWaitWhy(it, all.people)) + '</span>'));
+    }
+    async function add() {
+      var v = qa.value.trim(); if (!v) { qa.focus(); return; }
+      var r = { id: 'R' + uid(), created: new Date().toISOString(), line: lineOf(v) }; ibRems().push(r); await persist();
+      var it = ibItemsOf(ibRemSrc(r))[0], rr = it && it.k === '>' ? ibResolve(it) : null;
+      renderReminders(); renderSide(); var n = $('#remIn'); if (n) n.focus();
+      toast(!rr ? 'In de Ideeën-inbox gezet.' : rr.st === 'open' ? 'Komt op bij ' + ibName(rr.m) + '.' : 'Bewaard. Wacht tot er een passend overleg in je agenda staat.', 'ok');
+    }
+    qa.addEventListener('input', function () { prev(); ibAc(qa, $('#remAc'), true); });
+    qa.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); add(); } });
+    qa.addEventListener('blur', function () { setTimeout(function () { var b = $('#remAc'); if (b && D.activeElement !== qa) b.hidden = true; }, 150); });
+    $('#remAdd').onclick = add;
+    $('#ibNew').onsubmit = async function (e) {
+      e.preventDefault(); var t = $('#nfT').value.trim(), dt = $('#nfD').value;
+      if (!t || !dt) { toast('Vul een titel en een datum in.', 'warn'); return; }
+      var before = {}; ibAll().pts.forEach(function (p) { before[p.id] = p.r.st; });
+      var d = blankDraft(); d.title = t; d.date = dt; d.start = $('#nfS').value || ''; d.end = $('#nfE').value || ''; d.invitees = names($('#nfP').value).join(', '); d.type = guessType(t);
+      var m = await saveDraft(d);
+      var found = ibAll().pts.filter(function (p) { return before[p.id] === 'wait' && p.r.st === 'open' && p.r.m === m; }).length;
+      renderReminders(); renderSide();
+      toast('Overleg “' + t + '” aangemaakt' + (found ? '. ' + found + ' wachtend punt' + (found === 1 ? ' komt' : 'en komen') + ' er nu op.' : '.'), 'ok');
+    };
+  }
+
   /* ================================================================== Mails op de actielijst
      Een mail die je op de Actielijst sleept, wordt een losse actie: het onderwerp is de tekst van de actie.
      De mail zelf wordt bewaard (in de datamap onder Actielijst › Mails); de bijlagen worden bij het openen uit de mail gehaald.
@@ -4302,6 +4440,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>' + ic('refresh') + '</b> zie je een andere.</p>' +
       '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
       '<li>Alle onderdelen (Vandaag, Morgen, Volgende vergaderingen en Archief) staan open. Met <b>verbergen</b> klap je er een in; als je MeMeet opnieuw opent, staat alles weer open. In de kop zie je hoeveel vergaderingen er zijn.</li></ul>' +
+      '<h3>Inbrengen</h3><ul><li>Bovenaan staat het <b>eerstvolgende overleg</b>, met de punten die je daar wilt inbrengen. Bij elke vergadering zie je hoeveel punten er klaarliggen (<b>3 inbrengen</b>).</li><li><b>Wacht op overleg</b> en de <b>Ideeën-inbox</b> verschijnen als er iets in staat; meer daarover op het tabblad Herinneringen.</li></ul>' +
       '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten staan standaard open. Klik op de kop of op <b>verbergen</b> om er een in te klappen.</li>' +
       '<li>Volgende vergaderingen begint bij overmorgen. Het Archief bevat de vergaderingen die geweest zijn.</li>' +
       '<li>Klik op een kolomkop om te sorteren. Met het zoekvak zoek je op titel, locatie, namen en aantekeningen; met het keuzemenu kies je een jaar.</li></ul>' +
@@ -4365,6 +4504,14 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Achter de titel van een vergadering staat rechts <b>' + ic('checklist') + ' Meeneempunten</b> als er besluiten, acties of meeneempunten zijn (de Besluiten, acties en meeneempunten; met de muis erop zie je hoeveel). Klik erop voor de popup (<b>Esc</b> sluit hem). Op een verslag zelf doet de knop <b>' + ic('checklist') + ' Besluiten en acties</b> hetzelfde. Bij het vervolgoverleg staat dit overzicht klaar onder <b>' + ic('checklist') + ' Meeneempunten</b>.</li>' +
       '<li><b>' + ic('mail') + ' Mail</b> zet de tekst van je aantekeningen in een nieuwe mail in Outlook (ook in de kolom Aantekeningen bij een vergadering). Eerst komen de besluiten, dan de acties, dan de overige aantekeningen; regels met <code>&gt;</code> gaan niet mee. Bij een korte tekst opent de mail direct. Bij een lange tekst downloadt MeMeet een conceptmail: open dat bestand en Outlook toont een nieuwe mail met de hele tekst.</li>' +
       '<li>Elk verslag staat ook als tekstbestand in de map <code>memeet-data\\Aantekeningen</code>, als <code>jjjjmmdd Titel.txt</code>. Pas die bestanden niet buiten MeMeet aan: MeMeet schrijft ze opnieuw bij de volgende wijziging.</li></ul>' },
+    reminders: { t: 'Herinneringen', h:
+      '<p>Alles wat je ergens wilt inbrengen, op één plek. De teller in het tabblad is het aantal open punten.</p><ul>' +
+      '<li><b>Nieuwe herinnering</b>: typ een punt los van een overleg en druk op Enter. Dezelfde tekens als in de aantekeningen: <code>&gt; Jan …</code> (eerstvolgende overleg met Jan), <code>&gt; Stuurgroep Huisvesting: …</code> (overleg met die titel), <code>&gt; MT: 15-1 …</code> (niet vóór 15 januari). Hier betekent een dubbele punt altijd een overleg, ook als het nog niet in je agenda staat. Zonder naam of overleg gaat de herinnering naar de Ideeën-inbox. Het teken <code>&gt;</code> mag je weglaten. Onder het vak zie je meteen waar hij heen gaat.</li>' +
+      '<li><b>Komt op</b>: alle open punten, per overleg en op tijd. Klik op de naam van het overleg om het te openen, en op <b>uit …</b> om te zien waar een punt vandaan komt. Met ' + ic('close') + ' verwijder je een losse herinnering.</li>' +
+      '<li><b>Wacht op overleg</b>: punten zonder passend overleg, met de reden. Na de volgende agenda-import (of als je het overleg zelf aanmaakt) verschijnen ze vanzelf.</li>' +
+      '<li><b>Ideeën-inbox</b>: alle regels die met <code>?</code> beginnen. Klik bij <b>Koppel aan</b> op een persoon of overleg: de regel wordt dan op zijn plek <code>&gt; Jan …</code> of <code>&gt; MT: …</code>.</li>' +
+      '<li><b>Besproken</b>: de punten die je hebt afgevinkt, met het overleg waarin ze besproken zijn.</li>' +
+      '<li><b>Nieuw overleg aanmaken</b>: voor een overleg dat nog niet in je agenda staat (titel, datum, tijd, deelnemers). Wachtende punten die erbij passen, schuiven er direct naartoe.</li></ul>' },
     actions: { t: 'Actielijst', h:
       '<p>Alle acties: uit de aantekeningen van vergaderingen, en losse acties die je hier zelf toevoegt.</p><ul>' +
       '<li><b>Losse actie toevoegen</b>: typ de actie in het vak bovenaan, kies eventueel een begindatum, en klik op <b>+ Toevoegen</b> of druk op Enter. Klik op de tekst om hem te wijzigen; <b>' + ic('close') + '</b> verwijdert een losse actie.</li>' +
@@ -4388,7 +4535,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     week: { t: 'Weekagenda importeren', h:
       '<p>Je Outlook-agenda van de komende dagen in één keer inlezen als vergaderingen.</p>' +
       '<h3>1. Agenda opslaan in Outlook</h3><ol><li>Ga naar <b>Agenda</b> en klik links op je eigen agenda.</li><li>Kies <b>Bestand › Agenda opslaan in bestand</b> en klik op <b>Meer opties</b>.</li>' +
-      '<li>Kies bijvoorbeeld <i>Volgende 7 dagen</i> en <i>Volledige details</i>. Wil je bijlagen als stukken, vink dan onder Geavanceerd <b>Bijlagen bij agenda-items opnemen</b> aan.</li></ol>' +
+      '<li>Kies bijvoorbeeld <i>Volgende 30 dagen</i> en <i>Volledige details</i>. Wil je bijlagen als stukken, vink dan onder Geavanceerd <b>Bijlagen bij agenda-items opnemen</b> aan.</li></ol>' +
       '<p>Sneller: zet de opdracht <b>Opslaan als agenda</b> in de werkbalk Snelle toegang. Hoe dat gaat, staat onderaan de pagina.</p>' +
       '<h3>2. Inlezen en kiezen</h3><ul><li>Kies het .ics-bestand of sleep het in MeMeet. Je ziet eerst een lijst: <b>Nieuw</b>, <b>Bijwerken</b> of <b>Staat er al</b>.</li>' +
       '<li>Klik op een regel om hem aan of uit te zetten en klik op <b>Importeer geselecteerde</b>. Wat je uitvinkt, staat de volgende keer ook uit.</li>' +
@@ -4410,6 +4557,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (h === '#/nieuw' || /^#\/v\//.test(h)) return 'meeting';
     if (/^#\/verslag/.test(h)) return 'reports';
     if (h === '#/acties') return 'actions';
+    if (h === '#/herinneringen') return 'reminders';
     if (h === '#/bestanden') return 'files';
     if (h === '#/weekagenda') return 'week';
     if (h === '#/installatie') return 'install';
@@ -4768,7 +4916,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   var MEET_DIR = 'Vergaderingen', ACTS_DIR = 'Actielijst';
 
   /* ------------------------------------------------------------- weekagenda (.ics-export uit Outlook) */
-  var OUTLOOK_MACRO = "Attribute VB_Name = \"MeMeet\"\r\n' MeMeet: de agenda van de komende dagen opslaan als .ics-bestand in Downloads.\r\n' Daarna in MeMeet: Vergaderingen > Importeer weekagenda.\r\nOption Explicit\r\n\r\nPublic Sub MeMeetWeekagenda()\r\n    Const DAGEN As Integer = 7                      ' aantal dagen vanaf vandaag\r\n    Const BESTAND As String = \"MeMeet weekagenda.ics\"\r\n    Dim map As String, pad As String\r\n    Dim exporteur As Outlook.CalendarSharing\r\n\r\n    On Error Resume Next\r\n    map = CreateObject(\"Shell.Application\").Namespace(\"shell:Downloads\").Self.Path\r\n    On Error GoTo Fout\r\n    If map = \"\" Then map = Environ$(\"USERPROFILE\") & \"\\Downloads\"\r\n    pad = map & \"\\\" & BESTAND\r\n\r\n    Set exporteur = Application.Session.GetDefaultFolder(olFolderCalendar).GetCalendarExporter\r\n    With exporteur\r\n        .CalendarDetail = olFullDetails\r\n        .IncludeWholeCalendar = False\r\n        .StartDate = Date\r\n        .EndDate = Date + DAGEN - 1\r\n        .IncludeAttachments = True                  ' bijlagen worden in MeMeet stukken\r\n        .IncludePrivateDetails = True\r\n        .RestrictToWorkingHours = False\r\n    End With\r\n    exporteur.SaveAsICal pad\r\n\r\n    MsgBox \"De agenda van de komende \" & DAGEN & \" dagen staat in:\" & vbCrLf & pad & vbCrLf & vbCrLf & _\r\n           \"Ga in MeMeet naar Vergaderingen > Importeer weekagenda en kies dit bestand.\", vbInformation, \"MeMeet\"\r\n    Exit Sub\r\nFout:\r\n    MsgBox \"Opslaan is niet gelukt: \" & Err.Description, vbExclamation, \"MeMeet\"\r\nEnd Sub\r\n";
+  var OUTLOOK_MACRO = "Attribute VB_Name = \"MeMeet\"\r\n' MeMeet: de agenda van de komende dagen opslaan als .ics-bestand in Downloads.\r\n' Daarna in MeMeet: Vergaderingen > Importeer weekagenda.\r\nOption Explicit\r\n\r\nPublic Sub MeMeetWeekagenda()\r\n    Const DAGEN As Integer = 30                     ' aantal dagen vanaf vandaag\r\n    Const BESTAND As String = \"MeMeet weekagenda.ics\"\r\n    Dim map As String, pad As String\r\n    Dim exporteur As Outlook.CalendarSharing\r\n\r\n    On Error Resume Next\r\n    map = CreateObject(\"Shell.Application\").Namespace(\"shell:Downloads\").Self.Path\r\n    On Error GoTo Fout\r\n    If map = \"\" Then map = Environ$(\"USERPROFILE\") & \"\\Downloads\"\r\n    pad = map & \"\\\" & BESTAND\r\n\r\n    Set exporteur = Application.Session.GetDefaultFolder(olFolderCalendar).GetCalendarExporter\r\n    With exporteur\r\n        .CalendarDetail = olFullDetails\r\n        .IncludeWholeCalendar = False\r\n        .StartDate = Date\r\n        .EndDate = Date + DAGEN - 1\r\n        .IncludeAttachments = True                  ' bijlagen worden in MeMeet stukken\r\n        .IncludePrivateDetails = True\r\n        .RestrictToWorkingHours = False\r\n    End With\r\n    exporteur.SaveAsICal pad\r\n\r\n    MsgBox \"De agenda van de komende \" & DAGEN & \" dagen staat in:\" & vbCrLf & pad & vbCrLf & vbCrLf & _\r\n           \"Ga in MeMeet naar Vergaderingen > Importeer weekagenda en kies dit bestand.\", vbInformation, \"MeMeet\"\r\n    Exit Sub\r\nFout:\r\n    MsgBox \"Opslaan is niet gelukt: \" & Err.Description, vbExclamation, \"MeMeet\"\r\nEnd Sub\r\n";
   function renderWeekImport(res) {
     var h = '<div class="crumb"><a href="#/">Vergaderingen</a> › Weekagenda importeren</div><div class="head"><h1>Weekagenda importeren</h1></div>';
     if (res) h += res;
@@ -4777,7 +4925,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<p>Zo gaat het (onderaan staat hoe je hier een sneltoets voor maakt):</p><ol>' +
       '<li>Ga in Outlook naar <b>Agenda</b> en klik links op je eigen agenda.</li>' +
       '<li>Kies <b>Bestand</b> › <b>Agenda opslaan in bestand</b> en klik onderin op <b>Meer opties</b>.</li>' +
-      '<li>Kies bij <b>Datumbereik</b> bijvoorbeeld <i>Volgende 7 dagen</i> en bij <b>Detail</b> <i>Volledige details</i>. Wil je de bijlagen van afspraken als stukken, vink dan onder <b>Geavanceerd</b> ook <b>Bijlagen bij agenda-items opnemen</b> aan. Klik op <b>OK</b> en daarna op <b>Opslaan</b>.</li></ol>' +
+      '<li>Kies bij <b>Datumbereik</b> bijvoorbeeld <i>Volgende 30 dagen</i> en bij <b>Detail</b> <i>Volledige details</i>. Wil je de bijlagen van afspraken als stukken, vink dan onder <b>Geavanceerd</b> ook <b>Bijlagen bij agenda-items opnemen</b> aan. Klik op <b>OK</b> en daarna op <b>Opslaan</b>.</li></ol>' +
       '<h2>2. Lees het bestand hier in</h2>' +
       '<p class="muted">Blokken, reistijd, uitloop en korte afspraken direct naast een andere vergadering worden niet geïmporteerd. <button type="button" class="link" id="wkIgn2">Aanpassen…</button></p>' +
       '<div class="dz wkdz">Sleep het .ics-bestand hierheen of <button type="button" class="btn pri" id="icsPick">Kies het agendabestand…</button></div>' +
@@ -4788,7 +4936,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Kies in Outlook <b>Bestand › Opties › Werkbalk Snelle toegang</b>.</li>' +
       '<li>Kies bij <b>Kies opdrachten uit</b> de optie <b>Alle opdrachten</b>, selecteer <b>Opslaan als agenda</b> en klik op <b>Toevoegen</b>. Klik op <b>OK</b>.</li>' +
       '<li>Ga naar <b>Agenda</b> en klik links op je eigen agenda. Druk op <b>Alt</b> om te zien welk cijfer bij de knop hoort: <b>Alt</b> plus dat cijfer opent het venster om de agenda op te slaan.</li>' +
-      '<li>Klik op <b>Meer opties</b>, kies <i>Volgende 7 dagen</i> en <i>Volledige details</i> (en eventueel <b>Bijlagen bij agenda-items opnemen</b>), klik op <b>OK</b> en <b>Opslaan</b>.</li></ol>' +
+      '<li>Klik op <b>Meer opties</b>, kies <i>Volgende 30 dagen</i> en <i>Volledige details</i> (en eventueel <b>Bijlagen bij agenda-items opnemen</b>), klik op <b>OK</b> en <b>Opslaan</b>.</li></ol>' +
       '<p class="muted">Zie je de werkbalk niet? Klik met de rechtermuisknop op het lint en kies <b>Werkbalk Snelle toegang weergeven</b>.</p></details></section>';
     h += '<section class="card wk"><details><summary><b>Sneltoets met macro</b> <span class="muted">(alleen als je organisatie macro\'s toestaat)</span></summary><ol>' +
       '<li>Druk in Outlook op <b>Alt+F11</b>. De Visual Basic-editor opent.</li>' +
@@ -4796,7 +4944,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Klik hieronder op <b>Code kopiëren</b>, plak de code in de lege module (Ctrl+V), druk op <b>Ctrl+S</b> en sluit de editor.</li>' +
       '<li>Kies in Outlook <b>Bestand › Opties › Werkbalk Snelle toegang</b>. Kies bij <b>Kies opdrachten uit</b> de optie <b>Macro\'s</b>, selecteer <b>Project1.MeMeetWeekagenda</b> en klik op <b>Toevoegen</b>. Met <b>Wijzigen</b> geef je hem een icoon en de naam <i>MeMeet weekagenda</i>. Klik op <b>OK</b>.</li>' +
       '<li>De knop staat nu bovenin Outlook. Druk op <b>Alt</b> om te zien welk cijfer erbij hoort: <b>Alt</b> plus dat cijfer is je sneltoets. Zie je de werkbalk niet? Klik met de rechtermuisknop op het lint en kies <b>Werkbalk Snelle toegang weergeven</b>.</li></ol>' +
-      '<p class="muted">De macro slaat de komende 7 dagen op. Wil je een andere periode, verander dan in de code het getal achter <code>DAGEN As Integer =</code>. Vraagt Outlook bij het starten of je macro\'s wilt inschakelen, kies dan <b>Macro\'s inschakelen</b>. Krijg je bij het opslaan een melding over het digitale certificaat, of wordt de macro geblokkeerd, dan staat je organisatie geen macro\'s toe. Gebruik dan de sneltoets zonder macro.</p>' +
+      '<p class="muted">De macro slaat de komende 30 dagen op. Wil je een andere periode, verander dan in de code het getal achter <code>DAGEN As Integer =</code>. Vraagt Outlook bij het starten of je macro\'s wilt inschakelen, kies dan <b>Macro\'s inschakelen</b>. Krijg je bij het opslaan een melding over het digitale certificaat, of wordt de macro geblokkeerd, dan staat je organisatie geen macro\'s toe. Gebruik dan de sneltoets zonder macro.</p>' +
       '<textarea readonly class="macro" id="macro" spellcheck="false">' + esc(OUTLOOK_MACRO) + '</textarea>' +
       '<p><button type="button" class="btn sm" id="macroCopy">Code kopiëren</button></p></details></section>';
     setHTML($('#main'), h);
@@ -4928,6 +5076,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   /* Stap 2: de aangevinkte afspraken opslaan, met bijlagen als stukken (mails omgezet naar PDF). */
   async function applyPlan(plan) {
     var now = new Date().toISOString(), made = [], upd = [], nAtt = 0, failAtt = [], skipT = A.data.icsSkip || (A.data.icsSkip = {}), titlesOn = {};
+    var ibBefore = {}; ibAll().pts.forEach(function (p) { ibBefore[p.id] = p.r.st; });
     var todo = plan.items.filter(function (p) { return p.status !== 'ongewijzigd' && !p.minor; });
     todo.forEach(function (p) { if (p.on) titlesOn[calNorm(p.title)] = 1; });
     todo.forEach(function (p) { var k = calNorm(p.title); if (titlesOn[k]) delete skipT[k]; else skipT[k] = 1; });
@@ -4959,7 +5108,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       }
     } finally { await persist(); }
     A.wkPlan = null;
-    var res = '<div class="info ' + (failAtt.length ? 'warn' : 'ok') + '">Geïmporteerd: <b>' + made.length + ' nieuw</b>, ' + upd.length + ' bijgewerkt' + (nAtt ? ', ' + nAtt + ' stuk' + (nAtt === 1 ? '' : 'ken') + ' toegevoegd' : '') + '.' + (failAtt.length ? ' Niet gelukt: ' + esc(failAtt.join(', ')) + '.' : '') + '</div>';
+    var ibFound = ibAll().pts.filter(function (p) { return ibBefore[p.id] === 'wait' && p.r.st === 'open'; }).length;
+    var ibMsg = ibFound ? ' ' + ibFound + ' wachtend' + (ibFound === 1 ? ' punt heeft' : 'e punten hebben') + ' een plek gevonden.' : '';
+    var res = '<div class="info ' + (failAtt.length ? 'warn' : 'ok') + '">Geïmporteerd: <b>' + made.length + ' nieuw</b>, ' + upd.length + ' bijgewerkt' + (nAtt ? ', ' + nAtt + ' stuk' + (nAtt === 1 ? '' : 'ken') + ' toegevoegd' : '') + '.' + esc(ibMsg) + (failAtt.length ? ' Niet gelukt: ' + esc(failAtt.join(', ')) + '.' : '') + '</div>';
     var rows = made.map(function (m) { return [m, 'Nieuw']; }).concat(upd.map(function (m) { return [m, 'Bijgewerkt']; }))
       .sort(function (a, b) { return ((a[0].date || '') + (a[0].start || '')).localeCompare((b[0].date || '') + (b[0].start || '')); });
     if (rows.length) res += '<section class="card"><div class="tw"><table><thead><tr><th>Datum</th><th>Tijd</th><th>Vergadering</th><th>Stukken</th><th></th></tr></thead><tbody>' + rows.map(function (x) {
@@ -4967,7 +5118,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     }).join('') + '</tbody></table></div></section>';
     renderWeekImport(res);
     $$('#main tr[data-id]').forEach(function (tr) { tr.onclick = function () { location.hash = '#/v/' + encodeURIComponent(tr.dataset.id); }; });
-    toast('Import klaar.', 'ok');
+    toast('Import klaar.' + ibMsg, 'ok');
   }
 
   /* ------------------------------------------------------------- weergave */
@@ -4985,6 +5136,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (h === '#/weekagenda') { var wr = A.wkRes; A.wkRes = null; return renderWeekImport(wr); }
     if (h === '#/verslagen') return renderReports();
     if (h === '#/acties') return renderActions();
+    if (h === '#/herinneringen') return renderReminders();
     /* het tabblad Meeneempunten (eerder Bespreekpunten, Annotaties) bestaat niet meer: zulke oude adressen gaan naar het startscherm */
     if (/^#\/(meeneempunt|bespreekpunt|annotatie)/.test(h)) { location.replace('#/'); return; }
     if (h === '#/bestanden') return renderFiles(true);
@@ -4996,8 +5148,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
 
   function renderSide() {
     var s = $('#side'), h = '', hs = location.hash || '#/';
-    var nOpen = A.store ? openCount() : 0;
-    h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
+    var nOpen = A.store ? openCount() : 0, nRem = A.store ? ibOpenCount() : 0;
+    h += '<nav class="topnav"><a href="#/" class="' + (/^#\/(v\/|nieuw)?$/.test(hs) || hs === '#/' ? 'on' : '') + '">Vergaderingen</a><a href="#/herinneringen" class="' + (hs === '#/herinneringen' ? 'on' : '') + '">Herinneringen' + (nRem ? ' <span class="cnt">' + nRem + '</span>' : '') + '</a><a href="#/verslagen" class="' + (/^#\/verslag/.test(hs) ? 'on' : '') + '">Verslagen</a><a href="#/acties" class="' + (hs === '#/acties' ? 'on' : '') + '">Actielijst' + (nOpen ? ' <span class="cnt">' + nOpen + '</span>' : '') + '</a><a href="#/bestanden" class="' + (hs === '#/bestanden' ? 'on' : '') + '">Bestanden</a></nav><span class="sp"></span>';
     if (A.store) {
       h += '<button type="button" class="tinfo" id="chgStore" title="' + esc('Alle vergaderingen, stukken en aantekeningen staan ' + (A.store.kind === 'map' ? 'in de map ' + A.store.name : 'in de browser, alleen op deze computer') + '. Klik om een andere datamap te kiezen.') + '">' + ic('folder') + ' Wijzig datamap</button>';
     }
@@ -5073,7 +5225,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function cell(m, c) {
     if (c === 'date') return esc(fmtShort(m.date));
     if (c === 'files') return m.files.length ? '<span class="pill">' + m.files.length + '</span>' : '';
-    if (c === 'title') return '<b>' + esc(m.title) + '</b>';
+    if (c === 'title') { var n = A.ibHome ? ibCountFor(m, A.ibHome) : 0; return '<b>' + esc(m.title) + '</b>' + (n ? ' <span class="ibbadge" title="Punten om in te brengen">' + n + ' inbrengen</span>' : ''); }
     return esc(m[c] || '');
   }
   /* rev: archief. Bij sorteren op datum staat in "Komend" de eerstvolgende vergadering bovenaan (datum + starttijd), en in het archief de laatste. */
@@ -5088,10 +5240,11 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     });
   }
   function renderHome() {
+    var ibA = ibAll(); A.ibHome = ibA; function ibC(m) { return ibCountFor(m, ibA); }
     var t = todayIso(), ms = A.data.meetings;
     var today = ms.filter(function (m) { return m.date === t; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
     function dayList(arr) { return '<ul class="tl">' + arr.map(function (m) {
-        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tib">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen tabblad">iBabs</button>' : '') + '</span><span class="tjn">' + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">' + ic('videocam') + ' Deelnemen</a>' : '') + '</span></span></li>';
+        return '<li data-id="' + esc(m.id) + '"><span class="tm">' + esc(m.start || '—') + (m.end ? '<small>' + esc(m.end) + '</small>' : '') + '</span><span class="tt"><b>' + esc(m.title) + '</b><small>' + esc(m.location || '') + '</small></span><span class="tact"><span class="tin">' + (ibC(m) ? '<span class="ibbadge" title="Punten om in te brengen">' + ibC(m) + ' inbrengen</span>' : '') + '</span><span class="tst">' + (m.files.length ? '<span class="pill">' + m.files.length + ' stuk' + (m.files.length > 1 ? 'ken' : '') + '</span>' : '') + '</span><span class="tib">' + (m.ibabs ? '<button type="button" class="btn sm ibabs" data-ib="' + esc(m.id) + '" title="Stukken in iBabs, in een eigen tabblad">iBabs</button>' : '') + '</span><span class="tjn">' + (m.link ? '<a class="btn sm join" href="' + esc(m.link) + '" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering">' + ic('videocam') + ' Deelnemen</a>' : '') + '</span></span></li>';
       }).join('') + '</ul>'; }
     var tm0 = new Date(); tm0.setDate(tm0.getDate() + 1); var tmw = tm0.getFullYear() + '-' + pad(tm0.getMonth() + 1) + '-' + pad(tm0.getDate());
     var tomorrow = ms.filter(function (m) { return m.date === tmw; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
@@ -5109,6 +5262,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
     var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
+    h += ibBannerHtml(ibA);
     h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
@@ -5123,6 +5277,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (A.showTomorrow == null) A.showTomorrow = true; /* standaard open */
     h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
       (A.showTomorrow && tomorrow.length ? dayList(tomorrow) : '') + '</section>';
+    /* wachtende punten en ideeën (alleen als er iets is) */
+    var nWait = ibA.pts.filter(function (p) { return p.r.st === 'wait'; }).length;
+    if (nWait || ibA.ideas.length) h += '<div class="ibgrid ibhome">' + (nWait ? ibWaitHtml(ibA) : '') + (ibA.ideas.length ? ibIdeasHtml(ibA) : '') + '</div>';
     if (A.showUp == null) A.showUp = true;
     if (A.showArch == null) A.showArch = true;
     var showF = A.showUp || A.showArch || q || f.year;
@@ -5155,6 +5312,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     $('#tdy').onclick = function () { keepScroll(function () { A.showToday = !A.showToday; }); };
     $('#tmr').onclick = function () { keepScroll(function () { A.showTomorrow = !A.showTomorrow; }); };
     var qn = $('#qnext'); if (qn) qn.onclick = function () { A.qi = qPick(); var f = $('#quote'); f.classList.remove('in'); void f.offsetWidth; $('#qtxt').textContent = Q[A.qi][0]; $('#qwho').textContent = Q[A.qi][1]; f.classList.add('in'); };
+    ibBindLists($('#main'), ibA, renderHome);
     bindFolders($('#main'));
     $('#new').onclick = function () { A.draft = blankDraft(); };
     $$('[data-ib]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); var im = byId(b.dataset.ib); if (im) openIbabs(im); }; });
