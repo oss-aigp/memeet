@@ -63,10 +63,10 @@
       setHTML(bg, h);
       $('#vvX', bg).onclick = closeVervolg;
       $$('[data-vvgo]', bg).forEach(function (a) { a.addEventListener('click', function () { closeVervolg(); }); });
-      $$('[data-vva]', bg).forEach(function (cb) { cb.onchange = async function () { setMeta(cb.dataset.vva, 'done', cb.checked ? new Date().toISOString() : null); await saveActions(src); draw(); if (ctx) refreshVervolgRow(ctx); }; });
+      $$('[data-vva]', bg).forEach(function (cb) { cb.onchange = async function () { setMeta(cb.dataset.vva, 'done', cb.checked ? new Date().toISOString() : null); await saveActions(src); draw(); }; });
       var sel = $('#vvSel', bg); if (sel) sel.onchange = async function () {
         if (sel.value === '') delete ctx.prevId; else if (sel.value === '-') ctx.prevId = ''; else ctx.prevId = sel.value;
-        ctx.updated = new Date().toISOString(); await persist(); src = prevMeeting(ctx); draw(); refreshVervolgRow(ctx);
+        ctx.updated = new Date().toISOString(); await persist(); src = prevMeeting(ctx); draw();
       };
     }
     draw();
@@ -79,19 +79,4 @@
   D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#vvDlg')) { e.preventDefault(); e.stopPropagation(); closeVervolg(); } }, true);
   W.addEventListener('hashchange', closeVervolg);
 
-  /* de regel bovenaan de stukken: het vervolgdocument van de vorige keer */
-  function vervolgRowHtml(m) {
-    var p = prevMeeting(m); if (!p) return '';
-    return '<div class="vvrow" id="vvRow" role="button" tabindex="0" title="Besluiten, acties en meeneempunten van de vorige keer"><span class="vvic">' + ic('checklist') + '</span><span class="vvtx"><b>Vorig overleg</b> · ' + esc(fmtShort(p.date)) + '<small>' + esc(vervolgSummary(vervolgOf(p))) + '</small></span></div>';
-  }
-  function refreshVervolgRow(m) {
-    var old = $('#vvRow'), html = vervolgRowHtml(m), box = D.createElement('div'); setHTML(box, html);
-    var nw = box.firstChild;
-    if (old && nw) old.replaceWith(nw); else if (old) old.remove(); else if (nw) { var hd = $('.ws .card.list .shead'); if (hd) hd.after(nw); }
-    bindVervolgRow(m);
-  }
-  function bindVervolgRow(m) {
-    var r = $('#vvRow'); if (!r) return;
-    r.onclick = function () { openVervolg(prevMeeting(m), m); };
-    r.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); r.click(); } };
-  }
+

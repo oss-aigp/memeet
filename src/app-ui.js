@@ -755,15 +755,17 @@
     }
     /* één compacte regel: titel, datum, tijd, locatie, links en knoppen (zo blijft er zoveel mogelijk ruimte voor de stukken).
        Een bestaande vergadering wordt vanzelf bewaard zodra je een veld wijzigt; alleen een nieuwe vergadering heeft Opslaan. */
-    h += '<form class="card meta mline" id="frm" autocomplete="off"><input class="ttl" name="title" required placeholder="Titel van de vergadering" title="Titel" value="' + esc(m.title) + '">' +
+    var inv = names(m.invitees), invShort = inv.map(function (n) { return String(n).split(/\s+/)[0].split('@')[0]; });
+    h += '<form class="card meta mline" id="frm" autocomplete="off"><a class="btn sm" href="#/" title="Terug naar de vergaderingen">' + ic('arrow_back') + ' Terug</a><input class="ttl" name="title" required placeholder="Titel van de vergadering" title="Titel" value="' + esc(m.title) + '">' +
       '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
+      (inv.length ? '<span class="minv" title="Deelnemers: ' + esc(inv.join(', ')) + '">' + ic('group') + ' ' + esc(invShort.slice(0, 3).join(', ') + (inv.length > 3 ? ' +' + (inv.length - 3) : '')) + '</span>' : '') +
+      (!isNew && m.date && ibFinished(m) ? '<span class="mdone" title="Dit overleg is voorbij">Afgerond</span>' : '') +
       '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">' + ic('link') + '</button></span>' +
       '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button><button type="button" class="btn sm icon" id="ibEd" aria-label="iBabs-link">' + ic('link') + '</button></span>' +
-      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">' + ic('delete') + '</button>') + '<a class="btn sm" href="#/" title="Terug naar de vergaderingen">' + ic('arrow_back') + ' Terug</a></span></form>';
-    h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2><span class="shacts">' + (isNew ? '' : '<button type="button" class="link" id="vvBtn" title="Besluiten, acties en meeneempunten van het vorige overleg met deze titel">' + ic('checklist') + ' Meeneempunten</button>') + '</span></div>';
+      '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">' + ic('delete') + '</button>') + '</span></form>';
+    h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
-    if (!isNew) h += vervolgRowHtml(m);
     var dsel = isNew ? {} : docSel(m);
     h += '<ul class="docs" id="docs">';
     list.forEach(function (f, i) {
@@ -819,8 +821,6 @@
     $('#addDocs').onclick = function () { readForm(); $('#pickDocs').click(); };
     $('#addDocs').onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } };
     /* Meeneempunten: het vervolgdocument van het vorige overleg met deze titel, als popup */
-    var vb = $('#vvBtn'); if (vb) vb.onclick = function () { openVervolg(prevMeeting(m), m); };
-    bindVervolgRow(m);
     $$('[data-p]').forEach(function (c) { c.onclick = function (e) { e.stopPropagation(); }; c.onchange = function () { m.pending[+c.dataset.p].on = c.checked; }; });
     if (isNew) $$('#docs li[data-sel]').forEach(function (li) { li.onclick = function (e) { if (e.target.closest('button,input')) return; pvShow(m, +li.dataset.sel); }; });
     else bindDocList(m);

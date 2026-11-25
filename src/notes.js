@@ -113,12 +113,21 @@
       $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
       $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; bindGrip(); return;
     }
-    h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;Begin een regel met:&#10;! voor een actie: ! Jan stuurt de notitie rond&#10;= voor een besluit: = livegang schuift naar maart&#10;&gt; voor een meeneempunt voor het vervolgoverleg: &gt; begroting opnieuw bespreken&#10;&#10;Acties komen in de Actielijst. Besluiten, acties en meeneempunten staan ook bij het vervolgoverleg.">' + esc(m.minutes || '') + '</textarea>';
+    /* boven: wat je hier inbrengt (geel vak, alleen als er iets is); midden: het tekstvak; onder: Herkend en de uitleg van de tekens */
+    var ibA = ibAll(), ibPv = ibPreviewHtml(m, ibA);
+    h += '<div id="ibInbW">' + ibInbHtml(m, ibA) + '</div>';
+    h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;! actie   = besluit   ? idee&#10;&gt; meeneempunt: &gt; Jan … (overleg met Jan), &gt; MT: … (overleg met MT in de titel), of &gt; … (volgende keer van dit overleg)">' + esc(m.minutes || '') + '</textarea>';
+    h += '<div class="ac" id="ibAc" hidden></div><div class="pvw" id="ibPvw"' + (ibPv ? '' : ' hidden') + '>' + ibPv + '</div>' + IB_LEGEND;
     setHTML(np, h);
     var ta = $('#npt'), t;
     function queue() { var st = $('#npst'); if (st) { st.textContent = '…'; st.title = 'Bezig met opslaan'; st.className = 'npst'; } clearTimeout(t); t = setTimeout(async function () { t = null; await saveMinutes(m); var s2 = $('#npst'); if (s2) { setHTML(s2, ic('check')); s2.title = 'Opgeslagen'; s2.className = 'npst ok'; } }, 800); }
-    ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; queue(); });
+    var ibT; function ibLater() { clearTimeout(ibT); ibT = setTimeout(function () { if ($('#npt') === ta) ibRefresh(m); }, 350); }
+    ta.addEventListener('input', function () { m.minutes = ta.value; delete m.minutesHtml; queue(); ibLater(); ibAc(ta, $('#ibAc')); });
+    ta.addEventListener('keyup', function (e) { if (/^Arrow|Home|End/.test(e.key)) ibAc(ta, $('#ibAc')); });
+    ta.addEventListener('click', function () { ibAc(ta, $('#ibAc')); });
+    ta.addEventListener('blur', function () { setTimeout(function () { var b = $('#ibAc'); if (b && D.activeElement !== ta) { b.hidden = true; } }, 150); });
     ta.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    ibBind(m);
     $('#npmail').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } if (!(m.minutes || '').trim()) { toast('Er zijn nog geen aantekeningen om te mailen.', 'warn'); return; } mailMinutes(m); };
     $('#nppop').onclick = async function () { if (t) { clearTimeout(t); t = null; await saveMinutes(m); } popNotes(m); };
     var dlb = $('#npdl'); if (dlb) dlb.onclick = function () { dl(new Blob(['﻿' + minutesText(m)], { type: 'text/plain' }), minutesFileName(m)); };
