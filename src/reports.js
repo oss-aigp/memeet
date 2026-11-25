@@ -162,23 +162,23 @@
   /* Een tekst mailen. Kort: via mailto, dan opent Outlook direct een nieuwe mail. Lang (een mailto-link kan maar weinig tekst meegeven):
      een conceptmail (.eml) met de hele tekst; die opent in Outlook als nieuwe mail. */
   var MAILTO_MAX = 1800;
-  function draftEml(subject, text) {
+  function draftEml(subject, text, to) {
     var body = String(text || '').replace(/\r?\n/g, '\r\n');
-    var o = ['To: ', 'Subject: ' + encWord(subject), 'X-Unsent: 1', 'MIME-Version: 1.0', 'Content-Type: text/plain; charset=utf-8', 'Content-Transfer-Encoding: base64', '', b64Lines(new TextEncoder().encode(body)), ''];
+    var o = ['To: ' + (to || ''), 'Subject: ' + encWord(subject), 'X-Unsent: 1', 'MIME-Version: 1.0', 'Content-Type: text/plain; charset=utf-8', 'Content-Transfer-Encoding: base64', '', b64Lines(new TextEncoder().encode(body)), ''];
     return new Blob([o.join('\r\n')], { type: 'message/rfc822' });
   }
-  async function mailText(subject, text) {
+  async function mailText(subject, text, to) {
     var body = String(text || '').replace(/\r?\n/g, '\r\n');
-    var url = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    var url = 'mailto:' + encodeURIComponent(to || '').replace(/%40/g, '@') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     if (url.length <= MAILTO_MAX) {
       W.__lastMailto = url; /* voor tests */
       location.href = url;
-      toast('Outlook opent een nieuwe mail met de tekst. Vul de ontvanger in.', 'ok');
+      toast(to ? 'Outlook opent een nieuwe mail met de tekst.' : 'Outlook opent een nieuwe mail met de tekst. Vul de ontvanger in.', 'ok');
       return;
     }
     var name = safe('Mail - ' + subject.replace(/\s*:\s*/g, ' - ')).slice(0, 120) + '.eml';
     W.__lastMailto = null; W.__lastDraft = { name: name, subject: subject, text: text }; /* voor tests */
-    dl(draftEml(subject, text), name);
+    dl(draftEml(subject, text, to), name);
     toast('De tekst is te lang om direct door te geven. Open het gedownloade bestand "' + name + '" (onderaan of in Downloads): Outlook opent dan een nieuwe mail met de hele tekst.', 'ok');
   }
   /* De aantekeningen, met één regel over de vergadering erboven. Eerst de besluiten (=), dan de acties (!), dan de overige regels in typvolgorde.

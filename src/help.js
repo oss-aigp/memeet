@@ -106,6 +106,12 @@
       '<li>Grijze punten kwamen hier langs, maar zijn doorgeschoven of elders besproken; erachter staat waar ze nu zijn.</li>' +
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt: de aantekeningen van dat overleg, met de regel geel gemarkeerd, en de stukken. <b>Esc</b> sluit het venster.</li>' +
       '<li>De besluiten, acties en meeneempunten van een eerder overleg vind je op het tabblad <b>Verslagen</b>.</li></ul>' +
+      '<h3>Annotatie van een medewerker</h3><ul>' +
+      '<li>Een annotatie is een memo met advies per agendapunt. Klik in de kolom Aantekeningen op ' + ic('note_add') + ' (<b>+ Annotatie</b>) en kies of sleep een Word-bestand (.docx), tekst (.txt) of mail (.eml of .msg). MeMeet herkent de agendapunten aan nummers (1., 2)), kopjes of "Agendapunt …". "Van: …" bepaalt van wie hij is; bij een mail de afzender.</li>' +
+      '<li>Er komt een tabblad <b>Annotatie [voornaam]</b> naast Aantekeningen, met de voortgang (bijvoorbeeld 2/5). Per agendapunt staat het advies, met een vak <b>Wat ik heb ingebracht…</b>. Met <b>Vervangen…</b> laad je een andere annotatie.</li>' +
+      '<li>Regels in die vakken die met <code>&gt;</code> of <code>?</code> beginnen, zijn meeneempunten en ideeën, net als in de aantekeningen. Onder het vak zie je waar ze heen gaan; ze zijn privé.</li>' +
+      '<li>De annotatie staat ook bij de stukken, zodat je erin kunt markeren.</li>' +
+      '<li><b>Mail terug</b> maakt een concept-mail aan de afzender, met per agendapunt "Jouw annotatie" en "Terugkoppeling". Regels met <code>&gt;</code> of <code>?</code> gaan niet mee; staat er verder niets, dan komt er "Niet aan toegekomen.". De voortgang en de waarschuwing voor lege punten tellen alleen tekst die wél gemaild wordt.</li></ul>' +
       '<h3>De viewer (tabblad Bekijken)</h3><ul>' +
       '<li><b>Tekst selecteren</b> (met <b>Tekst</b> aan, de standaard): er verschijnt een kleine werkbalk met <b>Markeren</b> (geel), <b>Opmerking</b> (de tekst wordt oranje onderstreept en er komt een geel briefje in de kantlijn, op dezelfde hoogte) en <b>+ Meeneempunt</b> (de tekst komt als <code>&gt; …</code> onderaan je aantekeningen, met de cursor direct na <code>&gt; </code>, zodat je er een naam of <code>Overleg:</code> voor typt). Klik op een markering voor <b>Markering weghalen</b>. Kopiëren kan ook: Ctrl+C.</li>' +
       '<li>In de werkbalk zie je hoeveel opmerkingen er in het stuk staan. Een briefje bewerk je door erop te klikken; met het kruisje haal je het weg.</li>' +

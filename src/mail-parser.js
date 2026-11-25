@@ -321,7 +321,7 @@
     var h = parsePart(bin, out, 0);
     var ics = parseIcs(out.ics);
     return {
-      subject: decodeWords(h.subject || ''), from: decodeWords(h.from || '').replace(/\s*<[^>]*>\s*$/, '').replace(/^"|"$/g, ''),
+      subject: decodeWords(h.subject || ''), from: decodeWords(h.from || '').replace(/\s*<[^>]*>\s*$/, '').replace(/^"|"$/g, ''), fromAddr: ((/<([^>@\s]+@[^>\s]+)>/.exec(h.from || '') || /([^\s<>"]+@[^\s<>"]+)/.exec(h.from || '') || [])[1] || ''),
       sent: h.date ? new Date(h.date) : null, text: out.text != null ? out.text : (out.html ? htmlToText(out.html) : ''),
       start: ics && ics.start, end: ics && ics.end, allDay: ics && ics.allDay, next: ics && ics.next, location: (ics && ics.location) || '', icsTitle: ics && ics.title,
       attachments: out.attachments, skipped: [], html: out.html || ''
@@ -432,7 +432,7 @@
         atts.push({ name: name, type: mime, data: data,
           inline: !!(hid && hid.lo & 1) || !!(fl && fl.lo & 4) || (!!str(st, 0x3712) && /^image\//.test(mime) && /^image\d+\./i.test(name)) });
       });
-      return { props: props, subject: str(st0, 0x37), from: str(st0, 0x0C1A) || str(st0, 0x42), sent: ft(props[0x00390040]),
+      return { props: props, subject: str(st0, 0x37), from: str(st0, 0x0C1A) || str(st0, 0x42), fromAddr: (function (x) { return /@/.test(x) ? x : ''; })(str(st0, 0x5D01) || str(st0, 0x0C1F) || str(st0, 0x65)), sent: ft(props[0x00390040]),
         text: str(st0, 0x1000) || (html ? htmlToText(html) : ''), html: html || '', attachments: atts, skipped: skipped };
     }
     var mm = readMsg(top, 32, 0), props = mm.props;
