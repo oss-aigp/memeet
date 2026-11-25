@@ -19,7 +19,7 @@ function bundleIife(entry, globalName) {
 }
 
 const app = "(function(){'use strict';var W=window,D=document;\n" +
-  ['mail-parser.js', 'convert.js', 'pptx-render.js', 'editor.js', 'notes.js', 'mailacts.js', 'reports.js', 'vervolg.js', 'files.js', 'help.js', 'app-ui.js'].map(src).join('\n') + '\n})();'
+  ['mail-parser.js', 'convert.js', 'pptx-render.js', 'editor.js', 'notes.js', 'inbreng.js', 'mailacts.js', 'reports.js', 'vervolg.js', 'files.js', 'help.js', 'app-ui.js'].map(src).join('\n') + '\n})();'
 // De Outlook-macro voor de weekagenda staat in outlook/; die wordt in de app gezet zodat gebruikers hem kunnen kopiëren.
 const macro = fs.readFileSync(path.join(root, 'outlook', 'MeMeet-weekagenda.bas'), 'utf8').replace(/\r?\n/g, '\r\n');
 const appWithMacro = app.replace('__OUTLOOK_MACRO__', () => JSON.stringify(macro))

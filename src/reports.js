@@ -188,7 +188,7 @@
     var dec = [], act = [], rest = [];
     String(m.minutes || '').split(/\r?\n/).forEach(function (l) {
       var c;
-      if (PT_RE.test(l)) return;
+      if (ibIsPriv(l)) return; /* meeneempunten (>) en ideeën (?) zijn privé */
       if ((c = DEC_RE.exec(l))) dec.push('- ' + c[1]);
       else if ((c = ACT_RE.exec(l))) act.push('- ' + c[2]);
       else rest.push(l);
