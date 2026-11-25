@@ -663,6 +663,22 @@ html[data-theme=dark] :is(.ibbadge,.ibgrp .tag){color:#f1d27a;border-color:#6b5a
 .nphead .btn.sm{display:inline-flex;align-items:center;gap:4px;line-height:1}.nphead .btn.sm .i{width:16px;height:16px;vertical-align:0;flex:none}
 .nphead .btn.sm .bt{display:inline-block;line-height:16px}
 @container (max-width:400px){.nphead #nppop .bt{display:none}.nphead #nppop{width:30px;padding:0}}
+/* ---- Herinneringen 1.6.1: invoervak rechts naast de titel, vier gelijke vakken in twee kolommen */
+.ibremhead{flex-wrap:nowrap;align-items:flex-start;margin-bottom:24px}.ibremhead h1,.ibremhead .hhint{white-space:nowrap;margin-top:6px}
+.remadd{margin-left:auto;width:min(620px,52%);position:relative}
+.remadd .qa input{height:36px;font:14px var(--font)}
+.remadd .qprev{position:absolute;left:0;right:0;top:40px;min-height:0;font-size:12.5px;z-index:2}
+.remadd #remAc{position:absolute;left:0;right:0;top:40px;z-index:3;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 8px;box-shadow:var(--shadow)}
+.ibquad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:calc(100vh - var(--hdr) - 108px);min-height:440px}
+.ibquad>.card{margin:0;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.ibquad .ibscroll{flex:1;min-height:0;overflow:auto;margin:0 -6px;padding:0 6px}
+@media (max-width:900px){.ibquad{grid-template-columns:1fr;grid-template-rows:none;height:auto}.ibquad>.card{max-height:none}.ibremhead{flex-wrap:wrap}.remadd{width:100%}}
+.ibrow{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}.ibrow>b,.ibrow .ibtx{min-width:0}
+.ibrow .src{font-size:12px;color:var(--mute)}.ibrow .ibx{margin-left:auto}
+select.chipsel{field-sizing:content;width:auto;max-width:260px;min-height:0;height:22px;padding:0 6px;font-size:11.5px;font-weight:600;color:var(--brand);background:var(--soft);border:1px solid var(--licht);border-radius:12px;cursor:pointer;appearance:none;-webkit-appearance:none}
+select.chipsel:hover{background:var(--licht)}
+.ibrow .chip{display:inline-block;background:var(--soft);color:var(--brand);border-radius:12px;padding:0 7px;font-size:11.5px;border:1px solid var(--licht)}
+.ibgrp li.ibrow{align-items:center}
 /* ---- iconen (Material Symbols Rounded, Apache-2.0) */
 .i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 .btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}

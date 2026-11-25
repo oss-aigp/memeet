@@ -12,10 +12,16 @@
   /* ---------- hulpjes */
   function ibNorm(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim(); }
   function ibWords(s) { return ibNorm(s).split(/[^\p{L}\p{N}]+/u).filter(Boolean); }
-  /* staat de woordreeks "part" achter elkaar in de titel? ("Balie" in "Projectoverleg Digitale Balie", "MT" in "MT-overleg", niet "mt" in "Commitment") */
-  function ibInTitle(part, title) {
+  /* Staat de woordreeks "part" achter elkaar in de titel? Hele woorden ("Balie" in "Projectoverleg Digitale Balie", "MT" in "MT-overleg",
+     niet "mt" in "Commitment"), of het begin van een woord vanaf drie letters ("Team" in "Teamoverleg", "project" in "Projectoverleg").
+     exact: alleen hele woorden. */
+  function ibInTitle(part, title, exact) {
     var p = ibWords(part), t = ibWords(title); if (!p.length) return false;
-    for (var i = 0; i + p.length <= t.length; i++) { var ok = true; for (var j = 0; j < p.length; j++) if (t[i + j] !== p[j]) { ok = false; break; } if (ok) return true; }
+    for (var i = 0; i + p.length <= t.length; i++) {
+      var ok = true;
+      for (var j = 0; j < p.length; j++) { var a = p[j], b = t[i + j]; if (b !== a && (exact || a.length < 3 || b.indexOf(a) !== 0)) { ok = false; break; } }
+      if (ok) return true;
+    }
     return false;
   }
   /* de voornaam van een genodigde ("Jan de Vries" → jan, "jan.devries@org.nl" → jan) */
@@ -36,10 +42,10 @@
     return o;
   }
   function ibExtra() { return A.data.ibTitles || (A.data.ibTitles = {}); }
-  function ibKnownTitle(part, people) {
+  function ibKnownTitle(part, people, exact) {
     var k = ibNorm(part); if (!k) return false;
     if ((people || ibPeople())[k] || ibExtra()[k]) return true;
-    return A.data.meetings.some(function (c) { return ibInTitle(part, c.title); });
+    return A.data.meetings.some(function (c) { return ibInTitle(part, c.title, exact); });
   }
 
   /* ---------- de bronnen: vergaderingen (aantekeningen en annotatie) en losse herinneringen */
@@ -66,6 +72,14 @@
         if (persons.length && i >= ws.length) { persons = []; i = 0; } /* alleen een naam en verder niets: gewone tekst */
         rest = ws.slice(i).join(' ');
         if (persons.length) unk = '';
+        /* een losse herinnering zonder dubbele punt: begint hij met (een deel van) een bekende overlegtitel, dan is dat de bestemming
+           ("> Teamoverleg rooster bespreken", "> Stuurgroep Huisvesting budget"). Alleen hele woorden, en er moet tekst overblijven. */
+        if (src.rem && !persons.length) {
+          for (var nw = Math.min(4, ws.length - 1); nw >= 1; nw--) {
+            var cand = ws.slice(0, nw).join(' ').replace(/[,;]+$/, '');
+            if (!people[ibNorm(cand)] && (ibExtra()[ibNorm(cand)] || A.data.meetings.some(function (c) { return ibInTitle(cand, c.title, true); }))) { title = cand; rest = ws.slice(nw).join(' '); unk = ''; break; }
+          }
+        }
       }
       var gate = '', g = /^(\d{1,2})-(\d{1,2})(?:\s+|$)(.*)$/.exec(rest);
       if (g && +g[2] >= 1 && +g[2] <= 12 && +g[1] >= 1 && +g[1] <= 31) {
@@ -99,7 +113,8 @@
   function ibResolve(p) {
     var st = ibGet(p.id), pin = st.pin ? byId(st.pin) : null, from = ibKey(p.src);
     var cands = A.data.meetings.filter(function (c) {
-      if (c.id === p.src.id || !c.date || ibKey(c) <= from) return false;
+      /* na de bron; een overleg zonder tijd telt op zijn datum de hele dag */
+      if (c.id === p.src.id || !c.date || (c.start ? ibKey(c) <= from : c.date < p.src.date || (c.date === p.src.date && !p.src.rem && !p.src.start))) return false;
       if (p.gate && c.date < p.gate) return false;
       return pin ? (c === pin || (ibKey(c) > ibKey(pin) && ibMatches(p, c))) : ibMatches(p, c);
     }).sort(ibSort);
@@ -188,6 +203,21 @@
     if (p.gate) h += '<span class="chip">niet vóór ' + esc(fmtDay(p.gate)) + '</span>';
     return h ? ' ' + h : '';
   }
+  /* de bestemming als klein keuzelijstje: laat zien waarop het punt wacht ("titel bevat …", "met Jan") en laat je zelf een overleg kiezen */
+  function ibRouteLabel(p, people) {
+    var pin = ibGet(p.id).pin, pm = pin ? byId(pin) : null;
+    if (pm) return 'zelf gekozen: ' + ibName(pm);
+    if (p.title) return 'titel bevat “' + p.title + '”';
+    if (p.persons.length) return 'met ' + p.persons.map(function (x) { return (people || {})[x] || x; }).join(' of ');
+    return 'volgende ' + (p.src.title || 'overleg');
+  }
+  function ibChipSel(p, people) {
+    var pin = ibGet(p.id).pin, from = ibKey(p.src);
+    var opts = A.data.meetings.filter(function (c) { return c.date && !ibFinished(c) && c.id !== p.src.id && (c.start ? ibKey(c) > from : c.date >= p.src.date); }).sort(ibSort).slice(0, 40);
+    return '<select class="chipsel" data-ibpinsel="' + esc(p.id) + '" title="Kies zelf een overleg voor dit punt" aria-label="Overleg kiezen voor: ' + esc(p.text) + '"><option value="">' + esc(ibRouteLabel(p, people)) + ' ▾</option>' +
+      opts.filter(function (c) { return c.id !== pin; }).map(function (c) { return '<option value="' + esc(c.id) + '">→ ' + esc(ibName(c)) + '</option>'; }).join('') +
+      (pin ? '<option value="-">↺ weer automatisch</option>' : '') + '</select>' + (p.gate ? '<span class="chip">niet vóór ' + esc(fmtDay(p.gate)) + '</span>' : '');
+  }
   var IB_LEGEND = '<div class="iblegend" title="&gt; Jan … gaat naar het eerstvolgende overleg met Jan&#10;&gt; MT: … gaat naar het eerstvolgende overleg met MT in de titel&#10;&gt; MT: 15-1 … niet vóór 15 januari&#10;&gt; … zonder naam of overleg: de volgende keer van dit overleg&#10;? … een los idee, in de Ideeën-inbox&#10;! … een actie (Actielijst)   = … een besluit&#10;Regels met &gt; en ? zijn privé: ze gaan niet mee in de mail."><code>!</code> actie · <code>=</code> besluit · <code>?</code> idee · <code>&gt;</code> meeneempunt (<code>&gt; Jan</code>, <code>&gt; MT:</code>)</div>';
 
   /* het vak en Herkend opnieuw tekenen, zonder het tekstvak aan te raken */
@@ -246,7 +276,7 @@
     if (s.rem) {
       head = '<h2 id="ibCtxT">Losse herinnering</h2><p class="muted">Toegevoegd op ' + esc(fmtLong(s.date)) + ' om ' + esc(s.start) + '</p>';
       body = '<pre class="ibnotes"><mark>' + esc(s.rem.line) + '</mark></pre><p class="muted ibsmall">Deze herinnering heb je los van een overleg toegevoegd, op het tabblad Herinneringen.</p>';
-      acts = '<a class="btn" href="#/herinneringen">Naar Herinneringen</a>';
+      acts = '';
     } else {
       head = '<p class="muted ibsmall">Waar dit punt vandaan komt</p><h2 id="ibCtxT">' + esc(s.title) + '</h2><p class="muted">' + esc(fmtLong(s.date)) + (s.start ? ', ' + esc(s.start) : '') + (names(s.invitees).length ? ' · ' + esc(names(s.invitees).join(', ')) : '') + '</p>';
       body = '<pre class="ibnotes">' + String(s.minutes || '').split(/\r?\n/).map(function (l, i) { return i === p.line ? '<mark>' + esc(l) + '</mark>' : esc(l); }).join('\n') + '</pre>' +
@@ -254,13 +284,13 @@
       acts = '<a class="btn" href="#/v/' + esc(encodeURIComponent(s.id)) + '">Open dat overleg</a>';
     }
     setHTML(bg, '<div class="dlg ibctx" role="dialog" aria-modal="true" aria-labelledby="ibCtxT"><div class="vvhead"><div>' + head + '</div><button type="button" class="vvx" id="ibCtxX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
-      '<div class="ibctxb">' + body + '</div><div class="dlgacts">' + acts + '<span class="sp"></span><button type="button" class="btn pri" id="ibCtxOk">Terug naar waar ik was</button></div></div>');
+      '<div class="ibctxb">' + body + '</div>' + (acts ? '<div class="dlgacts">' + acts + '</div>' : '') + '</div>');
     D.body.appendChild(bg);
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeIbCtx(); });
-    $('#ibCtxX', bg).onclick = closeIbCtx; $('#ibCtxOk', bg).onclick = closeIbCtx;
+    $('#ibCtxX', bg).onclick = closeIbCtx;
     $$('a.btn', bg).forEach(function (a) { a.addEventListener('click', function () { closeIbCtx(); }); });
     var mk = $('mark', bg); if (mk) mk.scrollIntoView({ block: 'center' });
-    try { $('#ibCtxOk', bg).focus(); } catch (e) {}
+    try { $('#ibCtxX', bg).focus(); } catch (e) {}
   }
   D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#ibCtx')) { e.preventDefault(); e.stopPropagation(); closeIbCtx(); } }, true);
   W.addEventListener('hashchange', function () { closeIbCtx(); });
@@ -281,8 +311,7 @@
   function ibWaitHtml(all) {
     var w = all.pts.filter(function (p) { return p.r.st === 'wait'; });
     return '<section class="card ibcard"><h2>Wacht op overleg <span class="muted">' + w.length + '</span></h2>' + (w.length ? '<ul class="iblist">' + w.map(function (p) {
-      return '<li><b>' + esc(p.text) + '</b>' + (p.src.rem ? ' <button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') +
-        '<div>' + ibChips(p, all.people) + '</div><div class="why">' + esc(ibWaitWhy(p, all.people)) + '</div><div class="src">' + ibSrcLink(p) + '</div></li>';
+      return '<li class="ibrow"><b>' + esc(p.text) + '</b>' + ibChipSel(p, all.people) + '<span class="src">' + ibSrcLink(p) + '</span>' + (p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') + '</li>';
     }).join('') + '</ul>' : '<p class="muted ibempty">Alles heeft een plek gevonden.</p>') + '</section>';
   }
   /* de Ideeën-inbox: alle ?-regels. Koppelen herschrijft de regel op de plek waar hij staat naar "> Jan tekst" of "> MT: tekst". */
@@ -312,34 +341,37 @@
       var it = all.ideas[+b.dataset.ibidea]; await ibRelink(it, b.dataset.to); after();
       toast('Gekoppeld aan ' + b.dataset.to.replace(/:$/, '') + '. Het ligt klaar bij het eerstvolgende passende overleg.', 'ok');
     }; });
+    $$('[data-ibpinsel]', root).forEach(function (s) { s.onchange = async function () {
+      if (!s.value) return; ibSet(s.dataset.ibpinsel, 'pin', s.value === '-' ? null : s.value); await persist(); after();
+      toast(s.value === '-' ? 'Weer automatisch.' : 'Komt op bij ' + ibName(byId(s.value)) + '.', 'ok');
+    }; });
     $$('[data-ibdel]', root).forEach(function (b) { b.onclick = async function (e) {
       e.stopPropagation(); A.data.rem = ibRems().filter(function (r) { return r.id !== b.dataset.ibdel; }); await persist(); after(); toast('Herinnering verwijderd.', 'ok');
     }; });
     ibBindCtx(root);
   }
 
-  /* ---------- tabblad Herinneringen */
+  /* ---------- tabblad Herinneringen: rechts naast de titel een vak om een herinnering toe te voegen; daaronder vier gelijke vakken */
   function renderReminders() {
     var all = ibAll(), main = $('#main');
-    var h = '<div class="head"><h1>Herinneringen</h1><span class="hhint">Alles wat je ergens wilt inbrengen, op één plek</span></div><div class="ibgrid"><div>';
-    h += '<section class="card ibcard"><h2>Nieuwe herinnering</h2><div class="qa"><input id="remIn" autocomplete="off" spellcheck="false" placeholder="> Jan: opleidingsbudget bespreken" aria-label="Nieuwe herinnering"><button type="button" class="btn pri" id="remAdd">' + ic('add') + ' Toevoegen</button></div>' +
-      '<div class="ac" id="remAc" hidden></div><div class="qprev" id="remPv"></div>' +
-      '<p class="iblegend2"><code>&gt; Jan …</code> eerstvolgende overleg met Jan · <code>&gt; Stuurgroep Huisvesting: …</code> overleg met die titel, ook als het nog niet in je agenda staat · <code>&gt; MT: 15-1 …</code> niet vóór 15 januari · zonder naam of overleg: naar de Ideeën-inbox</p>' +
-      '<details class="ibnew"><summary class="link">' + ic('event') + ' Nieuw overleg aanmaken dat nog niet in je agenda staat</summary><form class="ibnf" id="ibNew" autocomplete="off">' +
-      '<input id="nfT" placeholder="Titel, bijvoorbeeld Overleg wethouder" aria-label="Titel"><input id="nfD" type="date" value="' + addDays(todayIso(), 7) + '" aria-label="Datum"><input id="nfS" type="time" value="10:00" aria-label="Begintijd"><input id="nfE" type="time" value="11:00" aria-label="Eindtijd">' +
-      '<input id="nfP" placeholder="Deelnemers, gescheiden door komma’s (bijvoorbeeld Jan de Vries, Petra Smit)" aria-label="Deelnemers"><button type="submit" class="btn">Overleg aanmaken</button></form></details></section>';
+    var h = '<div class="head ibremhead"><h1>Herinneringen</h1><span class="hhint">Alles wat je ergens wilt inbrengen, op één plek</span>' +
+      '<div class="remadd"><div class="qa"><input id="remIn" autocomplete="off" spellcheck="false" placeholder="Nieuwe herinnering, bijvoorbeeld: Jan opleidingsbudget, of MT: begroting" aria-label="Nieuwe herinnering" title="Jan … = eerstvolgende overleg met Jan&#10;MT: … = overleg met MT in de titel (ook als het nog niet in je agenda staat)&#10;MT: 15-1 … = niet vóór 15 januari&#10;Zonder naam of overleg: naar de Ideeën-inbox"><button type="button" class="btn pri" id="remAdd">' + ic('add') + ' Toevoegen</button></div>' +
+      '<div class="ac" id="remAc" hidden></div><div class="qprev" id="remPv"></div></div></div>';
     var groups = {}, order = [];
     all.pts.forEach(function (p) { if (p.r.st !== 'open') return; var id = p.r.m.id; if (!groups[id]) { groups[id] = []; order.push(p.r.m); } groups[id].push(p); });
     order.sort(ibSort);
     var nOpen = order.reduce(function (a, m) { return a + groups[m.id].length; }, 0);
-    h += '<section class="card ibcard"><h2>Komt op <span class="muted">' + nOpen + '</span></h2>' + (order.length ? order.map(function (m) {
-      return '<div class="ibgrp"><h3><a href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + esc(m.title) + '</a><span class="muted">' + esc(fmtLong(m.date)) + (m.start ? ', ' + esc(m.start) : '') + '</span></h3><ul>' +
-        groups[m.id].map(function (p) { return '<li><span class="ibdot"></span><div><span>' + esc(p.text) + '</span>' + (p.r.carried ? '<span class="tag">' + p.r.carried + '× doorgeschoven</span>' : '') + '<div class="src">' + ibSrcLink(p) + ibChips(p, all.people) + '</div></div>' + (p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') + '</li>'; }).join('') + '</ul></div>';
-    }).join('') : '<p class="muted ibempty">Er ligt niets klaar.</p>') + '</section>';
     var done = all.pts.filter(function (p) { return p.r.st === 'done'; });
-    h += '<section class="card ibcard"><details><summary class="link"><b>Besproken</b> (' + done.length + ')</summary><ul class="iblist">' +
-      done.map(function (p) { return '<li><s>' + esc(p.text) + '</s><div class="src">besproken in ' + esc(ibName(p.r.m)) + ' · ' + ibSrcLink(p) + '</div></li>'; }).join('') + '</ul></details></section>';
-    h += '</div><div>' + ibWaitHtml(all) + ibIdeasHtml(all) + '</div></div>';
+    h += '<div class="ibquad">';
+    h += '<section class="card ibcard"><h2>Komt op <span class="muted">' + nOpen + '</span></h2><div class="ibscroll">' + (order.length ? order.map(function (m) {
+      return '<div class="ibgrp"><h3><a href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + esc(m.title) + '</a><span class="muted">' + esc(fmtLong(m.date)) + (m.start ? ', ' + esc(m.start) : '') + '</span></h3><ul>' +
+        groups[m.id].map(function (p) { return '<li class="ibrow"><span class="ibdot"></span><span class="ibtx">' + esc(p.text) + '</span>' + (p.r.carried ? '<span class="tag">' + p.r.carried + '×</span>' : '') + ibChipSel(p, all.people) + '<span class="src">' + ibSrcLink(p) + '</span>' + (p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : '') + '</li>'; }).join('') + '</ul></div>';
+    }).join('') : '<p class="muted ibempty">Er ligt niets klaar.</p>') + '</div></section>';
+    h += '<section class="card ibcard"><h2>Besproken <span class="muted">' + done.length + '</span></h2><div class="ibscroll">' + (done.length ? '<ul class="iblist">' +
+      done.map(function (p) { return '<li class="ibrow"><s>' + esc(p.text) + '</s><span class="src">besproken in ' + esc(ibName(p.r.m)) + ' · ' + ibSrcLink(p) + '</span></li>'; }).join('') + '</ul>' : '<p class="muted ibempty">Nog niets afgevinkt.</p>') + '</div></section>';
+    h += ibWaitHtml(all).replace(/(<h2>[\s\S]*?<\/h2>)([\s\S]*)<\/section>$/, '$1<div class="ibscroll">$2</div></section>');
+    h += ibIdeasHtml(all).replace(/(<h2>[\s\S]*?<\/h2>)([\s\S]*)<\/section>$/, '$1<div class="ibscroll">$2</div></section>');
+    h += '</div>';
     setHTML(main, h);
     ibBindLists(main, all, renderReminders);
     var qa = $('#remIn'), box = $('#remPv');
@@ -349,7 +381,7 @@
       var src = ibRemSrc({ id: 'tmp', created: new Date().toISOString(), line: lineOf(v) }), it = ibParse(lineOf(v), src);
       if (!it || it.k === '?') { setHTML(box, '<span class="to wait">Geen naam of overleg herkend: gaat naar de Ideeën-inbox.</span>'); return; }
       var r = ibResolve(it);
-      setHTML(box, ibChips(it, all.people) + ' ' + (r.st === 'open' ? '<span class="to go">→ ' + esc(ibName(r.m)) + '</span>' : '<span class="to wait">⏳ wacht: ' + esc(ibWaitWhy(it, all.people)) + '</span>'));
+      setHTML(box, '<span class="chip">' + esc(ibRouteLabel(it, all.people)) + '</span> ' + (r.st === 'open' ? '<span class="to go">→ ' + esc(ibName(r.m)) + '</span>' : '<span class="to wait">⏳ wacht tot er een passend overleg in je agenda staat</span>'));
     }
     async function add() {
       var v = qa.value.trim(); if (!v) { qa.focus(); return; }
@@ -362,14 +394,4 @@
     qa.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); add(); } });
     qa.addEventListener('blur', function () { setTimeout(function () { var b = $('#remAc'); if (b && D.activeElement !== qa) b.hidden = true; }, 150); });
     $('#remAdd').onclick = add;
-    $('#ibNew').onsubmit = async function (e) {
-      e.preventDefault(); var t = $('#nfT').value.trim(), dt = $('#nfD').value;
-      if (!t || !dt) { toast('Vul een titel en een datum in.', 'warn'); return; }
-      var before = {}; ibAll().pts.forEach(function (p) { before[p.id] = p.r.st; });
-      var d = blankDraft(); d.title = t; d.date = dt; d.start = $('#nfS').value || ''; d.end = $('#nfE').value || ''; d.invitees = names($('#nfP').value).join(', '); d.type = guessType(t);
-      var m = await saveDraft(d);
-      var found = ibAll().pts.filter(function (p) { return before[p.id] === 'wait' && p.r.st === 'open' && p.r.m === m; }).length;
-      renderReminders(); renderSide();
-      toast('Overleg “' + t + '” aangemaakt' + (found ? '. ' + found + ' wachtend punt' + (found === 1 ? ' komt' : 'en komen') + ' er nu op.' : '.'), 'ok');
-    };
   }
