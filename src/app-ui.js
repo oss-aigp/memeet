@@ -44,7 +44,7 @@
       '<li><b>Kies de datamap</b>: klik hieronder en kies de map <b>MeMeet</b> waar dit bestand in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan en zet er het icoon naast.</li>' +
       '<li><b>Maak een snelkoppeling</b> op je bureaublad en in de taakbalk, met <code>C:\\Windows\\explorer.exe</code> ervoor. Hoe dat stap voor stap gaat, laat MeMeet je zien na het kiezen van de map.</li></ol>' +
       (fsOk ? '<p><button class="btn pri" id="pickDir">' + ic('folder') + ' Datamap kiezen…</button> <a class="btn" href="#/installatie">Uitgebreide uitleg</a></p>' : '<p class="note">Deze browser kan geen map op je computer gebruiken. Open MeMeet in Microsoft Edge of Google Chrome.</p>') +
-      '<p class="note"><b>Back-up:</b> kopieer af en toe de hele map <b>memeet-data</b>, mét het bestand <b>memeet.json</b> erin, naar bijvoorbeeld OneDrive of een netwerkschijf. Terugzetten doe je door die map weer als datamap te kiezen. Meer uitleg vind je onder de knop <b>?</b> rechtsboven.</p>' +
+      '<p class="note"><b>Back-up:</b> kopieer af en toe de hele map <b>memeet-data</b>, mét het bestand <b>memeet.json</b> erin, naar een plek die even goed beveiligd is, bijvoorbeeld je persoonlijke netwerkschijf (niet OneDrive of een USB-stick). Terugzetten doe je door die map weer als datamap te kiezen. Meer uitleg vind je onder de knop <b>?</b> rechtsboven.</p>' +
       '<p class="note">Mag je geen map kiezen? <button class="link" id="useIdb">Bewaar alles in de browser</button> (alleen op deze computer, zonder bestanden).</p>' +
       (A.hadDir ? '<button class="btn" id="recon">Verder met de vorige map</button>' : '') + '</div>');
     var p = $('#pickDir'); if (p) p.onclick = chooseFolder;

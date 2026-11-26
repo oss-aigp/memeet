@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.8.0 -->
+<!-- MeMeet-versie: 1.8.1 -->
 <!--
-  MeMeet 1.8.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.8.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -5207,8 +5207,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     ['Hoe zit het met de veiligheid van mijn informatie?', '<ul>' +
       '<li><b>Alles blijft op je eigen computer.</b> MeMeet is één HTML-bestand dat in je browser draait. Er is geen server en geen account, en MeMeet stuurt geen mails, stukken of aantekeningen naar internet. Alle onderdelen zitten in het bestand zelf, dus MeMeet werkt ook zonder internet.</li>' +
       '<li><b>Toegang tot één map.</b> MeMeet kan alleen bij de datamap die jij kiest, en pas nadat je browser daar toestemming voor heeft gevraagd. Daarom vraagt de browser bij elke start of MeMeet de map weer mag gebruiken.</li>' +
-      '<li><b>Je gegevens zijn gewone bestanden</b> in <code>memeet-data</code>, niet versleuteld. Ze zijn net zo goed beveiligd als je andere documenten: via je Windows-account en de beveiliging van je werkplek.</li>' +
-      '<li><b>OneDrive.</b> Wordt je map Documenten met OneDrive gesynchroniseerd, dan komt <code>memeet-data</code> ook in de OneDrive van je organisatie. Voor gewone werkstukken is dat meestal prima; volg voor vertrouwelijke of gerubriceerde informatie de regels van je organisatie.</li>' +
+      '<li><b>Je gegevens zijn gewone bestanden</b> in <code>memeet-data</code>. Versleutel die map met je Windows-account (zie <i>Hoe versleutel ik mijn gegevens?</i>); dan kan niemand anders ze openen, ook niet met een ander account op dezelfde computer.</li>' +
+      '<li><b>Geen internet.</b> Een beveiligingsregel in het bestand (Content-Security-Policy) blokkeert elke verbinding vanuit MeMeet.</li>' +
+      '<li><b>OneDrive.</b> Wordt je map Documenten met OneDrive gesynchroniseerd, dan komt <code>memeet-data</code> ook in de OneDrive van je organisatie. Kies dan een datamap buiten OneDrive, bijvoorbeeld een map <b>MeMeet</b> direct in je gebruikersmap (<code>C:\\Users\\jouwnaam\\MeMeet</code>). Het installatiescherm waarschuwt als MeMeet in OneDrive staat.</li>' +
       '<li><b>Bewaar je alles in de browser</b>, dan staan de gegevens in je browserprofiel op deze computer. Wis je de browsergegevens, dan ben je ze kwijt: maak dan regelmatig een export.</li>' +
       '<li><b>Wat wel naar buiten gaat:</b> alleen wat je zelf doet, zoals <b>Deelnemen</b> (opent de Teams-link), <b>iBabs</b> (opent iBabs in een eigen tabblad), een conceptmail die je in Outlook verstuurt, of een link naar GitHub in deze help.</li>' +
       '<li><b>Let op bij delen:</b> een PDF die je downloadt met aantekeningen bevat je markeringen en opmerkingen.</li></ul>'],
@@ -5810,7 +5811,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     h += '<section class="card wk"><h2>1. Een vaste plek voor MeMeet</h2>' +
       '<p>Zet <code>MeMeet.html</code> in een eigen map <b>MeMeet</b> in <b>Documenten</b>. Op die plek vervang je het bestand later ook door een nieuwe versie.</p>' +
       (here ? '<p class="' + (inDocs ? 'okline' : 'warnline') + '">' + (inDocs ? '✓ Dit bestand staat op een goede plek: ' : 'Dit bestand staat nu hier: ') + '<code>' + esc(here) + '</code>' + (inDocs ? '' : '. Verplaats het naar <code>Documenten\\MeMeet</code> en open het daar opnieuw, voordat je de snelkoppeling maakt.') + '</p>' : '<p class="warnline">Open MeMeet als bestand (dubbelklik op <code>MeMeet.html</code>) om de snelkoppeling te kunnen maken.</p>') + '</section>';
+    var inOd = here && /\\OneDrive[^\\]*\\/i.test(here);
     h += '<section class="card wk"><h2>2. De datamap</h2>' +
+      (inOd ? '<p class="warnline">Dit bestand staat in een map die met <b>OneDrive</b> wordt gesynchroniseerd (<code>' + esc(here) + '</code>). Kies een datamap buiten OneDrive, bijvoorbeeld een map <b>MeMeet</b> direct in je gebruikersmap, zodat je aantekeningen niet in de cloud komen.</p>' : '') +
       (A.store && A.store.kind === 'map' ? '<p class="okline">✓ De gegevens staan in de map <b>' + esc(A.store.name) + '</b>.</p>' : A.store ? '<p>De gegevens worden nu in de browser bewaard. Wil je ze in een map op je computer? Klik dan op <b>Datamap kiezen</b>.</p>' : '') +
       '<p>Klik op <b>Datamap kiezen</b> en kies de map <b>MeMeet</b> waar <code>MeMeet.html</code> in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan, met de submappen <b>Vergaderingen</b>, <b>Aantekeningen</b> en <b>Actielijst</b>, en zet het icoon <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</p>' +
       '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    memeet.json</pre>' +
@@ -6346,7 +6349,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>Kies de datamap</b>: klik hieronder en kies de map <b>MeMeet</b> waar dit bestand in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan en zet er het icoon naast.</li>' +
       '<li><b>Maak een snelkoppeling</b> op je bureaublad en in de taakbalk, met <code>C:\\Windows\\explorer.exe</code> ervoor. Hoe dat stap voor stap gaat, laat MeMeet je zien na het kiezen van de map.</li></ol>' +
       (fsOk ? '<p><button class="btn pri" id="pickDir">' + ic('folder') + ' Datamap kiezen…</button> <a class="btn" href="#/installatie">Uitgebreide uitleg</a></p>' : '<p class="note">Deze browser kan geen map op je computer gebruiken. Open MeMeet in Microsoft Edge of Google Chrome.</p>') +
-      '<p class="note"><b>Back-up:</b> kopieer af en toe de hele map <b>memeet-data</b>, mét het bestand <b>memeet.json</b> erin, naar bijvoorbeeld OneDrive of een netwerkschijf. Terugzetten doe je door die map weer als datamap te kiezen. Meer uitleg vind je onder de knop <b>?</b> rechtsboven.</p>' +
+      '<p class="note"><b>Back-up:</b> kopieer af en toe de hele map <b>memeet-data</b>, mét het bestand <b>memeet.json</b> erin, naar een plek die even goed beveiligd is, bijvoorbeeld je persoonlijke netwerkschijf (niet OneDrive of een USB-stick). Terugzetten doe je door die map weer als datamap te kiezen. Meer uitleg vind je onder de knop <b>?</b> rechtsboven.</p>' +
       '<p class="note">Mag je geen map kiezen? <button class="link" id="useIdb">Bewaar alles in de browser</button> (alleen op deze computer, zonder bestanden).</p>' +
       (A.hadDir ? '<button class="btn" id="recon">Verder met de vorige map</button>' : '') + '</div>');
     var p = $('#pickDir'); if (p) p.onclick = chooseFolder;

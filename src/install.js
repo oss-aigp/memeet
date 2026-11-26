@@ -24,7 +24,9 @@
     h += '<section class="card wk"><h2>1. Een vaste plek voor MeMeet</h2>' +
       '<p>Zet <code>MeMeet.html</code> in een eigen map <b>MeMeet</b> in <b>Documenten</b>. Op die plek vervang je het bestand later ook door een nieuwe versie.</p>' +
       (here ? '<p class="' + (inDocs ? 'okline' : 'warnline') + '">' + (inDocs ? '✓ Dit bestand staat op een goede plek: ' : 'Dit bestand staat nu hier: ') + '<code>' + esc(here) + '</code>' + (inDocs ? '' : '. Verplaats het naar <code>Documenten\\MeMeet</code> en open het daar opnieuw, voordat je de snelkoppeling maakt.') + '</p>' : '<p class="warnline">Open MeMeet als bestand (dubbelklik op <code>MeMeet.html</code>) om de snelkoppeling te kunnen maken.</p>') + '</section>';
+    var inOd = here && /\\OneDrive[^\\]*\\/i.test(here);
     h += '<section class="card wk"><h2>2. De datamap</h2>' +
+      (inOd ? '<p class="warnline">Dit bestand staat in een map die met <b>OneDrive</b> wordt gesynchroniseerd (<code>' + esc(here) + '</code>). Kies een datamap buiten OneDrive, bijvoorbeeld een map <b>MeMeet</b> direct in je gebruikersmap, zodat je aantekeningen niet in de cloud komen.</p>' : '') +
       (A.store && A.store.kind === 'map' ? '<p class="okline">✓ De gegevens staan in de map <b>' + esc(A.store.name) + '</b>.</p>' : A.store ? '<p>De gegevens worden nu in de browser bewaard. Wil je ze in een map op je computer? Klik dan op <b>Datamap kiezen</b>.</p>' : '') +
       '<p>Klik op <b>Datamap kiezen</b> en kies de map <b>MeMeet</b> waar <code>MeMeet.html</code> in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan, met de submappen <b>Vergaderingen</b>, <b>Aantekeningen</b> en <b>Actielijst</b>, en zet het icoon <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</p>' +
       '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    memeet.json</pre>' +

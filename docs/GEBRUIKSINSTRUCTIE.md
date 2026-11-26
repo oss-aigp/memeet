@@ -19,7 +19,7 @@ MeMeet is een hulpmiddel voor je eigen vergaderwerk. Je aantekeningen zijn perso
 
 ## 2. De datamap kiezen en versleutelen
 
-Kies als datamap de map **Documenten\MeMeet**. Zet de datamap **niet** in OneDrive, Teams of een gedeelde netwerkmap: dan kunnen anderen erbij of staat hij buiten je werkplek.
+Kies als datamap de map **Documenten\MeMeet**. Zet de datamap **niet** in OneDrive, Teams of een gedeelde netwerkmap: dan kunnen anderen erbij of staat hij buiten je werkplek. Wordt je map Documenten met OneDrive gesynchroniseerd (het installatiescherm van MeMeet waarschuwt dan), kies dan een map **MeMeet** direct in je gebruikersmap: `C:\Users\jouwnaam\MeMeet`.
 
 Je werkplek heeft meestal al schijfversleuteling (BitLocker). Versleutel daarnaast de map `memeet-data` met je eigen Windows-account. Dan kan niemand anders die bestanden openen, ook niet met een ander account op dezelfde computer. MeMeet merkt er niets van en vraagt geen wachtwoord.
 
@@ -103,4 +103,4 @@ Is je laptop kwijt, heb je een mail naar de verkeerde persoon gestuurd, of denk 
 
 ---
 
-*Deze instructie hoort bij MeMeet 1.8.0 en sluit aan op de DPIA voor MeMeet.*
+*Deze instructie hoort bij MeMeet 1.8.1 en sluit aan op de DPIA voor MeMeet.*
