@@ -79,7 +79,7 @@
       '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>' + ic('refresh') + '</b> zie je een andere.</p>' +
       '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> (paars) opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (groen) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
       '<li>Alle onderdelen (Vandaag, Morgen, Volgende vergaderingen en Archief) staan open. Met <b>verbergen</b> klap je er een in; als je MeMeet opnieuw opent, staat alles weer open. In de kop zie je hoeveel vergaderingen er zijn.</li></ul>' +
-      '<h3>Inbrengen</h3><ul><li>Bovenaan staat het <b>eerstvolgende overleg</b>, met de punten die je daar wilt inbrengen. Bij elke vergadering zie je hoeveel punten er klaarliggen (<b>3 inbrengen</b>).</li><li><b>Wacht op overleg</b> en de <b>Ideeën-inbox</b> verschijnen als er iets in staat; meer daarover op het tabblad Herinneringen.</li></ul>' +
+      '<h3>Eerstvolgend overleg</h3><ul><li>Bovenaan staat het <b>eerstvolgende overleg</b>, met <b>Openen</b>. Wat je wilt inbrengen, staat in het tabblad <b>Herinneringen</b> en bovenaan de aantekeningen van dat overleg.</li><li>MeMeet opent altijd op deze pagina.</li></ul>' +
       '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten staan standaard open. Klik op de kop of op <b>verbergen</b> om er een in te klappen.</li>' +
       '<li>Volgende vergaderingen begint bij overmorgen. Het Archief bevat de vergaderingen die geweest zijn.</li>' +
       '<li>Klik op een kolomkop om te sorteren. Met het zoekvak zoek je op titel, locatie, namen en aantekeningen; met het keuzemenu kies je een jaar.</li></ul>' +
@@ -140,7 +140,7 @@
       '<li>Rechts staan <b>Wacht op overleg</b> en de <b>Ideeën-inbox</b>.</li>' +
       '<li>Achter elk punt staat waar het op wacht, bijvoorbeeld <b>titel “MT”</b> of <b>met Jan</b>. Klik erop om zelf een overleg te kiezen; <i>weer automatisch</i> zet het terug.</li>' +
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt; ' + ic('close') + ' verwijdert een losse herinnering.</li>' +
-      '<li>In de <b>Ideeën-inbox</b> klik je bij <b>Koppel aan</b> op een persoon, of kies je bij <b>overleg kiezen</b> een vergadering: de regel wordt dan op zijn plek <code>&gt; Jan …</code> of <code>&gt; MT: …</code>.</li>' +
+      '<li>In de <b>Ideeën-inbox</b> klik je bij <b>Koppel aan</b> op een vergadertitel, of kies je bij <b>overleg kiezen</b> een vergadering: de regel wordt dan op zijn plek <code>&gt; MT: …</code>. MeMeet stelt alleen vergadertitels voor: geen namen van mensen, losse letters, vergaderruimtes, mailboxen of thema\'s als Fysiek. Een naam typen (<code>&gt; Jan …</code>) werkt wel gewoon.</li>' +
       '<li>Staat een overleg nog niet in je agenda, importeer dan je agenda opnieuw (of maak de vergadering aan op het startscherm): wachtende punten die erbij passen, schuiven er vanzelf naartoe.</li></ul>' },
     actions: { t: 'Actielijst', h:
       '<p>Alle acties: uit de aantekeningen van vergaderingen, en losse acties die je hier zelf toevoegt.</p><ul>' +

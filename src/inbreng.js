@@ -247,10 +247,29 @@
   function ibBindCtx(root) { $$('[data-ibctx]', root).forEach(function (b) { b.onclick = function (e) { e.preventDefault(); e.stopPropagation(); openIbCtx(b.dataset.ibctx); }; }); }
 
   /* ---------- voorstellen tijdens het typen: direct na > personen (voornaam + spatie) en overleggen (titel + ": ") */
+  /* Is dit een bruikbare vergadertitel om voor te stellen? Niet: losse letters of afkortingen van één of twee tekens, namen van
+     mensen (ook met dhr./mevr.), vergaderruimtes, mailboxen en interne mailnamen, en thema's als "Fysiek" of "Online". */
+  var IB_THEMES = /^(fysiek|online|hybride|digitaal|thuis|thuiswerken|op kantoor|kantoor|teams|teams-vergadering|zoom|webex|extern|intern|priv[eé]|bezet|afwezig|vrij|verlof|reistijd|lunch|focus|focustijd|blokkeren|geblokkeerd|niet storen|out of office|ooo|tentatief|voorlopig|optioneel)$/i;
+  function ibNameTokens() {
+    var o = {}; A.data.meetings.forEach(function (m) { names(m.invitees).forEach(function (n) { String(n).split('@')[0].split(/[\s._,()-]+/).forEach(function (w) { w = ibNorm(w); if (w.length > 1) o[w] = 1; }); }); });
+    return o;
+  }
+  function ibGoodTitle(t, tokens) {
+    t = String(t || '').trim(); var k = ibNorm(t);
+    if (k.replace(/[^\p{L}]/gu, '').length < 2) return false;                                   /* losse letters (een overleg als "MT" mag wel) */
+    if (IB_THEMES.test(k)) return false;                                                       /* thema's */
+    if (/@|\\|^\/|(^|[\s_-])(postbus|mailbox|brievenbus|noreply|no-reply|functioneel)([\s_-]|$)/i.test(t)) return false; /* mailboxen */
+    if (/^[A-Z0-9]{2,}([_.-][A-Z0-9]+)+$/.test(t)) return false;                           /* interne codes als ABC-DEF_123 */
+    if (/(^|\s)(vergader)?(ruimte|zaal|kamer|room|lokaal|verdieping|etage|toren|gebouw)(\s|$)/i.test(k) || /(^|\s)[a-z]?\d+[.,][a-z]?\d+([.,]\d+)?(\s|$)/i.test(k)) return false; /* ruimtes (ook nummers als 3.12 of A4.06) */
+    if (/^(dhr|mevr|mw|mr|drs|dr|ir|ing|prof)\.?\s/i.test(t)) return false;                   /* titels van mensen */
+    var words = k.split(/\s+/).filter(Boolean); tokens = tokens || ibNameTokens();
+    if (words.length <= 3 && words.every(function (w) { return tokens[w] || /^(van|de|der|den|het|ten|ter|la|le)$/.test(w); })) return false; /* een naam */
+    return true;
+  }
   function ibTitleSugs() {
-    var seen = {}, out = [];
-    A.data.meetings.slice().sort(ibSort).reverse().forEach(function (c) { var t = cleanSubject(c.title || '').replace(/\s+\d{1,2}[-\/.]\d{1,2}([-\/.]\d{2,4})?$/, '').trim(); var k = ibNorm(t); if (t && !seen[k]) { seen[k] = 1; out.push(t); } });
-    Object.keys(ibExtra()).forEach(function (k) { if (!seen[k]) { seen[k] = 1; out.push(k); } });
+    var seen = {}, out = [], tok = ibNameTokens();
+    A.data.meetings.slice().sort(ibSort).reverse().forEach(function (c) { var t = cleanSubject(c.title || '').replace(/\s+\d{1,2}[-\/.]\d{1,2}([-\/.]\d{2,4})?$/, '').trim(); var k = ibNorm(t); if (t && !seen[k] && ibGoodTitle(t, tok)) { seen[k] = 1; out.push(t); } });
+    Object.keys(ibExtra()).forEach(function (k) { if (!seen[k] && ibGoodTitle(k, tok)) { seen[k] = 1; out.push(k); } });
     return out;
   }
   function ibAc(el, box, alwaysPoint) {
@@ -259,12 +278,10 @@
     if (alwaysPoint && !/^\s*[>?]/.test(line)) line = '> ' + line;
     var mm = /^\s*>\s*([^\s:]*)$/.exec(line);
     if (!mm) { setHTML(box, ''); box.hidden = true; return; }
-    var t = ibNorm(mm[1]), people = ibPeople();
-    var ppl = Object.keys(people).filter(function (k) { return k.indexOf(t) === 0; }).sort().slice(0, 8);
+    var t = ibNorm(mm[1]);
     var ttl = ibTitleSugs().filter(function (x) { return !t || ibNorm(x).split(' ').concat(ibWords(x)).some(function (w) { return w.indexOf(t) === 0; }); }).slice(0, 8);
-    if (!ppl.length && !ttl.length) { setHTML(box, ''); box.hidden = true; return; }
-    setHTML(box, '<span class="aclbl">Persoon</span>' + (ppl.map(function (k) { return '<button type="button" class="chip btn" data-ins="' + esc(people[k]) + ' ">' + esc(people[k]) + '</button>'; }).join('') || '—') +
-      '<span class="aclbl">Overleg</span>' + (ttl.map(function (x) { return '<button type="button" class="chip btn" data-ins="' + esc(x) + ': ">' + esc(x) + ':</button>'; }).join('') || '—'));
+    if (!ttl.length) { setHTML(box, ''); box.hidden = true; return; }
+    setHTML(box, '<span class="aclbl">Overleg</span>' + (ttl.map(function (x) { return '<button type="button" class="chip btn" data-ins="' + esc(x) + ': ">' + esc(x) + ':</button>'; }).join('') || '—'));
     box.hidden = false;
     $$('[data-ins]', box).forEach(function (c) { c.onmousedown = function (e) {
       e.preventDefault(); var pos = el.selectionStart;
@@ -304,14 +321,13 @@
 
   /* ================================================================== startscherm en tabblad Herinneringen */
   function ibCountFor(m, all) { return all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === m; }).length; }
-  /* banner met het eerstvolgende overleg en wat je daar inbrengt */
-  function ibBannerHtml(all) {
+  /* banner met het eerstvolgende overleg (zonder herinneringen: die staan in het tabblad Herinneringen) */
+  function ibBannerHtml() {
     var next = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort)[0];
     if (!next) return '';
-    var pts = all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === next; }), today = todayIso();
+    var today = todayIso();
     return '<section class="ibbanner"><div class="ibbtx"><div class="ibbwhen">Eerstvolgend overleg' + (next.date === today ? ', vandaag' : ', ' + esc(fmtLong(next.date))) + '</div>' +
       '<div class="ibbig">' + esc(next.start || '') + '  ' + esc(next.title) + '</div>' +
-      (pts.length ? '<ul>' + pts.slice(0, 6).map(function (p) { return '<li>' + esc(p.text) + '</li>'; }).join('') + (pts.length > 6 ? '<li>… en nog ' + (pts.length - 6) + '</li>' : '') + '</ul>' : '<div class="ibbnone">Niets om in te brengen.</div>') +
       '</div><a class="btn" href="#/v/' + esc(encodeURIComponent(next.id)) + '">Openen</a></section>';
   }
   function ibDelBtn(p) { return p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : ''; }
@@ -324,17 +340,15 @@
     return '<section class="card ibcard ibwait"><h2>Wacht op overleg <span class="muted">' + w.length + '</span></h2><div class="ibscroll">' + (w.length ? '<ul class="iblist2">' + w.map(function (p) { return ibRowHtml(p, all); }).join('') + '</ul>' : '<p class="muted ibempty">Alles heeft een plek gevonden.</p>') + '</div></section>';
   }
   /* de Ideeën-inbox: alle ?-regels. Koppelen herschrijft de regel op de plek waar hij staat naar "> Jan tekst" of "> MT: tekst". */
-  function ibLinkTargets(all) {
-    var cnt = {}; A.data.meetings.forEach(function (m) { if (m.date >= addDays(todayIso(), -60)) ibInvFirst(m).forEach(function (f) { cnt[f] = (cnt[f] || 0) + 1; }); });
-    var ppl = Object.keys(cnt).filter(function (k) { return all.people[k]; }).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8).map(function (k) { return { to: all.people[k], label: all.people[k] }; });
-    var seen = {}, ttl = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort).map(function (m) { return cleanSubject(m.title || '').trim(); })
-      .filter(function (t) { var k = ibNorm(t); if (!t || seen[k] || all.people[k]) return false; seen[k] = 1; return true; }).slice(0, 6).map(function (t) { return { to: t + ':', label: t }; });
-    return ppl.concat(ttl);
+  function ibLinkTargets() {
+    var seen = {}, tok = ibNameTokens();
+    return A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort).map(function (m) { return cleanSubject(m.title || '').trim(); })
+      .filter(function (t) { var k = ibNorm(t); if (!t || seen[k] || !ibGoodTitle(t, tok)) return false; seen[k] = 1; return true; }).slice(0, 8).map(function (t) { return { to: t + ':', label: t }; });
   }
   /* overleggen om een idee aan te koppelen (keuzelijst) */
-  function ibMeetOpts() { return A.data.meetings.filter(function (c) { return c.date && !ibFinished(c); }).sort(ibSort).slice(0, 40); }
+  function ibMeetOpts() { var tok = ibNameTokens(); return A.data.meetings.filter(function (c) { return c.date && !ibFinished(c) && ibGoodTitle(cleanSubject(c.title || ''), tok); }).sort(ibSort).slice(0, 40); }
   function ibIdeasHtml(all) {
-    var ideas = all.ideas, tg = ibLinkTargets(all).filter(function (t) { return !/:$/.test(t.to); }), ms = ibMeetOpts();
+    var ideas = all.ideas, tg = ibLinkTargets(), ms = ibMeetOpts();
     return '<section class="card ibcard ibideas"><h2>Ideeën-inbox <span class="muted">' + ideas.length + '</span></h2><div class="ibscroll">' + (ideas.length ? '<ul class="iblist">' + ideas.map(function (it, i) {
       return '<li><div class="ibrow2"><span class="ibtx" title="' + esc(it.text) + '">' + esc(it.text) + '</span><span class="ibmeta">' + ibSrcShort(it) + ibDelBtn(it) + '</span></div>' +
         '<div class="iblink">Koppel aan: ' + tg.map(function (t) { return '<button type="button" class="chip btn" data-ibidea="' + i + '" data-to="' + esc(t.to) + '">' + esc(t.label) + '</button>'; }).join('') +

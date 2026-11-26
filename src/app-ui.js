@@ -70,7 +70,8 @@
     });
   }
   function renderHome() {
-    var ibA = ibAll(); A.ibHome = ibA; function ibC(m) { return ibCountFor(m, ibA); }
+    /* het startscherm toont geen herinneringen (die staan in het tabblad Herinneringen); alleen het eerstvolgende overleg */
+    A.ibHome = null; function ibC() { return 0; }
     var t = todayIso(), ms = A.data.meetings;
     var today = ms.filter(function (m) { return m.date === t; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
     function dayList(arr) { return '<ul class="tl">' + arr.map(function (m) {
@@ -92,7 +93,7 @@
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
     var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
-    h += ibBannerHtml(ibA);
+    h += ibBannerHtml();
     h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
@@ -107,9 +108,6 @@
     if (A.showTomorrow == null) A.showTomorrow = true; /* standaard open */
     h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
       (A.showTomorrow && tomorrow.length ? dayList(tomorrow) : '') + '</section>';
-    /* wachtende punten en ideeën (alleen als er iets is) */
-    var nWait = ibA.pts.filter(function (p) { return p.r.st === 'wait'; }).length;
-    if (nWait || ibA.ideas.length) h += '<div class="ibgrid ibhome">' + (nWait ? ibWaitHtml(ibA) : '') + (ibA.ideas.length ? ibIdeasHtml(ibA) : '') + '</div>';
     if (A.showUp == null) A.showUp = true;
     if (A.showArch == null) A.showArch = true;
     var showF = A.showUp || A.showArch || q || f.year;
@@ -142,7 +140,6 @@
     $('#tdy').onclick = function () { keepScroll(function () { A.showToday = !A.showToday; }); };
     $('#tmr').onclick = function () { keepScroll(function () { A.showTomorrow = !A.showTomorrow; }); };
     var qn = $('#qnext'); if (qn) qn.onclick = function () { A.qi = qPick(); var f = $('#quote'); f.classList.remove('in'); void f.offsetWidth; $('#qtxt').textContent = Q[A.qi][0]; $('#qwho').textContent = Q[A.qi][1]; f.classList.add('in'); };
-    ibBindLists($('#main'), ibA, renderHome);
     bindFolders($('#main'));
     $('#new').onclick = function () { A.draft = blankDraft(); };
     $$('[data-ib]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); var im = byId(b.dataset.ib); if (im) openIbabs(im); }; });
@@ -398,6 +395,8 @@
   W.addEventListener('hashchange', function () { if (A.flushNotes) { try { A.flushNotes(); } catch (e) {} A.flushNotes = null; } });
   W.addEventListener('beforeunload', function (e) { if (A.npWin && !A.npWin.closed) { try { A.npWin.close(); } catch (er) {} } if (A.flushNotes) A.flushNotes(); if (A.edCtl && A.edCtl.isDirty()) { e.preventDefault(); e.returnValue = ''; } });
   async function start() {
+    /* MeMeet start altijd op de pagina Vergaderingen, ook als het venster nog op een ander adres stond */
+    if (location.hash && location.hash !== '#/') { try { history.replaceState(null, '', location.pathname + location.search + '#/'); } catch (e) { location.hash = '#/'; } }
     initHelp();
     initDrop(); initPv();
     W.addEventListener('hashchange', route);

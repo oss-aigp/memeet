@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.7.3 -->
+<!-- MeMeet-versie: 1.7.4 -->
 <!--
-  MeMeet 1.7.3 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.7.4 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -3968,10 +3968,29 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function ibBindCtx(root) { $$('[data-ibctx]', root).forEach(function (b) { b.onclick = function (e) { e.preventDefault(); e.stopPropagation(); openIbCtx(b.dataset.ibctx); }; }); }
 
   /* ---------- voorstellen tijdens het typen: direct na > personen (voornaam + spatie) en overleggen (titel + ": ") */
+  /* Is dit een bruikbare vergadertitel om voor te stellen? Niet: losse letters of afkortingen van één of twee tekens, namen van
+     mensen (ook met dhr./mevr.), vergaderruimtes, mailboxen en interne mailnamen, en thema's als "Fysiek" of "Online". */
+  var IB_THEMES = /^(fysiek|online|hybride|digitaal|thuis|thuiswerken|op kantoor|kantoor|teams|teams-vergadering|zoom|webex|extern|intern|priv[eé]|bezet|afwezig|vrij|verlof|reistijd|lunch|focus|focustijd|blokkeren|geblokkeerd|niet storen|out of office|ooo|tentatief|voorlopig|optioneel)$/i;
+  function ibNameTokens() {
+    var o = {}; A.data.meetings.forEach(function (m) { names(m.invitees).forEach(function (n) { String(n).split('@')[0].split(/[\s._,()-]+/).forEach(function (w) { w = ibNorm(w); if (w.length > 1) o[w] = 1; }); }); });
+    return o;
+  }
+  function ibGoodTitle(t, tokens) {
+    t = String(t || '').trim(); var k = ibNorm(t);
+    if (k.replace(/[^\p{L}]/gu, '').length < 2) return false;                                   /* losse letters (een overleg als "MT" mag wel) */
+    if (IB_THEMES.test(k)) return false;                                                       /* thema's */
+    if (/@|\\|^\/|(^|[\s_-])(postbus|mailbox|brievenbus|noreply|no-reply|functioneel)([\s_-]|$)/i.test(t)) return false; /* mailboxen */
+    if (/^[A-Z0-9]{2,}([_.-][A-Z0-9]+)+$/.test(t)) return false;                           /* interne codes als ABC-DEF_123 */
+    if (/(^|\s)(vergader)?(ruimte|zaal|kamer|room|lokaal|verdieping|etage|toren|gebouw)(\s|$)/i.test(k) || /(^|\s)[a-z]?\d+[.,][a-z]?\d+([.,]\d+)?(\s|$)/i.test(k)) return false; /* ruimtes (ook nummers als 3.12 of A4.06) */
+    if (/^(dhr|mevr|mw|mr|drs|dr|ir|ing|prof)\.?\s/i.test(t)) return false;                   /* titels van mensen */
+    var words = k.split(/\s+/).filter(Boolean); tokens = tokens || ibNameTokens();
+    if (words.length <= 3 && words.every(function (w) { return tokens[w] || /^(van|de|der|den|het|ten|ter|la|le)$/.test(w); })) return false; /* een naam */
+    return true;
+  }
   function ibTitleSugs() {
-    var seen = {}, out = [];
-    A.data.meetings.slice().sort(ibSort).reverse().forEach(function (c) { var t = cleanSubject(c.title || '').replace(/\s+\d{1,2}[-\/.]\d{1,2}([-\/.]\d{2,4})?$/, '').trim(); var k = ibNorm(t); if (t && !seen[k]) { seen[k] = 1; out.push(t); } });
-    Object.keys(ibExtra()).forEach(function (k) { if (!seen[k]) { seen[k] = 1; out.push(k); } });
+    var seen = {}, out = [], tok = ibNameTokens();
+    A.data.meetings.slice().sort(ibSort).reverse().forEach(function (c) { var t = cleanSubject(c.title || '').replace(/\s+\d{1,2}[-\/.]\d{1,2}([-\/.]\d{2,4})?$/, '').trim(); var k = ibNorm(t); if (t && !seen[k] && ibGoodTitle(t, tok)) { seen[k] = 1; out.push(t); } });
+    Object.keys(ibExtra()).forEach(function (k) { if (!seen[k] && ibGoodTitle(k, tok)) { seen[k] = 1; out.push(k); } });
     return out;
   }
   function ibAc(el, box, alwaysPoint) {
@@ -3980,12 +3999,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (alwaysPoint && !/^\s*[>?]/.test(line)) line = '> ' + line;
     var mm = /^\s*>\s*([^\s:]*)$/.exec(line);
     if (!mm) { setHTML(box, ''); box.hidden = true; return; }
-    var t = ibNorm(mm[1]), people = ibPeople();
-    var ppl = Object.keys(people).filter(function (k) { return k.indexOf(t) === 0; }).sort().slice(0, 8);
+    var t = ibNorm(mm[1]);
     var ttl = ibTitleSugs().filter(function (x) { return !t || ibNorm(x).split(' ').concat(ibWords(x)).some(function (w) { return w.indexOf(t) === 0; }); }).slice(0, 8);
-    if (!ppl.length && !ttl.length) { setHTML(box, ''); box.hidden = true; return; }
-    setHTML(box, '<span class="aclbl">Persoon</span>' + (ppl.map(function (k) { return '<button type="button" class="chip btn" data-ins="' + esc(people[k]) + ' ">' + esc(people[k]) + '</button>'; }).join('') || '—') +
-      '<span class="aclbl">Overleg</span>' + (ttl.map(function (x) { return '<button type="button" class="chip btn" data-ins="' + esc(x) + ': ">' + esc(x) + ':</button>'; }).join('') || '—'));
+    if (!ttl.length) { setHTML(box, ''); box.hidden = true; return; }
+    setHTML(box, '<span class="aclbl">Overleg</span>' + (ttl.map(function (x) { return '<button type="button" class="chip btn" data-ins="' + esc(x) + ': ">' + esc(x) + ':</button>'; }).join('') || '—'));
     box.hidden = false;
     $$('[data-ins]', box).forEach(function (c) { c.onmousedown = function (e) {
       e.preventDefault(); var pos = el.selectionStart;
@@ -4025,14 +4042,13 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
 
   /* ================================================================== startscherm en tabblad Herinneringen */
   function ibCountFor(m, all) { return all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === m; }).length; }
-  /* banner met het eerstvolgende overleg en wat je daar inbrengt */
-  function ibBannerHtml(all) {
+  /* banner met het eerstvolgende overleg (zonder herinneringen: die staan in het tabblad Herinneringen) */
+  function ibBannerHtml() {
     var next = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort)[0];
     if (!next) return '';
-    var pts = all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === next; }), today = todayIso();
+    var today = todayIso();
     return '<section class="ibbanner"><div class="ibbtx"><div class="ibbwhen">Eerstvolgend overleg' + (next.date === today ? ', vandaag' : ', ' + esc(fmtLong(next.date))) + '</div>' +
       '<div class="ibbig">' + esc(next.start || '') + '  ' + esc(next.title) + '</div>' +
-      (pts.length ? '<ul>' + pts.slice(0, 6).map(function (p) { return '<li>' + esc(p.text) + '</li>'; }).join('') + (pts.length > 6 ? '<li>… en nog ' + (pts.length - 6) + '</li>' : '') + '</ul>' : '<div class="ibbnone">Niets om in te brengen.</div>') +
       '</div><a class="btn" href="#/v/' + esc(encodeURIComponent(next.id)) + '">Openen</a></section>';
   }
   function ibDelBtn(p) { return p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : ''; }
@@ -4045,17 +4061,15 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     return '<section class="card ibcard ibwait"><h2>Wacht op overleg <span class="muted">' + w.length + '</span></h2><div class="ibscroll">' + (w.length ? '<ul class="iblist2">' + w.map(function (p) { return ibRowHtml(p, all); }).join('') + '</ul>' : '<p class="muted ibempty">Alles heeft een plek gevonden.</p>') + '</div></section>';
   }
   /* de Ideeën-inbox: alle ?-regels. Koppelen herschrijft de regel op de plek waar hij staat naar "> Jan tekst" of "> MT: tekst". */
-  function ibLinkTargets(all) {
-    var cnt = {}; A.data.meetings.forEach(function (m) { if (m.date >= addDays(todayIso(), -60)) ibInvFirst(m).forEach(function (f) { cnt[f] = (cnt[f] || 0) + 1; }); });
-    var ppl = Object.keys(cnt).filter(function (k) { return all.people[k]; }).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 8).map(function (k) { return { to: all.people[k], label: all.people[k] }; });
-    var seen = {}, ttl = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort).map(function (m) { return cleanSubject(m.title || '').trim(); })
-      .filter(function (t) { var k = ibNorm(t); if (!t || seen[k] || all.people[k]) return false; seen[k] = 1; return true; }).slice(0, 6).map(function (t) { return { to: t + ':', label: t }; });
-    return ppl.concat(ttl);
+  function ibLinkTargets() {
+    var seen = {}, tok = ibNameTokens();
+    return A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort).map(function (m) { return cleanSubject(m.title || '').trim(); })
+      .filter(function (t) { var k = ibNorm(t); if (!t || seen[k] || !ibGoodTitle(t, tok)) return false; seen[k] = 1; return true; }).slice(0, 8).map(function (t) { return { to: t + ':', label: t }; });
   }
   /* overleggen om een idee aan te koppelen (keuzelijst) */
-  function ibMeetOpts() { return A.data.meetings.filter(function (c) { return c.date && !ibFinished(c); }).sort(ibSort).slice(0, 40); }
+  function ibMeetOpts() { var tok = ibNameTokens(); return A.data.meetings.filter(function (c) { return c.date && !ibFinished(c) && ibGoodTitle(cleanSubject(c.title || ''), tok); }).sort(ibSort).slice(0, 40); }
   function ibIdeasHtml(all) {
-    var ideas = all.ideas, tg = ibLinkTargets(all).filter(function (t) { return !/:$/.test(t.to); }), ms = ibMeetOpts();
+    var ideas = all.ideas, tg = ibLinkTargets(), ms = ibMeetOpts();
     return '<section class="card ibcard ibideas"><h2>Ideeën-inbox <span class="muted">' + ideas.length + '</span></h2><div class="ibscroll">' + (ideas.length ? '<ul class="iblist">' + ideas.map(function (it, i) {
       return '<li><div class="ibrow2"><span class="ibtx" title="' + esc(it.text) + '">' + esc(it.text) + '</span><span class="ibmeta">' + ibSrcShort(it) + ibDelBtn(it) + '</span></div>' +
         '<div class="iblink">Koppel aan: ' + tg.map(function (t) { return '<button type="button" class="chip btn" data-ibidea="' + i + '" data-to="' + esc(t.to) + '">' + esc(t.label) + '</button>'; }).join('') +
@@ -5057,7 +5071,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>' + ic('refresh') + '</b> zie je een andere.</p>' +
       '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> (paars) opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (groen) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
       '<li>Alle onderdelen (Vandaag, Morgen, Volgende vergaderingen en Archief) staan open. Met <b>verbergen</b> klap je er een in; als je MeMeet opnieuw opent, staat alles weer open. In de kop zie je hoeveel vergaderingen er zijn.</li></ul>' +
-      '<h3>Inbrengen</h3><ul><li>Bovenaan staat het <b>eerstvolgende overleg</b>, met de punten die je daar wilt inbrengen. Bij elke vergadering zie je hoeveel punten er klaarliggen (<b>3 inbrengen</b>).</li><li><b>Wacht op overleg</b> en de <b>Ideeën-inbox</b> verschijnen als er iets in staat; meer daarover op het tabblad Herinneringen.</li></ul>' +
+      '<h3>Eerstvolgend overleg</h3><ul><li>Bovenaan staat het <b>eerstvolgende overleg</b>, met <b>Openen</b>. Wat je wilt inbrengen, staat in het tabblad <b>Herinneringen</b> en bovenaan de aantekeningen van dat overleg.</li><li>MeMeet opent altijd op deze pagina.</li></ul>' +
       '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten staan standaard open. Klik op de kop of op <b>verbergen</b> om er een in te klappen.</li>' +
       '<li>Volgende vergaderingen begint bij overmorgen. Het Archief bevat de vergaderingen die geweest zijn.</li>' +
       '<li>Klik op een kolomkop om te sorteren. Met het zoekvak zoek je op titel, locatie, namen en aantekeningen; met het keuzemenu kies je een jaar.</li></ul>' +
@@ -5118,7 +5132,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Rechts staan <b>Wacht op overleg</b> en de <b>Ideeën-inbox</b>.</li>' +
       '<li>Achter elk punt staat waar het op wacht, bijvoorbeeld <b>titel “MT”</b> of <b>met Jan</b>. Klik erop om zelf een overleg te kiezen; <i>weer automatisch</i> zet het terug.</li>' +
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt; ' + ic('close') + ' verwijdert een losse herinnering.</li>' +
-      '<li>In de <b>Ideeën-inbox</b> klik je bij <b>Koppel aan</b> op een persoon, of kies je bij <b>overleg kiezen</b> een vergadering: de regel wordt dan op zijn plek <code>&gt; Jan …</code> of <code>&gt; MT: …</code>.</li>' +
+      '<li>In de <b>Ideeën-inbox</b> klik je bij <b>Koppel aan</b> op een vergadertitel, of kies je bij <b>overleg kiezen</b> een vergadering: de regel wordt dan op zijn plek <code>&gt; MT: …</code>. MeMeet stelt alleen vergadertitels voor: geen namen van mensen, losse letters, vergaderruimtes, mailboxen of thema\'s als Fysiek. Een naam typen (<code>&gt; Jan …</code>) werkt wel gewoon.</li>' +
       '<li>Staat een overleg nog niet in je agenda, importeer dan je agenda opnieuw (of maak de vergadering aan op het startscherm): wachtende punten die erbij passen, schuiven er vanzelf naartoe.</li></ul>' },
     actions: { t: 'Actielijst', h:
       '<p>Alle acties: uit de aantekeningen van vergaderingen, en losse acties die je hier zelf toevoegt.</p><ul>' +
@@ -6185,7 +6199,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     });
   }
   function renderHome() {
-    var ibA = ibAll(); A.ibHome = ibA; function ibC(m) { return ibCountFor(m, ibA); }
+    /* het startscherm toont geen herinneringen (die staan in het tabblad Herinneringen); alleen het eerstvolgende overleg */
+    A.ibHome = null; function ibC() { return 0; }
     var t = todayIso(), ms = A.data.meetings;
     var today = ms.filter(function (m) { return m.date === t; }).sort(function (a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
     function dayList(arr) { return '<ul class="tl">' + arr.map(function (m) {
@@ -6207,7 +6222,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
     var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
-    h += ibBannerHtml(ibA);
+    h += ibBannerHtml();
     h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
@@ -6222,9 +6237,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (A.showTomorrow == null) A.showTomorrow = true; /* standaard open */
     h += '<section class="card today tomorrow arch"><button type="button" class="archbtn daybtn" id="tmr" aria-expanded="' + (A.showTomorrow ? 'true' : 'false') + '"><span>' + (!tomorrow.length ? '' : A.showTomorrow ? '' + ic('keyboard_arrow_down') + '' : '' + ic('chevron_right') + '') + '</span> Morgen <span class="muted">' + esc(fmtLong(tmw)) + ' · ' + (tomorrow.length ? tomorrow.length + ' vergadering' + (tomorrow.length === 1 ? '' : 'en') : 'geen vergaderingen') + '</span><span class="sp"></span>' + (tomorrow.length ? '<span class="link">' + (A.showTomorrow ? 'verbergen' : 'weergeven') + '</span>' : '') + '</button>' +
       (A.showTomorrow && tomorrow.length ? dayList(tomorrow) : '') + '</section>';
-    /* wachtende punten en ideeën (alleen als er iets is) */
-    var nWait = ibA.pts.filter(function (p) { return p.r.st === 'wait'; }).length;
-    if (nWait || ibA.ideas.length) h += '<div class="ibgrid ibhome">' + (nWait ? ibWaitHtml(ibA) : '') + (ibA.ideas.length ? ibIdeasHtml(ibA) : '') + '</div>';
     if (A.showUp == null) A.showUp = true;
     if (A.showArch == null) A.showArch = true;
     var showF = A.showUp || A.showArch || q || f.year;
@@ -6257,7 +6269,6 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     $('#tdy').onclick = function () { keepScroll(function () { A.showToday = !A.showToday; }); };
     $('#tmr').onclick = function () { keepScroll(function () { A.showTomorrow = !A.showTomorrow; }); };
     var qn = $('#qnext'); if (qn) qn.onclick = function () { A.qi = qPick(); var f = $('#quote'); f.classList.remove('in'); void f.offsetWidth; $('#qtxt').textContent = Q[A.qi][0]; $('#qwho').textContent = Q[A.qi][1]; f.classList.add('in'); };
-    ibBindLists($('#main'), ibA, renderHome);
     bindFolders($('#main'));
     $('#new').onclick = function () { A.draft = blankDraft(); };
     $$('[data-ib]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); var im = byId(b.dataset.ib); if (im) openIbabs(im); }; });
@@ -6513,6 +6524,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   W.addEventListener('hashchange', function () { if (A.flushNotes) { try { A.flushNotes(); } catch (e) {} A.flushNotes = null; } });
   W.addEventListener('beforeunload', function (e) { if (A.npWin && !A.npWin.closed) { try { A.npWin.close(); } catch (er) {} } if (A.flushNotes) A.flushNotes(); if (A.edCtl && A.edCtl.isDirty()) { e.preventDefault(); e.returnValue = ''; } });
   async function start() {
+    /* MeMeet start altijd op de pagina Vergaderingen, ook als het venster nog op een ander adres stond */
+    if (location.hash && location.hash !== '#/') { try { history.replaceState(null, '', location.pathname + location.search + '#/'); } catch (e) { location.hash = '#/'; } }
     initHelp();
     initDrop(); initPv();
     W.addEventListener('hashchange', route);
