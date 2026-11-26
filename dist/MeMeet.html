@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.7.1 -->
+<!-- MeMeet-versie: 1.7.2 -->
 <!--
-  MeMeet 1.7.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.7.2 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -254,7 +254,6 @@ html[data-theme=dark] .dropbar{background-color:rgba(36,67,95,.3);border-color:#
 .tl li{border-radius:6px;padding:12px 10px}.tl li:hover{background:var(--soft)}
 .tm{color:var(--brand);font-size:17px}
 .today p.muted{display:flex;align-items:center;gap:14px;min-height:56px;padding-left:66px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23007BC7' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E  %3Crect x='8' y='12' width='48' height='44' rx='6' fill='%23E5F2F9'/%3E%3Cpath d='M8 24h48M20 6v12M44 6v12'/%3E%3Cpath d='M22 40l7 7 13-14' stroke='%2339870C' stroke-width='3'/%3E %3C/svg%3E") left center/50px no-repeat}
-.btn.join{background:#4b53bc;border-color:#4b53bc}
 
 /* tabellen */
 th{color:var(--brand);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;background:var(--row);border-bottom:2px solid var(--licht)}
@@ -391,7 +390,7 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 @keyframes annflash{0%{box-shadow:0 0 0 3px var(--acc)}100%{box-shadow:0 0 0 3px transparent}}
 .aact{white-space:nowrap}.aact .link+.link{margin-left:10px}
 
-.btn.ibabs{background:#e17000;border-color:#e17000;color:#fff;white-space:nowrap}.btn.ibabs[hidden]{display:none}
+.btn.ibabs{background:#2e7d32;border-color:#2e7d32;color:#fff;white-space:nowrap}.btn.ibabs[hidden]{display:none}
 .tjn{display:flex;gap:6px;justify-content:flex-start;align-items:center}
 
 
@@ -417,7 +416,7 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .nphead{flex-wrap:nowrap}.nphead b{white-space:nowrap}.nphead .btn.sm{white-space:nowrap;flex:none}.npst{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
 .mline input{padding:3px 7px;font-size:13px;height:30px;min-width:0}
 .mline .ttl{flex:1 1 170px;min-width:130px;font-size:17px;height:32px;margin-left:0;padding:3px 6px}
-.mline input[type=date]{width:126px;flex:none}.mline input[type=time]{width:82px;flex:none}
+.mline input[type=date]{width:126px;flex:none}.mline input[type=time]{width:112px;flex:none}
 .mline .tsp{display:inline-flex;align-items:center;gap:2px;color:var(--mute);flex:none}
 .mline .loc{flex:0 1 130px;min-width:80px}
 .mline .lk{display:inline-flex;gap:4px;align-items:center;flex:0 1 auto;min-width:0}.mline .lk input{width:118px;flex:0 1 118px;min-width:70px}
@@ -534,6 +533,9 @@ html[data-theme=dark] :is(.np,.dlg,.card.pv,.snzmenu,.vermenu,.pvmenu){backgroun
 /* knop zonder link: grijs; een klik vraagt om de link */
 .btn.join.off,.btn.ibabs.off{background:var(--soft);border-color:var(--line);color:var(--mute)}
 .btn.join.off:hover,.btn.ibabs.off:hover{border-color:var(--brand2);color:var(--brand2)}
+/* Deelnemen altijd paars, iBabs altijd groen (ook bij hover); zonder link grijs */
+.btn.join:not(.off),.btn.join:not(.off):hover{background:#5b5fc7;border-color:#5b5fc7;color:#fff}.btn.join:not(.off):hover{background:#4c50b3;border-color:#4c50b3}
+.btn.ibabs:not(.off),.btn.ibabs:not(.off):hover{background:#2e7d32;border-color:#2e7d32;color:#fff}.btn.ibabs:not(.off):hover{background:#256a29;border-color:#256a29}
 /* Bestanden: eigen mappen */
 .fxdh{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:14px 0 4px;padding:8px 4px 0 6px;border-top:1px solid var(--line);font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
 .fxdh .link{text-transform:none;letter-spacing:0;font-size:12.5px;padding:3px 4px;display:inline-flex;align-items:center;gap:4px}
@@ -763,7 +765,6 @@ select.chipsel:hover{background:var(--licht)}
 .i-keyboard_arrow_down{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M469-358q-5-2-10-7L261-563q-9-9-8.5-21.5T262-606q9-9%2021.5-9t21.5%209l175%20176%20176-176q9-9%2021-8.5t21%209.5q9%209%209%2021.5t-9%2021.5L501-365q-5%205-10%207t-11%202q-6%200-11-2Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-keyboard_arrow_up{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-554%20304-378q-9%209-21%208.5t-21-9.5q-9-9-9-21.5t9-21.5l197-197q9-9%2021-9t21%209l198%20198q9%209%209%2021t-9%2021q-9%209-21.5%209t-21.5-9L480-554Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-light_mode{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M579-380.76q41-40.77%2041-99Q620-538%20579.24-579q-40.77-41-99-41Q422-620%20381-579.24q-41%2040.77-41%2099Q340-422%20380.76-381q40.77%2041%2099%2041Q538-340%20579-380.76ZM338.5-338.5Q280-397%20280-480t58.5-141.5Q397-680%20480-680t141.5%2058.5Q680-563%20680-480t-58.5%20141.5Q563-280%20480-280t-141.5-58.5ZM70-450q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32Q57.25-510%2070-510h100q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H70Zm720%200q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h100q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H790ZM458.5-768.63Q450-777.25%20450-790v-100q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v100q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63Zm0%20720Q450-57.25%20450-70v-100q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v100q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63ZM240-678l-57-56q-9-9-8.63-21.6.37-12.61%208.53-21.5%208.89-8.9%2021.5-8.9%2012.6%200%2021.6%209l56%2057q8%209%208%2021t-8%2020.5q-8%208.5-20.5%208.5t-21.5-8Zm494%20495-56-57q-8-9-8-21.38%200-12.37%208.5-20.62%208.5-9%2020.5-9t21%209l57%2056q9%209%208.63%2021.6-.37%2012.61-8.53%2021.5-8.89%208.9-21.5%208.9-12.6%200-21.6-9Zm-56-495q-9-9-9-21t9-21l56-57q9-9%2021.6-8.63%2012.61.37%2021.5%208.53%208.9%208.89%208.9%2021.5%200%2012.6-9%2021.6l-57%2056q-8%208-20.36%208-12.37%200-21.64-8ZM182.9-182.9q-8.9-8.89-8.9-21.5%200-12.6%209-21.6l57-56q8.8-9%2020.9-9%2012.1%200%2020.71%209%209.39%209%209.39%2021t-9%2021l-56%2057q-9%209-21.6%208.63-12.61-.37-21.5-8.53ZM480-480Z%22%2F%3E%3C%2Fsvg%3E")}
-.i-link{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M280-280q-83%200-141.5-58.5T80-480q0-83%2058.5-141.5T280-680h140q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H280q-58.33%200-99.17%2040.76-40.83%2040.77-40.83%2099Q140-422%20180.83-381q40.84%2041%2099.17%2041h140q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H280Zm75-170q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h250q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H355Zm185%20170q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h140q58.33%200%2099.17-40.76%2040.83-40.77%2040.83-99Q820-538%20779.17-579q-40.84-41-99.17-41H540q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h140q83%200%20141.5%2058.5T880-480q0%2083-58.5%20141.5T680-280H540Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-mail{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18t-18-42v-520q0-24%2018-42t42-18h680q24%200%2042%2018t18%2042v520q0%2024-18%2042t-42%2018H140Zm680-525L496-473q-4%202-7.5%203.5T480-468q-5%200-8.5-1.5T464-473L140-685v465h680v-465ZM480-522l336-218H145l335%20218ZM140-685v7-39.32.73V-740v23-.91V-678v-7%20465-465Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-note_add{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M450-363v99q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-99h100q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H510v-100q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v100H350q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5h100ZM220-80q-24%200-42-18t-18-42v-680q0-24%2018-42t42-18h336q12.44%200%2023.72%205T599-862l183%20183q8%208%2013%2019.28%205%2011.28%205%2023.72v496q0%2024-18%2042t-42%2018H220Zm331-584v-156H220v680h520v-494H581q-12.75%200-21.37-8.63Q551-651.25%20551-664ZM220-820v186-186%20680-680Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-open_in_full{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M150-120q-12.75%200-21.37-8.63Q120-137.25%20120-150v-240q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v168l558-558H570q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h240q12.75%200%2021.38%208.62Q840-822.75%20840-810v240q0%2012.75-8.68%2021.37-8.67%208.63-21.5%208.63-12.82%200-21.32-8.63-8.5-8.62-8.5-21.37v-168L222-180h168q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H150Z%22%2F%3E%3C%2Fsvg%3E")}
@@ -5030,7 +5031,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li><b>' + ic('calendar_month') + ' Importeer weekagenda</b> leest je hele Outlook-agenda van de komende dagen in één keer in.</li>' +
       '<li><b>' + ic('add') + ' Nieuwe vergadering</b> maakt een lege vergadering die je zelf invult.</li></ul>' +
       '<h3>De balk bovenaan</h3><p>Een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap. Met <b>' + ic('refresh') + '</b> zie je een andere.</p>' +
-      '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (oranje) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
+      '<h3>Vandaag en Morgen</h3><ul><li>Klik op een vergadering om hem te openen.</li><li><b>Deelnemen</b> (paars) opent de Teams-, Zoom- of andere vergaderlink.</li><li><b>iBabs</b> (groen) staat er als de stukken in iBabs staan, en opent iBabs in een eigen tabblad.</li>' +
       '<li>Alle onderdelen (Vandaag, Morgen, Volgende vergaderingen en Archief) staan open. Met <b>verbergen</b> klap je er een in; als je MeMeet opnieuw opent, staat alles weer open. In de kop zie je hoeveel vergaderingen er zijn.</li></ul>' +
       '<h3>Inbrengen</h3><ul><li>Bovenaan staat het <b>eerstvolgende overleg</b>, met de punten die je daar wilt inbrengen. Bij elke vergadering zie je hoeveel punten er klaarliggen (<b>3 inbrengen</b>).</li><li><b>Wacht op overleg</b> en de <b>Ideeën-inbox</b> verschijnen als er iets in staat; meer daarover op het tabblad Herinneringen.</li></ul>' +
       '<h3>Volgende vergaderingen en Archief</h3><ul><li>Beide lijsten staan standaard open. Klik op de kop of op <b>verbergen</b> om er een in te klappen.</li>' +
@@ -5040,9 +5041,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Daarbij wordt alles gewist wat erbij hoort: de map met stukken, de originele mail, gewijzigde versies, de aantekeningen en de acties. Dit kun je niet ongedaan maken.</li></ul>' },
     meeting: { t: 'Een vergadering', h:
       '<h3>Gegevens</h3><ul><li>Titel, datum, tijd, locatie, Deelnemen en de iBabs-link staan samen op één regel bovenaan, zodat er zoveel mogelijk ruimte is voor de stukken. Is het venster te smal, dan krijgt die regel een schuifbalk; hij valt nooit over twee regels. Wijzig je iets, dan wordt het vanzelf bewaard (je ziet even <i>opgeslagen ' + ic('check') + '</i>). Alleen een nieuwe vergadering heeft een knop <b>Opslaan</b>.</li>' +
-      '<li><b>Deelnemen</b> opent de vergaderlink (Teams, Zoom …) uit de uitnodiging. Met <b>' + ic('link') + '</b> ernaast voeg je een vergaderlink toe of wijzig je hem; laat je het vak leeg, dan gaat de link weg.</li>' +
-      '<li>De <b>iBabs-link</b> staat apart van de vergaderlink. MeMeet vult hem vanzelf als de uitnodiging een link naar iBabs bevat (bij inslepen en bij de weekimport). Is er een iBabs-link, dan is de knop <b>iBabs</b> oranje; zonder link is hij grijs. Met ' + ic('link') + ' naast iBabs plak of wijzig je de link (een klik op de grijze knop doet hetzelfde); laat je het vak leeg, dan gaat de link weg. Zo werkt het ook bij <b>Deelnemen</b>: grijs zonder vergaderlink, en ' + ic('link') + ' ernaast om hem te plakken.</li>' +
-      '<li>Opent Deelnemen bij een oudere vergadering iBabs, haal de link dan met ' + ic('link') + ' naast Deelnemen weg en plak hem met ' + ic('link') + ' naast iBabs.</li></ul>' +
+      '<li><b>Deelnemen</b> (paars) opent de vergaderlink (Teams, Zoom …) uit de uitnodiging. Zonder vergaderlink is de knop grijs: klik erop om een link te plakken. Met de <b>rechtermuisknop</b> op de knop wijzig je de link; laat je het vak leeg, dan gaat de link weg.</li>' +
+      '<li>De <b>iBabs-link</b> staat apart van de vergaderlink. MeMeet vult hem vanzelf als de uitnodiging een link naar iBabs bevat (bij inslepen en bij de weekimport). Is er een iBabs-link, dan is de knop <b>iBabs</b> groen; zonder link is hij grijs en plak je met een klik de link. Met de rechtermuisknop wijzig je hem of haal je hem weg.</li>' +
+      '<li>Opent Deelnemen bij een oudere vergadering iBabs, haal de link dan weg met de rechtermuisknop op Deelnemen (vak leeg laten) en plak hem met een klik op de grijze knop iBabs.</li></ul>' +
       '<h3>iBabs</h3><ul><li><b>iBabs</b> opent de vergadering in iBabs in een eigen tabblad. Klik je bij een andere vergadering, dan laadt die in hetzelfde tabblad. Wil je iBabs en MeMeet naast elkaar, sleep dat tabblad dan los naar een eigen venster. Ben je al ingelogd in iBabs, dan hoeft dat niet opnieuw.</li>' +
       '<li>iBabs kan niet in MeMeet zelf worden getoond: iBabs staat dat niet toe.</li></ul>' +
       '<h3>Stukken</h3><ul><li>Sleep documenten op de vergadering, of klik op het vak <i>Sleep documenten of een mail hierheen</i> om ze te kiezen. Elk stuk blijft in zijn eigen formaat; MeMeet maakt er geen PDF van. De viewer toont Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails.</li>' +
@@ -6291,8 +6292,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
       (inv.length ? '<span class="minv" title="Deelnemers: ' + esc(inv.join(', ')) + '">' + ic('group') + ' ' + esc(invShort.slice(0, 3).join(', ') + (inv.length > 3 ? ' +' + (inv.length - 3) : '')) + '</span>' : '') +
       (!isNew && m.date && ibFinished(m) ? '<span class="mdone" title="Dit overleg is voorbij">Afgerond</span>' : '') +
-      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">' + ic('link') + '</button></span>' +
-      '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button><button type="button" class="btn sm icon" id="ibEd" aria-label="iBabs-link">' + ic('link') + '</button></span>' +
+      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a></span>' +
+      '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button></span>' +
       '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">' + ic('delete') + '</button>') + '</span></form>';
     h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
@@ -6359,17 +6360,16 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });
     bindFolders($('#main'));
-    /* Vergaderlink en iBabs-link: geen invoervakken. Zonder link is de knop grijs; met het link-icoon ernaast (of een klik op de
-       grijze knop) plak je de link. Een leeg vak haalt de link weg. Een bestaande vergadering wordt meteen bewaard. */
-    var jb = $('#joinBtn'), le = $('#linkEd'), ibB = $('#ibBtn'), ibE = $('#ibEd');
+    /* Vergaderlink en iBabs-link: geen invoervakken en geen aparte link-knoppen. Zonder link is de knop grijs en vraagt een klik
+       om de link; met link is hij gekleurd (Deelnemen paars, iBabs groen) en opent hij. Met de rechtermuisknop wijzig je de link;
+       een leeg vak haalt hem weg. Een bestaande vergadering wordt meteen bewaard. */
+    var jb = $('#joinBtn'), ibB = $('#ibBtn');
     function isUrl(v) { return /^https?:\/\//i.test(String(v || '').trim()); }
     function upd() {
       var ok = isUrl(m.link); jb.classList.toggle('off', !ok); jb.href = ok ? m.link : '#';
-      jb.title = ok ? 'Deelnemen aan de online vergadering' : 'Nog geen vergaderlink. Klik om er een te plakken.';
-      le.title = ok ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)';
+      jb.title = ok ? 'Deelnemen aan de online vergadering (rechtermuisknop: link wijzigen)' : 'Nog geen vergaderlink. Klik om er een te plakken (Teams, Zoom …).';
       var oi = isUrl(m.ibabs); ibB.classList.toggle('off', !oi);
-      ibB.title = oi ? 'De stukken in iBabs openen, in een eigen tabblad' : 'Nog geen iBabs-link. Klik om er een te plakken.';
-      ibE.title = oi ? 'iBabs-link wijzigen' : 'iBabs-link toevoegen';
+      ibB.title = oi ? 'De stukken in iBabs openen, in een eigen tabblad (rechtermuisknop: link wijzigen)' : 'Nog geen iBabs-link. Klik om er een te plakken.';
     }
     async function askLink(key, what, hint) {
       var v = prompt(what + (hint ? ' (' + hint + ')' : '') + '.\nLaat het vak leeg om de link weg te halen.', m[key] || ''); if (v === null) return false;
@@ -6377,10 +6377,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       m[key] = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? what + ' bewaard.' : what + ' weggehaald.', 'ok'); }
       return true;
     }
-    le.onclick = function () { askLink('link', 'Vergaderlink', 'Teams, Zoom of een andere link'); };
-    ibE.onclick = function () { askLink('ibabs', 'iBabs-link', 'de link naar de vergadering in iBabs'); };
-    jb.addEventListener('click', function (e) { if (!isUrl(m.link)) { e.preventDefault(); le.click(); } });
-    ibB.onclick = function () { readForm(); if (!isUrl(m.ibabs)) { ibE.click(); return; } openIbabs(m); };
+    function askJoin() { askLink('link', 'Vergaderlink', 'Teams, Zoom of een andere link'); }
+    function askIb() { askLink('ibabs', 'iBabs-link', 'de link naar de vergadering in iBabs'); }
+    jb.addEventListener('click', function (e) { if (!isUrl(m.link)) { e.preventDefault(); askJoin(); } });
+    ibB.onclick = function () { readForm(); if (!isUrl(m.ibabs)) { askIb(); return; } openIbabs(m); };
+    jb.addEventListener('contextmenu', function (e) { e.preventDefault(); askJoin(); });
+    ibB.addEventListener('contextmenu', function (e) { e.preventDefault(); askIb(); });
     upd();
     if (!isNew && m.link === undefined && m.source && m.source.file) {
       A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m) { upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });

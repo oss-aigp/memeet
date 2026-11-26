@@ -247,7 +247,6 @@ input,select,textarea{border-radius:5px;border-color:#c5cfda}input:focus,select:
 .tl li{border-radius:6px;padding:12px 10px}.tl li:hover{background:var(--soft)}
 .tm{color:var(--brand);font-size:17px}
 .today p.muted{display:flex;align-items:center;gap:14px;min-height:56px;padding-left:66px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23007BC7' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E  %3Crect x='8' y='12' width='48' height='44' rx='6' fill='%23E5F2F9'/%3E%3Cpath d='M8 24h48M20 6v12M44 6v12'/%3E%3Cpath d='M22 40l7 7 13-14' stroke='%2339870C' stroke-width='3'/%3E %3C/svg%3E") left center/50px no-repeat}
-.btn.join{background:#4b53bc;border-color:#4b53bc}
 
 /* tabellen */
 th{color:var(--brand);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;background:var(--row);border-bottom:2px solid var(--licht)}
@@ -384,7 +383,7 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 @keyframes annflash{0%{box-shadow:0 0 0 3px var(--acc)}100%{box-shadow:0 0 0 3px transparent}}
 .aact{white-space:nowrap}.aact .link+.link{margin-left:10px}
 
-.btn.ibabs{background:#e17000;border-color:#e17000;color:#fff;white-space:nowrap}.btn.ibabs[hidden]{display:none}
+.btn.ibabs{background:#2e7d32;border-color:#2e7d32;color:#fff;white-space:nowrap}.btn.ibabs[hidden]{display:none}
 .tjn{display:flex;gap:6px;justify-content:flex-start;align-items:center}
 
 
@@ -410,7 +409,7 @@ body.npdrag{cursor:col-resize;user-select:none}body.npdrag iframe,body.npdrag .p
 .nphead{flex-wrap:nowrap}.nphead b{white-space:nowrap}.nphead .btn.sm{white-space:nowrap;flex:none}.npst{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
 .mline input{padding:3px 7px;font-size:13px;height:30px;min-width:0}
 .mline .ttl{flex:1 1 170px;min-width:130px;font-size:17px;height:32px;margin-left:0;padding:3px 6px}
-.mline input[type=date]{width:126px;flex:none}.mline input[type=time]{width:82px;flex:none}
+.mline input[type=date]{width:126px;flex:none}.mline input[type=time]{width:112px;flex:none}
 .mline .tsp{display:inline-flex;align-items:center;gap:2px;color:var(--mute);flex:none}
 .mline .loc{flex:0 1 130px;min-width:80px}
 .mline .lk{display:inline-flex;gap:4px;align-items:center;flex:0 1 auto;min-width:0}.mline .lk input{width:118px;flex:0 1 118px;min-width:70px}
@@ -527,6 +526,9 @@ html[data-theme=dark] :is(.np,.dlg,.card.pv,.snzmenu,.vermenu,.pvmenu){backgroun
 /* knop zonder link: grijs; een klik vraagt om de link */
 .btn.join.off,.btn.ibabs.off{background:var(--soft);border-color:var(--line);color:var(--mute)}
 .btn.join.off:hover,.btn.ibabs.off:hover{border-color:var(--brand2);color:var(--brand2)}
+/* Deelnemen altijd paars, iBabs altijd groen (ook bij hover); zonder link grijs */
+.btn.join:not(.off),.btn.join:not(.off):hover{background:#5b5fc7;border-color:#5b5fc7;color:#fff}.btn.join:not(.off):hover{background:#4c50b3;border-color:#4c50b3}
+.btn.ibabs:not(.off),.btn.ibabs:not(.off):hover{background:#2e7d32;border-color:#2e7d32;color:#fff}.btn.ibabs:not(.off):hover{background:#256a29;border-color:#256a29}
 /* Bestanden: eigen mappen */
 .fxdh{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:14px 0 4px;padding:8px 4px 0 6px;border-top:1px solid var(--line);font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
 .fxdh .link{text-transform:none;letter-spacing:0;font-size:12.5px;padding:3px 4px;display:inline-flex;align-items:center;gap:4px}

@@ -201,8 +201,8 @@
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
       (inv.length ? '<span class="minv" title="Deelnemers: ' + esc(inv.join(', ')) + '">' + ic('group') + ' ' + esc(invShort.slice(0, 3).join(', ') + (inv.length > 3 ? ' +' + (inv.length - 3) : '')) + '</span>' : '') +
       (!isNew && m.date && ibFinished(m) ? '<span class="mdone" title="Dit overleg is voorbij">Afgerond</span>' : '') +
-      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a><button type="button" class="btn sm icon" id="linkEd" title="' + (m.link ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)') + '" aria-label="Vergaderlink">' + ic('link') + '</button></span>' +
-      '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button><button type="button" class="btn sm icon" id="ibEd" aria-label="iBabs-link">' + ic('link') + '</button></span>' +
+      '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a></span>' +
+      '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button></span>' +
       '<span class="macts">' + (isNew ? '<button type="submit" class="btn sm pri" id="save">Opslaan</button>' : '<span class="svst" id="svst"></span><button type="button" class="btn sm red icon" id="del" title="Vergadering verwijderen" aria-label="Vergadering verwijderen">' + ic('delete') + '</button>') + '</span></form>';
     h += '<div class="ws' + (!isNew ? ' n3' : '') + '"><section class="card list"><div class="shead"><h2>Stukken <span class="muted">' + list.length + '</span></h2></div>';
     /* het vervolgdocument van het vorige overleg met deze titel (besluiten, acties, meeneempunten) */
@@ -269,17 +269,16 @@
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });
     bindFolders($('#main'));
-    /* Vergaderlink en iBabs-link: geen invoervakken. Zonder link is de knop grijs; met het link-icoon ernaast (of een klik op de
-       grijze knop) plak je de link. Een leeg vak haalt de link weg. Een bestaande vergadering wordt meteen bewaard. */
-    var jb = $('#joinBtn'), le = $('#linkEd'), ibB = $('#ibBtn'), ibE = $('#ibEd');
+    /* Vergaderlink en iBabs-link: geen invoervakken en geen aparte link-knoppen. Zonder link is de knop grijs en vraagt een klik
+       om de link; met link is hij gekleurd (Deelnemen paars, iBabs groen) en opent hij. Met de rechtermuisknop wijzig je de link;
+       een leeg vak haalt hem weg. Een bestaande vergadering wordt meteen bewaard. */
+    var jb = $('#joinBtn'), ibB = $('#ibBtn');
     function isUrl(v) { return /^https?:\/\//i.test(String(v || '').trim()); }
     function upd() {
       var ok = isUrl(m.link); jb.classList.toggle('off', !ok); jb.href = ok ? m.link : '#';
-      jb.title = ok ? 'Deelnemen aan de online vergadering' : 'Nog geen vergaderlink. Klik om er een te plakken.';
-      le.title = ok ? 'Vergaderlink wijzigen' : 'Vergaderlink toevoegen (Teams, Zoom …)';
+      jb.title = ok ? 'Deelnemen aan de online vergadering (rechtermuisknop: link wijzigen)' : 'Nog geen vergaderlink. Klik om er een te plakken (Teams, Zoom …).';
       var oi = isUrl(m.ibabs); ibB.classList.toggle('off', !oi);
-      ibB.title = oi ? 'De stukken in iBabs openen, in een eigen tabblad' : 'Nog geen iBabs-link. Klik om er een te plakken.';
-      ibE.title = oi ? 'iBabs-link wijzigen' : 'iBabs-link toevoegen';
+      ibB.title = oi ? 'De stukken in iBabs openen, in een eigen tabblad (rechtermuisknop: link wijzigen)' : 'Nog geen iBabs-link. Klik om er een te plakken.';
     }
     async function askLink(key, what, hint) {
       var v = prompt(what + (hint ? ' (' + hint + ')' : '') + '.\nLaat het vak leeg om de link weg te halen.', m[key] || ''); if (v === null) return false;
@@ -287,10 +286,12 @@
       m[key] = v; upd(); if (!isNew) { m.updated = new Date().toISOString(); await persist(); toast(v ? what + ' bewaard.' : what + ' weggehaald.', 'ok'); }
       return true;
     }
-    le.onclick = function () { askLink('link', 'Vergaderlink', 'Teams, Zoom of een andere link'); };
-    ibE.onclick = function () { askLink('ibabs', 'iBabs-link', 'de link naar de vergadering in iBabs'); };
-    jb.addEventListener('click', function (e) { if (!isUrl(m.link)) { e.preventDefault(); le.click(); } });
-    ibB.onclick = function () { readForm(); if (!isUrl(m.ibabs)) { ibE.click(); return; } openIbabs(m); };
+    function askJoin() { askLink('link', 'Vergaderlink', 'Teams, Zoom of een andere link'); }
+    function askIb() { askLink('ibabs', 'iBabs-link', 'de link naar de vergadering in iBabs'); }
+    jb.addEventListener('click', function (e) { if (!isUrl(m.link)) { e.preventDefault(); askJoin(); } });
+    ibB.onclick = function () { readForm(); if (!isUrl(m.ibabs)) { askIb(); return; } openIbabs(m); };
+    jb.addEventListener('contextmenu', function (e) { e.preventDefault(); askJoin(); });
+    ibB.addEventListener('contextmenu', function (e) { e.preventDefault(); askIb(); });
     upd();
     if (!isNew && m.link === undefined && m.source && m.source.file) {
       A.store.get(m, m.source.file).then(function (b) { return parseMailFile(b); }).then(async function (pm) { m.link = pm.r.link || ''; await persist(); if (m.link && currentMeeting() === m) { upd(); toast('Vergaderlink gevonden in de originele mail.', 'ok'); } }).catch(function () { m.link = ''; });
