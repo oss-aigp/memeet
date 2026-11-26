@@ -12,12 +12,12 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 
 <table>
 <tr>
-<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (4:27): voor, tijdens en na de vergadering"></a></td>
-<td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:06)"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (4:58): voor, tijdens en na de vergadering"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:04)"></a></td>
 </tr>
 <tr>
-<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (4:27): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de acties en de punten voor het volgende overleg afhandelt.</td>
-<td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:06): downloaden, een vaste plek geven, de datamap kiezen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
+<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (4:58): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de herinneringen, de acties en de punten voor het volgende overleg afhandelt. Ook: markeren en opmerkingen in een Word-stuk, en een stuk bewerken met bewaarde versies.</td>
+<td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:04): downloaden, een vaste plek geven, de datamap kiezen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
 </tr>
 </table>
 
@@ -75,7 +75,7 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 
 **Wat je nodig hebt:** Windows 10 of 11 met **Microsoft Edge** of **Google Chrome**, een recente versie. Je hebt geen beheerdersrechten nodig en er wordt niets geïnstalleerd.
 
-> Liever kijken dan lezen? De [installatiefilm](docs/films/MeMeet-installatie.mp4) (1:06) laat alle stappen hieronder zien.
+> Liever kijken dan lezen? De [installatiefilm](docs/films/MeMeet-installatie.mp4) (1:04) laat alle stappen hieronder zien.
 
 > MeMeet werkt niet goed in Firefox of Safari. Die browsers kunnen niet met mappen op je computer werken.
 
