@@ -12,11 +12,11 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 
 <table>
 <tr>
-<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (4:58): voor, tijdens en na de vergadering"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (5:52): voor, tijdens en na de vergadering"></a></td>
 <td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:26)"></a></td>
 </tr>
 <tr>
-<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (4:58): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de herinneringen, de acties en de punten voor het volgende overleg afhandelt. Ook: markeren en opmerkingen in een Word-stuk, en een stuk bewerken met bewaarde versies.</td>
+<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (5:52): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de herinneringen, de acties en de punten voor het volgende overleg afhandelt. Ook: markeren en opmerkingen in een Word-stuk, herinneringen afvinken en toevoegen, het verslag meteen bewerken, een stuk bewerken met bewaarde versies, en elk jaar opschonen.</td>
 <td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:26): downloaden, een vaste plek geven, de datamap kiezen en versleutelen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
 </tr>
 </table>
