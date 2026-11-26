@@ -91,6 +91,7 @@
     A.data.fxIn = {}; if (A.data.fxHidden) A.data.fxHidden = {};
     var alive = {}, all = ibAll(); all.pts.concat(all.ideas).forEach(function (it) { alive[it.id] = 1; });
     Object.keys(ibState()).forEach(function (id) { if (!alive[id]) delete ibState()[id]; });
+    await plCallAll('onCleanup'); /* uitbreidingen die aanstaan, schonen mee op (het Postvak: de map Verwerkt) */
     A.data.cleanedYear = cleanYear(); A.data.cleaned = new Date().toISOString(); A.hsel = {};
     await persist();
     try { await writeNotesFiles(null); } catch (e) {}

@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.8.1 -->
+<!-- MeMeet-versie: 1.9.0 -->
 <!--
-  MeMeet 1.8.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.9.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -614,6 +614,17 @@ select.to{width:auto;max-width:100%;min-height:0;padding:1px 4px;border-color:va
 .cleancols h3{font-size:14px;margin:0 0 6px}.cleancols ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.5}.cleancols li{margin-bottom:4px}.cleancols .small{font-size:12.5px;margin-top:8px}
 .cleanok{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;background:var(--row);border-radius:8px;padding:10px 12px}.cleanok input{margin-top:3px;width:16px;height:16px;min-height:0;flex:none;padding:0;accent-color:#c92a2a}
 html[data-theme=dark] .cleanbar{background:#3a2412;border-color:#8a4b14}html[data-theme=dark] .cleanbar .cleantx,html[data-theme=dark] .cleanbar .cleantx b{color:#ffd8a8}
+/* uitbreidingen */
+.plcard{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:var(--card)}.plcard.on{border-color:var(--acc);box-shadow:inset 3px 0 0 var(--acc)}
+.plhead{display:flex;align-items:center;gap:10px}.plhead b{flex:1;font-size:15px}.plcard p{margin:6px 0;font-size:13.5px}.plpriv{color:var(--mute)}
+.plswitch{display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:600}.plswitch input{width:34px;height:18px;min-height:0;accent-color:var(--acc);cursor:pointer}
+.plpaused{font-size:12px;color:#b54708;background:#fff4e5;border-radius:10px;padding:1px 8px}
+.dlg.pldlg{width:min(560px,100%)}#plDlg{z-index:90}
+.pvhome h2{display:flex;align-items:center;gap:8px;font-size:16px}.pvwarn{background:#fff4e5;border:1px solid #f0b46a;border-radius:8px;padding:8px 12px;font-size:13.5px}
+.pvlist{list-style:none;margin:0;padding:0}.pvlist li{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)}.pvlist li:first-child{border-top:0}.pvlist .fn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pvlist select{max-width:55%}
+.pvmacro{max-height:220px;overflow:auto;font:12px/1.45 Consolas,"Cascadia Mono",monospace;background:var(--row);border-radius:6px;padding:10px;white-space:pre}
+.bdg.via{font-size:10.5px;background:#e7f1fb;color:#154273;border-radius:8px;padding:0 6px;margin-left:6px;white-space:nowrap}
+html[data-theme=dark] .pvwarn{background:#3a2412;border-color:#8a4b14}html[data-theme=dark] .bdg.via{background:#1d3550;color:#cfe3f7}
 .ibctx .inb{background:#fff8dc;border:1px solid #ead79b;border-radius:6px;padding:4px 10px;margin-bottom:6px}
 .ait{font-weight:700;color:var(--brand)}.aib{font-size:13.5px;white-space:pre-wrap}
 .mdone{font-size:12px;border-radius:12px;padding:2px 10px;font-weight:700;background:var(--ok);color:var(--green);white-space:nowrap}
@@ -783,6 +794,7 @@ select.chipsel:hover{background:var(--licht)}
 .i-format_list_bulleted{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M407-198q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h403q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H407Zm0-252q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h403q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H407Zm0-253q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h403q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H407ZM189-161q-28.05%200-48.02-19Q121-199%20121-227.5t19.5-48q19.5-19.5%2048-19.5t47.5%2019.98q19%2019.97%2019%2048.02%200%2027.23-19.39%2046.61Q216.23-161%20189-161Zm0-252q-28.05%200-48.02-19.5Q121-452%20121-480t19.98-47.5Q160.95-547%20189-547q27.23%200%2046.61%2019.5Q255-508%20255-480t-19.39%2047.5Q216.23-413%20189-413Zm-48.5-272.5Q121-705%20121-733t19.5-47.5Q160-800%20188-800t47.5%2019.5Q255-761%20255-733t-19.5%2047.5Q216-666%20188-666t-47.5-19.5Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-format_list_numbered{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M150-80q-13%200-21.5-8.5T120-110q0-13%208.5-21.5T150-140h70v-30h-30q-13%200-21.5-8.5T160-200q0-13%208.5-21.5T190-230h30v-30h-70q-13%200-21.5-8.5T120-290q0-13%208.5-21.5T150-320h90q17%200%2028.5%2011.5T280-280v40q0%2017-11.5%2028.5T240-200q17%200%2028.5%2011.5T280-160v40q0%2017-11.5%2028.5T240-80h-90Zm-7-280q-9%200-16-7t-7-16v-87q0-17%2011.5-28.5T160-510h60v-30h-70q-13%200-21.5-8.5T120-570q0-13%208.5-21.5T150-600h90q17%200%2028.5%2011.5T280-560v70q0%2017-11.5%2028.5T240-450h-60v30h70q13%200%2021.5%208.5T280-390q0%2013-8.5%2021.5T250-360H143Zm45.5-288.5Q180-657%20180-670v-150h-30q-13%200-21.5-8.5T120-850q0-13%208.5-21.5T150-880h68q9%200%2015.5%206.5T240-858v188q0%2013-8.5%2021.5T210-640q-13%200-21.5-8.5ZM399-209q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Zm0-243q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Zm0-243q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h411q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H399Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-help{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M511-258.03q11-11.03%2011-27T510.97-312q-11.03-11-27-11T457-311.97q-11%2011.03-11%2027T457.03-258q11.03%2011%2027%2011T511-258.03ZM480.27-80q-82.74%200-155.5-31.5Q252-143%20197.5-197.5t-86-127.34Q80-397.68%2080-480.5t31.5-155.66Q143-709%20197.5-763t127.34-85.5Q397.68-880%20480.5-880t155.66%2031.5Q709-817%20763-763t85.5%20127Q880-563%20880-480.27q0%2082.74-31.5%20155.5Q817-252%20763-197.68q-54%2054.31-127%2086Q563-80%20480.27-80Zm.23-60Q622-140%20721-239.5t99-241Q820-622%20721.19-721T480-820q-141%200-240.5%2098.81T140-480q0%20141%2099.5%20240.5t241%2099.5Zm-.5-340Zm2.77-180Q513-660%20536-641.5q23%2018.5%2023%2047.2%200%2026.3-15.65%2045.73Q527.7-529.14%20508-512q-23%2019-40%2042.38-17%2023.39-17%2052.62%200%2011%208.4%2017.5T479-393q12%200%2019.88-8%207.87-8%2010.12-20%203-21%2016-38t30.23-30.78Q580-510%20596-537q16-27%2016-58.61%200-50.39-37.5-83.89T485.55-713Q450-713%20417-698t-54%2044q-7%2010-6.5%2021.5t9.47%2018.5q11.41%208%2023.65%205%2012.23-3%2020.38-14%2012.75-17.9%2031.88-27.45Q461-660%20482.77-660Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-inbox{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M180-120q-24%200-42-18t-18-42v-600q0-24%2018-42t42-18h600q24%200%2042%2018t18%2042v600q0%2024-18%2042t-42%2018H180Zm0-60h600v-136H634q-26%2040-67.5%2061.5T480-233q-45%200-86.5-21.5T326-316H180v136Zm300.02-113q34.98%200%2064.48-17.5Q574-328%20591-359q7-10%2018.5-13.5T633-376h147v-404H180v404h147q12%200%2023.5%203.5T369-359q17%2031%2046.52%2048.5%2029.51%2017.5%2064.5%2017.5ZM180-180h600-600Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-ink_eraser{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M678-220h173q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H618l60-60Zm-486%2060q-5.91%200-11.46-2-5.54-2-10.54-7l-72-75q-18-17-17.5-41.5T97-327l458-498q16-17%2040.57-17%2024.56%200%2041.43%2017l205%20215q17%2017%2018%2042t-16%2042L512-170q-4.55%205-10.24%207.5T490-160H192Zm288-60%20324-352-207-217-455%20503%2064%2066h274Zm0-260Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-keyboard_arrow_down{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M469-358q-5-2-10-7L261-563q-9-9-8.5-21.5T262-606q9-9%2021.5-9t21.5%209l175%20176%20176-176q9-9%2021-8.5t21%209.5q9%209%209%2021.5t-9%2021.5L501-365q-5%205-10%207t-11%202q-6%200-11-2Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-keyboard_arrow_up{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-554%20304-378q-9%209-21%208.5t-21-9.5q-9-9-9-21.5t9-21.5l197-197q9-9%2021-9t21%209l198%20198q9%209%209%2021t-9%2021q-9%209-21.5%209t-21.5-9L480-554Z%22%2F%3E%3C%2Fsvg%3E")}
@@ -1661,6 +1673,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (st.kind === 'map') await migrateLayout(st);
     await kvSet('mode', st.kind);
     route();
+    plStartAll(); /* alleen uitbreidingen die aanstaan */
   }
   async function chooseFolder() {
     if (!W.showDirectoryPicker) { toast('Deze browser kan geen map kiezen. De gegevens worden in de browser bewaard.', 'warn'); return useStore(new BrowserStore()); }
@@ -4872,6 +4885,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     A.data.fxIn = {}; if (A.data.fxHidden) A.data.fxHidden = {};
     var alive = {}, all = ibAll(); all.pts.concat(all.ideas).forEach(function (it) { alive[it.id] = 1; });
     Object.keys(ibState()).forEach(function (id) { if (!alive[id]) delete ibState()[id]; });
+    await plCallAll('onCleanup'); /* uitbreidingen die aanstaan, schonen mee op (het Postvak: de map Verwerkt) */
     A.data.cleanedYear = cleanYear(); A.data.cleaned = new Date().toISOString(); A.hsel = {};
     await persist();
     try { await writeNotesFiles(null); } catch (e) {}
@@ -5363,7 +5377,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var k = helpTopic(), bg = D.createElement('div'), p = D.createElement('aside');
     bg.className = 'helpbg'; bg.id = 'helpBg'; p.className = 'helppanel'; p.id = 'helpPanel'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-labelledby', 'helpT');
     setHTML(p, '<div class="helphead"><span class="helpq">' + ic('help') + '</span><h2 id="helpT">Help</h2><button type="button" class="helpx" id="helpX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
-      '<div class="helptabs" role="tablist"><button type="button" role="tab" data-tab="page">' + esc(HELP[k].t) + '</button><button type="button" role="tab" data-tab="faq">Veelgestelde vragen</button><button type="button" role="tab" data-tab="about">Hoe werkt MeMeet</button></div>' +
+      '<div class="helptabs" role="tablist"><button type="button" role="tab" data-tab="page">' + esc(HELP[k].t) + '</button><button type="button" role="tab" data-tab="faq">Veelgestelde vragen</button><button type="button" role="tab" data-tab="about">Hoe werkt MeMeet</button><button type="button" role="tab" data-tab="ext">Uitbreidingen</button></div>' +
       '<div class="helpbody" id="helpBody"></div><div class="helpfoot">MeMeet ' + esc(memeetVersion()) + ' · EUPL-1.2 · <a href="' + GITHUB + '" target="_blank" rel="noopener">GitHub</a></div>');
     D.body.appendChild(bg); D.body.appendChild(p);
     requestAnimationFrame(function () { bg.classList.add('on'); p.classList.add('on'); });
@@ -5373,6 +5387,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       $$('[data-tab]', p).forEach(function (b) { var on = b.dataset.tab === t; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
       if (t === 'faq') setHTML(body, faqHtml());
       else if (t === 'about') setHTML(body, ABOUT_HTML);
+      else if (t === 'ext') { setHTML(body, plHelpHtml()); plBindHelp(body, function () { show('ext'); }); }
       else setHTML(body, '<h2 class="helph">' + esc(HELP[key].t) + '</h2>' + HELP[key].h + '<hr><p class="muted">Andere onderwerpen: ' + Object.keys(HELP).filter(function (x) { return x !== key; }).map(function (x) { return '<button type="button" class="link" data-help="' + x + '">' + esc(HELP[x].t) + '</button>'; }).join(' · ') + '</p>');
       body.scrollTop = 0;
       $$('[data-help]', body).forEach(function (b) { b.onclick = function () { show('page', b.dataset.help); }; });
@@ -5832,9 +5847,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     h += '<section class="card wk"><h2>5. Bijwerken naar een nieuwe versie</h2>' + UPGRADE_HTML + '</section>';
     h += '<section class="card wk"><h2>6. Back-up</h2>' + BACKUP_HTML.replace(/<h3>/g, '<h3 class="sub">') + '</section>';
     h += '<section class="card wk"><h2>7. Elk jaar opschonen</h2>' + CLEAN_HTML + '<p><a class="btn" href="#/opschonen">' + ic('delete_sweep') + ' Gegevens opschonen…</a></p></section>';
+    h += '<section class="card wk" id="insPlugins"><h2>8. Uitbreidingen (optioneel)</h2>' + plListHtml() + '</section>' + plHtml('installHtml');
     h += '<p><a class="btn" href="#/">Klaar, naar de vergaderingen</a></p>';
     setHTML($('#main'), h);
-    $('#insPick').onclick = chooseFolder; bindFolders($('#main'));
+    $('#insPick').onclick = chooseFolder; plBindList($('#main'), renderInstall); plBind('bindInstall', $('#main')); bindFolders($('#main'));
     $('#insIco').onclick = function () { dl(icoBlob(), 'MeMeet.ico'); };
     var c = $('#insCopy'); if (c) c.onclick = async function () { var ok = false; try { await navigator.clipboard.writeText(cmd); ok = true; } catch (e) {} toast(ok ? 'Gekopieerd. Plak het met Ctrl+V.' : 'Kopiëren lukte niet. Selecteer de tekst en druk op Ctrl+C.', ok ? 'ok' : 'warn'); };
   }
@@ -6303,6 +6319,344 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var rt; W.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (PV.html && $('#hvdoc')) { if (HV.fit) hvFit(); hvPlaceNotes(); return; } if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } }, 200); });
   }
 
+  /* MeMeet - plugins: een eenvoudig uitbreidingssysteem. Uitbreidingen zitten in MeMeet.html (map src/plugins/), maar staan standaard
+     uit. Zolang een uitbreiding uitstaat, wordt geen enkel haakje aangeroepen: geen knoppen, geen meldingen, geen timers, geen
+     toestemmingsvragen en geen bestandstoegang. Aan of uit staat in memeet.json (A.data.plugins), dus het gaat mee met de datamap.
+
+     Een uitbreiding meldt zich aan met registerPlugin({ id, naam, omschrijving, privacy, ...haakjes }). Haakjes (alle optioneel):
+       onStart()             bij het starten van MeMeet, of direct na aanzetten
+       onTick()              elke minuut
+       installHtml() / bindInstall(root)   een eigen onderdeel in het installatiescherm
+       homeHtml() / bindHome(root)         een blok op de pagina Vergaderingen
+       helpHtml (tekst of functie) / bindHelp(root)   een onderwerp in de help (tabblad Uitbreidingen)
+       onCleanup()           meedoen met het jaarlijks opschonen
+       onDisable()           bij uitzetten: alles opruimen
+       forget: { vraag, run() }   een vraag na het uitzetten, bijvoorbeeld om een koppeling te vergeten
+     Elke aanroep staat in try/catch: een fout pauzeert alleen die uitbreiding (tot de volgende start of tot Opnieuw starten). */
+  var PLUGINS = [], PL = { timer: null };
+  function registerPlugin(p) { if (p && p.id && !PLUGINS.some(function (x) { return x.id === p.id; })) PLUGINS.push(p); }
+  function plugin(id) { return PLUGINS.filter(function (p) { return p.id === id; })[0]; }
+  function plState(id) { var all = A.data.plugins || (A.data.plugins = {}); return all[id] || (all[id] = { on: false }); }
+  function plEnabled(p) { return !!(A.data && A.data.plugins && A.data.plugins[p.id] && A.data.plugins[p.id].on); }
+  function plOn(p) { return plEnabled(p) && !p._paused; }
+  function plFail(p, hook, e) {
+    console.error('Uitbreiding ' + p.id + ' (' + hook + ')', e);
+    if (p._paused) return; p._paused = true; plTimer();
+    try { if (typeof p.onDisable === 'function') p.onDisable(true); } catch (e2) {}
+    toast('Uitbreiding ' + p.naam + ' gaf een fout en is gepauzeerd.', 'err');
+  }
+  /* één haakje van één uitbreiding aanroepen; geeft het resultaat (of een Promise) terug, of undefined bij uit/fout */
+  function plCall(p, hook, args) {
+    if (!plOn(p) || typeof p[hook] !== 'function') return;
+    try { var r = p[hook].apply(p, args || []); if (r && typeof r.then === 'function') return r.catch(function (e) { plFail(p, hook, e); }); return r; }
+    catch (e) { plFail(p, hook, e); }
+  }
+  async function plCallAll(hook, args) { for (var i = 0; i < PLUGINS.length; i++) await plCall(PLUGINS[i], hook, args); }
+  function plHtml(hook) { return PLUGINS.map(function (p) { var h = plCall(p, hook); return typeof h === 'string' ? h : ''; }).join(''); }
+  function plBind(hook, root) { PLUGINS.forEach(function (p) { plCall(p, hook, [root]); }); }
+  /* één timer voor alle uitbreidingen, alleen als er een aanstaat */
+  function plTimer() {
+    var any = PLUGINS.some(function (p) { return plOn(p) && typeof p.onTick === 'function'; });
+    if (any && !PL.timer) PL.timer = setInterval(function () { PLUGINS.forEach(function (p) { plCall(p, 'onTick'); }); }, 60000);
+    if (!any && PL.timer) { clearInterval(PL.timer); PL.timer = null; }
+  }
+  async function plStartAll() { for (var i = 0; i < PLUGINS.length; i++) { PLUGINS[i]._paused = false; await plCall(PLUGINS[i], 'onStart'); } plTimer(); }
+
+  /* ---------- lijst met uitbreidingen (help, tabblad Uitbreidingen, en installatiescherm) */
+  function plListHtml() {
+    if (!PLUGINS.length) return '<p class="muted">Er zijn geen uitbreidingen.</p>';
+    return '<p>Uitbreidingen zitten in MeMeet, maar staan standaard uit. Zolang een uitbreiding uitstaat, doet hij niets: geen knoppen, geen meldingen en geen toegang tot bestanden. Je keuze wordt bewaard in je datamap.</p>' +
+      PLUGINS.map(function (p) {
+        var on = plEnabled(p);
+        return '<div class="plcard' + (on ? ' on' : '') + '" data-plid="' + esc(p.id) + '"><div class="plhead"><b>' + esc(p.naam) + '</b>' +
+          (p._paused && on ? '<span class="plpaused">gepauzeerd</span><button type="button" class="btn sm" data-plrestart="' + esc(p.id) + '">Opnieuw starten</button>' : '') +
+          '<label class="plswitch"><input type="checkbox" role="switch" data-plt="' + esc(p.id) + '"' + (on ? ' checked' : '') + ' aria-label="' + esc(p.naam) + ' aan of uit"><span>' + (on ? 'Aan' : 'Uit') + '</span></label></div>' +
+          '<p>' + esc(p.omschrijving) + '</p><p class="plpriv"><b>Privacy:</b> ' + esc(p.privacy) + '</p></div>';
+      }).join('');
+  }
+  function plBindList(root, after) {
+    $$('[data-plt]', root).forEach(function (cb) { cb.onchange = async function () {
+      var p = plugin(cb.dataset.plt); if (!p) return;
+      if (cb.checked) { cb.checked = false; if (await plConfirm(p)) await plEnable(p); }
+      else await plDisable(p);
+      after && after();
+    }; });
+    $$('[data-plrestart]', root).forEach(function (b) { b.onclick = async function () { var p = plugin(b.dataset.plrestart); if (!p) return; p._paused = false; await plCall(p, 'onStart'); plTimer(); after && after(); route(); }; });
+  }
+  /* bevestiging bij aanzetten, met de privacytekst */
+  function plConfirm(p) {
+    return new Promise(function (res) {
+      var bg = D.createElement('div'); bg.className = 'dlgbg'; bg.id = 'plDlg';
+      setHTML(bg, '<div class="dlg pldlg" role="dialog" aria-modal="true" aria-labelledby="plT"><h2 id="plT">' + esc(p.naam) + ' aanzetten?</h2><p>' + esc(p.omschrijving) + '</p>' +
+        '<p class="plpriv"><b>Privacy:</b> ' + esc(p.privacy) + '</p><div class="dlgacts"><button type="button" class="btn pri" id="plYes">Aanzetten</button><button type="button" class="btn" id="plNo">Annuleren</button></div></div>');
+      D.body.appendChild(bg);
+      function end(v) { bg.remove(); res(v); }
+      $('#plYes', bg).onclick = function () { end(true); }; $('#plNo', bg).onclick = function () { end(false); };
+      bg.addEventListener('mousedown', function (e) { if (e.target === bg) end(false); });
+      bg.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.stopPropagation(); end(false); } });
+      try { $('#plYes', bg).focus(); } catch (e) {}
+    });
+  }
+  async function plEnable(p) {
+    plState(p.id).on = true; p._paused = false; await persist();
+    await plCall(p, 'onStart'); plTimer();
+    toast(p.naam + ' staat aan.', 'ok'); route();
+  }
+  async function plDisable(p) {
+    try { if (typeof p.onDisable === 'function') await p.onDisable(false); } catch (e) { console.error(e); }
+    plState(p.id).on = false; p._paused = false; await persist(); plTimer();
+    route();
+    if (p.forget && confirm(p.forget.vraag)) { try { await p.forget.run(); } catch (e) { console.error(e); } }
+    toast(p.naam + ' staat uit.', 'ok');
+  }
+  /* help: tabblad Uitbreidingen = de lijst, en daaronder de uitleg van elke uitbreiding die aanstaat */
+  function plHelpHtml() {
+    return '<h2 class="helph">Uitbreidingen</h2>' + plListHtml() + PLUGINS.map(function (p) {
+      if (!plOn(p)) return ''; var h = typeof p.helpHtml === 'function' ? plCall(p, 'helpHtml') : p.helpHtml; return h ? '<hr><h2 class="helph">' + esc(p.naam) + '</h2>' + h : '';
+    }).join('');
+  }
+  function plBindHelp(body, rerender) { plBindList(body, rerender); plBind('bindHelp', body); }
+
+  /* MeMeet - uitbreiding Postvak (standaard uit). Een map die jij kiest, bijvoorbeeld een map op de netwerkschijf waar je secretaresse
+     ook bij kan. Wat daarin komt, haalt MeMeet elke minuut op als stuk van de juiste vergadering. Er gaat niets van je datamap naar het
+     postvak: MeMeet maakt daar alleen mappen met de datum, tijd en titel van je komende vergaderingen. */
+  (function () {
+    var PV_UNSORTED = 'Nog in te delen', PV_DONE = 'Verwerkt', PV_DAYS = 14;
+    var P = { dir: null, status: 'none', seen: {}, unsorted: [], busy: false, retry: null, warned: false, last: null };
+    function st() { var s = plState('postvak'); if (!s.dirs) s.dirs = {}; if (!s.done) s.done = []; if (!s.na) s.na = 'verplaatsen'; return s; }
+    function skipName(n) { return /^~|\.tmp$|^\.|^desktop\.ini$|^thumbs\.db$/i.test(n); }
+    function isoDay(off) { var d = new Date(); d.setDate(d.getDate() + (off || 0)); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+    function folderName(m) { return safe(m.date + ' ' + (m.start || '00:00').replace(':', '.') + ' ' + (cleanSubject(m.title || '').trim() || m.title || 'Vergadering')).slice(0, 80); }
+    function item(f) { return { name: f.name, type: f.type || guessMime(f.name), blob: f }; }
+    /* de inhoud in het geheugen lezen: een File uit het postvak verwijst naar het bestand op schijf, en dat gaat daarna naar Verwerkt */
+    async function copyOf(f) { return new File([await f.arrayBuffer()], f.name, { type: f.type || guessMime(f.name), lastModified: f.lastModified }); }
+
+    /* ---------- het postvak: handle bewaren in de browser (zoals de datamap), toestemming alleen als de uitbreiding aanstaat */
+    async function openDir() {
+      var h = null;
+      /* in de tests (window.__VA_TEST) komt het nagebootste postvak rechtstreeks uit OPFS: een OPFS-koppeling teruglezen uit IndexedDB laat de testbrowser vastlopen */
+      try { h = W.__VA_TEST && W.__pvTestDir && st().name ? await W.__pvTestDir() : await kvGet('postvakDir'); } catch (e) {}
+      if (!h) { P.dir = null; P.status = 'none'; return null; }
+      try { if ((await h.queryPermission({ mode: 'readwrite' })) !== 'granted') { P.dir = h; P.status = 'perm'; return null; } }
+      catch (e) { P.dir = null; P.status = 'unreachable'; return null; }
+      try { var it = h.values(); await it.next(); }
+      catch (e) { P.dir = h; P.status = 'unreachable'; if (!P.warned) { P.warned = true; toast('Het postvak "' + h.name + '" is niet bereikbaar. Is de netwerkschijf verbonden?', 'warn'); } return null; }
+      P.dir = h; P.status = 'ok'; P.warned = false; return h;
+    }
+    async function pick() {
+      if (!W.showDirectoryPicker) { toast('Deze browser kan geen map kiezen.', 'warn'); return; }
+      try {
+        var h = await W.showDirectoryPicker({ id: 'memeet-postvak', mode: 'readwrite' });
+        if ((await h.queryPermission({ mode: 'readwrite' })) !== 'granted' && (await h.requestPermission({ mode: 'readwrite' })) !== 'granted') throw new Error('Geen schrijfrechten op het postvak');
+        await kvSet('postvakDir', h); var s = st(); s.name = h.name; s.dirs = {}; await persist();
+        P.dir = h; P.status = 'ok'; await scan(); toast('Postvak "' + h.name + '" gekozen. MeMeet maakt daarin een map per vergadering van de komende ' + PV_DAYS + ' dagen.', 'ok'); route();
+      } catch (e) { if (e && e.name === 'AbortError') return; console.error(e); toast('Postvak kiezen lukte niet: ' + (e.message || e), 'err'); }
+    }
+    async function grant() {
+      if (!P.dir) return pick();
+      try { if ((await P.dir.requestPermission({ mode: 'readwrite' })) === 'granted') { P.status = 'ok'; await scan(); route(); } } catch (e) { toast('Toegang geven lukte niet: ' + (e.message || e), 'err'); }
+    }
+
+    /* ---------- mappen: een per vergadering van de komende 14 dagen, plus Nog in te delen en Verwerkt; lege oude mappen weg */
+    async function isEmpty(dir) { for await (var e of dir.values()) { if (e) return false; } return true; }
+    async function syncFolders(root) {
+      var s = st(), today = isoDay(0), until = isoDay(PV_DAYS), want = {};
+      A.data.meetings.filter(function (m) { return !m.isNew && m.date && m.date >= today && m.date <= until; }).forEach(function (m) { want[folderName(m)] = m.id; });
+      for (var n in want) { if (!s.dirs[n] || s.dirs[n] !== want[n]) { await root.getDirectoryHandle(n, { create: true }); s.dirs[n] = want[n]; } else await root.getDirectoryHandle(n, { create: true }); }
+      await root.getDirectoryHandle(PV_UNSORTED, { create: true }); await root.getDirectoryHandle(PV_DONE, { create: true });
+      for (var o of Object.keys(s.dirs)) {
+        if (want[o]) continue;
+        var d = null; try { d = await root.getDirectoryHandle(o); } catch (e) { delete s.dirs[o]; continue; }
+        if (await isEmpty(d)) { try { await root.removeEntry(o); } catch (e) {} delete s.dirs[o]; }
+        else if (!byId(s.dirs[o])) delete s.dirs[o]; /* vergadering verwijderd maar map niet leeg: bestanden behandelen als los */
+      }
+    }
+
+    /* ---------- koppelen aan een vergadering via de titelherkenning (en een datum in de naam) */
+    function dateIn(t) {
+      var a = /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(t); if (a) return a[1] + '-' + pad(+a[2]) + '-' + pad(+a[3]);
+      var b = /(^|\D)(\d{1,2})[-.](\d{1,2})[-.](\d{4})(\D|$)/.exec(t); if (b) return b[4] + '-' + pad(+b[3]) + '-' + pad(+b[2]);
+      return '';
+    }
+    function matchMeeting(text) {
+      var t = String(text || '').replace(/\.[^.]{1,5}$/, '').replace(/[_]+/g, ' '), day = dateIn(t), today = isoDay(0);
+      var ms = A.data.meetings.filter(function (m) { return !m.isNew && m.date; });
+      var hits = ms.filter(function (m) { var p = cleanSubject(m.title || '').trim(); return p && ibInTitle(p, t); });
+      if (day) {
+        var both = hits.filter(function (m) { return m.date === day; }); if (both.length === 1) return both[0]; if (both.length > 1) return null;
+        var onDay = ms.filter(function (m) { return m.date === day; }); return onDay.length === 1 && !hits.length ? onDay[0] : null;
+      }
+      var up = hits.filter(function (m) { return m.date >= today; }).sort(ibSort); if (!up.length) return null;
+      var groups = {}; up.forEach(function (m) { groups[ibNorm(cleanSubject(m.title))] = 1; });
+      return Object.keys(groups).length === 1 ? up[0] : null;
+    }
+
+    /* ---------- toevoegen aan een vergadering; een zelfde naam wordt een nieuwe versie (de vorige blijft bewaard) */
+    async function addItems(m, list) {
+      var n = 0;
+      for (var i = 0; i < list.length; i++) {
+        var it = list[i], same = m.files.filter(function (f) { return f.name.toLowerCase() === safe(it.name).toLowerCase(); })[0];
+        if (same) { await saveEdited(m, same, it.blob); same.via = 'postvak'; }
+        else { var nm = await addFileTo(m, it.name, it.type, it.blob), rec = m.files.filter(function (f) { return f.name === nm; })[0]; if (rec) rec.via = 'postvak'; }
+        n++;
+      }
+      m.updated = new Date().toISOString(); return n;
+    }
+    async function uniqueIn(dir, name) {
+      var base = name.replace(/(\.[^.]*)?$/, ''), ext = (/\.[^.]*$/.exec(name) || [''])[0], n = 1, nm = name;
+      for (;;) { try { await dir.getFileHandle(nm); nm = base + ' (' + (++n) + ')' + ext; } catch (e) { return nm; } }
+    }
+    async function moveFile(fromDir, h, name, toDir) {
+      var nm = await uniqueIn(toDir, name);
+      if (typeof h.move === 'function') { try { await h.move(toDir, nm); return; } catch (e) { console.warn('Verplaatsen met move lukte niet, nu kopiëren', e); } }
+      var f = await h.getFile(), nh = await toDir.getFileHandle(nm, { create: true }), w = await nh.createWritable(); await w.write(f); await w.close();
+      await fromDir.removeEntry(name);
+    }
+    /* na verwerken: naar Verwerkt\JJJJ-MM-DD\ of verwijderen (instelling) */
+    async function finish(root, dir, h, name) {
+      if (st().na === 'verwijderen') { await dir.removeEntry(name); return; }
+      var vd = await (await root.getDirectoryHandle(PV_DONE, { create: true })).getDirectoryHandle(isoDay(0), { create: true });
+      await moveFile(dir, h, name, vd);
+    }
+
+    /* ---------- één bestand verwerken. Geeft { m, n } bij succes, 'later' (nog niet te koppelen) of null */
+    async function handle(f, m) {
+      if (m) return { m: m, n: await addItems(m, await expandFiles([item(f)])) };
+      if (isMailItem(f)) {
+        var p = await parseMailFile(f);
+        if (p.r.date) { /* een uitnodiging: nieuwe of bijgewerkte vergadering; bij een bestaande komen mail en bijlagen erbij */
+          var d = await draftFromMail(f), ex = sameDay(d);
+          if (ex) { if (d.start) { ex.start = d.start; if (d.end) ex.end = d.end; } return { m: ex, n: await addItems(ex, await expandFiles([item(f)])) }; }
+          var nm = await saveDraft(d); nm.files.forEach(function (x) { x.via = 'postvak'; }); return { m: nm, n: nm.files.length, made: true };
+        }
+        var mm = matchMeeting(p.m.subject || f.name); if (mm) return { m: mm, n: await addItems(mm, await expandFiles([item(f)])) };
+        return 'later';
+      }
+      var m2 = matchMeeting(f.name); if (m2) return { m: m2, n: await addItems(m2, await expandFiles([item(f)])) };
+      return 'later';
+    }
+
+    /* ---------- ophalen: bij de start en elke minuut. Een bestand dat nog groeit (grootte of tijd veranderd sinds de vorige controle) wacht. */
+    async function scan() {
+      if (P.busy) return; P.busy = true; clearTimeout(P.retry); P.retry = null;
+      var root = null, waiting = 0, got = {}, total = 0, made = 0, changed = [];
+      try {
+        root = await openDir(); if (!root) return;
+        await syncFolders(root);
+        var s = st(), jobs = [], uns = [];
+        for await (var e of root.values()) {
+          if (e.kind === 'file') jobs.push({ dir: root, h: e, m: null, path: '' });
+          else if (e.name === PV_UNSORTED) { for await (var u of e.values()) if (u.kind === 'file' && !skipName(u.name)) uns.push(u.name); }
+          else if (e.name !== PV_DONE) { var mid = s.dirs[e.name], mt = mid && byId(mid); for await (var g of e.values()) if (g.kind === 'file') jobs.push({ dir: e, h: g, m: mt || null, path: e.name }); }
+        }
+        P.unsorted = uns.sort(function (a, b) { return a.localeCompare(b, 'nl', { numeric: true }); });
+        for (var i = 0; i < jobs.length; i++) {
+          var j = jobs[i], name = j.h.name; if (skipName(name)) continue;
+          var f = await j.h.getFile(), key = j.path + '/' + name, sig = f.size + '|' + f.lastModified;
+          if (P.seen[key] !== sig) { P.seen[key] = sig; waiting++; continue; } /* eerste keer gezien of nog in beweging: volgende controle */
+          if (s.done.indexOf(key + '|' + sig) >= 0) { try { await finish(root, j.dir, j.h, name); } catch (er) {} continue; } /* al verwerkt (verplaatsen mislukte eerder) */
+          var r;
+          try { r = await handle(await copyOf(f), j.m); }
+          catch (er) { console.error(er); toast('"' + name + '" uit je postvak kon niet worden gelezen en staat bij Nog in te delen.', 'warn'); r = 'later'; }
+          if (r === 'later') { var ud = await root.getDirectoryHandle(PV_UNSORTED, { create: true }), un = await uniqueIn(ud, name); await moveFile(j.dir, j.h, name, ud); P.unsorted.push(un); delete P.seen[key]; continue; }
+          s.done.push(key + '|' + sig); if (s.done.length > 300) s.done.splice(0, s.done.length - 300);
+          delete P.seen[key];
+          if (r && r.m) { got[r.m.title] = (got[r.m.title] || 0) + r.n; total += r.n; if (r.made) made++; if (changed.indexOf(r.m) < 0) changed.push(r.m); }
+          try { await finish(root, j.dir, j.h, name); } catch (er) { console.warn('Bestand niet verplaatst', er); }
+        }
+        await persist();
+        P.last = new Date();
+      } finally {
+        P.busy = false;
+        if (waiting && plOn(plugin('postvak'))) P.retry = setTimeout(function () { plCall(plugin('postvak'), 'onTick'); }, 4000);
+      }
+      if (total) {
+        toast(total + ' nieuw' + (total === 1 ? ' stuk' : 'e stukken') + ' uit je postvak: ' + Object.keys(got).map(function (t) { return t + ' (' + got[t] + ')'; }).join(', ') + (made ? '. ' + made + ' nieuwe vergadering' + (made === 1 ? '' : 'en') + '.' : '.'), 'ok');
+        refresh(changed);
+      } else if (/^#\/?$/.test(location.hash || '#/')) refresh([]);
+    }
+    /* scherm bijwerken, zonder iemand te storen die aan het typen is */
+    function refresh(changed) {
+      var h = location.hash || '#/', ae = D.activeElement, typing = ae && /^(TEXTAREA|INPUT|SELECT)$/.test(ae.tagName);
+      try { renderSide(); } catch (e) {}
+      if (/^#\/?$/.test(h)) { if (!typing) renderHome(); return; }
+      var mm = /^#\/v\/(.+)$/.exec(h); if (mm && !typing) { var m = byId(decodeURIComponent(mm[1])); if (m && changed.indexOf(m) >= 0) renderDetail(m); }
+      if (h === '#/bestanden' && typeof FX !== 'undefined') FX.items = null;
+    }
+    /* een stuk uit Nog in te delen toewijzen aan een vergadering */
+    async function assign(name, mid) {
+      var m = byId(mid); if (!m || !P.dir) return;
+      var root = P.dir, ud = await root.getDirectoryHandle(PV_UNSORTED), h = await ud.getFileHandle(name), f = await copyOf(await h.getFile());
+      var n = await addItems(m, await expandFiles([item(f)]));
+      await finish(root, ud, h, name); await persist();
+      P.unsorted = P.unsorted.filter(function (x) { return x !== name; });
+      toast('"' + name + '" staat nu bij ' + m.title + (n > 1 ? ' (' + n + ' stukken)' : '') + '.', 'ok'); refresh([m]);
+    }
+
+    /* ---------- schermen */
+    function homeHtml() {
+      var s = st(), msg = '';
+      if (P.status === 'perm') msg = '<p class="pvwarn">MeMeet heeft opnieuw toegang nodig tot je postvak <b>' + esc(s.name || '') + '</b>. <button type="button" class="btn sm" id="pvGrant">Toegang geven</button></p>';
+      else if (P.status === 'unreachable') msg = '<p class="pvwarn">Je postvak <b>' + esc(s.name || '') + '</b> is niet bereikbaar. Is de netwerkschijf verbonden? <button type="button" class="btn sm" id="pvGrant">Opnieuw proberen</button></p>';
+      else if (P.status === 'none') msg = '<p class="pvwarn">Kies je postvak in het <a href="#/installatie">installatiescherm</a>.</p>';
+      if (!msg && !P.unsorted.length) return '';
+      var opts = A.data.meetings.filter(function (m) { return !m.isNew && m.date && m.date >= isoDay(-7) && m.date <= isoDay(60); }).sort(ibSort)
+        .map(function (m) { return '<option value="' + esc(m.id) + '">' + esc(fmtShort(m.date) + (m.start ? ' ' + m.start : '') + ' · ' + m.title) + '</option>'; }).join('');
+      return '<section class="card pvhome" id="pvHome"><h2>' + ic('inbox') + ' Postvak' + (P.unsorted.length ? ': nog in te delen <span class="muted">' + P.unsorted.length + '</span>' : '') + '</h2>' + msg +
+        (P.unsorted.length ? '<ul class="pvlist">' + P.unsorted.map(function (n) { return '<li><span class="fn" title="' + esc(n) + '">' + esc(n) + '</span><select data-pvas="' + esc(n) + '" aria-label="Vergadering voor ' + esc(n) + '"><option value="">Vergadering kiezen…</option>' + opts + '</select></li>'; }).join('') + '</ul>' +
+          '<p class="muted small">Of sleep het bestand in Verkenner naar de map van de vergadering in je postvak.</p>' : '') + '</section>';
+    }
+    function bindHome(root) {
+      var g = $('#pvGrant', root); if (g) g.onclick = grant;
+      $$('[data-pvas]', root).forEach(function (s) { s.onchange = function () { if (s.value) assign(s.dataset.pvas, s.value).catch(function (e) { console.error(e); toast('Toewijzen lukte niet: ' + (e.message || e), 'err'); }); }; });
+    }
+    function installHtml() {
+      var s = st();
+      return '<section class="card wk" id="insPostvak"><h2>Uitbreiding Postvak</h2>' +
+        '<p>Kies een map als postvak, bijvoorbeeld een map op de netwerkschijf waar alleen jij en je secretaresse bij kunnen. MeMeet maakt daarin een map per vergadering van de komende ' + PV_DAYS + ' dagen, en de mappen <b>' + PV_UNSORTED + '</b> en <b>' + PV_DONE + '</b>. Wat in het postvak komt, staat binnen een minuut bij de vergadering.</p>' +
+        (s.name ? '<p class="' + (P.status === 'ok' ? 'okline' : 'warnline') + '">' + (P.status === 'ok' ? '✓ Postvak: ' : 'Postvak (niet bereikbaar of geen toegang): ') + '<b>' + esc(s.name) + '</b></p>' : '') +
+        '<p><button type="button" class="btn' + (s.name ? '' : ' pri') + '" id="pvPick">' + ic('folder') + ' Postvak kiezen…</button></p>' +
+        '<p>Na verwerken: <label><input type="radio" name="pvna" value="verplaatsen"' + (s.na !== 'verwijderen' ? ' checked' : '') + '> verplaatsen naar <b>' + PV_DONE + '\\JJJJ-MM-DD</b></label> <label><input type="radio" name="pvna" value="verwijderen"' + (s.na === 'verwijderen' ? ' checked' : '') + '> verwijderen</label></p>' +
+        '<p class="muted">Gebruik op een gedeelde map geen Windows-mapversleuteling: dan kan je secretaresse er niet meer bij. Laat beheer de toegangsrechten instellen.</p></section>';
+    }
+    function bindInstall(root) {
+      var b = $('#pvPick', root); if (b) b.onclick = pick;
+      $$('input[name=pvna]', root).forEach(function (r) { r.onchange = async function () { st().na = r.value; await persist(); toast(r.value === 'verwijderen' ? 'Verwerkte bestanden worden verwijderd uit het postvak.' : 'Verwerkte bestanden gaan naar de map Verwerkt.', 'ok'); }; });
+    }
+    function helpHtml() {
+      return '<p>Wat in je postvak komt, haalt MeMeet elke minuut op. Een bestand in de map van een vergadering wordt een stuk van die vergadering. Een uitnodiging (.msg of .eml) wordt een vergadering; een mail bij een bestaande vergadering komt daar met de bijlagen bij. Zips en doorgestuurde mails worden uitgepakt. Een los bestand met een datum of titel in de naam wordt gekoppeld; wat niet te koppelen is, staat op de pagina Vergaderingen onder <b>Postvak: nog in te delen</b>. Heet een bestand hetzelfde als een stuk, dan wordt het een nieuwe versie. Een bestand dat nog wordt gekopieerd, wacht tot het klaar is.</p>' +
+        '<h3>Outlook: mails met stukken in het postvak</h3><p>De eenvoudigste werkwijze: een regel zet mails met stukken in een Outlook-map <b>MeMeet</b>. Daaruit sleep je ze naar je postvak in Verkenner, of rechtstreeks naar MeMeet.</p>' +
+        '<p><b>Klassieke Outlook</b></p><ol><li>Maak een map <b>MeMeet</b>: rechtermuisknop op <i>Postvak IN</i> › <b>Nieuwe map</b>.</li><li><b>Bestand</b> › <b>Regels en waarschuwingen beheren</b> › <b>Nieuwe regel</b> › <i>Regel toepassen op berichten die ik ontvang</i>.</li><li>Kies de voorwaarden, bijvoorbeeld <i>van</i> je secretaresse en <i>met een bijlage</i>, of een woord als <i>stukken</i> in het onderwerp.</li><li>Kies de actie <b>verplaatsen naar de opgegeven map</b> › <b>MeMeet</b> en klik op <b>Voltooien</b>.</li></ol>' +
+        '<p><b>Nieuwe Outlook</b></p><ol><li>Maak een map <b>MeMeet</b>: rechtermuisknop op <i>Postvak IN</i> › <b>Nieuwe submap maken</b>.</li><li><b>Instellingen</b> (tandwiel) › <b>Mail</b> › <b>Regels</b> › <b>Nieuwe regel toevoegen</b>.</li><li>Geef een naam, kies een voorwaarde en als actie <b>Verplaatsen naar</b> › <b>MeMeet</b>, en klik op <b>Opslaan</b>.</li><li>Kun je een mail niet slepen, kies dan bij de mail <b>⋯</b> › <b>Opslaan als</b> en zet het bestand in je postvak.</li></ol>' +
+        '<h3>Extra: een macro (alleen klassieke Outlook)</h3><p>De macro <code>MeMeet-naar-postvak</code> zet geselecteerde mails als <code>.msg</code> in je postvak. Hij werkt ook in een regel, met de actie <b>een script uitvoeren</b>. Zet in de eerste regels het pad naar je postvak. Plak de code in Outlook via <b>Alt+F11</b> › <b>Invoegen</b> › <b>Module</b>.</p>' +
+        '<p class="muted">Beperkingen: de nieuwe Outlook kent geen macro\'s. Een script in een regel werkt alleen als je organisatie dat toestaat; vraag het beheer.</p>' +
+        '<pre class="pvmacro" id="pvMacro"></pre><p><button type="button" class="btn sm" id="pvCopy">Code kopiëren</button></p>' +
+        '<h3>Veiligheid</h3><ul><li>Laat beheer de toegang tot het postvak instellen: alleen jij en je secretaresse.</li><li>Gebruik op een gedeelde map geen Windows-mapversleuteling.</li><li>Er gaat niets van je datamap naar het postvak. De mapnamen bevatten alleen de datum, de tijd en de titel van de vergadering.</li><li>Het jaarlijks opschonen maakt ook de map <b>' + PV_DONE + '</b> leeg.</li></ul>';
+    }
+    function bindHelp(root) {
+      var pre = $('#pvMacro', root); if (pre) pre.textContent = POSTVAK_MACRO;
+      var c = $('#pvCopy', root); if (c) c.onclick = async function () { var ok = false; try { await navigator.clipboard.writeText(POSTVAK_MACRO); ok = true; } catch (e) {} toast(ok ? 'Gekopieerd. Plak het in Outlook met Ctrl+V.' : 'Kopiëren lukte niet. Selecteer de tekst en druk op Ctrl+C.', ok ? 'ok' : 'warn'); };
+    }
+    async function onCleanup() {
+      var root = await openDir(); if (!root) return;
+      try { await root.removeEntry(PV_DONE, { recursive: true }); } catch (e) {}
+      await root.getDirectoryHandle(PV_DONE, { create: true }); st().done = [];
+    }
+    function onDisable() { clearTimeout(P.retry); P.retry = null; P.dir = null; P.status = 'none'; P.seen = {}; P.unsorted = []; P.busy = false; }
+
+    var POSTVAK_MACRO = "Attribute VB_Name = \"MeMeetPostvak\"\r\n' MeMeet - mails als .msg opslaan in het postvak van MeMeet (uitbreiding Postvak)\r\n'\r\n' Werkt alleen in de klassieke Outlook (de nieuwe Outlook kent geen macro's).\r\n' Installeren: Alt+F11 > Invoegen > Module > deze code plakken > opslaan.\r\n' Gebruiken:   selecteer een of meer mails en start NaarPostvak (Alt+F8),\r\n'              of kies in een regel de actie \"een script uitvoeren\" > NaarPostvakRegel.\r\n'              Scripts in regels werken alleen als je organisatie dat toestaat.\r\n'\r\n' Zet hieronder het pad naar je postvak (de map die je in MeMeet als postvak hebt gekozen).\r\nConst POSTVAK As String = \"C:\\Users\\JOUWNAAM\\MeMeet-postvak\\\"\r\n\r\n' De geselecteerde mails in het postvak zetten\r\nPublic Sub NaarPostvak()\r\n    Dim sel As Outlook.Selection, i As Long, n As Long\r\n    Set sel = Application.ActiveExplorer.Selection\r\n    For i = 1 To sel.Count\r\n        If TypeOf sel.Item(i) Is Outlook.MailItem Or TypeOf sel.Item(i) Is Outlook.MeetingItem Then\r\n            SlaOp sel.Item(i)\r\n            n = n + 1\r\n        End If\r\n    Next\r\n    MsgBox n & \" mail(s) in het postvak gezet.\", vbInformation, \"MeMeet\"\r\nEnd Sub\r\n\r\n' Voor een Outlook-regel met de actie \"een script uitvoeren\"\r\nPublic Sub NaarPostvakRegel(itm As Outlook.MailItem)\r\n    SlaOp itm\r\nEnd Sub\r\n\r\nPrivate Sub SlaOp(itm As Object)\r\n    Dim pad As String, naam As String, tmp As String\r\n    pad = POSTVAK\r\n    If Right(pad, 1) <> \"\\\" Then pad = pad & \"\\\"\r\n    naam = Format(itm.ReceivedTime, \"yyyy-mm-dd hh.nn\") & \" \" & SchoneNaam(itm.Subject)\r\n    If Len(naam) > 120 Then naam = Left(naam, 120)\r\n    ' Eerst onder een tijdelijke naam opslaan en daarna hernoemen. MeMeet slaat bestanden over die met ~ beginnen\r\n    ' of op .tmp eindigen, en pakt zo nooit een half opgeslagen mail op.\r\n    tmp = pad & \"~\" & naam & \".tmp\"\r\n    itm.SaveAs tmp, olMSG\r\n    Name tmp As pad & UniekeNaam(pad, naam, \".msg\")\r\nEnd Sub\r\n\r\nPrivate Function SchoneNaam(s As String) As String\r\n    Dim t As String, c As Variant\r\n    t = s\r\n    For Each c In Array(\"\\\", \"/\", \":\", \"*\", \"?\", \"\"\"\", \"<\", \">\", \"|\", vbTab, vbCr, vbLf)\r\n        t = Replace(t, c, \"_\")\r\n    Next\r\n    t = Trim(t)\r\n    If t = \"\" Then t = \"Mail\"\r\n    SchoneNaam = t\r\nEnd Function\r\n\r\nPrivate Function UniekeNaam(pad As String, naam As String, ext As String) As String\r\n    Dim kandidaat As String, n As Long\r\n    kandidaat = naam & ext\r\n    n = 1\r\n    Do While Dir(pad & kandidaat) <> \"\"\r\n        n = n + 1\r\n        kandidaat = naam & \" (\" & n & \")\" & ext\r\n    Loop\r\n    UniekeNaam = kandidaat\r\nEnd Function\r\n";
+    registerPlugin({
+      id: 'postvak', naam: 'Postvak',
+      omschrijving: 'Een map (bijvoorbeeld op de netwerkschijf) waarin jij of je secretaresse stukken en mails zet. MeMeet haalt ze elke minuut op en zet ze bij de juiste vergadering.',
+      privacy: 'MeMeet leest alleen de map die jij als postvak kiest en zet wat erin komt als stuk in je datamap. Er gaat niets van je datamap naar het postvak: daar maakt MeMeet alleen mappen met de datum, tijd en titel van je komende vergaderingen. Wie bij het postvak kan, ziet die mapnamen en wat erin wordt gezet. MeMeet maakt geen verbinding met internet.',
+      onStart: scan, onTick: scan, homeHtml: homeHtml, bindHome: bindHome, installHtml: installHtml, bindInstall: bindInstall,
+      helpHtml: helpHtml, bindHelp: bindHelp, onCleanup: onCleanup, onDisable: onDisable,
+      forget: { vraag: 'Koppeling met de postvak-map ook vergeten?\n\nOK = MeMeet vergeet welke map je postvak was (de map zelf en wat erin staat blijven bestaan).\nAnnuleren = de koppeling bewaren voor als je de uitbreiding later weer aanzet.', run: async function () { await kvSet('postvakDir', null); var s = st(); s.name = null; s.dirs = {}; s.done = []; await persist(); } },
+      /* voor de tests */
+      _scan: scan, _assign: assign, _match: matchMeeting, _state: function () { return P; }
+    });
+  })();
+
   /* MeMeet - app-ui: schermen (startscherm, vergadering, stukkenlijst), thema en het starten van de app */
   /* ------------------------------------------------------------- weergave */
   function route() {
@@ -6400,7 +6754,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
     var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
-    h += cleanBannerHtml() + ibBannerHtml();
+    h += cleanBannerHtml() + ibBannerHtml() + plHtml('homeHtml'); /* blokken van uitbreidingen die aanstaan */
     h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
@@ -6446,7 +6800,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     $('#upc').onclick = function () { keepScroll(function () { A.showUp = !A.showUp; }); };
     $('#tdy').onclick = function () { keepScroll(function () { A.showToday = !A.showToday; }); };
     $('#tmr').onclick = function () { keepScroll(function () { A.showTomorrow = !A.showTomorrow; }); };
-    bindCleanBanner();
+    bindCleanBanner(); plBind('bindHome', $('#main'));
     var qn = $('#qnext'); if (qn) qn.onclick = function () { A.qi = qPick(); var f = $('#quote'); f.classList.remove('in'); void f.offsetWidth; $('#qtxt').textContent = Q[A.qi][0]; $('#qwho').textContent = Q[A.qi][1]; f.classList.add('in'); };
     bindFolders($('#main'));
     $('#new').onclick = function () { A.draft = blankDraft(); };
@@ -6519,7 +6873,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
         /* één regel per stuk: nummer, naam en verwijderen. Bijzonderheden staan in de tooltip van de naam; ordenen gaat door te slepen,
            het origineel downloaden via ⋯ in de viewer. */
         var na = annCount(f.ann), tip = f.name + (f.conv === 'vervangen' ? '\nDe viewer toont de PDF-versie die je erbij hebt gezet.' : '') + (!canView(f.name, f.type) ? '\nDit bestandstype kan de viewer niet tonen; download het origineel via ⋯ in de viewer.' : '') + (na ? '\n' + na + ' aantekening' + (na === 1 ? '' : 'en') + ' in dit stuk.' : '');
-        h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(tip) + '">' + esc(f.name) + '</span>' +
+        h += '<li data-sel="' + i + '" draggable="true"' + (dsel[f.name] ? ' class="picked"' : '') + '><div class="dl1"><span class="num">' + (i + 1) + '</span><span class="fn" title="' + esc(tip) + '">' + esc(f.name) + '</span>' + (f.via === 'postvak' ? '<span class="bdg via" title="Binnengekomen via het postvak">via postvak</span>' : '') +
           '<button type="button" class="link red rmx" data-rm="' + i + '" title="Verwijderen" aria-label="' + esc(f.name) + ' verwijderen">' + ic('close') + '</button></div></li>';
       }
     });
@@ -6722,7 +7076,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     route();
   }
   start().catch(function (e) { setHTML($('#main'), '<div class="card welcome"><h1>Er ging iets mis bij het starten</h1><p>' + esc(e.message || e) + '</p><button class="btn" id="useIdb">In de browser bewaren</button></div>'); $('#useIdb').onclick = function () { useStore(new BrowserStore()); }; });
-  if (W.__VA_TEST) W.__va = { ibParse: ibParse, ibResolve: ibResolve, ibAll: ibAll, ibItemsOf: ibItemsOf, ibRemSrc: ibRemSrc, ibStripPriv: ibStripPriv, minutesMailText: minutesMailText, htmlPathWin: htmlPathWin, findBase: findBase, baseCandidates: baseCandidates, detectBase: detectBase, kvSet: kvSet, findLink: findLink, convertToPdf: convertToPdf, expandFiles: expandFiles, prevMeeting: prevMeeting, A: A, useStore: useStore, FolderStore: FolderStore, BrowserStore: BrowserStore, handleDrop: handleDrop };
+  if (W.__VA_TEST) W.__va = { plugins: PLUGINS, plugin: plugin, plTimerOn: function () { return !!PL.timer; }, ibParse: ibParse, ibResolve: ibResolve, ibAll: ibAll, ibItemsOf: ibItemsOf, ibRemSrc: ibRemSrc, ibStripPriv: ibStripPriv, minutesMailText: minutesMailText, htmlPathWin: htmlPathWin, findBase: findBase, baseCandidates: baseCandidates, detectBase: detectBase, kvSet: kvSet, findLink: findLink, convertToPdf: convertToPdf, expandFiles: expandFiles, prevMeeting: prevMeeting, A: A, useStore: useStore, FolderStore: FolderStore, BrowserStore: BrowserStore, handleDrop: handleDrop };
 
 })();
 </script></body></html>

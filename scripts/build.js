@@ -19,10 +19,15 @@ function bundleIife(entry, globalName) {
 }
 
 const app = "(function(){'use strict';var W=window,D=document;\n" +
-  ['core.js', 'mail-parser.js', 'store.js', 'convert.js', 'pptx-render.js', 'editor.js', 'notes.js', 'hview.js', 'inbreng.js', 'annotatie.js', 'mailacts.js', 'reports.js', 'vervolg.js', 'opschonen.js', 'files.js', 'help.js', 'intake.js', 'install.js', 'pdfview.js', 'app-ui.js'].map(src).join('\n') + '\n})();'
+  ['core.js', 'mail-parser.js', 'store.js', 'convert.js', 'pptx-render.js', 'editor.js', 'notes.js', 'hview.js', 'inbreng.js', 'annotatie.js', 'mailacts.js', 'reports.js', 'vervolg.js', 'opschonen.js', 'files.js', 'help.js', 'intake.js', 'install.js', 'pdfview.js', 'plugins.js'].concat(
+    // uitbreidingen: elk bestand in src/plugins/ (op alfabet), na het register en vóór app-ui.js
+    fs.readdirSync(path.join(root, 'src', 'plugins')).filter((f) => /\.js$/.test(f)).sort().map((f) => 'plugins/' + f), ['app-ui.js']).map(src).join('\n') + '\n})();'
 // De Outlook-macro voor de weekagenda staat in outlook/; die wordt in de app gezet zodat gebruikers hem kunnen kopiëren.
 const macro = fs.readFileSync(path.join(root, 'outlook', 'MeMeet-weekagenda.bas'), 'utf8').replace(/\r?\n/g, '\r\n');
+const pvMacro = fs.readFileSync(path.join(root, 'outlook', 'MeMeet-naar-postvak.bas'), 'utf8').replace(/\r?\n/g, '\r\n');
 const appWithMacro = app.replace('__OUTLOOK_MACRO__', () => JSON.stringify(macro))
+  // de Outlook-macro van de uitbreiding Postvak
+  .replace('__POSTVAK_MACRO__', () => JSON.stringify(pvMacro))
   // het icoon (.ico) voor de snelkoppeling op het bureaublad
   .replace('__MEMEET_ICO__', () => JSON.stringify(fs.readFileSync(path.join(root, 'icons', '2-tafel.ico')).toString('base64')))
   // WebAssembly van pdf.js voor ingescande PDF's (CCITT-fax en JBIG2, JPEG 2000)
@@ -30,7 +35,8 @@ const appWithMacro = app.replace('__OUTLOOK_MACRO__', () => JSON.stringify(macro
 
 // Iconen uit Material Symbols Rounded (Apache-2.0): alleen de iconen die de app gebruikt (ic('naam') of class "i-naam"),
 // als CSS-masker zodat ze de tekstkleur aannemen. Zo staat er geen SVG in de HTML (setHTML ondersteunt dat niet).
-const allSrc = fs.readdirSync(path.join(root, 'src')).filter((f) => /\.(js|html)$/.test(f)).map(src).join('\n');
+const allSrc = fs.readdirSync(path.join(root, 'src')).filter((f) => /\.(js|html)$/.test(f))
+  .concat(fs.readdirSync(path.join(root, 'src', 'plugins')).filter((f) => /\.js$/.test(f)).map((f) => 'plugins/' + f)).map(src).join('\n');
 const iconNames = [...new Set([
   ...[...allSrc.matchAll(/\bic(?:El)?\(([^()]*)\)/g)].flatMap((m) => [...m[1].matchAll(/'([a-z0-9_]+)'/g)].map((x) => x[1])), // ic('naam'), ook ic(x ? 'a' : 'b')
   ...[...allSrc.matchAll(/\bbtn\(\['([a-z0-9_]+)'/g)].map((m) => m[1]), // knoppen in de editor: btn(['naam', 'tekst'])

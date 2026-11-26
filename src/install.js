@@ -45,9 +45,10 @@
     h += '<section class="card wk"><h2>5. Bijwerken naar een nieuwe versie</h2>' + UPGRADE_HTML + '</section>';
     h += '<section class="card wk"><h2>6. Back-up</h2>' + BACKUP_HTML.replace(/<h3>/g, '<h3 class="sub">') + '</section>';
     h += '<section class="card wk"><h2>7. Elk jaar opschonen</h2>' + CLEAN_HTML + '<p><a class="btn" href="#/opschonen">' + ic('delete_sweep') + ' Gegevens opschonen…</a></p></section>';
+    h += '<section class="card wk" id="insPlugins"><h2>8. Uitbreidingen (optioneel)</h2>' + plListHtml() + '</section>' + plHtml('installHtml');
     h += '<p><a class="btn" href="#/">Klaar, naar de vergaderingen</a></p>';
     setHTML($('#main'), h);
-    $('#insPick').onclick = chooseFolder; bindFolders($('#main'));
+    $('#insPick').onclick = chooseFolder; plBindList($('#main'), renderInstall); plBind('bindInstall', $('#main')); bindFolders($('#main'));
     $('#insIco').onclick = function () { dl(icoBlob(), 'MeMeet.ico'); };
     var c = $('#insCopy'); if (c) c.onclick = async function () { var ok = false; try { await navigator.clipboard.writeText(cmd); ok = true; } catch (e) {} toast(ok ? 'Gekopieerd. Plak het met Ctrl+V.' : 'Kopiëren lukte niet. Selecteer de tekst en druk op Ctrl+C.', ok ? 'ok' : 'warn'); };
   }

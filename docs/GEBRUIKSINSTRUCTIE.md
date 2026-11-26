@@ -101,6 +101,41 @@ Lever wat je vindt aan zoals gevraagd. Pas onjuiste gegevens aan of verwijder ze
 
 Is je laptop kwijt, heb je een mail naar de verkeerde persoon gestuurd, of denk je dat iemand bij je gegevens kon? Meld het **direct** bij de servicedesk of het meldpunt datalekken van je organisatie. Ook als je twijfelt.
 
+
+## 11. Uitbreiding Postvak (optioneel)
+
+Het Postvak staat standaard uit. Zet het alleen aan als je stukken via een gedeelde map wilt ontvangen, bijvoorbeeld van je secretaresse.
+
+**Aanzetten en het postvak kiezen**
+
+1. Vraag beheer om een map op de netwerkschijf waar **alleen jij en je secretaresse** bij kunnen. Beheer stelt de toegangsrechten in; doe dat niet zelf.
+2. Open in MeMeet de help (**?**) › tabblad **Uitbreidingen** en zet **Postvak** aan. Lees de privacytekst en klik op **Aanzetten**.
+3. Open **Help › Installatie** (of het installatiescherm) en klik bij **Uitbreiding Postvak** op **Postvak kiezen…**. Kies de map en klik op **Toestaan**.
+4. MeMeet maakt in het postvak een map per vergadering van de komende 14 dagen, en de mappen `Nog in te delen` en `Verwerkt`.
+
+Bij elke start vraagt de browser of MeMeet het postvak weer mag gebruiken. Is de netwerkschijf niet verbonden, dan meldt MeMeet dat op de pagina Vergaderingen.
+
+**Gebruik**
+
+- Zet een stuk in de map van de vergadering. Binnen een minuut staat het bij die vergadering, met het kenmerk *via postvak*.
+- Een uitnodiging of een mail met stukken mag ook in de hoofdmap van het postvak. Wat MeMeet niet kan koppelen, staat op de pagina Vergaderingen onder **Postvak: nog in te delen**; kies daar de vergadering.
+- Na verwerken gaat het bestand naar `Verwerkt` (of wordt het verwijderd, als je dat in het installatiescherm kiest).
+
+**Veiligheid**
+
+- Gebruik op een gedeelde map **geen** Windows-mapversleuteling ("Inhoud versleutelen"): dan kan je secretaresse er niet meer bij. De map wordt beschermd door de toegangsrechten die beheer instelt, en door de beveiliging van de netwerkschijf.
+- Er gaat niets van je datamap naar het postvak. De mapnamen bevatten alleen de datum, de tijd en de titel van je vergaderingen. Wie bij het postvak kan, ziet die titels.
+- Het jaarlijks opschonen maakt ook de map `Verwerkt` leeg. Vraag je secretaresse geen kopieën elders te bewaren.
+- Zet je de uitbreiding uit, dan vraagt MeMeet of het de koppeling met het postvak moet vergeten. De map zelf en wat erin staat, blijven bestaan.
+
+**Outlook**
+
+De eenvoudigste werkwijze: een regel in Outlook zet mails met stukken in een Outlook-map **MeMeet**. Daaruit sleep je ze naar het postvak in Verkenner, of rechtstreeks naar MeMeet.
+
+- *Klassieke Outlook:* maak een map **MeMeet** onder Postvak IN. Kies **Bestand › Regels en waarschuwingen beheren › Nieuwe regel › Regel toepassen op berichten die ik ontvang**, kies de voorwaarden (bijvoorbeeld *van* je secretaresse en *met een bijlage*) en de actie **verplaatsen naar de opgegeven map › MeMeet**.
+- *Nieuwe Outlook:* maak een submap **MeMeet**. Kies **Instellingen › Mail › Regels › Nieuwe regel toevoegen**, met als actie **Verplaatsen naar › MeMeet**. Kun je een mail niet slepen, kies dan bij de mail **⋯ › Opslaan als** en zet het bestand in het postvak.
+- *Extra, alleen klassieke Outlook:* de macro `MeMeet-naar-postvak` (in de help van de uitbreiding, met een knop om te kopiëren) zet geselecteerde mails als `.msg` in het postvak. Hij werkt ook in een regel met de actie **een script uitvoeren**, als je organisatie dat toestaat.
+
 ---
 
-*Deze instructie hoort bij MeMeet 1.8.1 en sluit aan op de [DPIA voor MeMeet](20261126%20DPIA%20MeMeet%20v1.8.1.pdf).*
+*Deze instructie hoort bij MeMeet 1.9.0 en sluit aan op de [DPIA voor MeMeet](20261126%20DPIA%20MeMeet%20v1.9.0.pdf).*

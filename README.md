@@ -40,6 +40,7 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 - [Bijwerken naar een nieuwe versie](#bijwerken-naar-een-nieuwe-versie)
 - [Back-up en verhuizen](#back-up-en-verhuizen)
 - [Problemen oplossen](#problemen-oplossen)
+- [Uitbreidingen](#uitbreidingen)
 - [Privacy en beveiliging](#privacy-en-beveiliging)
 - [Voor ontwikkelaars: zelf bouwen](#voor-ontwikkelaars-zelf-bouwen)
 - [Projectstructuur](#projectstructuur)
@@ -290,6 +291,29 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 
 ---
 
+## Uitbreidingen
+
+Uitbreidingen zitten in `MeMeet.html`, maar staan **standaard uit**. Zolang een uitbreiding uitstaat, merk je er niets van: geen knoppen, geen meldingen, geen toestemmingsvragen en geen toegang tot bestanden.
+
+**Aanzetten:** open de help (knop **?**) › tabblad **Uitbreidingen**, of het installatiescherm › **Uitbreidingen**. Zet de schakelaar aan; MeMeet laat eerst zien wat de uitbreiding met gegevens doet. Je keuze staat in `memeet.json` en gaat dus mee met je datamap en je back-up. Bij uitzetten ruimt de uitbreiding alles op wat ze in MeMeet liet zien.
+
+### Postvak
+
+Een map die jij kiest, bijvoorbeeld op de netwerkschijf, waarin jij of je secretaresse stukken en mails zet. MeMeet haalt ze elke minuut op:
+
+- MeMeet maakt in het postvak een map per vergadering van de komende 14 dagen (`2026-12-02 09.00 Teamoverleg`), plus `Nog in te delen` en `Verwerkt`. Lege mappen van voorbije vergaderingen ruimt het op.
+- Een bestand in de map van een vergadering wordt een stuk van die vergadering, met het kenmerk *via postvak*.
+- Een uitnodiging (`.msg` of `.eml`) wordt een vergadering; een mail bij een bestaande vergadering komt daar met de bijlagen bij. Zips en doorgestuurde mails worden uitgepakt.
+- Een los bestand met een datum of titel in de naam wordt gekoppeld via de titelherkenning. Wat niet te koppelen is, staat op de pagina Vergaderingen onder **Postvak: nog in te delen**, met een keuzelijst.
+- Een zelfde naam wordt een nieuwe versie; de vorige blijft bewaard. Een bestand dat nog wordt gekopieerd, wacht.
+- Na verwerken gaat het bestand naar `Verwerkt\JJJJ-MM-DD\`, of wordt het verwijderd (instelling). Het jaarlijks opschonen maakt `Verwerkt` leeg.
+- Er gaat niets van je datamap naar het postvak, en MeMeet maakt geen verbinding met internet.
+- Voor Outlook: een regel zet mails met stukken in een Outlook-map *MeMeet*; daaruit sleep je ze naar het postvak of naar MeMeet. Extra (alleen klassieke Outlook): de macro [`outlook/MeMeet-naar-postvak.bas`](outlook/MeMeet-naar-postvak.bas) zet geselecteerde mails als `.msg` in het postvak, ook als *script uitvoeren* in een regel. De stappen staan in de help van de uitbreiding.
+
+Zie ook de [gebruiksinstructie](docs/GEBRUIKSINSTRUCTIE.md#11-uitbreiding-postvak-optioneel).
+
+---
+
 ## Privacy en beveiliging
 
 - MeMeet draait volledig **in je eigen browser**. Mails, stukken en aantekeningen worden **nergens naartoe gestuurd**.
@@ -300,7 +324,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 - **Elk jaar opschonen:** in de laatste week van december toont MeMeet een balk met **Gegevens opschonen**. Dat verwijdert alle vergaderingen tot en met vandaag, met stukken, aantekeningen en acties. Herinneringspunten die aan een overleg gekoppeld zijn of op een overleg wachten, en je ideeën, blijven bewaard. Het kan ook op een ander moment, via **Help**.
 - Naast `MeMeet.html` staat `MeMeet.html.sha256`, het controlegetal waarmee je nagaat of een download ongewijzigd is.
 - Meer: de [gebruiksinstructie](docs/GEBRUIKSINSTRUCTIE.md).
-- De **DPIA** (gegevensbeschermingseffectbeoordeling volgens het Model DPIA Rijksdienst) staat in [`docs/20261126 DPIA MeMeet v1.8.1.pdf`](docs/20261126%20DPIA%20MeMeet%20v1.8.1.pdf). Conclusie: inzet kan onder vier voorwaarden; het restrisico is laag.
+- De **DPIA** (gegevensbeschermingseffectbeoordeling volgens het Model DPIA Rijksdienst) staat in [`docs/20261126 DPIA MeMeet v1.9.0.pdf`](docs/20261126%20DPIA%20MeMeet%20v1.9.0.pdf), met een apart onderdeel voor de uitbreiding Postvak. Conclusie: inzet kan onder vier voorwaarden; het restrisico is laag, ook met het Postvak aan als beheer de map inricht. Eerdere versies staan ernaast in `docs/`.
 
 ---
 
@@ -354,10 +378,13 @@ memeet/
 │  ├─ intake.js          ← mail, uitnodiging of weekagenda omzetten naar vergaderingen
 │  ├─ install.js         ← installatiescherm, datamap en mappen openen in Verkenner
 │  ├─ pdfview.js         ← viewer voor PDF en PowerPoint (pdf.js), met markeren/opmerkingen/zoeken
+│  ├─ plugins.js         ← uitbreidingssysteem: register, aan/uit, haakjes (veilig, met try/catch)
+│  ├─ plugins/postvak.js ← uitbreiding Postvak (standaard uit)
 │  ├─ app-ui.js          ← schermen (start, vergadering, stukkenlijst), thema en het starten van de app
 │  └─ icon.svg           ← app-icoon (optie 2, Tafel)
 ├─ outlook/
-│  └─ MeMeet-weekagenda.bas ← Outlook-macro: agenda van de komende 30 dagen opslaan als .ics
+│  ├─ MeMeet-weekagenda.bas ← Outlook-macro: agenda van de komende 30 dagen opslaan als .ics
+│  └─ MeMeet-naar-postvak.bas ← Outlook-macro: geselecteerde mails als .msg in het postvak zetten
 ├─ icons/                ← vier icoonontwerpen als SVG, PNG en ICO
 ├─ docs/                 ← gebruiksinstructie (GEBRUIKSINSTRUCTIE.md), DPIA (PDF), schermafbeeldingen, en in films/ de instructie- en installatiefilm
 ├─ scripts/build.js      ← bouwscript

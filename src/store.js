@@ -84,6 +84,7 @@
     if (st.kind === 'map') await migrateLayout(st);
     await kvSet('mode', st.kind);
     route();
+    plStartAll(); /* alleen uitbreidingen die aanstaan */
   }
   async function chooseFolder() {
     if (!W.showDirectoryPicker) { toast('Deze browser kan geen map kiezen. De gegevens worden in de browser bewaard.', 'warn'); return useStore(new BrowserStore()); }
