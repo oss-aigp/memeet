@@ -692,12 +692,14 @@ select.chipsel:hover{background:var(--licht)}
 .ibgrp li.ibrow{align-items:center}
 /* ---- Herinneringen 1.6.2: twee kolommen; links Komt op en (ingeklapt) Besproken, rechts Wacht op overleg en Ideeën; compacte regels */
 
-.ibcols{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:calc(100vh - var(--hdr) - 108px);min-height:440px}
+.ibcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;height:calc(100vh - var(--hdr) - 108px);min-height:440px}
 .ibcol{display:flex;flex-direction:column;gap:12px;min-height:0}
 .ibcol>.card{margin:0;flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .ibcol>.card.shut{flex:none}
 .ibcols .ibscroll{flex:1;min-height:0;overflow:auto;margin:0 -6px;padding:0 6px}
-@media (max-width:900px){.ibcols{grid-template-columns:1fr;height:auto}.ibcol>.card{flex:none;max-height:none}}
+/* altijd twee gelijke kolommen, ook als het venster smal is; regels korten dan in */
+.ibcol{min-width:0}.ibcols .ibrow2{min-width:0}.ibcols .ibrow2 .ibtx{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:900px){.ibcols .ibrow2{flex-wrap:wrap}.ibcols .ibmeta{margin-left:22px}}
 .ibtoggle{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:4px}.ibdone.shut h2{margin:0}
 .ibgrp h3{display:flex;align-items:baseline;gap:8px;margin:0 0 2px;font-size:14px}.ibgrp h3 .muted{font-weight:400;font-size:12.5px}
 .ibmlink{font-weight:700;text-decoration:none;color:var(--brand2)}.ibmlink:hover{text-decoration:underline}

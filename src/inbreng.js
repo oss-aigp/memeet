@@ -357,7 +357,12 @@
       '<div class="ibbig">' + esc(next.start || '') + '  ' + esc(next.title) + '</div>' +
       '</div><a class="btn" href="#/v/' + esc(encodeURIComponent(next.id)) + '">Openen</a></section>';
   }
-  function ibDelBtn(p) { return p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : ''; }
+  /* kruisje achter elke regel: een losse herinnering wordt verwijderd; een punt of idee uit aantekeningen wordt uit de lijsten
+     gehaald (de regel blijft in de aantekeningen staan) */
+  function ibDelBtn(p) {
+    return p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>'
+      : '<button type="button" class="link ibx" data-ibdismiss="' + esc(p.id) + '" title="Uit de lijst halen (de regel blijft in je aantekeningen staan)" aria-label="Uit de lijst halen">' + ic('close') + '</button>';
+  }
   /* één compacte regel per punt: de tekst, en rechts (of op een tweede regel) het label, de keuzelijst en de bron */
   function ibRowHtml(p, all, extra) {
     return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" data-ibdone="' + esc(p.id) + '" data-m="' + esc(p.r.st === 'open' && p.r.m ? p.r.m.id : '*') + '" title="Voltooid (besproken)" aria-label="Voltooid: ' + esc(p.text) + '"><span class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</span><span class="ibmeta">' + (extra || '') + ibChipSel(p, all.people, true) + ibSrcShort(p) + ibDelBtn(p) + '</span></li>';
@@ -441,6 +446,10 @@
       if (!s.value) return; ibSet(s.dataset.ibpinsel, 'pin', s.value === '-' ? null : s.value); await persist(); after();
       toast(s.value === '-' ? 'Weer automatisch.' : 'Komt op bij ' + ibName(byId(s.value)) + '.', 'ok');
     }; });
+    $$('[data-ibdismiss]', root).forEach(function (b) { b.onclick = async function (e) {
+      e.stopPropagation(); ibSet(b.dataset.ibdismiss, 'dismiss', 1); await persist(); after(); if (typeof renderSide === 'function') renderSide();
+      toast('Uit de lijst gehaald. De regel blijft in je aantekeningen staan.', 'ok');
+    }; });
     $$('[data-ibdel]', root).forEach(function (b) { b.onclick = async function (e) {
       e.stopPropagation(); A.data.rem = ibRems().filter(function (r) { return r.id !== b.dataset.ibdel; }); await persist(); after(); toast('Herinnering verwijderd.', 'ok');
     }; });
@@ -466,7 +475,7 @@
         groups[m.id].map(function (p) { return ibRowHtml(p, all, p.r.carried ? '<span class="tag" title="' + p.r.carried + '× doorgeschoven">' + p.r.carried + '×</span>' : ''); }).join('') + '</ul></div>';
     }).join('') : '<p class="muted ibempty">Er ligt niets klaar.</p>') + '</div></section>';
     h += '<section class="card ibcard ibdone' + (showDone ? '' : ' shut') + '"><h2><button type="button" class="ibtoggle" id="ibDoneT" aria-expanded="' + showDone + '">' + ic(showDone ? 'keyboard_arrow_down' : 'chevron_right') + ' Besproken <span class="muted">' + done.length + '</span></button></h2>' +
-      (showDone ? '<div class="ibscroll">' + (done.length ? '<ul class="iblist2">' + done.map(function (p) { return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" checked data-ibdone="' + esc(p.id) + '" title="Vinkje weghalen: weer open" aria-label="Weer open: ' + esc(p.text) + '"><s class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</s><span class="ibmeta">' + (p.r.m ? 'besproken in <button type="button" class="link" data-ibverslag="' + esc(p.r.m.id) + '" title="Het verslag van dit overleg bekijken en bewerken">' + esc(ibShort(p.r.m.title, 24)) + ' ' + esc(fmtDay(p.r.m.date)) + '</button>' : 'voltooid') + ibSrcShort(p) + '</span></li>'; }).join('') + '</ul>' : '<p class="muted ibempty">Nog niets afgevinkt.</p>') + '</div>' : '') + '</section>';
+      (showDone ? '<div class="ibscroll">' + (done.length ? '<ul class="iblist2">' + done.map(function (p) { return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" checked data-ibdone="' + esc(p.id) + '" title="Vinkje weghalen: weer open" aria-label="Weer open: ' + esc(p.text) + '"><s class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</s><span class="ibmeta">' + (p.r.m ? 'besproken in <button type="button" class="link" data-ibverslag="' + esc(p.r.m.id) + '" title="Het verslag van dit overleg bekijken en bewerken">' + esc(ibShort(p.r.m.title, 24)) + ' ' + esc(fmtDay(p.r.m.date)) + '</button>' : 'voltooid') + ibSrcShort(p) + ibDelBtn(p) + '</span></li>'; }).join('') + '</ul>' : '<p class="muted ibempty">Nog niets afgevinkt.</p>') + '</div>' : '') + '</section>';
     h += '</div><div class="ibcol">' + ibWaitHtml(all) + ibIdeasHtml(all) + '</div></div>';
     setHTML(main, h);
     ibBindLists(main, all, renderReminders);

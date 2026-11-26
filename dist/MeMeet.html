@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.7.7 -->
+<!-- MeMeet-versie: 1.7.8 -->
 <!--
-  MeMeet 1.7.7 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.7.8 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -699,12 +699,14 @@ select.chipsel:hover{background:var(--licht)}
 .ibgrp li.ibrow{align-items:center}
 /* ---- Herinneringen 1.6.2: twee kolommen; links Komt op en (ingeklapt) Besproken, rechts Wacht op overleg en Ideeën; compacte regels */
 
-.ibcols{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:calc(100vh - var(--hdr) - 108px);min-height:440px}
+.ibcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;height:calc(100vh - var(--hdr) - 108px);min-height:440px}
 .ibcol{display:flex;flex-direction:column;gap:12px;min-height:0}
 .ibcol>.card{margin:0;flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .ibcol>.card.shut{flex:none}
 .ibcols .ibscroll{flex:1;min-height:0;overflow:auto;margin:0 -6px;padding:0 6px}
-@media (max-width:900px){.ibcols{grid-template-columns:1fr;height:auto}.ibcol>.card{flex:none;max-height:none}}
+/* altijd twee gelijke kolommen, ook als het venster smal is; regels korten dan in */
+.ibcol{min-width:0}.ibcols .ibrow2{min-width:0}.ibcols .ibrow2 .ibtx{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:900px){.ibcols .ibrow2{flex-wrap:wrap}.ibcols .ibmeta{margin-left:22px}}
 .ibtoggle{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:4px}.ibdone.shut h2{margin:0}
 .ibgrp h3{display:flex;align-items:baseline;gap:8px;margin:0 0 2px;font-size:14px}.ibgrp h3 .muted{font-weight:400;font-size:12.5px}
 .ibmlink{font-weight:700;text-decoration:none;color:var(--brand2)}.ibmlink:hover{text-decoration:underline}
@@ -4081,7 +4083,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<div class="ibbig">' + esc(next.start || '') + '  ' + esc(next.title) + '</div>' +
       '</div><a class="btn" href="#/v/' + esc(encodeURIComponent(next.id)) + '">Openen</a></section>';
   }
-  function ibDelBtn(p) { return p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : ''; }
+  /* kruisje achter elke regel: een losse herinnering wordt verwijderd; een punt of idee uit aantekeningen wordt uit de lijsten
+     gehaald (de regel blijft in de aantekeningen staan) */
+  function ibDelBtn(p) {
+    return p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>'
+      : '<button type="button" class="link ibx" data-ibdismiss="' + esc(p.id) + '" title="Uit de lijst halen (de regel blijft in je aantekeningen staan)" aria-label="Uit de lijst halen">' + ic('close') + '</button>';
+  }
   /* één compacte regel per punt: de tekst, en rechts (of op een tweede regel) het label, de keuzelijst en de bron */
   function ibRowHtml(p, all, extra) {
     return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" data-ibdone="' + esc(p.id) + '" data-m="' + esc(p.r.st === 'open' && p.r.m ? p.r.m.id : '*') + '" title="Voltooid (besproken)" aria-label="Voltooid: ' + esc(p.text) + '"><span class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</span><span class="ibmeta">' + (extra || '') + ibChipSel(p, all.people, true) + ibSrcShort(p) + ibDelBtn(p) + '</span></li>';
@@ -4165,6 +4172,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       if (!s.value) return; ibSet(s.dataset.ibpinsel, 'pin', s.value === '-' ? null : s.value); await persist(); after();
       toast(s.value === '-' ? 'Weer automatisch.' : 'Komt op bij ' + ibName(byId(s.value)) + '.', 'ok');
     }; });
+    $$('[data-ibdismiss]', root).forEach(function (b) { b.onclick = async function (e) {
+      e.stopPropagation(); ibSet(b.dataset.ibdismiss, 'dismiss', 1); await persist(); after(); if (typeof renderSide === 'function') renderSide();
+      toast('Uit de lijst gehaald. De regel blijft in je aantekeningen staan.', 'ok');
+    }; });
     $$('[data-ibdel]', root).forEach(function (b) { b.onclick = async function (e) {
       e.stopPropagation(); A.data.rem = ibRems().filter(function (r) { return r.id !== b.dataset.ibdel; }); await persist(); after(); toast('Herinnering verwijderd.', 'ok');
     }; });
@@ -4190,7 +4201,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
         groups[m.id].map(function (p) { return ibRowHtml(p, all, p.r.carried ? '<span class="tag" title="' + p.r.carried + '× doorgeschoven">' + p.r.carried + '×</span>' : ''); }).join('') + '</ul></div>';
     }).join('') : '<p class="muted ibempty">Er ligt niets klaar.</p>') + '</div></section>';
     h += '<section class="card ibcard ibdone' + (showDone ? '' : ' shut') + '"><h2><button type="button" class="ibtoggle" id="ibDoneT" aria-expanded="' + showDone + '">' + ic(showDone ? 'keyboard_arrow_down' : 'chevron_right') + ' Besproken <span class="muted">' + done.length + '</span></button></h2>' +
-      (showDone ? '<div class="ibscroll">' + (done.length ? '<ul class="iblist2">' + done.map(function (p) { return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" checked data-ibdone="' + esc(p.id) + '" title="Vinkje weghalen: weer open" aria-label="Weer open: ' + esc(p.text) + '"><s class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</s><span class="ibmeta">' + (p.r.m ? 'besproken in <button type="button" class="link" data-ibverslag="' + esc(p.r.m.id) + '" title="Het verslag van dit overleg bekijken en bewerken">' + esc(ibShort(p.r.m.title, 24)) + ' ' + esc(fmtDay(p.r.m.date)) + '</button>' : 'voltooid') + ibSrcShort(p) + '</span></li>'; }).join('') + '</ul>' : '<p class="muted ibempty">Nog niets afgevinkt.</p>') + '</div>' : '') + '</section>';
+      (showDone ? '<div class="ibscroll">' + (done.length ? '<ul class="iblist2">' + done.map(function (p) { return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" checked data-ibdone="' + esc(p.id) + '" title="Vinkje weghalen: weer open" aria-label="Weer open: ' + esc(p.text) + '"><s class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</s><span class="ibmeta">' + (p.r.m ? 'besproken in <button type="button" class="link" data-ibverslag="' + esc(p.r.m.id) + '" title="Het verslag van dit overleg bekijken en bewerken">' + esc(ibShort(p.r.m.title, 24)) + ' ' + esc(fmtDay(p.r.m.date)) + '</button>' : 'voltooid') + ibSrcShort(p) + ibDelBtn(p) + '</span></li>'; }).join('') + '</ul>' : '<p class="muted ibempty">Nog niets afgevinkt.</p>') + '</div>' : '') + '</section>';
     h += '</div><div class="ibcol">' + ibWaitHtml(all) + ibIdeasHtml(all) + '</div></div>';
     setHTML(main, h);
     ibBindLists(main, all, renderReminders);
@@ -5156,7 +5167,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     reminders: { t: 'Herinneringen', h:
       '<p>Alles wat je ergens wilt inbrengen, op één plek.</p><ul>' +
       '<li><b>Nieuwe herinnering</b>: typ rechts naast de titel en druk op Enter of klik op <b>Toevoegen</b>. <code>Jan …</code> gaat naar het eerstvolgende overleg met Jan; <code>MT: …</code> naar het eerstvolgende overleg met MT in de titel (ook als het nog niet in je agenda staat); <code>MT: 15-1 …</code> niet vóór 15 januari. Het begin van een woord is genoeg (<code>Team: …</code> vindt Teamoverleg), en bij een herinnering mag de dubbele punt weg als je met de titel begint (<code>Teamoverleg rooster bespreken</code>). Zonder naam of overleg gaat de herinnering naar de Ideeën-inbox. Onder het vak zie je meteen waar hij heen gaat.</li>' +
-      '<li>Links staat <b>Komt op</b>: per overleg, op tijd, elk punt op één regel. Klik op de naam van het overleg om het te openen; met <b>' + ic('add') + '</b> voeg je een punt toe dat je in dat overleg wilt inbrengen. Daaronder staat <b>Besproken</b> (ingeklapt; klik erop om het te openen). Elk punt in Komt op, Wacht op overleg en de Ideeën-inbox heeft een <b>vinkje</b>: vink het af als het voltooid is, dan staat het onder Besproken. Haal je daar het vinkje weg, dan is het weer open. Klik bij een besproken punt op het overleg: je ziet het verslag en kunt het meteen bewerken, ook het vinkje bij de ingebrachte punten. Alles wordt vanzelf bewaard.</li>' +
+      '<li>Links staat <b>Komt op</b>: per overleg, op tijd, elk punt op één regel. Klik op de naam van het overleg om het te openen; met <b>' + ic('add') + '</b> voeg je een punt toe dat je in dat overleg wilt inbrengen. Daaronder staat <b>Besproken</b> (ingeklapt; klik erop om het te openen). Elke regel in alle vier de blokken heeft vooraan een vinkje en achteraan een <b>' + ic('close') + '</b>. Het kruisje verwijdert een losse herinnering; een punt of idee uit je aantekeningen haalt het alleen uit de lijsten (de regel blijft in de aantekeningen staan). Elk punt in Komt op, Wacht op overleg en de Ideeën-inbox heeft een <b>vinkje</b>: vink het af als het voltooid is, dan staat het onder Besproken. Haal je daar het vinkje weg, dan is het weer open. Klik bij een besproken punt op het overleg: je ziet het verslag en kunt het meteen bewerken, ook het vinkje bij de ingebrachte punten. Alles wordt vanzelf bewaard.</li>' +
       '<li>Rechts staan <b>Wacht op overleg</b> en de <b>Ideeën-inbox</b>.</li>' +
       '<li>Achter elk punt staat waar het op wacht, bijvoorbeeld <b>titel “MT”</b> of <b>met Jan</b>. Klik erop om zelf een overleg te kiezen; <i>weer automatisch</i> zet het terug.</li>' +
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt; ' + ic('close') + ' verwijdert een losse herinnering.</li>' +
