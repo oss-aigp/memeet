@@ -192,11 +192,9 @@
     }
     /* één compacte regel: titel, datum, tijd, locatie, links en knoppen (zo blijft er zoveel mogelijk ruimte voor de stukken).
        Een bestaande vergadering wordt vanzelf bewaard zodra je een veld wijzigt; alleen een nieuwe vergadering heeft Opslaan. */
-    var inv = names(m.invitees), invShort = inv.map(function (n) { return String(n).split(/\s+/)[0].split('@')[0]; });
     h += '<form class="card meta mline" id="frm" autocomplete="off"><a class="btn sm" href="#/" title="Terug naar de vergaderingen">' + ic('arrow_back') + ' Terug</a><input class="ttl" name="title" required placeholder="Titel van de vergadering" title="Titel" value="' + esc(m.title) + '">' +
       '<input type="date" name="date" title="Datum" value="' + esc(m.date) + '"><span class="tsp"><input type="time" name="start" title="Van" value="' + esc(m.start) + '">–<input type="time" name="end" title="Tot" value="' + esc(m.end) + '"></span>' +
       '<input class="loc" name="location" placeholder="Locatie" title="Locatie" value="' + esc(m.location) + '">' +
-      (inv.length ? '<span class="minv" title="Deelnemers: ' + esc(inv.join(', ')) + '">' + ic('group') + ' ' + esc(invShort.slice(0, 3).join(', ') + (inv.length > 3 ? ' +' + (inv.length - 3) : '')) + '</span>' : '') +
       (!isNew && m.date && ibFinished(m) ? '<span class="mdone" title="Dit overleg is voorbij">Afgerond</span>' : '') +
       '<span class="lk"><a class="btn sm join" id="joinBtn" target="_blank" rel="noopener" title="Deelnemen aan de online vergadering" href="' + esc(m.link || '#') + '">' + ic('videocam') + ' Deelnemen</a></span>' +
       '<span class="lk"><button type="button" class="btn sm ibabs" id="ibBtn">iBabs</button></span>' +
