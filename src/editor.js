@@ -1,6 +1,8 @@
   /* ================================================================== originele bestanden bewerken (Word / Excel / PowerPoint / tekst) */
   var EDIT_EXT = /\.(docx|xlsx|pptx|txt|csv|md)$/i;
   function canEdit(f) { return EDIT_EXT.test(f.name || ''); }
+  /* eerdere versies van een stuk (nieuwste eerst): bij elk opslaan na bewerken bewaart MeMeet de vorige versie als "Naam (versie N)" */
+  function olderOf(f) { return (f.versions || []).map(function (v) { return v.name; }).reverse().concat(f.backup ? [f.backup] : []); }
   var XMLNS = 'http://www.w3.org/XML/1998/namespace', UNDO_MAX = 20;
   function ser(x) { return new XMLSerializer().serializeToString(x); }
   function el2(tag, cls, txt) { var e = D.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
@@ -512,7 +514,10 @@
   }
   async function saveEdited(m, f, blob) {
     var ext = (/\.[^.]*$/.exec(f.name) || [''])[0], base = f.name.slice(0, f.name.length - ext.length);
-    if (!f.backup) { var bn = uniqueName(m, base + ' (oorspronkelijk)' + ext); await A.store.put(m, bn, await A.store.get(m, f.name)); f.backup = bn; }
+    /* de vorige versie blijft bewaard, achter de nieuwe; de viewer toont altijd de laatste */
+    var vers = f.versions || (f.versions = []), nr = vers.length + (f.backup ? 1 : 0) + 1;
+    var vn = uniqueName(m, base + ' (versie ' + nr + ')' + ext); await A.store.put(m, vn, await A.store.get(m, f.name));
+    vers.push({ name: vn, saved: new Date().toISOString(), size: f.size || 0 });
     await A.store.put(m, f.name, blob); f.size = blob.size; f.edited = new Date().toISOString();
     /* geen PDF meer bijmaken: de viewer zet het bewerkte origineel opnieuw om. Een automatisch gemaakte PDF van vóór versie 1.1 vervalt daarom. */
     if (f.pdf && f.conv === 'omgezet') { try { await A.store.del(m, f.pdf); } catch (e) {} f.pdf = null; delete f.conv; delete f.convV; }

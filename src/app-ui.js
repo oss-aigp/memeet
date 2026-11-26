@@ -59,7 +59,7 @@
     this.put = function (m, name, blob) { return tx('files', 'readwrite', function (s) { return s.put(blob, m.id + '/' + name); }); };
     this.get = function (m, name) { return tx('files', 'readonly', function (s) { return s.get(m.id + '/' + name); }).then(function (b) { if (!b) throw new Error('Bestand niet gevonden'); return b; }); };
     this.del = function (m, name) { return tx('files', 'readwrite', function (s) { return s.delete(m.id + '/' + name); }); };
-    this.delMeeting = function (m) { var self = this; return Promise.all(m.files.reduce(function (a, f) { a.push(self.del(m, f.name)); if (f.pdf && f.pdf !== f.name) a.push(self.del(m, f.pdf)); if (f.backup) a.push(self.del(m, f.backup)); return a; }, []).concat(m.source && m.source.file ? [self.del(m, m.source.file)] : [])); };
+    this.delMeeting = function (m) { var self = this; return Promise.all(m.files.reduce(function (a, f) { a.push(self.del(m, f.name)); if (f.pdf && f.pdf !== f.name) a.push(self.del(m, f.pdf)); olderOf(f).forEach(function (n) { a.push(self.del(m, n)); }); return a; }, []).concat(m.source && m.source.file ? [self.del(m, m.source.file)] : [])); };
   }
   /* oude indeling (alles los in de hoofdmap) omzetten naar Vergaderingen / Aantekeningen / Actielijst */
   async function copyDir(src, dst) {
@@ -199,7 +199,7 @@
   }
   function uniqueName(m, name) {
     name = safe(name); var base = name.replace(/(\.[^.]*)?$/, ''), ext = (/\.[^.]*$/.exec(name) || [''])[0], n = 1;
-    var taken = m.files.reduce(function (a, f) { a.push(f.name.toLowerCase()); if (f.pdf) a.push(f.pdf.toLowerCase()); if (f.backup) a.push(f.backup.toLowerCase()); return a; }, []).concat(m.source && m.source.file ? [m.source.file.toLowerCase()] : []);
+    var taken = m.files.reduce(function (a, f) { a.push(f.name.toLowerCase()); if (f.pdf) a.push(f.pdf.toLowerCase()); olderOf(f).forEach(function (n) { a.push(n.toLowerCase()); }); return a; }, []).concat(m.source && m.source.file ? [m.source.file.toLowerCase()] : []);
     while (taken.indexOf(name.toLowerCase()) >= 0) name = base + ' (' + (++n) + ')' + ext;
     return name;
   }
@@ -835,7 +835,7 @@
     if (isNew) $$('#docs li[data-sel]').forEach(function (li) { li.onclick = function (e) { if (e.target.closest('button,input')) return; pvShow(m, +li.dataset.sel); }; });
     else bindDocList(m);
     bindListGrip();
-    $$('[data-rm]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.rm]; if (!confirm('"' + f.name + '" verwijderen' + (annCount(f.ann) ? ', inclusief je aantekeningen' : '') + '?')) return; readForm(); await A.store.del(m, f.name); if (f.pdf && f.pdf !== f.name) await A.store.del(m, f.pdf); if (f.backup) await A.store.del(m, f.backup); m.files.splice(+a.dataset.rm, 1); await persist(); renderDetail(m); }; });
+    $$('[data-rm]').forEach(function (a) { a.onclick = async function () { var f = m.files[+a.dataset.rm]; if (!confirm('"' + f.name + '" verwijderen' + (annCount(f.ann) ? ', inclusief je aantekeningen' : '') + '?')) return; readForm(); await A.store.del(m, f.name); if (f.pdf && f.pdf !== f.name) await A.store.del(m, f.pdf); for (var vi = 0, ov = olderOf(f); vi < ov.length; vi++) await A.store.del(m, ov[vi]); m.files.splice(+a.dataset.rm, 1); await persist(); renderDetail(m); }; });
     var om = $('#origMail'); if (om) om.onclick = async function (e) { e.preventDefault(); dl(await A.store.get(m, m.source.file), m.source.file); };
     $$('[name]', frm).forEach(function (x) { x.addEventListener('input', function () { m[x.name] = x.value; }); });
     bindFolders($('#main'));
@@ -1019,7 +1019,7 @@
     var el = $('#pv'); A.pvMax = !!on; if (!el) return;
     applyMax(el);
     var b = $('[data-act=max]', el); if (b) { b.classList.toggle('on', A.pvMax); b.title = maxLabel(); b.setAttribute('aria-label', maxLabel()); setHTML(b, maxInner()); }
-    requestAnimationFrame(function () { if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } });
+    requestAnimationFrame(function () { if (PV.html && $('#hvdoc')) { if (HV.fit) hvFit(); hvPlaceNotes(); return; } if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } });
   }
   /* Ingescande PDF's gebruiken vaak CCITT-fax, JBIG2 of JPEG 2000 voor de pagina-afbeelding. pdf.js pakt die uit met WebAssembly
      (jbig2.wasm, openjpeg.wasm). Die bestanden zitten in MeMeet zelf en worden hier aan pdf.js gegeven, zonder netwerkverkeer. */
@@ -1059,6 +1059,9 @@
     var qi = $('#pvq'), qt;
     qi.addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { doSearch(qi.value); }, 250); });
     qi.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); if (PV.q !== qi.value) doSearch(qi.value); else gotoHit(PV.hi + (e.shiftKey ? -1 : 1)); } else if (e.key === 'Escape') { qi.value = ''; doSearch(''); } });
+    /* Word, Excel, tekst en mail in hun eigen opmaak (hview.js); PDF, PowerPoint en afbeeldingen via pdf.js */
+    if (hvKind(f)) { var hb0 = null; try { hb0 = isNew ? f.blob : await A.store.get(m, f.name); } catch (e) { console.error(e); } if (tok !== PV.tok) return; if (hb0) { await hvShow(m, f, tok, editable, hb0); return; } }
+    PV.html = false;
     var blob = null; try { blob = isNew ? await draftPdf(f) : await getPdf(m, f); } catch (e) { console.error(e); }
     if (tok !== PV.tok) return;
     var pvp = $('#pvp');
@@ -1147,6 +1150,7 @@
   /* ---------- zoeken */
   function normS(s) { var o = ''; for (var i = 0; i < s.length; i++) { var c = s[i], n = c.normalize('NFD')[0].toLowerCase(); o += n.length === 1 ? n : c; } return o; }
   async function doSearch(q) {
+    if (PV.html) return hvSearch(q);
     PV.q = q; PV.hits = []; PV.hi = -1;
     var cnt = $('#pvqc'); if (!PV.pages) return;
     var nq = normS(q.trim());
@@ -1191,6 +1195,7 @@
     });
   }
   function gotoHit(i) {
+    if (PV.html) return hvGoto(i);
     var n = PV.hits.length, cnt = $('#pvqc'); if (!n) return;
     PV.hi = ((i % n) + n) % n;
     $$('#pvp .hit.cur').forEach(function (e) { e.classList.remove('cur'); });
@@ -1403,6 +1408,7 @@
   }
   async function pvAct(a, m, i) {
     var list = m.isNew ? m.pending : m.files, f = list[i], menu = $('#pvmenu');
+    if (PV.html && /^(zin|zout|fit|qnext|qprev)$/.test(a)) return hvAct(a);
     if (a === 'more') { if (menu) { menu.hidden = !menu.hidden; var mb = $('[data-act=more]'), mr = mb && mb.getBoundingClientRect(); if (mr && !menu.hidden) { menu.style.position = 'fixed'; menu.style.top = (mr.bottom + 4) + 'px'; menu.style.right = 'auto'; menu.style.left = Math.max(8, Math.min(W.innerWidth - 280, mr.right - 260)) + 'px'; } } return; }
     if (menu) menu.hidden = true;
     if (a === 'max') return pvMax(!A.pvMax);
@@ -1430,7 +1436,7 @@
       else if ((e.ctrlKey || e.metaKey) && k === 'z') { e.preventDefault(); pvAct('undo', PV.m, A.sel ? A.sel.i : 0); }
     });
     D.addEventListener('click', function (e) { var mn = $('#pvmenu'); if (mn && !mn.hidden && !e.target.closest('#pvmenu')) mn.hidden = true; });
-    var rt; W.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } }, 200); });
+    var rt; W.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (PV.html && $('#hvdoc')) { if (HV.fit) hvFit(); hvPlaceNotes(); return; } if (PV.fit && $('#pvp') && PV.pages) { layoutPages(); if (PV.q) doSearch(PV.q); } }, 200); });
   }
   /* ------------------------------------------------------------- export */
   function exportName(m) { return safe((m.title || 'Vergadering') + ' - ' + (m.date ? fmtShort(m.date) : 'zonder datum') + (m.start ? ' ' + m.start.replace(':', '.') + (m.end ? '-' + m.end.replace(':', '.') : '') : '')).slice(0, 150) + '.pdf'; }

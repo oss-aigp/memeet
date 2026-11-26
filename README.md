@@ -54,9 +54,9 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 |---|---|
 | **Mail → vergadering** | Sleep een `.msg` (Outlook) of `.eml` in het venster. MeMeet haalt de titel, datum, tijd, locatie en de **vergaderlink** (Teams, Zoom, Webex en Google Meet, ook als de link in Safe Links verpakt is) eruit en zet de bijlagen als stukken bij de vergadering. Bij een **terugkerende afspraak** krijgt de vergadering de datum en tijd van de eerstvolgende keer, met overgeslagen en verplaatste keren meegerekend. Een link naar **iBabs** komt in een eigen veld, apart van de vergaderlink. |
 | **Overzicht** | Bovenaan een begroeting met het aantal vergaderingen van vandaag, en een willekeurige wijsheid of uitspraak over leiderschap (met ↻ zie je een andere). Daaronder de blokken **Vandaag** (met een knop *Deelnemen*, en *iBabs* als de stukken in iBabs staan) en **Morgen**, een lijst **Volgende vergaderingen** (vanaf overmorgen) die je kunt sorteren, en het **Archief** met de vergaderingen die geweest zijn. Alle vier staan standaard open; met *verbergen* klap je er een in. |
-| **Stukken** | Elk stuk blijft in zijn eigen formaat: Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails. Een **zip** wordt uitgepakt; bij een **mail** komen de bijlagen als losse stukken erachter. De viewer toont alles: andere bestanden dan PDF worden bij het openen omgezet om te tonen, zonder dat er een PDF wordt bewaard. PowerPoint-dia's worden getrouw weergegeven: thema en diamaster, achtergronden, vormen, afbeeldingen, tabellen, grafieken en SmartArt. Ordenen doe je door te slepen, ook met meer stukken tegelijk. |
-| **Viewer** | Je kunt zoeken in de PDF (Ctrl+F), tekst selecteren en kopiëren, **markeren** in geel of groen, en **opmerkingen** maken. Opmerkingen staan in de rechtermarge, met een pijltje naar het woord, in 9 pt. Ongedaan maken en Opnieuw werken tot 20 stappen. Ook **ingescande PDF's** worden getoond, in zwart-wit en in kleur; heeft de scanner tekstherkenning (OCR) gedaan, dan kun je er ook in zoeken. |
-| **Bewerken** | In het tabblad Bestanden: een bewerkomgeving voor Word (stijlen, vet, cursief, onderstrepen, uitlijnen), Excel (raster, formulebalk, formules) en PowerPoint (dia's met miniaturen). Het originele bestand blijft netjes en opent gewoon in Office. Ongedaan maken en Opnieuw werken tot 20 stappen. |
+| **Stukken** | Elk stuk blijft in zijn eigen formaat: Word, Excel, PowerPoint, PDF, afbeeldingen, tekst en mails. Een **zip** wordt uitgepakt; bij een **mail** komen de bijlagen als losse stukken erachter. De viewer toont alles in de eigen opmaak: Word als echte pagina's (lettertypen, kleuren, tabellen, kop- en voetteksten), Excel als werkblad, tekst als tekst en een mail met afzender en tekst. Er wordt geen PDF van gemaakt. PowerPoint-dia's worden getrouw weergegeven: thema en diamaster, achtergronden, vormen, afbeeldingen, tabellen, grafieken en SmartArt. Ordenen doe je door te slepen, ook met meer stukken tegelijk. |
+| **Viewer** | Je kunt zoeken (Ctrl+F), in- en uitzoomen, tekst selecteren en kopiëren, **markeren** en **opmerkingen** maken, in PDF's én in Word-, Excel-, tekst- en mailstukken. Opmerkingen staan als briefje in de kantlijn, op de hoogte van de tekst. Ongedaan maken en Opnieuw werken tot 20 stappen. Ook **ingescande PDF's** worden getoond, in zwart-wit en in kleur; heeft de scanner tekstherkenning (OCR) gedaan, dan kun je er ook in zoeken. |
+| **Bewerken** | In het tabblad Bestanden: een bewerkomgeving voor Word (stijlen, vet, cursief, onderstrepen, uitlijnen), Excel (raster, formulebalk, formules), PowerPoint (dia's met miniaturen) en tekst. Bij elk opslaan blijft de vorige versie bewaard, als `Naam (versie 1)`, `(versie 2)` enzovoort; MeMeet toont altijd de laatste. Het bestand blijft netjes en opent gewoon in Office. Ongedaan maken en Opnieuw werken tot 20 stappen. |
 | **iBabs** | Staan de stukken in iBabs, dan opent de knop **iBabs** de vergadering in een eigen tabblad. |
 | **Aantekeningen** | Een kolom om aantekeningen te maken tijdens de vergadering. Een regel die begint met `!` wordt een actie, met `=` een besluit, met `>` een meeneempunt (zie **Inbrengen**) en met `?` een los idee. Alles wordt opgeslagen als `jjjjmmdd Titel.txt`. |
 | **Verslagen** | Alle aantekeningen op een rij, te sorteren op naam, datum en datum gewijzigd. Klik op een verslag om het te bewerken in een Word-achtige editor (koppen, vet, cursief, onderstreept, lijsten). Wijzigingen worden automatisch bewaard. Webadressen worden vanzelf links die je met een klik in een nieuw tabblad opent. |
@@ -187,10 +187,10 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 - Sleep je een bestand met **dezelfde naam** op de vergadering, dan vraagt MeMeet of het de oude versie moet vervangen. Zo werk je een stuk bij dat je in Word zelf hebt aangepast.
 
 **Viewer**
-- De viewer toont elk stuk in zijn eigen opmaak: een PDF als PDF, Word als pagina's, Excel als tabel, PowerPoint als dia's, een mail met afzender en tekst, en tekst als tekst. Het bestand zelf verandert niet.
+- De viewer toont elk stuk in zijn eigen opmaak, zonder het om te zetten: een PDF als PDF, Word als echte pagina's met de oorspronkelijke lettertypen en kleuren, Excel als werkblad, PowerPoint als dia's, een mail met afzender en tekst, en tekst als tekst. Het bestand zelf verandert niet.
 - Boven het stuk staan alleen: **uit- en inzoomen** (klik op het percentage voor passend), het **zoekvak** (Ctrl+F), **downloaden** (het originele bestand) en **vergroten** (de viewer neemt de kolom met stukken over; je aantekeningen blijven zichtbaar; Esc zet hem terug).
 - **Tekst selecteren** geeft een menuutje: **Markeren** (geel), **Opmerking** (onderstreping en een geel briefje in de kantlijn) en **+ Meeneempunt** (de tekst komt als `> …` onderaan je aantekeningen). Klik op een markering om hem weg te halen. Markeringen en opmerkingen blijven bewaard.
-- Een stuk **bewerken** doe je in het tabblad **Bestanden**: open het en klik op **Bewerken** (Word, Excel, PowerPoint en tekst). De eerste keer opslaan bewaart MeMeet een kopie `(oorspronkelijk)`.
+- Een stuk **bewerken** doe je in het tabblad **Bestanden**: open het en klik op **Bewerken** (Word, Excel, PowerPoint en tekst). Bij elk opslaan bewaart MeMeet de vorige versie als `Naam (versie N)`; de viewer toont altijd de laatste versie. De eerdere versies vind je in Bestanden onder **versies**.
 
 **Aantekeningen en acties**
 - Rechts staat altijd de kolom **Aantekeningen**. Versleep de linkerrand om de kolom breder of smaller te maken, of klik op **Apart venster** om de aantekeningen in een eigen venster rechts op je scherm te zetten, naast andere programma's. Een regel die met `!` begint, wordt een actie, bijvoorbeeld `! Jan stuurt de notitie rond`.
@@ -231,7 +231,7 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 
 | Map of bestand | Inhoud |
 |---|---|
-| `Vergaderingen\2026-11-12 Titel [ab12]\` | De stukken in hun eigen formaat, `(oorspronkelijk)`-kopieën en de originele mail. Bij stukken uit versie 1.0 ook de PDF-versies en exports. |
+| `Vergaderingen\2026-11-12 Titel [ab12]\` | De stukken in hun eigen formaat, eerdere versies (`(versie N)`, bij oudere versies van MeMeet `(oorspronkelijk)`) en de originele mail. Bij stukken uit versie 1.0 ook de PDF-versies en exports. |
 | `Aantekeningen\20261112 Titel.txt` | Kop met datum, locatie, voorzitter en leden, daarna je aantekeningen en acties. |
 | `Actielijst\Actielijst.txt` | Alle acties, ingedeeld in open, gesnoozed en afgerond. |
 | `memeet.json` | Het register: vergaderingen, aantekeningen, markeringen en acties. **Niet met de hand aanpassen.** |
@@ -274,7 +274,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 | **"Map kiezen lukt niet"** | Je beheerder heeft toegang tot mappen misschien geblokkeerd. Kies **bewaar alles in de browser**. |
 | **Edge vraagt elke keer om toegang** | Dat is normaal, het is een beveiligingsregel van de browser. Klik op **Map openen** en dan op **Toestaan**. |
 | **De viewer kan een stuk niet tonen** | Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen. Download het origineel via **⋯** › *Origineel downloaden* en open het in Word of Excel. Wil je het in de viewer zien, kies dan in Word of Excel **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |
-| **De opmaak van een stuk in de viewer wijkt af** | De viewer zet Word, Excel en PowerPoint zonder Office om om ze te tonen; de tekst klopt maar de opmaak is soms vereenvoudigd. Het bestand zelf blijft ongewijzigd. Gebruik voor de exacte opmaak de PDF-route hierboven. |
+| **De opmaak van een stuk in de viewer wijkt af** | De viewer tekent Word, Excel en PowerPoint zelf, zonder Office. Dat is heel getrouw, maar bijzondere onderdelen (zoals tekstvakken die zweven, WordArt of ingesloten objecten) kunnen afwijken. Het bestand zelf blijft ongewijzigd. Gebruik voor de exacte opmaak de PDF-route hierboven. |
 | **Een gescande PDF: zoeken en markeren werkt niet** | Een scan zonder tekstherkenning (OCR) is alleen een afbeelding, zonder tekst. Opmerkingen werken wel. Heeft de scanner OCR gedaan, dan werken zoeken en markeren ook. |
 | **Een gescande PDF toont lege witte pagina's** | Dat kwam voor in versie 1.0.0, bij scans in zwart-wit (CCITT-fax of JBIG2) of JPEG 2000. Vanaf versie 1.0.1 worden die gewoon getoond. Werk MeMeet bij en open het stuk opnieuw. |
 | **De viewer blijft leeg** | Kies in ⋯ voor **PDF openen in nieuw tabblad**. |
@@ -324,6 +324,7 @@ memeet/
 │  ├─ mail-parser.js     ← .msg (CFB/OLE) en .eml (MIME) lezen; datum/tijd/locatie/link herkennen
 │  ├─ convert.js         ← stukken omzetten om ze in de viewer te tonen (Word/Excel/tekst/afbeelding/mail),
 │  │                       aantekeningen in een PDF zetten
+│  ├─ hview.js           ← viewer in de eigen opmaak: Word (docx-preview), Excel, tekst en mail, met markeren/opmerkingen/zoeken
 │  ├─ pptx-render.js     ← PowerPoint-dia's getrouw tekenen (voor de viewer en de bewerkomgeving)
 │  ├─ editor.js          ← bewerkomgevingen Word/Excel/PowerPoint/tekst met ongedaan maken en opnieuw
 │  ├─ notes.js           ← aantekeningen tijdens de vergadering en de actielijst (snooze, begindatum)
@@ -351,7 +352,7 @@ memeet/
 ## Bekende beperkingen
 
 - **Alleen Edge of Chrome**, vanwege de File System Access API.
-- **De viewer zet stukken zonder Office om:** bij Word en Excel is de weergave vereenvoudigd. Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen.
+- **De viewer werkt zonder Office:** bijzondere onderdelen van Word en Excel (zwevende tekstvakken, WordArt, ingesloten objecten, grafieken in Excel) kunnen afwijken. Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen.
 - **PowerPoint:** dia's worden als afbeelding in de PDF gezet, met de tekst er onzichtbaar overheen (zodat zoeken werkt). Grafieken worden eenvoudig nagetekend (staaf, lijn, vlak, cirkel, ring); andere soorten grafieken, 3D-effecten, schaduwen, animaties en afbeeldingen in EMF/WMF-formaat worden niet of vereenvoudigd getoond. Lettertypen die niet op je computer staan, worden vervangen. Verborgen dia's komen niet in de PDF.
 - **PowerPoint-stukken uit versie 1.0** met een opgeslagen PDF van vóór de nieuwe dia-weergave worden de eerste keer dat je ze opent opnieuw getoond met de nieuwe weergave, behalve als je er al aantekeningen op hebt gezet. Dan blijft de oude PDF staan.
 - **Bewerken:** in Word kun je geen afbeeldingen of tabellen invoegen, en alinea's met een afbeelding kun je niet bewerken. In Excel kun je de opmaak van cellen niet veranderen. In PowerPoint kun je geen vormen of dia's toevoegen. Voor zulke dingen download je het bestand en bewerk je het in Office zelf.

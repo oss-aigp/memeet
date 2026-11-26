@@ -107,6 +107,16 @@
     if (MA.pdf) { try { MA.pdf.destroy(); } catch (e) {} MA.pdf = null; }
     setHTML(pv, '<div class="pvmsg">Wordt klaargemaakt…</div>');
     var out = null;
+    /* Word, Excel, tekst en mail in de eigen opmaak, net als in de viewer */
+    if (hvKind(it.rec || it)) {
+      try {
+        if (!it.blob) it.blob = await it.get(); if (tok !== MA.tok) return;
+        var hd = D.createElement('div'); hd.className = 'hvdoc mahv'; pv.textContent = ''; pv.scrollTop = 0; pv.appendChild(hd);
+        await hvRender(hd, it.rec || it, it.blob); if (tok !== MA.tok) return;
+        var sec = $('section.docx', hd); if (sec) sec.parentNode.style.zoom = Math.max(0.4, Math.min(1, Math.floor((pv.clientWidth - 30) / sec.offsetWidth * 100) / 100));
+        return;
+      } catch (e) { console.error(e); if (tok !== MA.tok) return; }
+    }
     try { if (!it.blob) it.blob = await it.get(); var r = await convertToPdf(it.name, it.type || guessMime(it.name), it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
     if (tok !== MA.tok) return;
     if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">' + ic('download') + ' Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }

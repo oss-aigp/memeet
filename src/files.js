@@ -25,7 +25,7 @@
       var f = m.files[i];
       if (f.name.toLowerCase() === low) return 'Stuk';
       if (f.pdf && f.pdf !== f.name && f.pdf.toLowerCase() === low) return 'PDF-versie';
-      if (f.backup && f.backup.toLowerCase() === low) return 'Vorige versie';
+      if (olderOf(f).some(function (n) { return n.toLowerCase() === low; })) return 'Vorige versie';
     }
     if (m.source && m.source.file && m.source.file.toLowerCase() === low) return 'Originele mail';
     if (/\.pdf$/i.test(name) && low === exportName(m).toLowerCase()) return 'Export';
@@ -48,7 +48,7 @@
     } else {
       A.data.meetings.forEach(function (m) {
         function add(name, kind, size) { out.push({ id: m.id + '/' + name, name: name, top: 'Vergaderingen', sub: m.folder || m.title, m: m, kind: kind, ext: extOf(name), size: size || 0, mod: Date.parse(m.updated || m.created || '') || 0, get: function () { return A.store.get(m, name); } }); }
-        m.files.forEach(function (f) { add(f.name, 'Stuk', f.size); if (f.pdf && f.pdf !== f.name) add(f.pdf, 'PDF-versie'); if (f.backup) add(f.backup, 'Vorige versie'); });
+        m.files.forEach(function (f) { add(f.name, 'Stuk', f.size); if (f.pdf && f.pdf !== f.name) add(f.pdf, 'PDF-versie'); olderOf(f).forEach(function (n) { add(n, 'Vorige versie'); }); });
       });
     }
     return out.filter(function (it) { return it.kind !== 'Originele mail'; });
@@ -73,7 +73,7 @@
   }
   /* Zelfde bestand in een ander formaat of een vorige versie ((oorspronkelijk), PDF-versie) samenvoegen tot één regel */
   var VER_RANK = { 'Stuk': 0, 'Aantekeningen': 0, 'Actielijst': 0, 'PDF-versie': 1, 'Vorige versie': 2 };
-  function baseKey(it) { return it.top + '/' + it.sub + '/' + it.name.replace(/\.[^.]*$/, '').replace(/ \(oorspronkelijk\)$/i, '').toLowerCase(); }
+  function baseKey(it) { return it.top + '/' + it.sub + '/' + it.name.replace(/\.[^.]*$/, '').replace(/ \((oorspronkelijk|versie \d+)\)$/i, '').toLowerCase(); }
   function groupItems(list) {
     var map = {}, out = [];
     list.forEach(function (it) {
@@ -83,12 +83,12 @@
       g.items.push(it);
     });
     Object.keys(map).forEach(function (k) {
-      var g = map[k], v = g.items.sort(function (a, b) { var ra = VER_RANK[a.kind], rb = VER_RANK[b.kind]; return (ra == null ? 1 : ra) - (rb == null ? 1 : rb) || a.name.localeCompare(b.name); });
+      var g = map[k], v = g.items.sort(function (a, b) { var ra = VER_RANK[a.kind], rb = VER_RANK[b.kind]; return (ra == null ? 1 : ra) - (rb == null ? 1 : rb) || (a.kind === 'Vorige versie' ? b.name.localeCompare(a.name, 'nl', { numeric: true }) : a.name.localeCompare(b.name)); });
       v[0].vers = v; out[g.slot] = v[0];
     });
     return out;
   }
-  var VER_LABEL = { 'Stuk': 'Huidige versie', 'PDF-versie': 'PDF-versie', 'Vorige versie': 'Oorspronkelijke versie' };
+  var VER_LABEL = { 'Stuk': 'Huidige versie', 'PDF-versie': 'PDF-versie', 'Vorige versie': 'Eerdere versie' };
   function showVersions(it, x, y) {
     var menu = $('#vermenu'); if (!menu) return;
     var vs = it.vers || [it], h = '<div class="vhead">' + esc(it.name.replace(/\.[^.]*$/, '')) + '<small>' + vs.length + ' versie' + (vs.length === 1 ? '' : 's') + '</small></div>';
@@ -225,7 +225,7 @@
   }
   function goMeeting(it) {
     var m = it.m; if (!m) return;
-    var low = it.name.toLowerCase(), idx = m.files.findIndex(function (f) { return f.name.toLowerCase() === low || (f.pdf && f.pdf.toLowerCase() === low) || (f.backup && f.backup.toLowerCase() === low); });
+    var low = it.name.toLowerCase(), idx = m.files.findIndex(function (f) { return f.name.toLowerCase() === low || (f.pdf && f.pdf.toLowerCase() === low) || olderOf(f).some(function (n) { return n.toLowerCase() === low; }) || (f.backup && f.backup.toLowerCase() === low); });
     A.sel = { id: m.id, i: idx >= 0 ? idx : 0 };
     if (it.kind === 'Aantekeningen') A.notesOpen = true;
     location.hash = '#/v/' + encodeURIComponent(m.id);

@@ -701,6 +701,26 @@ select.chipsel:hover{background:var(--licht)}
 .ibrow2 .ibmeta .link{padding:0;font-size:11.5px}.ibrow2 .ibmeta .tag{margin:0}
 .ibrow2 select.chipsel{height:19px;font-size:11px;max-width:170px}
 .ibideas .iblist>li{padding:5px 0}.ibideas .iblink{margin-top:2px}
+/* ---- viewer: weergave in de eigen opmaak (Word, Excel, tekst, mail) */
+.hv{position:relative;display:flex;align-items:flex-start;gap:12px;min-height:100%;width:100%}
+.hvdoc{flex:1 1 auto;min-width:0;color:#1b1f24}
+.mapv .mahv{align-self:stretch;width:100%;flex:none;padding:14px;min-height:100%;box-sizing:border-box;background:#eef1f4}.mapv .mahv .hvtext,.mapv .mahv .hvmail{background:#fff}.mapv .mahv .docx-wrapper{align-items:center}
+.hvrail{position:relative;flex:0 0 210px;align-self:stretch}.hvrail[hidden]{display:none}
+.hvdoc .docx-wrapper{background:transparent!important;padding:0!important;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.hvdoc .docx-wrapper>section.docx{margin-left:auto!important;margin-right:auto!important;flex:none}
+.hvdoc .docx-wrapper>section.docx{margin:0!important;box-shadow:0 0 0 1px #dfe4ea,0 1px 4px rgba(16,24,40,.06)!important;background:#fff}
+.hvtext{white-space:pre-wrap;word-break:break-word;font:13.5px/1.55 Consolas,"Cascadia Mono",monospace;background:#fff;color:#1b1f24;margin:0 auto;max-width:900px;padding:28px 34px;box-shadow:0 0 0 1px #dfe4ea,0 1px 4px rgba(16,24,40,.06)}
+.hvmail{background:#fff;color:#1b1f24;max-width:860px;margin:0 auto;padding:26px 32px;box-shadow:0 0 0 1px #dfe4ea,0 1px 4px rgba(16,24,40,.06)}
+.hvmail h2{margin:0 0 4px;font-size:20px;color:#154273}.hvmh{color:#5d6875;font-size:13px}.hvatt{color:#5d6875;font-size:13px;margin-top:2px}
+.hvbody{margin-top:16px;white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.55}
+.hvxl{background:#fff;box-shadow:0 0 0 1px #dfe4ea;height:100%}.hvxl .xlfbar{display:none}.hvxl .xl-ed{height:auto;min-height:300px}
+.hvdoc mark.hl{background:rgba(255,212,0,.5);color:inherit;border-radius:1px;cursor:pointer}
+.hvdoc mark.cm{background:rgba(232,89,12,.08);color:inherit;border-bottom:2px solid #e8590c;cursor:pointer}.hvdoc mark.cm.on{background:rgba(232,89,12,.2)}
+.hvdoc mark.hit{background:rgba(255,170,0,.45);color:inherit}.hvdoc mark.hit.cur{background:rgba(255,80,0,.65)}
+.hvnote{position:absolute;left:0;right:0;background:#fffbe9;border:1px solid #eadfba;border-left:3px solid #e8590c;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.hvnote textarea{display:block;width:100%;min-height:40px;border:0;background:transparent;resize:none;font:12.5px/1.4 var(--font);padding:4px 22px 6px 7px;color:#1b1f24;overflow:hidden}
+.hvnote textarea:focus{outline:none;box-shadow:none}
+.hvnx{position:absolute;right:2px;top:2px;border:0;background:none;color:#98a2b3;cursor:pointer;padding:1px;display:none}.hvnote:hover .hvnx{display:block}.hvnx:hover{color:#e5484d}.hvnx .i{width:14px;height:14px}
 /* ---- iconen (Material Symbols Rounded, Apache-2.0) */
 .i{display:inline-block;width:1.3em;height:1.3em;flex:none;vertical-align:-.3em;background-color:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 .btn .i,.tl .i,.rb .i{width:18px;height:18px;vertical-align:middle}.btn.sm .i{width:17px;height:17px}
