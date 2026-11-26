@@ -139,7 +139,12 @@
   /* alle punten (zonder de weggehaalde), met de toewijzing erbij; en alle ideeën */
   function ibAll() {
     var ctx = { people: ibPeople() }, pts = [], ideas = [];
-    ibSources().forEach(function (s) { ibItemsOf(s, ctx).forEach(function (it) { if (it.k === '?') ideas.push(it); else if (!ibGet(it.id).dismiss) { it.r = ibResolve(it); pts.push(it); } }); });
+    /* een afgevinkt idee staat niet meer in de inbox maar bij Besproken (als "voltooid") */
+    ibSources().forEach(function (s) { ibItemsOf(s, ctx).forEach(function (it) {
+      var st = ibGet(it.id); if (st.dismiss) return;
+      if (it.k === '?') { if (st.done) { it.r = { st: 'done', m: null, path: [], carried: 0 }; pts.push(it); } else ideas.push(it); return; }
+      it.r = ibResolve(it); pts.push(it);
+    }); });
     return { pts: pts, ideas: ideas, people: ctx.people };
   }
   /* de naam van een overleg of bron, kort: "MT · di 24 nov" of "losse herinnering · 25 nov 10:12" */
@@ -350,7 +355,7 @@
   function ibIdeasHtml(all) {
     var ideas = all.ideas, tg = ibLinkTargets(), ms = ibMeetOpts();
     return '<section class="card ibcard ibideas"><h2>Ideeën-inbox <span class="muted">' + ideas.length + '</span></h2><div class="ibscroll">' + (ideas.length ? '<ul class="iblist">' + ideas.map(function (it, i) {
-      return '<li><div class="ibrow2"><span class="ibtx" title="' + esc(it.text) + '">' + esc(it.text) + '</span><span class="ibmeta">' + ibSrcShort(it) + ibDelBtn(it) + '</span></div>' +
+      return '<li><div class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" data-ibdone="' + esc(it.id) + '" data-m="*" title="Voltooid" aria-label="Voltooid: ' + esc(it.text) + '"><span class="ibtx" title="' + esc(it.text) + '">' + esc(it.text) + '</span><span class="ibmeta">' + ibSrcShort(it) + ibDelBtn(it) + '</span></div>' +
         '<div class="iblink">Koppel aan: ' + tg.map(function (t) { return '<button type="button" class="chip btn" data-ibidea="' + i + '" data-to="' + esc(t.to) + '">' + esc(t.label) + '</button>'; }).join('') +
         (ms.length ? '<select class="chipsel" data-ibideameet="' + i + '" aria-label="Koppel aan een overleg"><option value="">overleg kiezen ▾</option>' + ms.map(function (c) { return '<option value="' + esc(c.id) + '">' + esc(ibName(c)) + '</option>'; }).join('') + '</select>' : '') + '</div></li>';
     }).join('') + '</ul>' : '<p class="muted ibempty">Leeg. Begin een regel met <code>?</code> voor een los idee.</p>') + '</div></section>';

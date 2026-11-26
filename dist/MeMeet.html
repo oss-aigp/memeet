@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.7.4 -->
+<!-- MeMeet-versie: 1.7.5 -->
 <!--
-  MeMeet 1.7.4 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.7.5 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -598,6 +598,7 @@ select.to{width:auto;max-width:100%;min-height:0;padding:1px 4px;border-color:va
 .ibgrp li.ibrow2.ibck,.iblist2 li.ibrow2.ibck{padding-left:0}.ibck::before{display:none!important}
 .ibdonecb{width:15px;height:15px;min-height:0;margin:0 7px 0 0;flex:none;accent-color:var(--green);cursor:pointer;align-self:center}
 .ibvta{width:100%;box-sizing:border-box;min-height:140px;font:13px/1.6 Consolas,"Cascadia Mono",monospace;background:var(--row);border:1px solid var(--line);border-radius:6px;padding:10px 12px;resize:vertical}
+.ibideas .ibck~.iblink{padding-left:22px}
 .ibctx .inb{background:#fff8dc;border:1px solid #ead79b;border-radius:6px;padding:4px 10px;margin-bottom:6px}
 .ait{font-weight:700;color:var(--brand)}.aib{font-size:13.5px;white-space:pre-wrap}
 .minv{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--mute);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
@@ -3860,7 +3861,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   /* alle punten (zonder de weggehaalde), met de toewijzing erbij; en alle ideeën */
   function ibAll() {
     var ctx = { people: ibPeople() }, pts = [], ideas = [];
-    ibSources().forEach(function (s) { ibItemsOf(s, ctx).forEach(function (it) { if (it.k === '?') ideas.push(it); else if (!ibGet(it.id).dismiss) { it.r = ibResolve(it); pts.push(it); } }); });
+    /* een afgevinkt idee staat niet meer in de inbox maar bij Besproken (als "voltooid") */
+    ibSources().forEach(function (s) { ibItemsOf(s, ctx).forEach(function (it) {
+      var st = ibGet(it.id); if (st.dismiss) return;
+      if (it.k === '?') { if (st.done) { it.r = { st: 'done', m: null, path: [], carried: 0 }; pts.push(it); } else ideas.push(it); return; }
+      it.r = ibResolve(it); pts.push(it);
+    }); });
     return { pts: pts, ideas: ideas, people: ctx.people };
   }
   /* de naam van een overleg of bron, kort: "MT · di 24 nov" of "losse herinnering · 25 nov 10:12" */
@@ -4071,7 +4077,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   function ibIdeasHtml(all) {
     var ideas = all.ideas, tg = ibLinkTargets(), ms = ibMeetOpts();
     return '<section class="card ibcard ibideas"><h2>Ideeën-inbox <span class="muted">' + ideas.length + '</span></h2><div class="ibscroll">' + (ideas.length ? '<ul class="iblist">' + ideas.map(function (it, i) {
-      return '<li><div class="ibrow2"><span class="ibtx" title="' + esc(it.text) + '">' + esc(it.text) + '</span><span class="ibmeta">' + ibSrcShort(it) + ibDelBtn(it) + '</span></div>' +
+      return '<li><div class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" data-ibdone="' + esc(it.id) + '" data-m="*" title="Voltooid" aria-label="Voltooid: ' + esc(it.text) + '"><span class="ibtx" title="' + esc(it.text) + '">' + esc(it.text) + '</span><span class="ibmeta">' + ibSrcShort(it) + ibDelBtn(it) + '</span></div>' +
         '<div class="iblink">Koppel aan: ' + tg.map(function (t) { return '<button type="button" class="chip btn" data-ibidea="' + i + '" data-to="' + esc(t.to) + '">' + esc(t.label) + '</button>'; }).join('') +
         (ms.length ? '<select class="chipsel" data-ibideameet="' + i + '" aria-label="Koppel aan een overleg"><option value="">overleg kiezen ▾</option>' + ms.map(function (c) { return '<option value="' + esc(c.id) + '">' + esc(ibName(c)) + '</option>'; }).join('') + '</select>' : '') + '</div></li>';
     }).join('') + '</ul>' : '<p class="muted ibempty">Leeg. Begin een regel met <code>?</code> voor een los idee.</p>') + '</div></section>';
@@ -5128,7 +5134,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     reminders: { t: 'Herinneringen', h:
       '<p>Alles wat je ergens wilt inbrengen, op één plek.</p><ul>' +
       '<li><b>Nieuwe herinnering</b>: typ rechts naast de titel en druk op Enter of klik op <b>Toevoegen</b>. <code>Jan …</code> gaat naar het eerstvolgende overleg met Jan; <code>MT: …</code> naar het eerstvolgende overleg met MT in de titel (ook als het nog niet in je agenda staat); <code>MT: 15-1 …</code> niet vóór 15 januari. Het begin van een woord is genoeg (<code>Team: …</code> vindt Teamoverleg), en bij een herinnering mag de dubbele punt weg als je met de titel begint (<code>Teamoverleg rooster bespreken</code>). Zonder naam of overleg gaat de herinnering naar de Ideeën-inbox. Onder het vak zie je meteen waar hij heen gaat.</li>' +
-      '<li>Links staat <b>Komt op</b>: per overleg, op tijd, elk punt op één regel. Klik op de naam van het overleg om het te openen; met <b>' + ic('add') + '</b> voeg je een punt toe dat je in dat overleg wilt inbrengen. Daaronder staat <b>Besproken</b> (ingeklapt; klik erop om het te openen). Elk punt in Komt op en Wacht op overleg heeft een <b>vinkje</b>: vink het af als het voltooid is, dan staat het onder Besproken. Haal je daar het vinkje weg, dan is het weer open. Klik bij een besproken punt op het overleg: je ziet het verslag en kunt het meteen bewerken, ook het vinkje bij de ingebrachte punten. Alles wordt vanzelf bewaard.</li>' +
+      '<li>Links staat <b>Komt op</b>: per overleg, op tijd, elk punt op één regel. Klik op de naam van het overleg om het te openen; met <b>' + ic('add') + '</b> voeg je een punt toe dat je in dat overleg wilt inbrengen. Daaronder staat <b>Besproken</b> (ingeklapt; klik erop om het te openen). Elk punt in Komt op, Wacht op overleg en de Ideeën-inbox heeft een <b>vinkje</b>: vink het af als het voltooid is, dan staat het onder Besproken. Haal je daar het vinkje weg, dan is het weer open. Klik bij een besproken punt op het overleg: je ziet het verslag en kunt het meteen bewerken, ook het vinkje bij de ingebrachte punten. Alles wordt vanzelf bewaard.</li>' +
       '<li>Rechts staan <b>Wacht op overleg</b> en de <b>Ideeën-inbox</b>.</li>' +
       '<li>Achter elk punt staat waar het op wacht, bijvoorbeeld <b>titel “MT”</b> of <b>met Jan</b>. Klik erop om zelf een overleg te kiezen; <i>weer automatisch</i> zet het terug.</li>' +
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt; ' + ic('close') + ' verwijdert een losse herinnering.</li>' +
