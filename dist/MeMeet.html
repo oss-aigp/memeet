@@ -1,7 +1,7 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.9.0 -->
+<!-- MeMeet-versie: 1.9.1 -->
 <!--
-  MeMeet 1.9.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.9.1 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
@@ -622,6 +622,7 @@ html[data-theme=dark] .cleanbar{background:#3a2412;border-color:#8a4b14}html[dat
 .dlg.pldlg{width:min(560px,100%)}#plDlg{z-index:90}
 .pvhome h2{display:flex;align-items:center;gap:8px;font-size:16px}.pvwarn{background:#fff4e5;border:1px solid #f0b46a;border-radius:8px;padding:8px 12px;font-size:13.5px}
 .pvlist{list-style:none;margin:0;padding:0}.pvlist li{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)}.pvlist li:first-child{border-top:0}.pvlist .fn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pvlist select{max-width:55%}
+.pvna{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}.pvna label{display:inline-flex;align-items:center;gap:6px;font-weight:400}.pvna input[type=radio]{width:16px;height:16px;min-height:0;margin:0;padding:0;flex:none;accent-color:var(--acc)}
 .pvmacro{max-height:220px;overflow:auto;font:12px/1.45 Consolas,"Cascadia Mono",monospace;background:var(--row);border-radius:6px;padding:10px;white-space:pre}
 .bdg.via{font-size:10.5px;background:#e7f1fb;color:#154273;border-radius:8px;padding:0 6px;margin-left:6px;white-space:nowrap}
 html[data-theme=dark] .pvwarn{background:#3a2412;border-color:#8a4b14}html[data-theme=dark] .bdg.via{background:#1d3550;color:#cfe3f7}
@@ -6450,6 +6451,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
         if ((await h.queryPermission({ mode: 'readwrite' })) !== 'granted' && (await h.requestPermission({ mode: 'readwrite' })) !== 'granted') throw new Error('Geen schrijfrechten op het postvak');
         await kvSet('postvakDir', h); var s = st(); s.name = h.name; s.dirs = {}; await persist();
         P.dir = h; P.status = 'ok'; await scan(); toast('Postvak "' + h.name + '" gekozen. MeMeet maakt daarin een map per vergadering van de komende ' + PV_DAYS + ' dagen.', 'ok'); route();
+        var ip = $('#insPostvak'); if (ip) ip.scrollIntoView({ block: 'center' });
       } catch (e) { if (e && e.name === 'AbortError') return; console.error(e); toast('Postvak kiezen lukte niet: ' + (e.message || e), 'err'); }
     }
     async function grant() {
@@ -6616,7 +6618,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
         '<p>Kies een map als postvak, bijvoorbeeld een map op de netwerkschijf waar alleen jij en je secretaresse bij kunnen. MeMeet maakt daarin een map per vergadering van de komende ' + PV_DAYS + ' dagen, en de mappen <b>' + PV_UNSORTED + '</b> en <b>' + PV_DONE + '</b>. Wat in het postvak komt, staat binnen een minuut bij de vergadering.</p>' +
         (s.name ? '<p class="' + (P.status === 'ok' ? 'okline' : 'warnline') + '">' + (P.status === 'ok' ? '✓ Postvak: ' : 'Postvak (niet bereikbaar of geen toegang): ') + '<b>' + esc(s.name) + '</b></p>' : '') +
         '<p><button type="button" class="btn' + (s.name ? '' : ' pri') + '" id="pvPick">' + ic('folder') + ' Postvak kiezen…</button></p>' +
-        '<p>Na verwerken: <label><input type="radio" name="pvna" value="verplaatsen"' + (s.na !== 'verwijderen' ? ' checked' : '') + '> verplaatsen naar <b>' + PV_DONE + '\\JJJJ-MM-DD</b></label> <label><input type="radio" name="pvna" value="verwijderen"' + (s.na === 'verwijderen' ? ' checked' : '') + '> verwijderen</label></p>' +
+        '<p class="pvna">Na verwerken: <label><input type="radio" name="pvna" value="verplaatsen"' + (s.na !== 'verwijderen' ? ' checked' : '') + '> verplaatsen naar <b>' + PV_DONE + '\\JJJJ-MM-DD</b></label> <label><input type="radio" name="pvna" value="verwijderen"' + (s.na === 'verwijderen' ? ' checked' : '') + '> verwijderen</label></p>' +
         '<p class="muted">Gebruik op een gedeelde map geen Windows-mapversleuteling: dan kan je secretaresse er niet meer bij. Laat beheer de toegangsrechten instellen.</p></section>';
     }
     function bindInstall(root) {

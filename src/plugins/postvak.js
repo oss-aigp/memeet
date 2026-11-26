@@ -31,6 +31,7 @@
         if ((await h.queryPermission({ mode: 'readwrite' })) !== 'granted' && (await h.requestPermission({ mode: 'readwrite' })) !== 'granted') throw new Error('Geen schrijfrechten op het postvak');
         await kvSet('postvakDir', h); var s = st(); s.name = h.name; s.dirs = {}; await persist();
         P.dir = h; P.status = 'ok'; await scan(); toast('Postvak "' + h.name + '" gekozen. MeMeet maakt daarin een map per vergadering van de komende ' + PV_DAYS + ' dagen.', 'ok'); route();
+        var ip = $('#insPostvak'); if (ip) ip.scrollIntoView({ block: 'center' });
       } catch (e) { if (e && e.name === 'AbortError') return; console.error(e); toast('Postvak kiezen lukte niet: ' + (e.message || e), 'err'); }
     }
     async function grant() {
@@ -197,7 +198,7 @@
         '<p>Kies een map als postvak, bijvoorbeeld een map op de netwerkschijf waar alleen jij en je secretaresse bij kunnen. MeMeet maakt daarin een map per vergadering van de komende ' + PV_DAYS + ' dagen, en de mappen <b>' + PV_UNSORTED + '</b> en <b>' + PV_DONE + '</b>. Wat in het postvak komt, staat binnen een minuut bij de vergadering.</p>' +
         (s.name ? '<p class="' + (P.status === 'ok' ? 'okline' : 'warnline') + '">' + (P.status === 'ok' ? '✓ Postvak: ' : 'Postvak (niet bereikbaar of geen toegang): ') + '<b>' + esc(s.name) + '</b></p>' : '') +
         '<p><button type="button" class="btn' + (s.name ? '' : ' pri') + '" id="pvPick">' + ic('folder') + ' Postvak kiezen…</button></p>' +
-        '<p>Na verwerken: <label><input type="radio" name="pvna" value="verplaatsen"' + (s.na !== 'verwijderen' ? ' checked' : '') + '> verplaatsen naar <b>' + PV_DONE + '\\JJJJ-MM-DD</b></label> <label><input type="radio" name="pvna" value="verwijderen"' + (s.na === 'verwijderen' ? ' checked' : '') + '> verwijderen</label></p>' +
+        '<p class="pvna">Na verwerken: <label><input type="radio" name="pvna" value="verplaatsen"' + (s.na !== 'verwijderen' ? ' checked' : '') + '> verplaatsen naar <b>' + PV_DONE + '\\JJJJ-MM-DD</b></label> <label><input type="radio" name="pvna" value="verwijderen"' + (s.na === 'verwijderen' ? ' checked' : '') + '> verwijderen</label></p>' +
         '<p class="muted">Gebruik op een gedeelde map geen Windows-mapversleuteling: dan kan je secretaresse er niet meer bij. Laat beheer de toegangsrechten instellen.</p></section>';
     }
     function bindInstall(root) {

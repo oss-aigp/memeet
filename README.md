@@ -12,12 +12,12 @@ Alles blijft op je eigen computer. Er is geen server, geen installatie en geen i
 
 <table>
 <tr>
-<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (5:52): voor, tijdens en na de vergadering"></a></td>
-<td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:26)"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-instructie.mp4"><img src="docs/films/MeMeet-instructie.jpg" alt="Instructiefilm MeMeet (6:51): voor, tijdens en na de vergadering"></a></td>
+<td width="50%"><a href="docs/films/MeMeet-installatie.mp4"><img src="docs/films/MeMeet-installatie.jpg" alt="Installatiefilm MeMeet (1:32)"></a></td>
 </tr>
 <tr>
-<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (5:52): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de herinneringen, de acties en de punten voor het volgende overleg afhandelt. Ook: markeren en opmerkingen in een Word-stuk, herinneringen afvinken en toevoegen, het verslag meteen bewerken, een stuk bewerken met bewaarde versies, en elk jaar opschonen.</td>
-<td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:26): downloaden, een vaste plek geven, de datamap kiezen en versleutelen, een snelkoppeling maken en je eerste vergadering inlezen.</td>
+<td><b><a href="docs/films/MeMeet-instructie.mp4">Instructiefilm</a></b> (6:51): stap voor stap, ook als je MeMeet nog nooit hebt gezien. Hoe je met MeMeet een vergadering voorbereidt, tijdens de vergadering aantekeningen maakt en daarna het verslag, de herinneringen, de acties en de punten voor het volgende overleg afhandelt. Ook: markeren en opmerkingen in een Word-stuk, herinneringen afvinken en toevoegen, het verslag meteen bewerken, een stuk bewerken met bewaarde versies, elk jaar opschonen, en de uitbreiding Postvak.</td>
+<td><b><a href="docs/films/MeMeet-installatie.mp4">Installatiefilm</a></b> (1:32): downloaden, een vaste plek geven, de datamap kiezen en versleutelen, een snelkoppeling maken, uitbreidingen en je eerste vergadering inlezen.</td>
 </tr>
 </table>
 
@@ -78,7 +78,7 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 
 > Lees ook de [gebruiksinstructie: privacy en veilig gebruik](docs/GEBRUIKSINSTRUCTIE.md). Daarin staat wat je wel en niet noteert, hoe je de datamap versleutelt en hoe je elk jaar opschoont.
 
-> Liever kijken dan lezen? De [installatiefilm](docs/films/MeMeet-installatie.mp4) (1:26) laat alle stappen hieronder zien.
+> Liever kijken dan lezen? De [installatiefilm](docs/films/MeMeet-installatie.mp4) (1:32) laat alle stappen hieronder zien.
 
 > MeMeet werkt niet goed in Firefox of Safari. Die browsers kunnen niet met mappen op je computer werken.
 
