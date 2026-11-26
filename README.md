@@ -300,6 +300,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 - **Elk jaar opschonen:** in de laatste week van december toont MeMeet een balk met **Gegevens opschonen**. Dat verwijdert alle vergaderingen tot en met vandaag, met stukken, aantekeningen en acties. Herinneringspunten die aan een overleg gekoppeld zijn of op een overleg wachten, en je ideeën, blijven bewaard. Het kan ook op een ander moment, via **Help**.
 - Naast `MeMeet.html` staat `MeMeet.html.sha256`, het controlegetal waarmee je nagaat of een download ongewijzigd is.
 - Meer: de [gebruiksinstructie](docs/GEBRUIKSINSTRUCTIE.md).
+- De **DPIA** (gegevensbeschermingseffectbeoordeling volgens het Model DPIA Rijksdienst) staat in [`docs/20261126 DPIA MeMeet v1.8.1.pdf`](docs/20261126%20DPIA%20MeMeet%20v1.8.1.pdf). Conclusie: inzet kan onder vier voorwaarden; het restrisico is laag.
 
 ---
 
@@ -358,7 +359,7 @@ memeet/
 ├─ outlook/
 │  └─ MeMeet-weekagenda.bas ← Outlook-macro: agenda van de komende 30 dagen opslaan als .ics
 ├─ icons/                ← vier icoonontwerpen als SVG, PNG en ICO
-├─ docs/                 ← gebruiksinstructie (GEBRUIKSINSTRUCTIE.md), schermafbeeldingen, en in films/ de instructie- en installatiefilm
+├─ docs/                 ← gebruiksinstructie (GEBRUIKSINSTRUCTIE.md), DPIA (PDF), schermafbeeldingen, en in films/ de instructie- en installatiefilm
 ├─ scripts/build.js      ← bouwscript
 ├─ LICENSE               ← EUPL-1.2
 ├─ THIRD-PARTY-NOTICES.md ← licenties van pdf.js, pdf-lib, JSZip, docx-preview en Material Symbols
