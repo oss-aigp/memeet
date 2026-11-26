@@ -112,7 +112,7 @@
       $('#npfocus').onclick = function () { A.npWin.focus(); }; $('#npback').onclick = function () { A.npWin.close(); };
       $('#nppop').disabled = true; $('#npmail').onclick = function () { mailMinutes(m); }; $('#annUp').onclick = function () { annUpload(m); }; bindGrip(); return;
     }
-    /* boven: wat je hier inbrengt (geel vak, alleen als er iets is); midden: het tekstvak; onder: Herkend en de uitleg van de tekens */
+    /* boven: wat je hier inbrengt (geel vak, met + om een herinnering toe te voegen); midden: het tekstvak; onder: Herkend en de uitleg van de tekens */
     var ibA = ibAll(), ibPv = ibPreviewHtml(m, ibA);
     h += '<div id="ibInbW">' + ibInbHtml(m, ibA) + '</div>';
     h += '<textarea id="npt" spellcheck="true" placeholder="Typ hier je aantekeningen…&#10;&#10;! actie   = besluit   ? idee&#10;&gt; meeneempunt: &gt; Jan … (overleg met Jan), &gt; MT: … (overleg met MT in de titel), of &gt; … (volgende keer van dit overleg)">' + esc(m.minutes || '') + '</textarea>';

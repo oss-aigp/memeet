@@ -101,7 +101,7 @@
       '<li>Sleep je een bestand met <b>dezelfde naam</b> erop, dan vraagt MeMeet of de oude versie vervangen moet worden.</li>' +
       '<li>Een stuk dat de viewer niet kan tonen (bijvoorbeeld een oud .doc-bestand) download je met <b>' + ic('download') + '</b> boven de viewer en open je in Word. Wil je het in de viewer zien, sla het dan in Word op als PDF en sleep die PDF met dezelfde naam erop: MeMeet vraagt dan of het de PDF-versie is.</li></ul>' +
       '<h3>Inbrengen: punten die vanzelf in het juiste overleg komen</h3><ul>' +
-      '<li>Bovenaan de aantekeningen staat een geel vak met wat je in dít overleg wilt inbrengen: meeneempunten (<code>&gt;</code>) uit eerdere overleggen. Vink een punt af als het besproken is. Is er niets, dan is er geen vak.</li>' +
+      '<li>Bovenaan de aantekeningen staat een geel vak met wat je in dít overleg wilt inbrengen: meeneempunten (<code>&gt;</code>) uit eerdere overleggen. Vink een punt af als het besproken is. Met <b>' + ic('add') + '</b> rechts in het vak voeg je meteen een herinnering voor dit overleg toe (Enter bewaart, Esc sluit). Is er nog niets, dan is het vak één smalle regel.</li>' +
       '<li>Niet afgevinkt en het overleg is voorbij? Dan schuift het punt vanzelf door naar het volgende passende overleg, met een label <b>1×</b>, <b>2×</b>. Na twee keer vraagt MeMeet <b>Nog relevant?</b>: <i>Ja, laten staan</i> of <i>Nee, weg</i> (de regel in je aantekeningen blijft staan).</li>' +
       '<li>Grijze punten kwamen hier langs, maar zijn doorgeschoven of elders besproken; erachter staat waar ze nu zijn.</li>' +
       '<li>Klik op <b>uit …</b> om te zien waar een punt vandaan komt: de aantekeningen van dat overleg, met de regel geel gemarkeerd, en de stukken. <b>Esc</b> sluit het venster.</li>' +
