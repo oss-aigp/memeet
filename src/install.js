@@ -29,7 +29,9 @@
       '<p>Klik op <b>Datamap kiezen</b> en kies de map <b>MeMeet</b> waar <code>MeMeet.html</code> in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan, met de submappen <b>Vergaderingen</b>, <b>Aantekeningen</b> en <b>Actielijst</b>, en zet het icoon <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</p>' +
       '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    memeet.json</pre>' +
       '<p><button class="btn' + (A.store && A.store.kind === 'map' ? '' : ' pri') + '" id="insPick">' + ic('folder') + ' Datamap kiezen…</button></p></section>';
-    h += '<section class="card wk"><h2>3. Snelkoppeling op het bureaublad en in de taakbalk</h2>' +
+    h += '<section class="card wk" id="insCrypt"><h2>3. Versleutel de datamap</h2>' + CRYPT_HTML +
+      (A.store && A.store.kind === 'map' ? '<p><a href="#" class="btn fold" data-fold="">' + ic('folder_open') + ' memeet-data openen in Verkenner</a></p>' : '') + '</section>';
+    h += '<section class="card wk"><h2>4. Snelkoppeling op het bureaublad en in de taakbalk</h2>' +
       '<p>De snelkoppeling start <code>explorer.exe</code> met MeMeet als bestand. Omdat het doel een programma is, kun je hem daarna ook naar de taakbalk slepen.</p><ol>' +
       '<li>Klik met de rechtermuisknop op een lege plek op het bureaublad en kies <b>Nieuw</b> › <b>Snelkoppeling</b>.</li>' +
       '<li>Plak bij <i>Typ de locatie van het item</i> deze regel' + (here ? ' (klik op <b>Kopiëren</b>)' : ' en vervang het pad door de plek van jouw <code>MeMeet.html</code>') + ':</li></ol>' +
@@ -38,11 +40,12 @@
       '<li>Klik met de rechtermuisknop op de nieuwe snelkoppeling en kies <b>Eigenschappen</b>. Klik op <b>Ander pictogram…</b> › <b>Bladeren</b>, kies <code>' + esc((dir || 'Documenten\\MeMeet') + '\\MeMeet.ico') + '</code> en klik twee keer op <b>OK</b>.</li>' +
       '<li>Sleep de snelkoppeling van het bureaublad naar de <b>taakbalk</b>. Of klik er met de rechtermuisknop op en kies <b>Aan taakbalk vastmaken</b> (in Windows 11 eerst <b>Meer opties weergeven</b>).</li></ol>' +
       '<p class="muted">' + (A.iconPlaced ? 'Het icoon <code>MeMeet.ico</code> heeft MeMeet al naast <code>MeMeet.html</code> gezet. ' : 'Het icoon <code>MeMeet.ico</code> zet MeMeet naast <code>MeMeet.html</code> als je in stap 2 de map MeMeet kiest. Staat het er niet? ') + '<button type="button" class="link" id="insIco">Icoon downloaden</button> en zet het naast <code>MeMeet.html</code>.</p></section>';
-    h += '<section class="card wk"><h2>4. Bijwerken naar een nieuwe versie</h2>' + UPGRADE_HTML + '</section>';
-    h += '<section class="card wk"><h2>5. Back-up</h2>' + BACKUP_HTML.replace(/<h3>/g, '<h3 class="sub">') + '</section>';
+    h += '<section class="card wk"><h2>5. Bijwerken naar een nieuwe versie</h2>' + UPGRADE_HTML + '</section>';
+    h += '<section class="card wk"><h2>6. Back-up</h2>' + BACKUP_HTML.replace(/<h3>/g, '<h3 class="sub">') + '</section>';
+    h += '<section class="card wk"><h2>7. Elk jaar opschonen</h2>' + CLEAN_HTML + '<p><a class="btn" href="#/opschonen">' + ic('delete_sweep') + ' Gegevens opschonen…</a></p></section>';
     h += '<p><a class="btn" href="#/">Klaar, naar de vergaderingen</a></p>';
     setHTML($('#main'), h);
-    $('#insPick').onclick = chooseFolder;
+    $('#insPick').onclick = chooseFolder; bindFolders($('#main'));
     $('#insIco').onclick = function () { dl(icoBlob(), 'MeMeet.ico'); };
     var c = $('#insCopy'); if (c) c.onclick = async function () { var ok = false; try { await navigator.clipboard.writeText(cmd); ok = true; } catch (e) {} toast(ok ? 'Gekopieerd. Plak het met Ctrl+V.' : 'Kopiëren lukte niet. Selecteer de tekst en druk op Ctrl+C.', ok ? 'ok' : 'warn'); };
   }

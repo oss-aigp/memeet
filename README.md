@@ -75,6 +75,8 @@ De uitleg staat in beeld; er wordt niet gesproken. Onder de instructiefilm staat
 
 **Wat je nodig hebt:** Windows 10 of 11 met **Microsoft Edge** of **Google Chrome**, een recente versie. Je hebt geen beheerdersrechten nodig en er wordt niets geïnstalleerd.
 
+> Lees ook de [gebruiksinstructie: privacy en veilig gebruik](docs/GEBRUIKSINSTRUCTIE.md). Daarin staat wat je wel en niet noteert, hoe je de datamap versleutelt en hoe je elk jaar opschoont.
+
 > Liever kijken dan lezen? De [installatiefilm](docs/films/MeMeet-installatie.mp4) (1:04) laat alle stappen hieronder zien.
 
 > MeMeet werkt niet goed in Firefox of Safari. Die browsers kunnen niet met mappen op je computer werken.
@@ -128,6 +130,10 @@ Kies je een map waarin al gegevens van MeMeet staan (bijvoorbeeld je oude datama
 > **Elke keer dat je MeMeet opent**, vraagt Edge één keer of MeMeet de map opnieuw mag gebruiken. Dat is een beveiligingsregel van de browser. Klik op **Map openen** en daarna op **Toestaan**.
 
 > Mag je geen map kiezen, bijvoorbeeld omdat de beheerder dat heeft uitgezet? Kies dan **bewaar alles in de browser**. MeMeet werkt dan ook, maar alleen in deze browser op deze computer.
+
+### Stap 4b. De datamap versleutelen
+
+Versleutel nu de map `memeet-data` met je eigen Windows-account. Klik met de rechtermuisknop op de map › **Eigenschappen** › **Geavanceerd…** › vink **Inhoud versleutelen om gegevens te beveiligen** aan › **OK** › **Toepassen** › **Wijzigingen toepassen op deze map, submappen en bestanden**. MeMeet merkt er niets van en vraagt geen wachtwoord. Zie de [gebruiksinstructie](docs/GEBRUIKSINSTRUCTIE.md#2-de-datamap-kiezen-en-versleutelen) voor de details.
 
 ### Stap 5. Snelkoppeling op het bureaublad en in de taakbalk
 
@@ -249,7 +255,8 @@ Je kunt bestanden in deze mappen gewoon openen en kopiëren. Hernoem of verwijde
 ## Bijwerken naar een nieuwe versie
 
 1. Maak eerst een back-up (zie hieronder).
-2. Open [MeMeet.html op GitHub](https://github.com/oss-aigp/memeet/blob/main/dist/MeMeet.html) en klik rechtsboven op het pijltje **Download raw file**. Het bestand komt in **Downloads**.
+2. Open [MeMeet.html op GitHub](https://github.com/oss-aigp/memeet/blob/main/dist/MeMeet.html) en klik rechtsboven op het pijltje **Download raw file**. Het bestand komt in **Downloads**. Krijg je MeMeet via je IV-afdeling, gebruik dan die versie.
+   Controleer het controlegetal: typ in een terminal in Downloads `Get-FileHash MeMeet.html` en vergelijk de code met [`dist/MeMeet.html.sha256`](dist/MeMeet.html.sha256). Is hij anders, gebruik het bestand dan niet.
 3. Sluit MeMeet (alle tabbladen met MeMeet).
 4. Verplaats het gedownloade `MeMeet.html` naar `Documenten\MeMeet` en kies **Het bestand in de doelmap vervangen**. Heet het in Downloads `MeMeet (1).html`, geef het dan eerst de naam `MeMeet.html`.
 5. Open MeMeet via je snelkoppeling. Al je vergaderingen staan er weer.
@@ -260,7 +267,7 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 
 ## Back-up en verhuizen
 
-- **Back-up:** sluit MeMeet en kopieer de **hele map `memeet-data`**, mét het bestand `memeet.json` erin, bijvoorbeeld naar OneDrive, een netwerkschijf of een USB-stick. `memeet.json` is het register: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen. Zonder dat bestand zijn alleen de losse stukken terug te halen.
+- **Back-up:** sluit MeMeet en kopieer de **hele map `memeet-data`**, mét het bestand `memeet.json` erin, naar een plek die even goed beveiligd is, bijvoorbeeld je persoonlijke netwerkschijf (niet naar een USB-stick, OneDrive of een gedeelde map). `memeet.json` is het register: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen. Zonder dat bestand zijn alleen de losse stukken terug te halen.
 - **Terugzetten of naar een andere computer:** zet de gekopieerde map `memeet-data` neer (bijvoorbeeld in `Documenten\MeMeet`), open `MeMeet.html` en kies via **📁 Wijzig datamap** rechtsboven die map.
 - Losse vergadermappen terugkopiëren in `Vergaderingen` werkt niet: MeMeet werkt vanuit `memeet.json`. Zet altijd de hele map terug.
 
@@ -288,6 +295,11 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 - MeMeet draait volledig **in je eigen browser**. Mails, stukken en aantekeningen worden **nergens naartoe gestuurd**.
 - Er worden geen externe scripts of lettertypen geladen. Alles zit in het HTML-bestand, dus MeMeet werkt ook zonder internet.
 - MeMeet heeft alleen toegang tot de ene datamap die jij kiest, en alleen nadat jij in Edge toestemming hebt gegeven.
+- Een **Content-Security-Policy** in het bestand blokkeert elke verbinding met internet vanuit MeMeet. Alleen eigen code, lokale bestanden en gegevens binnen de browser zijn toegestaan.
+- **Versleutel de datamap** met je Windows-account (zie stap 4b) en zet hem niet in OneDrive of een gedeelde map.
+- **Elk jaar opschonen:** in de laatste week van december toont MeMeet een balk met **Gegevens opschonen**. Dat verwijdert alle vergaderingen tot en met vandaag, met stukken, aantekeningen en acties. Herinneringspunten die aan een overleg gekoppeld zijn of op een overleg wachten, en je ideeën, blijven bewaard. Het kan ook op een ander moment, via **Help**.
+- Naast `MeMeet.html` staat `MeMeet.html.sha256`, het controlegetal waarmee je nagaat of een download ongewijzigd is.
+- Meer: de [gebruiksinstructie](docs/GEBRUIKSINSTRUCTIE.md).
 
 ---
 
@@ -318,6 +330,7 @@ npm run build        # maakt dist/MeMeet.html
 memeet/
 ├─ dist/
 │  ├─ MeMeet.html        ← het gebouwde bestand (dit gebruiken)
+│  ├─ MeMeet.html.sha256 ← controlegetal (SHA-256) van MeMeet.html
 │  └─ archive/           ← alle eerdere versies (MeMeet-v<versie>.html)
 ├─ src/
 │  ├─ app.html           ← HTML-sjabloon en alle CSS
@@ -334,6 +347,7 @@ memeet/
 │  ├─ mailacts.js        ← pop-up met een mail of bestanden (ook bewerken)
 │  ├─ reports.js         ← tabblad Verslagen (lijst en Word-achtige editor), mailen
 │  ├─ vervolg.js         ← besluitenlijst: besluiten, acties en meeneempunten voor het vervolgoverleg
+│  ├─ opschonen.js       ← jaarlijks opschonen (laatste week van december), behalve open herinneringen en ideeën
 │  ├─ files.js           ← tabblad Bestanden (zoeken, filteren, mappen, versies, mailen)
 │  ├─ help.js            ← helppaneel per pagina (knop ? en F1)
 │  ├─ intake.js          ← mail, uitnodiging of weekagenda omzetten naar vergaderingen
@@ -344,7 +358,7 @@ memeet/
 ├─ outlook/
 │  └─ MeMeet-weekagenda.bas ← Outlook-macro: agenda van de komende 30 dagen opslaan als .ics
 ├─ icons/                ← vier icoonontwerpen als SVG, PNG en ICO
-├─ docs/                 ← schermafbeeldingen voor deze README, en in films/ de instructie- en installatiefilm
+├─ docs/                 ← gebruiksinstructie (GEBRUIKSINSTRUCTIE.md), schermafbeeldingen, en in films/ de instructie- en installatiefilm
 ├─ scripts/build.js      ← bouwscript
 ├─ LICENSE               ← EUPL-1.2
 ├─ THIRD-PARTY-NOTICES.md ← licenties van pdf.js, pdf-lib, JSZip, docx-preview en Material Symbols

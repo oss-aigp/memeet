@@ -1,12 +1,15 @@
 <!doctype html>
-<!-- MeMeet-versie: 1.7.8 -->
+<!-- MeMeet-versie: 1.8.0 -->
 <!--
-  MeMeet 1.7.8 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
+  MeMeet 1.8.0 © oss-aigp en bijdragers, https://github.com/oss-aigp/memeet
   Licentie: European Union Public Licence v. 1.2 (EUPL-1.2), zie LICENSE.
   Bevat pdf.js (Apache-2.0, Mozilla Foundation) met de JBIG2-decoder (PDFium, BSD-3-Clause) en de JPEG 2000-decoder (OpenJPEG, BSD-2-Clause), pdf-lib met standard-fonts, upng, pako en tslib (MIT, MIT AND Zlib, 0BSD)
   JSZip (MIT of GPL-3.0), docx-preview (Apache-2.0) en iconen uit Material Symbols (Apache-2.0, Google); volledige teksten in THIRD-PARTY-NOTICES.md.
 -->
 <html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Content-Security-Policy: MeMeet mag geen enkele verbinding met internet maken. Alleen eigen (inline) code, lokale bestanden (file:) en
+     data/blob-adressen binnen de browser zijn toegestaan; WebAssembly alleen voor het uitpakken van ingescande PDF's. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' file:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; media-src data: blob:; connect-src data: blob:; worker-src blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>MeMeet</title>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('memeet-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4gPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTRiOGE2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGY2ZTc0Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+IDxyZWN0IHg9IjgiIHk9IjgiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIiByeD0iNTYiIGZpbGw9InVybCgjZykiLz4gPGcgZmlsbD0iI2ZmZmZmZiI+IDxjaXJjbGUgY3g9IjEyOC4wIiBjeT0iNDguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iMTg0LjYiIGN5PSI3MS40IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIyMDguMCIgY3k9IjEyOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxODQuNiIgY3k9IjE4NC42IiByPSIxMyIvPiA8Y2lyY2xlIGN4PSIxMjguMCIgY3k9IjIwOC4wIiByPSIxMyIvPiA8Y2lyY2xlIGN4PSI3MS40IiBjeT0iMTg0LjYiIHI9IjEzIi8+IDxjaXJjbGUgY3g9IjQ4LjAiIGN5PSIxMjguMCIgcj0iMTMiLz4gPGNpcmNsZSBjeD0iNzEuNCIgY3k9IjcxLjQiIHI9IjEzIi8+IDwvZz4gPGNpcmNsZSBjeD0iMTI4IiBjeT0iMTI4IiByPSI1MiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjk2Ii8+IDxyZWN0IHg9IjEwNiIgeT0iMTAyIiB3aWR0aD0iNDQiIGhlaWdodD0iNTQiIHJ4PSI2IiBmaWxsPSIjMGY2ZTc0Ii8+IDxyZWN0IHg9IjExMyIgeT0iMTEzIiB3aWR0aD0iMzAiIGhlaWdodD0iNSIgcng9IjIuNSIgZmlsbD0iI2ZmZmZmZiIvPiA8cmVjdCB4PSIxMTMiIHk9IjEyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiM5ZWU2ZGQiLz4gPHJlY3QgeD0iMTEzIiB5PSIxMzUiIHdpZHRoPSIyOCIgaGVpZ2h0PSI1IiByeD0iMi41IiBmaWxsPSIjOWVlNmRkIi8+IDxjaXJjbGUgY3g9IjEyOCIgY3k9IjQ4IiByPSIxMyIgZmlsbD0iI2ZmZDQwMCIvPiA8L3N2Zz4g">
@@ -603,6 +606,14 @@ select.to{width:auto;max-width:100%;min-height:0;padding:1px 4px;border-color:va
 .inb .inbhd .ibplus{width:22px;height:22px;min-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid #ead79b;background:#fff;border-radius:6px;color:#7a5a00;cursor:pointer}.inb .inbhd .ibplus:hover{border-color:#c9a227}
 .inb .ibaddrow{padding:2px 0 6px}.inb .ibaddrow input{width:100%;box-sizing:border-box;font-size:13px;padding:4px 8px}
 .np .inb.empty{background:#fffdf4;border-style:dashed}.inb.empty .inbhd{color:#a08a4a;font-weight:500;text-transform:none;letter-spacing:0;font-size:12.5px}
+/* jaarlijks opschonen */
+.cleanbar{display:flex;align-items:center;gap:14px;background:#fff4e5;border:1px solid #f0b46a;border-left:5px solid #d9480f;border-radius:10px;padding:12px 16px;margin:0 0 12px}
+.cleanbar .cleanic{color:#d9480f;font-size:22px;display:inline-flex}.cleanbar .cleantx{flex:1;display:flex;flex-direction:column;gap:2px;font-size:13.5px;color:#4a2a00}.cleanbar .cleantx b{font-size:14.5px;color:#7a2e00}
+.btn.danger{background:#c92a2a;border-color:#c92a2a;color:#fff}.btn.danger:hover{background:#a61e1e;border-color:#a61e1e;color:#fff}.btn.danger:disabled{opacity:.5;cursor:not-allowed}
+.dlg.cleandlg{width:min(720px,100%)}.cleandlg h2{display:flex;align-items:center;gap:8px}.cleancols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin:8px 0 12px}
+.cleancols h3{font-size:14px;margin:0 0 6px}.cleancols ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.5}.cleancols li{margin-bottom:4px}.cleancols .small{font-size:12.5px;margin-top:8px}
+.cleanok{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;background:var(--row);border-radius:8px;padding:10px 12px}.cleanok input{margin-top:3px;width:16px;height:16px;min-height:0;flex:none;padding:0;accent-color:#c92a2a}
+html[data-theme=dark] .cleanbar{background:#3a2412;border-color:#8a4b14}html[data-theme=dark] .cleanbar .cleantx,html[data-theme=dark] .cleanbar .cleantx b{color:#ffd8a8}
 .ibctx .inb{background:#fff8dc;border:1px solid #ead79b;border-radius:6px;padding:4px 10px;margin-bottom:6px}
 .ait{font-weight:700;color:var(--brand)}.aib{font-size:13.5px;white-space:pre-wrap}
 .mdone{font-size:12px;border-radius:12px;padding:2px 10px;font-weight:700;background:var(--ok);color:var(--green);white-space:nowrap}
@@ -760,6 +771,7 @@ select.chipsel:hover{background:var(--licht)}
 .i-create_new_folder{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M140-160q-24%200-42-18.5T80-220v-520q0-23%2018-41.5t42-18.5h256q12.44%200%2023.72%205t19.37%2013.09L481-740h339q23%200%2041.5%2018.5T880-680v460q0%2023-18.5%2041.5T820-160H140Zm0-60h680v-460H456l-60-60H140v520Zm0%200v-520%20520Zm410-190v60q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63%208.5-8.62%208.5-21.37v-60h60q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5h-60v-60q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v60h-60q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5h60Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-dark_mode{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M480-120q-150%200-255-105T120-480q0-135%2079.5-229T408-830q20-5%2034-1t22%2015q8%2010%207.5%2025t-8.5%2035q-9%2023-14%2047t-5%2049q0%2090%2063%20153t153%2063q25%200%2048.5-4.5T754-461q22-8%2038-7t26%209q10%208%2013%2023t-2%2036q-27%20121-121%20200.5T480-120Zm0-60q109%200%20190-67.5T771-406q-25%2011-53.5%2016.5T660-384q-115%200-195.5-80.5T384-660q0-24%205-51.5t18-62.5q-98%2027-162.5%20109.5T180-480q0%20125%2087.5%20212.5T480-180Zm-4-297Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-delete{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M261-120q-24.75%200-42.37-17.63Q201-155.25%20201-180v-570h-11q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h158q0-13%208.63-21.5%208.62-8.5%2021.37-8.5h204q12.75%200%2021.38%208.62Q612-822.75%20612-810h158q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5h-11v570q0%2024.75-17.62%2042.37Q723.75-120%20699-120H261Zm438-630H261v570h438v-570ZM418.5-274.63q8.5-8.62%208.5-21.37v-339q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v339q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63Zm166%200q8.5-8.62%208.5-21.37v-339q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82%200-21.32%208.62-8.5%208.63-8.5%2021.38v339q0%2012.75%208.68%2021.37%208.67%208.63%2021.5%208.63%2012.82%200%2021.32-8.63ZM261-750v570-570Z%22%2F%3E%3C%2Fsvg%3E")}
+.i-delete_sweep{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M185-200q-24%200-42-18t-18-42v-415q-13%200-21.5-8.68-8.5-8.67-8.5-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h125v-15.14q0-12.86%208.63-21.36%208.62-8.5%2021.37-8.5h75q12.75%200%2021.38%208.62Q385-762.75%20385-750v15h125q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5v415q0%2024-18%2042t-42%2018H185Zm445-30q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h85q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5h-85Zm0-184q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h175q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H630Zm0-184q-12.75%200-21.37-8.68-8.63-8.67-8.63-21.5%200-12.82%208.63-21.32%208.62-8.5%2021.37-8.5h220q12.75%200%2021.38%208.68%208.62%208.67%208.62%2021.5%200%2012.82-8.62%2021.32-8.63%208.5-21.38%208.5H630Zm-445-77v415h265v-415H185Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-description{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M349-250h262q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5Zm0-170h262q12.75%200%2021.38-8.68%208.62-8.67%208.62-21.5%200-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75%200-21.37%208.68-8.63%208.67-8.63%2021.5%200%2012.82%208.63%2021.32%208.62%208.5%2021.37%208.5ZM220-80q-24%200-42-18t-18-42v-680q0-24%2018-42t42-18h336q12.44%200%2023.72%205T599-862l183%20183q8%208%2013%2019.28%205%2011.28%205%2023.72v496q0%2024-18%2042t-42%2018H220Zm331-584v-156H220v680h520v-494H581q-12.75%200-21.37-8.63Q551-651.25%20551-664ZM220-820v186-186%20680-680Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-download{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36%209.11-21.36%209.39-9%2021.89-9t21.5%209l98%2099v-341q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v341l99-99q8.8-9%2020.9-8.5%2012.1.5%2021.49%209.5%208.61%209%208.61%2021.5t-9%2021.5L501-334q-5%205-10.13%207-5.14%202-11%202-5.87%200-10.87-2ZM220-160q-24%200-42-18t-18-42v-113q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v113h520v-113q0-12.75%208.68-21.38%208.67-8.62%2021.5-8.62%2012.82%200%2021.32%208.62%208.5%208.63%208.5%2021.38v113q0%2024-18%2042t-42%2018H220Z%22%2F%3E%3C%2Fsvg%3E")}
 .i-edit{--ic:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-960%20960%20960%22%3E%3Cpath%20d%3D%22M180-180h44l472-471-44-44-472%20471v44Zm-30%2060q-13%200-21.5-8.5T120-150v-73q0-12%205-23.5t13-19.5l557-556q8-8%2019-12.5t23-4.5q11%200%2022%204.5t20%2012.5l44%2044q9%209%2013%2020t4%2022q0%2011-4.5%2022.5T823-694L266-138q-8%208-19.5%2013t-23.5%205h-73Zm629-617-41-41%2041%2041Zm-105%2064-22-22%2044%2044-22-22Z%22%2F%3E%3C%2Fsvg%3E")}
@@ -3764,7 +3776,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
 
   /* ---------- wat MeMeet kent: voornamen van genodigden, titels van overleggen, en titels die je zelf als overleg hebt aangemerkt */
   function ibPeople() {
-    var o = {}; A.data.meetings.forEach(function (m) { names(m.invitees).forEach(function (n) { var f = ibFirst(n); if (f && f.length > 1 && !o[f]) o[f] = String(n).trim().split(/\s+/)[0].split('@')[0].replace(/^./, function (c) { return c.toUpperCase(); }); }); });
+    /* voornamen uit bewaarde herinneringen na het jaarlijks opschonen (alleen die namen; de vergaderingen zelf zijn weg) */
+    var o = {}, kp = A.data.ibPeopleKeep || {}; Object.keys(kp).forEach(function (k) { o[k] = kp[k]; });
+    A.data.meetings.forEach(function (m) { names(m.invitees).forEach(function (n) { var f = ibFirst(n); if (f && f.length > 1 && !o[f]) o[f] = String(n).trim().split(/\s+/)[0].split('@')[0].replace(/^./, function (c) { return c.toUpperCase(); }); }); });
     return o;
   }
   function ibExtra() { return A.data.ibTitles || (A.data.ibTitles = {}); }
@@ -4765,6 +4779,106 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
 
 
 
+  /* MeMeet - opschonen: één keer per jaar (in de laatste week van december) alle gegevens verwijderen, behalve de herinneringspunten die
+     aan een overleg gekoppeld zijn of op een overleg wachten, en de ideeën. Aantekeningen in MeMeet zijn persoonlijke werkaantekeningen;
+     die horen niet langer bewaard te worden dan nodig. */
+
+  /* de laatste week van december: 25 tot en met 31 december */
+  function cleanSeason(d) { d = d || (A.fakeNow ? new Date(A.fakeNow.replace(" ", "T")) : new Date()); return d.getMonth() === 11 && d.getDate() >= 25; }
+  function cleanYear() { return new Date().getFullYear(); }
+
+  /* wat er weggaat en wat er blijft */
+  function cleanPlan() {
+    var today = todayIso(), all = ibAll();
+    var del = A.data.meetings.filter(function (m) { return !m.date || m.date <= today; });
+    var future = A.data.meetings.filter(function (m) { return del.indexOf(m) < 0; });
+    var pts = all.pts.filter(function (p) { return p.r.st === 'open' || p.r.st === 'wait'; });
+    var todo = A.data.todo || [];
+    var doneRems = ibRems().filter(function (r) { return !pts.concat(all.ideas).some(function (it) { return it.src.rem === r; }); });
+    return { del: del, future: future, keep: pts.concat(all.ideas), nPts: pts.length, nIdeas: all.ideas.length, todo: todo, doneRems: doneRems };
+  }
+
+  /* balk op de pagina Vergaderingen, alleen in de laatste week van december en zolang er dit jaar nog niet is opgeschoond */
+  function cleanBannerHtml() {
+    if (!cleanSeason() || A.data.cleanedYear === cleanYear()) return '';
+    try { if (localStorage.getItem('memeet-clean-later') === todayIso()) return ''; } catch (e) {}
+    return '<section class="cleanbar" role="status"><span class="cleanic" aria-hidden="true">' + ic('delete_sweep') + '</span><div class="cleantx"><b>Het is de laatste week van december: tijd om op te schonen</b>' +
+      '<span>Verwijder je vergaderingen, stukken, aantekeningen en acties van dit jaar. Herinneringen die nog open staan en je ideeën blijven bewaard.</span></div>' +
+      '<a class="btn danger" href="#/opschonen">' + ic('delete_sweep') + ' Gegevens opschonen</a><button type="button" class="btn" id="cleanLater">Later</button></section>';
+  }
+  function bindCleanBanner() {
+    var b = $('#cleanLater'); if (b) b.onclick = function () { try { localStorage.setItem('memeet-clean-later', todayIso()); } catch (e) {} var s = b.closest('.cleanbar'); if (s) s.remove(); };
+  }
+
+  /* de pop-up: eerst laten zien wat er gebeurt, dan pas verwijderen */
+  function openCleanup() {
+    if (!A.store) return;
+    var p = cleanPlan(), old = $('#cleanDlg'); if (old) old.remove();
+    var nAct = p.todo.length, mails = p.todo.filter(function (x) { return x.mail; }).length;
+    var bg = D.createElement('div'); bg.className = 'dlgbg'; bg.id = 'cleanDlg';
+    setHTML(bg, '<div class="dlg cleandlg" role="dialog" aria-modal="true" aria-labelledby="cleanT"><div class="vvhead"><div><h2 id="cleanT">' + ic('delete_sweep') + ' Gegevens opschonen</h2>' +
+      '<p class="muted">Doe dit elk jaar in de laatste week van december. Wat weg is, kun je niet terughalen.</p></div><button type="button" class="vvx" id="cleanX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<div class="cleancols"><div><h3>Wordt verwijderd</h3><ul>' +
+      '<li><b>' + p.del.length + '</b> vergadering' + (p.del.length === 1 ? '' : 'en') + ' tot en met vandaag, met de stukken, originele mails, eerdere versies, markeringen, aantekeningen en acties</li>' +
+      '<li><b>' + nAct + '</b> losse actie' + (nAct === 1 ? '' : 's') + (mails ? ' (waarvan ' + mails + ' mail' + (mails === 1 ? '' : 's') + ')' : '') + '</li>' +
+      '<li><b>' + p.doneRems.length + '</b> afgevinkte of weggehaalde herinnering' + (p.doneRems.length === 1 ? '' : 'en') + '</li></ul></div>' +
+      '<div><h3>Blijft bewaard</h3><ul>' +
+      '<li><b>' + p.nPts + '</b> herinneringspunt' + (p.nPts === 1 ? '' : 'en') + ' die aan een overleg gekoppeld zijn of op een overleg wachten</li>' +
+      '<li><b>' + p.nIdeas + '</b> idee' + (p.nIdeas === 1 ? '' : 'ën') + '</li>' +
+      '<li><b>' + p.future.length + '</b> vergadering' + (p.future.length === 1 ? '' : 'en') + ' na vandaag, met wat erbij hoort</li></ul>' +
+      '<p class="muted small">Punten en ideeën die in de aantekeningen van een verwijderde vergadering stonden, worden losse herinneringen. Ze komen gewoon op bij hetzelfde overleg.</p></div></div>' +
+      '<label class="cleanok"><input type="checkbox" id="cleanOk"> Ik begrijp dat dit niet ongedaan kan worden' + (A.store.kind === 'map' ? ' (wil je een kopie, kopieer dan eerst de map <code>memeet-data</code>)' : '') + '</label>' +
+      '<div class="dlgacts"><button type="button" class="btn danger" id="cleanGo" disabled>' + ic('delete_sweep') + ' Nu verwijderen</button><button type="button" class="btn" id="cleanNo">Annuleren</button></div></div>');
+    D.body.appendChild(bg);
+    function close() { bg.remove(); }
+    bg.addEventListener('mousedown', function (e) { if (e.target === bg) close(); });
+    $('#cleanX', bg).onclick = close; $('#cleanNo', bg).onclick = close;
+    $('#cleanOk', bg).onchange = function () { $('#cleanGo', bg).disabled = !this.checked; };
+    $('#cleanGo', bg).onclick = async function () { this.disabled = true; setHTML(this, 'Bezig met verwijderen…'); try { await doCleanup(p); } catch (e) { console.error(e); toast('Opschonen mislukt: ' + (e.message || e), 'err'); } close(); route(); };
+    bg.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.stopPropagation(); close(); } });
+    try { $('#cleanOk', bg).focus(); } catch (e) {}
+  }
+
+  async function doCleanup(p) {
+    var del = p.del, fail = [];
+    /* 0. de voornamen die in bewaarde punten staan, blijven bekend (anders herkent MeMeet "> Ahmed …" niet meer als persoon) */
+    var ppl = ibPeople(), kp = {}; p.keep.forEach(function (it) { (it.persons || []).forEach(function (k) { if (ppl[k]) kp[k] = ppl[k]; }); });
+    A.data.ibPeopleKeep = kp;
+    /* 1. punten en ideeën uit aantekeningen van een vergadering die weggaat, worden losse herinneringen; ze houden hun overleg */
+    p.keep.forEach(function (it) {
+      if (it.src.rem || del.indexOf(it.src) < 0) return;
+      var line = String(it.src.minutes || '').split(/\r?\n/)[it.line]; if (!line) return;
+      /* "> tekst" zonder naam of titel betekent: het volgende overleg met dezelfde titel. Die titel schrijven we er nu bij. */
+      if (it.k === '>' && !it.title && !(it.persons || []).length) line = '> ' + ibTitleOf(it.src) + ': ' + it.text;
+      var when = new Date((it.src.date || todayIso()) + 'T' + (it.src.start || '00:00') + ':00');
+      var r = { id: 'R' + uid(), created: (isNaN(when) ? new Date() : when).toISOString(), line: line.trim() }; ibRems().push(r);
+      var ni = ibItemsOf(ibRemSrc(r))[0], st = ibGet(it.id);
+      if (ni) { if (st.pin && del.indexOf(byId(st.pin)) < 0) ibSet(ni.id, 'pin', st.pin); if (st.keep) ibSet(ni.id, 'keep', 1); }
+    });
+    /* 2. afgevinkte en weggehaalde losse herinneringen */
+    A.data.rem = ibRems().filter(function (r) { return p.doneRems.indexOf(r) < 0; });
+    /* 3. de vergaderingen tot en met vandaag, met alles wat erbij hoort */
+    var nd = null; if (A.store.kind === 'map') { try { nd = await A.store.root.getDirectoryHandle(NOTES_DIR); } catch (e) {} }
+    for (var i = 0; i < del.length; i++) {
+      var m = del[i]; if (i % 5 === 0) toast('Verwijderen… (' + (i + 1) + '/' + del.length + ')');
+      try { await A.store.delMeeting(m); } catch (e) { console.error(e); fail.push(m.title); continue; }
+      if (nd && m.minutesFile) { try { await nd.removeEntry(m.minutesFile); } catch (e) {} }
+      A.data.meetings = A.data.meetings.filter(function (x) { return x !== m; });
+    }
+    /* 4. de losse acties, ook de mails op de actielijst */
+    for (var j = 0; j < p.todo.length; j++) { var x = p.todo[j]; if (x.mail) { try { await A.store.delMeeting(actBox(x)); } catch (e) { console.error(e); } } }
+    A.data.todo = []; A.data.act = {};
+    /* 5. eigen mappen in Bestanden leeg, en de status van punten die er niet meer zijn */
+    A.data.fxIn = {}; if (A.data.fxHidden) A.data.fxHidden = {};
+    var alive = {}, all = ibAll(); all.pts.concat(all.ideas).forEach(function (it) { alive[it.id] = 1; });
+    Object.keys(ibState()).forEach(function (id) { if (!alive[id]) delete ibState()[id]; });
+    A.data.cleanedYear = cleanYear(); A.data.cleaned = new Date().toISOString(); A.hsel = {};
+    await persist();
+    try { await writeNotesFiles(null); } catch (e) {}
+    if (typeof FX !== 'undefined') FX.items = null;
+    toast(fail.length ? 'Niet alles kon worden verwijderd: ' + fail.join(', ') : 'Opgeschoond. ' + del.length + ' vergadering' + (del.length === 1 ? '' : 'en') + ' verwijderd; je open herinneringen en ideeën zijn bewaard.', fail.length ? 'err' : 'ok');
+  }
+
   /* ================================================================== tabblad Bestanden (alleen lezen) */
   var FX = { folder: '', q: '', f: {}, sort: { k: 'date', d: -1 }, sel: {}, items: null, loading: false, group: true, showHidden: false };
   /* Eigen mappen: een indeling binnen MeMeet. Je sleept bestanden naar een map; de bestanden zelf blijven bij hun vergadering.
@@ -5032,17 +5146,31 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
   /* ================================================================== Help: per pagina een uitleg in een paneel rechts (knop ? of F1) */
   var BACKUP_HTML = '<h3>Back-up maken</h3><ol>' +
     '<li>Sluit MeMeet.</li>' +
-    '<li>Kopieer de <b>hele map <code>memeet-data</code></b>, mét het bestand <code>memeet.json</code> erin, naar bijvoorbeeld OneDrive, een netwerkschijf of een USB-stick.</li></ol>' +
+    '<li>Kopieer de <b>hele map <code>memeet-data</code></b>, mét het bestand <code>memeet.json</code> erin, naar een plek die even goed beveiligd is, bijvoorbeeld je persoonlijke netwerkschijf. Niet naar een USB-stick, OneDrive of een gedeelde map: daar is de kopie niet meer versleuteld of zien anderen hem.</li></ol>' +
     '<p><code>memeet.json</code> is het register van MeMeet: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen in de PDF\'s. Zonder dat bestand zijn alleen de losse stukken terug te halen.</p>' +
     '<h3>Back-up terugzetten</h3><ol><li>Zet de gekopieerde map <code>memeet-data</code> terug, bijvoorbeeld in <code>Documenten\\MeMeet</code>.</li>' +
     '<li>Open MeMeet, klik rechtsboven op <b>' + ic('folder') + ' Wijzig datamap</b> en kies die map <code>memeet-data</code>.</li></ol>' +
     '<p class="muted">Losse vergadermappen terugkopiëren in <code>Vergaderingen</code> werkt niet: MeMeet werkt vanuit <code>memeet.json</code>. Zet altijd de hele map terug.</p>';
 
+  /* versleutelen van de datamap met de Windows-functie 'Inhoud versleutelen' (EFS): gekoppeld aan je eigen Windows-account, zonder wachtwoord in MeMeet */
+  var CRYPT_HTML = '<p>Je werkplek heeft meestal al schijfversleuteling (BitLocker). Die beschermt bij verlies of diefstal van de laptop. Versleutel daarnaast de map <code>memeet-data</code> met je eigen Windows-account. Dan kan niemand anders die bestanden openen, ook niet met een ander account op dezelfde computer. MeMeet merkt er niets van en vraagt geen wachtwoord.</p><ol>' +
+    '<li>Open de map <b>Documenten\\MeMeet</b> in Verkenner.</li>' +
+    '<li>Klik met de rechtermuisknop op de map <b>memeet-data</b> en kies <b>Eigenschappen</b>.</li>' +
+    '<li>Klik op het tabblad <b>Algemeen</b> op <b>Geavanceerd…</b>.</li>' +
+    '<li>Vink <b>Inhoud versleutelen om gegevens te beveiligen</b> aan en klik op <b>OK</b>, en daarna op <b>Toepassen</b>.</li>' +
+    '<li>Kies <b>Wijzigingen toepassen op deze map, submappen en bestanden</b> en klik op <b>OK</b>. De bestanden krijgen een slotje.</li></ol>' +
+    '<p>Vraagt Windows om een back-up van je versleutelingssleutel te maken, volg dan die stappen of vraag de servicedesk hoe dat bij jouw organisatie gaat. Is de optie grijs of ontbreekt hij, dan heeft je organisatie mapversleuteling uitgezet; de schijfversleuteling van de werkplek beschermt je gegevens dan. Zet de datamap in elk geval niet in OneDrive, Teams of een gedeelde map.</p>';
+  /* jaarlijks opschonen */
+  var CLEAN_HTML = '<p>Aantekeningen in MeMeet zijn persoonlijke werkaantekeningen. Bewaar ze niet langer dan nodig: schoon elk jaar in de <b>laatste week van december</b> op. MeMeet herinnert je daaraan met een balk bovenaan de pagina Vergaderingen.</p><ul>' +
+    '<li><b>Wordt verwijderd:</b> alle vergaderingen tot en met vandaag, met de stukken, originele mails, eerdere versies, markeringen, aantekeningen en acties; de losse acties en mails op de actielijst; afgevinkte herinneringen.</li>' +
+    '<li><b>Blijft bewaard:</b> herinneringspunten die aan een overleg gekoppeld zijn of op een overleg wachten, je ideeën, en vergaderingen na vandaag.</li></ul>' +
+    '<p>Punten en ideeën uit aantekeningen van een verwijderde vergadering worden losse herinneringen en komen gewoon op bij hetzelfde overleg. Opschonen kan ook buiten december, via deze knop of via <code>Help</code>. Wat weg is, kun je niet terughalen.</p>';
   var GITHUB = 'https://github.com/oss-aigp/memeet', GITHUB_DL = 'https://github.com/oss-aigp/memeet/blob/main/dist/MeMeet.html';
   /* versienummer staat als opmerking bovenaan het bestand (<!-- MeMeet-versie: x -->) */
   function memeetVersion() { for (var n = D.firstChild; n; n = n.nextSibling) { if (n.nodeType === 8) { var m = /MeMeet-versie:\s*([^\s]+)/.exec(n.nodeValue); if (m) return m[1]; } } return ''; }
   var UPGRADE_HTML = '<ol><li>Maak eerst een back-up: kopieer de hele map <code>memeet-data</code>.</li>' +
-    '<li>Open <a href="' + GITHUB_DL + '" target="_blank" rel="noopener">MeMeet.html op GitHub</a> en klik rechtsboven op het pijltje <b>Download raw file</b>. Het bestand komt in je map <b>Downloads</b>.</li>' +
+    '<li>Open <a href="' + GITHUB_DL + '" target="_blank" rel="noopener">MeMeet.html op GitHub</a> en klik rechtsboven op het pijltje <b>Download raw file</b>. Het bestand komt in je map <b>Downloads</b>. Krijg je MeMeet via je IV-afdeling, gebruik dan die versie.</li>' +
+    '<li>Controleer of het bestand ongewijzigd is: klik in Downloads met de rechtermuisknop op een lege plek, kies <b>In Terminal openen</b> en typ <code>Get-FileHash MeMeet.html</code>. De lange code moet gelijk zijn (hoofd- of kleine letters maakt niet uit) aan die in <a href="' + GITHUB + '/blob/main/dist/MeMeet.html.sha256" target="_blank" rel="noopener">MeMeet.html.sha256</a> op GitHub. Is hij anders, gebruik het bestand dan niet.</li>' +
     '<li>Sluit MeMeet (alle tabbladen met MeMeet).</li>' +
     '<li>Verplaats het gedownloade <code>MeMeet.html</code> naar <code>Documenten\\MeMeet</code> en kies <b>Het bestand in de doelmap vervangen</b>. Heet het bestand in Downloads <code>MeMeet (1).html</code>, geef het dan eerst de naam <code>MeMeet.html</code>.</li>' +
     '<li>Open MeMeet weer via je snelkoppeling. Je vergaderingen staan er gewoon: die staan in <code>memeet-data</code>, niet in het HTML-bestand.</li></ol>' +
@@ -5065,6 +5193,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Of ga naar <b>Instellingen › Cookies en sitemachtigingen › Automatische downloads</b> en haal MeMeet (of <code>file:///</code>) weg bij <b>Blokkeren</b>.</li>' +
       '<li>Laad MeMeet opnieuw (F5).</li></ol>'],
     ['Hoe maak ik een back-up, en hoe zet ik die terug?', BACKUP_HTML],
+    ['Hoe versleutel ik mijn gegevens?', CRYPT_HTML],
+    ['Hoe en wanneer schoon ik mijn gegevens op?', CLEAN_HTML + '<p><a class="btn" href="#/opschonen">Gegevens opschonen…</a></p>'],
     ['Hoe upgrade ik MeMeet naar een nieuwe versie?', UPGRADE_HTML],
     ['Ik wil MeMeet zelf doorontwikkelen. Hoe doe ik dat?', '<p>De broncode staat openbaar op <a href="' + GITHUB + '" target="_blank" rel="noopener">GitHub</a>.</p><ol>' +
       '<li>Installeer <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a> (versie 18 of nieuwer) en Git.</li>' +
@@ -5209,9 +5339,10 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     install: { t: 'Installatie en back-up', h:
       '<h3>Installeren</h3><ol><li>Zet <code>MeMeet.html</code> in <code>Documenten\\MeMeet</code>.</li>' +
       '<li>Open het bestand in Edge of Chrome en klik op <b>Datamap kiezen</b>. Kies de map <b>MeMeet</b>; MeMeet maakt daarin <code>memeet-data</code> aan en zet <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</li>' +
+      '<li>Versleutel de map <code>memeet-data</code> met je Windows-account (zie hieronder).</li>' +
       '<li>Maak een snelkoppeling op het bureaublad en sleep hem naar de taakbalk (zie hieronder).</li></ol>' +
       '<p>Bij elke start vraagt de browser één keer of MeMeet de map weer mag gebruiken: klik op <b>Map openen</b> en <b>Toestaan</b>.</p>' +
-      '<h3>Snelkoppeling</h3>' + SHORTCUT_HTML + '<h3>Bijwerken naar een nieuwe versie</h3>' + UPGRADE_HTML + BACKUP_HTML },
+      '<h3>Datamap versleutelen</h3>' + CRYPT_HTML + '<h3>Snelkoppeling</h3>' + SHORTCUT_HTML + '<h3>Bijwerken naar een nieuwe versie</h3>' + UPGRADE_HTML + BACKUP_HTML + '<h3>Elk jaar opschonen</h3>' + CLEAN_HTML + '<p><a class="btn" href="#/opschonen">Gegevens opschonen…</a></p>' },
   };
   function helpTopic() {
     var h = location.hash || '#/';
@@ -5684,7 +5815,9 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<p>Klik op <b>Datamap kiezen</b> en kies de map <b>MeMeet</b> waar <code>MeMeet.html</code> in staat. MeMeet maakt daarin de map <b>memeet-data</b> aan, met de submappen <b>Vergaderingen</b>, <b>Aantekeningen</b> en <b>Actielijst</b>, en zet het icoon <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</p>' +
       '<pre class="tree">Documenten\\MeMeet\\\n  MeMeet.html\n  MeMeet.ico\n  memeet-data\\\n    Vergaderingen\\\n    Aantekeningen\\\n    Actielijst\\\n    memeet.json</pre>' +
       '<p><button class="btn' + (A.store && A.store.kind === 'map' ? '' : ' pri') + '" id="insPick">' + ic('folder') + ' Datamap kiezen…</button></p></section>';
-    h += '<section class="card wk"><h2>3. Snelkoppeling op het bureaublad en in de taakbalk</h2>' +
+    h += '<section class="card wk" id="insCrypt"><h2>3. Versleutel de datamap</h2>' + CRYPT_HTML +
+      (A.store && A.store.kind === 'map' ? '<p><a href="#" class="btn fold" data-fold="">' + ic('folder_open') + ' memeet-data openen in Verkenner</a></p>' : '') + '</section>';
+    h += '<section class="card wk"><h2>4. Snelkoppeling op het bureaublad en in de taakbalk</h2>' +
       '<p>De snelkoppeling start <code>explorer.exe</code> met MeMeet als bestand. Omdat het doel een programma is, kun je hem daarna ook naar de taakbalk slepen.</p><ol>' +
       '<li>Klik met de rechtermuisknop op een lege plek op het bureaublad en kies <b>Nieuw</b> › <b>Snelkoppeling</b>.</li>' +
       '<li>Plak bij <i>Typ de locatie van het item</i> deze regel' + (here ? ' (klik op <b>Kopiëren</b>)' : ' en vervang het pad door de plek van jouw <code>MeMeet.html</code>') + ':</li></ol>' +
@@ -5693,11 +5826,12 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
       '<li>Klik met de rechtermuisknop op de nieuwe snelkoppeling en kies <b>Eigenschappen</b>. Klik op <b>Ander pictogram…</b> › <b>Bladeren</b>, kies <code>' + esc((dir || 'Documenten\\MeMeet') + '\\MeMeet.ico') + '</code> en klik twee keer op <b>OK</b>.</li>' +
       '<li>Sleep de snelkoppeling van het bureaublad naar de <b>taakbalk</b>. Of klik er met de rechtermuisknop op en kies <b>Aan taakbalk vastmaken</b> (in Windows 11 eerst <b>Meer opties weergeven</b>).</li></ol>' +
       '<p class="muted">' + (A.iconPlaced ? 'Het icoon <code>MeMeet.ico</code> heeft MeMeet al naast <code>MeMeet.html</code> gezet. ' : 'Het icoon <code>MeMeet.ico</code> zet MeMeet naast <code>MeMeet.html</code> als je in stap 2 de map MeMeet kiest. Staat het er niet? ') + '<button type="button" class="link" id="insIco">Icoon downloaden</button> en zet het naast <code>MeMeet.html</code>.</p></section>';
-    h += '<section class="card wk"><h2>4. Bijwerken naar een nieuwe versie</h2>' + UPGRADE_HTML + '</section>';
-    h += '<section class="card wk"><h2>5. Back-up</h2>' + BACKUP_HTML.replace(/<h3>/g, '<h3 class="sub">') + '</section>';
+    h += '<section class="card wk"><h2>5. Bijwerken naar een nieuwe versie</h2>' + UPGRADE_HTML + '</section>';
+    h += '<section class="card wk"><h2>6. Back-up</h2>' + BACKUP_HTML.replace(/<h3>/g, '<h3 class="sub">') + '</section>';
+    h += '<section class="card wk"><h2>7. Elk jaar opschonen</h2>' + CLEAN_HTML + '<p><a class="btn" href="#/opschonen">' + ic('delete_sweep') + ' Gegevens opschonen…</a></p></section>';
     h += '<p><a class="btn" href="#/">Klaar, naar de vergaderingen</a></p>';
     setHTML($('#main'), h);
-    $('#insPick').onclick = chooseFolder;
+    $('#insPick').onclick = chooseFolder; bindFolders($('#main'));
     $('#insIco').onclick = function () { dl(icoBlob(), 'MeMeet.ico'); };
     var c = $('#insCopy'); if (c) c.onclick = async function () { var ok = false; try { await navigator.clipboard.writeText(cmd); ok = true; } catch (e) {} toast(ok ? 'Gekopieerd. Plak het met Ctrl+V.' : 'Kopiëren lukte niet. Selecteer de tekst en druk op Ctrl+C.', ok ? 'ok' : 'warn'); };
   }
@@ -6183,6 +6317,8 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     if (h === '#/verslagen') return renderReports();
     if (h === '#/acties') return renderActions();
     if (h === '#/herinneringen') return renderReminders();
+    /* jaarlijks opschonen: de pop-up boven de pagina Vergaderingen */
+    if (h === '#/opschonen') { history.replaceState(null, '', location.pathname + location.search + '#/'); renderHome(); return openCleanup(); }
     /* het tabblad Meeneempunten (eerder Bespreekpunten, Annotaties) bestaat niet meer: zulke oude adressen gaan naar het startscherm */
     if (/^#\/(meeneempunt|bespreekpunt|annotatie)/.test(h)) { location.replace('#/'); return; }
     if (h === '#/bestanden') return renderFiles(true);
@@ -6261,7 +6397,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     var nowHm = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes()), over = today.length && today.every(function (m) { return (m.end || m.start || '00:00') <= nowHm; });
     var sum = !today.length ? 'Je hebt vandaag geen vergaderingen.' : (over ? 'Je had' : 'Je hebt') + ' vandaag <b>' + today.length + ' vergadering' + (today.length === 1 ? '' : 'en') + '</b>.';
     var h = '<section class="quote" id="quote"><div class="qhi"><b>' + greet + '</b><span>' + sum + '</span></div><figure class="qfig"><blockquote id="qtxt">' + esc(Q[A.qi][0]) + '</blockquote><figcaption id="qwho">' + esc(Q[A.qi][1]) + '</figcaption></figure><button type="button" class="qnext" id="qnext" title="Andere wijsheid" aria-label="Andere wijsheid">' + ic('refresh') + '</button></section>';
-    h += ibBannerHtml();
+    h += cleanBannerHtml() + ibBannerHtml();
     h += '<div class="head"><h1>Vergaderingen</h1><div class="acts"><a class="btn" href="#/weekagenda" title="Je Outlook-agenda van de komende dagen in één keer inlezen">' + ic('calendar_month') + ' Importeer weekagenda</a><a class="btn pri" href="#/nieuw" id="new">' + ic('add') + ' Nieuwe vergadering</a></div></div>';
     h += '<div class="dropbar">Sleep een mail of agenda-uitnodiging uit Outlook naar dit venster. Er wordt dan een vergadering aangemaakt, met de stukken als bijlage.</div>';
     var nowD = new Date(), late = nowD.getHours() * 60 + nowD.getMinutes() >= 20 * 60 + 30;
@@ -6307,6 +6443,7 @@ fn fs_main(in : VertexOutput) -> @location(0) vec4<f32> {
     $('#upc').onclick = function () { keepScroll(function () { A.showUp = !A.showUp; }); };
     $('#tdy').onclick = function () { keepScroll(function () { A.showToday = !A.showToday; }); };
     $('#tmr').onclick = function () { keepScroll(function () { A.showTomorrow = !A.showTomorrow; }); };
+    bindCleanBanner();
     var qn = $('#qnext'); if (qn) qn.onclick = function () { A.qi = qPick(); var f = $('#quote'); f.classList.remove('in'); void f.offsetWidth; $('#qtxt').textContent = Q[A.qi][0]; $('#qwho').textContent = Q[A.qi][1]; f.classList.add('in'); };
     bindFolders($('#main'));
     $('#new').onclick = function () { A.draft = blankDraft(); };

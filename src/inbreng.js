@@ -38,7 +38,9 @@
 
   /* ---------- wat MeMeet kent: voornamen van genodigden, titels van overleggen, en titels die je zelf als overleg hebt aangemerkt */
   function ibPeople() {
-    var o = {}; A.data.meetings.forEach(function (m) { names(m.invitees).forEach(function (n) { var f = ibFirst(n); if (f && f.length > 1 && !o[f]) o[f] = String(n).trim().split(/\s+/)[0].split('@')[0].replace(/^./, function (c) { return c.toUpperCase(); }); }); });
+    /* voornamen uit bewaarde herinneringen na het jaarlijks opschonen (alleen die namen; de vergaderingen zelf zijn weg) */
+    var o = {}, kp = A.data.ibPeopleKeep || {}; Object.keys(kp).forEach(function (k) { o[k] = kp[k]; });
+    A.data.meetings.forEach(function (m) { names(m.invitees).forEach(function (n) { var f = ibFirst(n); if (f && f.length > 1 && !o[f]) o[f] = String(n).trim().split(/\s+/)[0].split('@')[0].replace(/^./, function (c) { return c.toUpperCase(); }); }); });
     return o;
   }
   function ibExtra() { return A.data.ibTitles || (A.data.ibTitles = {}); }

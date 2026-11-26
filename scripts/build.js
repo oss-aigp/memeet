@@ -19,7 +19,7 @@ function bundleIife(entry, globalName) {
 }
 
 const app = "(function(){'use strict';var W=window,D=document;\n" +
-  ['core.js', 'mail-parser.js', 'store.js', 'convert.js', 'pptx-render.js', 'editor.js', 'notes.js', 'hview.js', 'inbreng.js', 'annotatie.js', 'mailacts.js', 'reports.js', 'vervolg.js', 'files.js', 'help.js', 'intake.js', 'install.js', 'pdfview.js', 'app-ui.js'].map(src).join('\n') + '\n})();'
+  ['core.js', 'mail-parser.js', 'store.js', 'convert.js', 'pptx-render.js', 'editor.js', 'notes.js', 'hview.js', 'inbreng.js', 'annotatie.js', 'mailacts.js', 'reports.js', 'vervolg.js', 'opschonen.js', 'files.js', 'help.js', 'intake.js', 'install.js', 'pdfview.js', 'app-ui.js'].map(src).join('\n') + '\n})();'
 // De Outlook-macro voor de weekagenda staat in outlook/; die wordt in de app gezet zodat gebruikers hem kunnen kopiëren.
 const macro = fs.readFileSync(path.join(root, 'outlook', 'MeMeet-weekagenda.bas'), 'utf8').replace(/\r?\n/g, '\r\n');
 const appWithMacro = app.replace('__OUTLOOK_MACRO__', () => JSON.stringify(macro))
@@ -84,4 +84,6 @@ if (fs.existsSync(latest)) {
 // oude versies die nog los in dist staan, ook naar het archief
 fs.readdirSync(path.join(root, 'dist')).filter((f) => /^MeMeet-v.+\.html$/.test(f)).forEach((f) => fs.renameSync(path.join(root, 'dist', f), path.join(archive, f)));
 fs.writeFileSync(latest, out);
+// controlegetal (SHA-256) naast het bestand, zodat beheer kan nagaan of een gedownloade MeMeet.html ongewijzigd is
+fs.writeFileSync(latest + '.sha256', require('crypto').createHash('sha256').update(fs.readFileSync(latest)).digest('hex') + '  MeMeet.html\n');
 console.log('dist/MeMeet.html (v' + version + ') gemaakt (' + Math.round(out.length / 1024) + ' kB, ' + iconNames.length + ' iconen)');

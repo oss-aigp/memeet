@@ -1,17 +1,31 @@
   /* ================================================================== Help: per pagina een uitleg in een paneel rechts (knop ? of F1) */
   var BACKUP_HTML = '<h3>Back-up maken</h3><ol>' +
     '<li>Sluit MeMeet.</li>' +
-    '<li>Kopieer de <b>hele map <code>memeet-data</code></b>, mét het bestand <code>memeet.json</code> erin, naar bijvoorbeeld OneDrive, een netwerkschijf of een USB-stick.</li></ol>' +
+    '<li>Kopieer de <b>hele map <code>memeet-data</code></b>, mét het bestand <code>memeet.json</code> erin, naar een plek die even goed beveiligd is, bijvoorbeeld je persoonlijke netwerkschijf. Niet naar een USB-stick, OneDrive of een gedeelde map: daar is de kopie niet meer versleuteld of zien anderen hem.</li></ol>' +
     '<p><code>memeet.json</code> is het register van MeMeet: daarin staan de vergaderingen, aantekeningen, acties en je markeringen en opmerkingen in de PDF\'s. Zonder dat bestand zijn alleen de losse stukken terug te halen.</p>' +
     '<h3>Back-up terugzetten</h3><ol><li>Zet de gekopieerde map <code>memeet-data</code> terug, bijvoorbeeld in <code>Documenten\\MeMeet</code>.</li>' +
     '<li>Open MeMeet, klik rechtsboven op <b>' + ic('folder') + ' Wijzig datamap</b> en kies die map <code>memeet-data</code>.</li></ol>' +
     '<p class="muted">Losse vergadermappen terugkopiëren in <code>Vergaderingen</code> werkt niet: MeMeet werkt vanuit <code>memeet.json</code>. Zet altijd de hele map terug.</p>';
 
+  /* versleutelen van de datamap met de Windows-functie 'Inhoud versleutelen' (EFS): gekoppeld aan je eigen Windows-account, zonder wachtwoord in MeMeet */
+  var CRYPT_HTML = '<p>Je werkplek heeft meestal al schijfversleuteling (BitLocker). Die beschermt bij verlies of diefstal van de laptop. Versleutel daarnaast de map <code>memeet-data</code> met je eigen Windows-account. Dan kan niemand anders die bestanden openen, ook niet met een ander account op dezelfde computer. MeMeet merkt er niets van en vraagt geen wachtwoord.</p><ol>' +
+    '<li>Open de map <b>Documenten\\MeMeet</b> in Verkenner.</li>' +
+    '<li>Klik met de rechtermuisknop op de map <b>memeet-data</b> en kies <b>Eigenschappen</b>.</li>' +
+    '<li>Klik op het tabblad <b>Algemeen</b> op <b>Geavanceerd…</b>.</li>' +
+    '<li>Vink <b>Inhoud versleutelen om gegevens te beveiligen</b> aan en klik op <b>OK</b>, en daarna op <b>Toepassen</b>.</li>' +
+    '<li>Kies <b>Wijzigingen toepassen op deze map, submappen en bestanden</b> en klik op <b>OK</b>. De bestanden krijgen een slotje.</li></ol>' +
+    '<p>Vraagt Windows om een back-up van je versleutelingssleutel te maken, volg dan die stappen of vraag de servicedesk hoe dat bij jouw organisatie gaat. Is de optie grijs of ontbreekt hij, dan heeft je organisatie mapversleuteling uitgezet; de schijfversleuteling van de werkplek beschermt je gegevens dan. Zet de datamap in elk geval niet in OneDrive, Teams of een gedeelde map.</p>';
+  /* jaarlijks opschonen */
+  var CLEAN_HTML = '<p>Aantekeningen in MeMeet zijn persoonlijke werkaantekeningen. Bewaar ze niet langer dan nodig: schoon elk jaar in de <b>laatste week van december</b> op. MeMeet herinnert je daaraan met een balk bovenaan de pagina Vergaderingen.</p><ul>' +
+    '<li><b>Wordt verwijderd:</b> alle vergaderingen tot en met vandaag, met de stukken, originele mails, eerdere versies, markeringen, aantekeningen en acties; de losse acties en mails op de actielijst; afgevinkte herinneringen.</li>' +
+    '<li><b>Blijft bewaard:</b> herinneringspunten die aan een overleg gekoppeld zijn of op een overleg wachten, je ideeën, en vergaderingen na vandaag.</li></ul>' +
+    '<p>Punten en ideeën uit aantekeningen van een verwijderde vergadering worden losse herinneringen en komen gewoon op bij hetzelfde overleg. Opschonen kan ook buiten december, via deze knop of via <code>Help</code>. Wat weg is, kun je niet terughalen.</p>';
   var GITHUB = 'https://github.com/oss-aigp/memeet', GITHUB_DL = 'https://github.com/oss-aigp/memeet/blob/main/dist/MeMeet.html';
   /* versienummer staat als opmerking bovenaan het bestand (<!-- MeMeet-versie: x -->) */
   function memeetVersion() { for (var n = D.firstChild; n; n = n.nextSibling) { if (n.nodeType === 8) { var m = /MeMeet-versie:\s*([^\s]+)/.exec(n.nodeValue); if (m) return m[1]; } } return ''; }
   var UPGRADE_HTML = '<ol><li>Maak eerst een back-up: kopieer de hele map <code>memeet-data</code>.</li>' +
-    '<li>Open <a href="' + GITHUB_DL + '" target="_blank" rel="noopener">MeMeet.html op GitHub</a> en klik rechtsboven op het pijltje <b>Download raw file</b>. Het bestand komt in je map <b>Downloads</b>.</li>' +
+    '<li>Open <a href="' + GITHUB_DL + '" target="_blank" rel="noopener">MeMeet.html op GitHub</a> en klik rechtsboven op het pijltje <b>Download raw file</b>. Het bestand komt in je map <b>Downloads</b>. Krijg je MeMeet via je IV-afdeling, gebruik dan die versie.</li>' +
+    '<li>Controleer of het bestand ongewijzigd is: klik in Downloads met de rechtermuisknop op een lege plek, kies <b>In Terminal openen</b> en typ <code>Get-FileHash MeMeet.html</code>. De lange code moet gelijk zijn (hoofd- of kleine letters maakt niet uit) aan die in <a href="' + GITHUB + '/blob/main/dist/MeMeet.html.sha256" target="_blank" rel="noopener">MeMeet.html.sha256</a> op GitHub. Is hij anders, gebruik het bestand dan niet.</li>' +
     '<li>Sluit MeMeet (alle tabbladen met MeMeet).</li>' +
     '<li>Verplaats het gedownloade <code>MeMeet.html</code> naar <code>Documenten\\MeMeet</code> en kies <b>Het bestand in de doelmap vervangen</b>. Heet het bestand in Downloads <code>MeMeet (1).html</code>, geef het dan eerst de naam <code>MeMeet.html</code>.</li>' +
     '<li>Open MeMeet weer via je snelkoppeling. Je vergaderingen staan er gewoon: die staan in <code>memeet-data</code>, niet in het HTML-bestand.</li></ol>' +
@@ -34,6 +48,8 @@
       '<li>Of ga naar <b>Instellingen › Cookies en sitemachtigingen › Automatische downloads</b> en haal MeMeet (of <code>file:///</code>) weg bij <b>Blokkeren</b>.</li>' +
       '<li>Laad MeMeet opnieuw (F5).</li></ol>'],
     ['Hoe maak ik een back-up, en hoe zet ik die terug?', BACKUP_HTML],
+    ['Hoe versleutel ik mijn gegevens?', CRYPT_HTML],
+    ['Hoe en wanneer schoon ik mijn gegevens op?', CLEAN_HTML + '<p><a class="btn" href="#/opschonen">Gegevens opschonen…</a></p>'],
     ['Hoe upgrade ik MeMeet naar een nieuwe versie?', UPGRADE_HTML],
     ['Ik wil MeMeet zelf doorontwikkelen. Hoe doe ik dat?', '<p>De broncode staat openbaar op <a href="' + GITHUB + '" target="_blank" rel="noopener">GitHub</a>.</p><ol>' +
       '<li>Installeer <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a> (versie 18 of nieuwer) en Git.</li>' +
@@ -178,9 +194,10 @@
     install: { t: 'Installatie en back-up', h:
       '<h3>Installeren</h3><ol><li>Zet <code>MeMeet.html</code> in <code>Documenten\\MeMeet</code>.</li>' +
       '<li>Open het bestand in Edge of Chrome en klik op <b>Datamap kiezen</b>. Kies de map <b>MeMeet</b>; MeMeet maakt daarin <code>memeet-data</code> aan en zet <code>MeMeet.ico</code> naast <code>MeMeet.html</code>.</li>' +
+      '<li>Versleutel de map <code>memeet-data</code> met je Windows-account (zie hieronder).</li>' +
       '<li>Maak een snelkoppeling op het bureaublad en sleep hem naar de taakbalk (zie hieronder).</li></ol>' +
       '<p>Bij elke start vraagt de browser één keer of MeMeet de map weer mag gebruiken: klik op <b>Map openen</b> en <b>Toestaan</b>.</p>' +
-      '<h3>Snelkoppeling</h3>' + SHORTCUT_HTML + '<h3>Bijwerken naar een nieuwe versie</h3>' + UPGRADE_HTML + BACKUP_HTML },
+      '<h3>Datamap versleutelen</h3>' + CRYPT_HTML + '<h3>Snelkoppeling</h3>' + SHORTCUT_HTML + '<h3>Bijwerken naar een nieuwe versie</h3>' + UPGRADE_HTML + BACKUP_HTML + '<h3>Elk jaar opschonen</h3>' + CLEAN_HTML + '<p><a class="btn" href="#/opschonen">Gegevens opschonen…</a></p>' },
   };
   function helpTopic() {
     var h = location.hash || '#/';

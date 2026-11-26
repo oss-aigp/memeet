@@ -1,5 +1,8 @@
 <!doctype html>
 <html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Content-Security-Policy: MeMeet mag geen enkele verbinding met internet maken. Alleen eigen (inline) code, lokale bestanden (file:) en
+     data/blob-adressen binnen de browser zijn toegestaan; WebAssembly alleen voor het uitpakken van ingescande PDF's. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' file:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; media-src data: blob:; connect-src data: blob:; worker-src blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>MeMeet</title>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('memeet-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="__ICON_URI__">
@@ -596,6 +599,14 @@ select.to{width:auto;max-width:100%;min-height:0;padding:1px 4px;border-color:va
 .inb .inbhd .ibplus{width:22px;height:22px;min-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid #ead79b;background:#fff;border-radius:6px;color:#7a5a00;cursor:pointer}.inb .inbhd .ibplus:hover{border-color:#c9a227}
 .inb .ibaddrow{padding:2px 0 6px}.inb .ibaddrow input{width:100%;box-sizing:border-box;font-size:13px;padding:4px 8px}
 .np .inb.empty{background:#fffdf4;border-style:dashed}.inb.empty .inbhd{color:#a08a4a;font-weight:500;text-transform:none;letter-spacing:0;font-size:12.5px}
+/* jaarlijks opschonen */
+.cleanbar{display:flex;align-items:center;gap:14px;background:#fff4e5;border:1px solid #f0b46a;border-left:5px solid #d9480f;border-radius:10px;padding:12px 16px;margin:0 0 12px}
+.cleanbar .cleanic{color:#d9480f;font-size:22px;display:inline-flex}.cleanbar .cleantx{flex:1;display:flex;flex-direction:column;gap:2px;font-size:13.5px;color:#4a2a00}.cleanbar .cleantx b{font-size:14.5px;color:#7a2e00}
+.btn.danger{background:#c92a2a;border-color:#c92a2a;color:#fff}.btn.danger:hover{background:#a61e1e;border-color:#a61e1e;color:#fff}.btn.danger:disabled{opacity:.5;cursor:not-allowed}
+.dlg.cleandlg{width:min(720px,100%)}.cleandlg h2{display:flex;align-items:center;gap:8px}.cleancols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin:8px 0 12px}
+.cleancols h3{font-size:14px;margin:0 0 6px}.cleancols ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.5}.cleancols li{margin-bottom:4px}.cleancols .small{font-size:12.5px;margin-top:8px}
+.cleanok{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;background:var(--row);border-radius:8px;padding:10px 12px}.cleanok input{margin-top:3px;width:16px;height:16px;min-height:0;flex:none;padding:0;accent-color:#c92a2a}
+html[data-theme=dark] .cleanbar{background:#3a2412;border-color:#8a4b14}html[data-theme=dark] .cleanbar .cleantx,html[data-theme=dark] .cleanbar .cleantx b{color:#ffd8a8}
 .ibctx .inb{background:#fff8dc;border:1px solid #ead79b;border-radius:6px;padding:4px 10px;margin-bottom:6px}
 .ait{font-weight:700;color:var(--brand)}.aib{font-size:13.5px;white-space:pre-wrap}
 .mdone{font-size:12px;border-radius:12px;padding:2px 10px;font-weight:700;background:var(--ok);color:var(--green);white-space:nowrap}
