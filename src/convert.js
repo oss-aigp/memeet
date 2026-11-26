@@ -322,7 +322,6 @@
   }
 
   /* ---------- hoofdfunctie: bestand -> PDF */
-  var CONVERTIBLE = /\.(pdf|docx|docm|dotx|xlsx|xlsm|pptx|pptm|ppsx|odt|rtf|txt|csv|md|log|xml|json|html?|eml|msg|png|jpe?g|gif|bmp|webp|svg)$/i;
   async function convertToPdf(name, type, blob) {
     var bytes = new Uint8Array(await blob.arrayBuffer()), ext = (name.split('.').pop() || '').toLowerCase();
     if (ext === 'pdf' || /pdf/.test(type) || (bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46)) return { bytes: bytes, how: 'origineel' };
@@ -348,68 +347,4 @@
     return /^(pdf|docx|docm|dotx|xlsx|xlsm|pptx|pptm|ppsx|odt|rtf|png|jpe?g|gif|bmp|webp|svg|eml|msg|html?|txt|csv|md|log|xml|json)$/.test(ext) || /pdf|^image\/|^text\/|rfc822|ms-outlook/.test(type || '');
   }
 
-  /* ---------- aantekeningen in een PDF branden */
-  function hexRgb(h) { var n = parseInt(String(h || '#000').slice(1), 16); return PL.rgb((n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255); }
-  function drawShapes(page, shapes, font) {
-    (shapes || []).forEach(function (s) {
-      try {
-        if (s.t === 'mark') {
-          s.rects.forEach(function (r) { var opt = { x: r[0], y: r[1], width: r[2] - r[0], height: r[3] - r[1], color: hexRgb(s.c), opacity: 0.42 }; if (PL.BlendMode) opt.blendMode = PL.BlendMode.Multiply; page.drawRectangle(opt); });
-        } else if (s.t === 'pen' || s.t === 'hl') {
-          var d = s.pts.map(function (q, k) { return (k ? 'L' : 'M') + q[0] + ' ' + (-q[1]); }).join(' ');
-          if (s.pts.length === 1) d += ' L' + (s.pts[0][0] + 0.1) + ' ' + (-s.pts[0][1]);
-          page.drawSvgPath(d, { x: 0, y: 0, borderColor: hexRgb(s.c), borderWidth: s.w, borderOpacity: s.t === 'hl' ? 0.38 : 1, borderLineCap: PL.LineCapStyle.Round });
-        } else if (s.t === 'text') {
-          String(s.txt).split('\n').forEach(function (line, k) { if (line.trim()) page.drawText(san(line), { x: s.x, y: s.y - s.s * (0.9 + k * 1.2), size: s.s, font: font, color: hexRgb(s.c) }); });
-        }
-      } catch (e) { console.error(e); }
-    });
-  }
-  function wrapLines(t, font, size, w) {
-    var out = [];
-    String(t).split('\n').forEach(function (par) {
-      var line = '';
-      san(par).split(/(\s+)/).forEach(function (tk) {
-        if (!tk) return; var cand = line + tk;
-        if (font.widthOfTextAtSize(cand.replace(/\s+$/, ''), size) > w && line.trim()) { out.push(line.replace(/\s+$/, '')); line = /^\s+$/.test(tk) ? '' : tk; }
-        else line = cand;
-        while (font.widthOfTextAtSize(line, size) > w && line.length > 1) { var k = line.length; while (k > 1 && font.widthOfTextAtSize(line.slice(0, k), size) > w) k--; out.push(line.slice(0, k)); line = line.slice(k); }
-      });
-      out.push(line.replace(/\s+$/, ''));
-    });
-    return out;
-  }
-  function drawPageAnn(page, shapes, font) {
-    shapes = shapes || [];
-    var notes = shapes.filter(function (s) { return s.t === 'note' || s.t === 'text'; });
-    drawShapes(page, shapes.filter(function (s) { return !(s.t === 'note' || s.t === 'text'); }), font);
-    if (!notes.length) return;
-    var rot = ((page.getRotation().angle || 0) % 360 + 360) % 360, mb = page.getMediaBox(), M = 170, size = 9, lh = 10.8, bw = M - 18;
-    if (rot !== 0) { notes.forEach(function (s) { wrapLines(s.txt, font, size, 160).forEach(function (l, k) { page.drawText(l, { x: s.x, y: s.y - size * (1 + k * 1.2), size: size, font: font, color: hexRgb(s.c || '#e8590c') }); }); }); return; }
-    var R = mb.x + mb.width;
-    page.setMediaBox(mb.x, mb.y, mb.width + M, mb.height);
-    try { var cb = page.getCropBox(); page.setCropBox(cb.x, cb.y, cb.width + M + (R - (cb.x + cb.width)), cb.height); } catch (e) {}
-    page.drawRectangle({ x: R, y: mb.y, width: M, height: mb.height, color: PL.rgb(1, 1, 1) });
-    page.drawLine({ start: { x: R, y: mb.y }, end: { x: R, y: mb.y + mb.height }, thickness: 0.5, color: LINE });
-    var boxes = notes.map(function (s) { var lines = wrapLines(s.txt, font, size, bw - 10); return { s: s, lines: lines, h: lines.length * lh + 7 }; }).sort(function (a, b) { return b.s.y - a.s.y; });
-    var prevBottom = mb.y + mb.height - 4;
-    boxes.forEach(function (b) {
-      var top = Math.min(b.s.y + 9, prevBottom), x0 = R + 10, col = hexRgb(b.s.c || '#e8590c');
-      page.drawRectangle({ x: x0, y: top - b.h, width: bw, height: b.h, color: PL.rgb(1, 0.985, 0.92) });
-      page.drawRectangle({ x: x0, y: top - b.h, width: 2.2, height: b.h, color: col });
-      b.lines.forEach(function (l, k) { if (l) page.drawText(l, { x: x0 + 6, y: top - 3.5 - size * 0.86 - k * lh, size: size, font: font, color: INK }); });
-      var cy = top - 8, gx = R + 4, wy = b.s.w ? b.s.w[1] - 0.8 : b.s.y, ax = b.s.w ? b.s.w[2] : b.s.x, ay = wy;
-      if (b.s.w) page.drawLine({ start: { x: b.s.w[0], y: wy }, end: { x: b.s.w[2], y: wy }, thickness: 1.1, color: col });
-      [[x0, cy, gx, cy], [gx, cy, gx, wy], [gx, wy, ax + 1.5, wy]].forEach(function (sg) { page.drawLine({ start: { x: sg[0], y: sg[1] }, end: { x: sg[2], y: sg[3] }, thickness: 0.6, color: col, opacity: 0.85, dashArray: [2.5, 1.8] }); });
-      var ang = Math.PI, L = 5, wA = 0.5;
-      var p1 = [ax - L * Math.cos(ang - wA), ay - L * Math.sin(ang - wA)], p2 = [ax - L * Math.cos(ang + wA), ay - L * Math.sin(ang + wA)];
-      page.drawSvgPath('M' + ax + ' ' + (-ay) + ' L' + p1[0] + ' ' + (-p1[1]) + ' L' + p2[0] + ' ' + (-p2[1]) + ' Z', { x: 0, y: 0, color: col });
-      prevBottom = top - b.h - 5;
-    });
-  }
-  async function burnAnnotations(bytes, ann) {
-    var d = await PL.PDFDocument.load(bytes, { ignoreEncryption: true }), f = await d.embedFont(PL.StandardFonts.Helvetica), pages = d.getPages();
-    Object.keys(ann || {}).forEach(function (k) { var pg = pages[+k - 1]; if (pg) drawPageAnn(pg, ann[k], f); });
-    return d.save();
-  }
 

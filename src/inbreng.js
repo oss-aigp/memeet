@@ -142,7 +142,6 @@
     ibSources().forEach(function (s) { ibItemsOf(s, ctx).forEach(function (it) { if (it.k === '?') ideas.push(it); else if (!ibGet(it.id).dismiss) { it.r = ibResolve(it); pts.push(it); } }); });
     return { pts: pts, ideas: ideas, people: ctx.people };
   }
-  function ibOpenFor(m, all) { return (all || ibAll()).pts.filter(function (p) { return p.r.st === 'open' && p.r.m === m; }); }
   /* de naam van een overleg of bron, kort: "MT · di 24 nov" of "losse herinnering · 25 nov 10:12" */
   function ibName(m) { return !m ? '' : m.rem ? 'losse herinnering · ' + fmtDay(m.date) + ' ' + m.start : (m.title || 'Vergadering') + (m.date ? ' · ' + fmtDay(m.date) : ''); }
   /* regels die met > of ? beginnen zijn privé: die gaan nooit mee in een mail */
@@ -305,7 +304,6 @@
 
   /* ================================================================== startscherm en tabblad Herinneringen */
   function ibCountFor(m, all) { return all.pts.filter(function (p) { return p.r.st === 'open' && p.r.m === m; }).length; }
-  function ibOpenCount() { return ibAll().pts.filter(function (p) { return p.r.st !== 'done'; }).length; }
   /* banner met het eerstvolgende overleg en wat je daar inbrengt */
   function ibBannerHtml(all) {
     var next = A.data.meetings.filter(function (m) { return m.date && !ibFinished(m); }).sort(ibSort)[0];

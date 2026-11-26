@@ -113,7 +113,7 @@
     var sel = el2('select', 'rsel'); sel.title = 'Stijl';
     [['p', 'Normale tekst'], ['h1', 'Kop 1'], ['h2', 'Kop 2']].forEach(function (o) { var op = el2('option', null, o[1]); op.value = o[0]; sel.appendChild(op); });
     var bB = btn('B', 'Vet (Ctrl+B)', 'b'), bI = btn('I', 'Cursief (Ctrl+I)', 'i'), bU = btn('U', 'Onderstreept (Ctrl+U)', 'u'), bUl = btn(['format_list_bulleted', 'Lijst'], 'Opsomming'), bOl = btn(['format_list_numbered', 'Lijst'], 'Genummerde lijst'), un = btn(['undo'], 'Ongedaan maken (Ctrl+Z)'), re = btn(['redo'], 'Opnieuw (Ctrl+Y)'), bAct = opts.actions ? btn('! Actie', 'Begin deze regel met ! zodat de regel in de Actielijst komt') : null;
-    var dlB = btn(['download', 'Tekstbestand'], 'Download als tekstbestand');
+    var dlB = btn(['download', 'Tekstbestand'], 'Downloaden als tekstbestand');
     [un, re, null, sel, null, bB, bI, bU, null, bUl, bOl].concat(bAct ? [null, bAct] : []).concat([null, dlB]).forEach(function (x) { ribbon.appendChild(x || sepEl()); });
     ribbon.appendChild(el2('span', 'rsp')); ribbon.appendChild(st);
     var body = el2('div', 'edbody eb-rep'), ed = el2('div', 'docx-ed rep-ed'), foot = el2('div', 'edfoot');
@@ -203,7 +203,7 @@
   }
   function mailMinutes(m) { return mailText('Aantekeningen: ' + (m.title || 'Vergadering') + (m.date ? ' (' + fmtShort(m.date) + ')' : ''), minutesMailText(m)); }
   function renderReport(m) {
-    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">' + ic('checklist') + ' Besluiten en acties</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">' + ic('mail') + ' Mail</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + ic('event') + ' Naar vergadering</a><a class="btn" href="#/verslagen">' + ic('arrow_back') + ' Terug naar verslagen</a></div></div>';
+    var h = '<div class="head"><h1>' + esc(m.title || 'Vergadering') + ' <span class="muted rdate">' + esc(fmtShort(m.date)) + '</span></h1><div class="acts"><button type="button" class="btn" id="repVv" title="Besluiten, acties en meeneempunten van deze vergadering">' + ic('checklist') + ' Besluitenlijst</button><button type="button" class="btn" id="repMail" title="Het verslag mailen; Outlook opent een nieuwe mail">' + ic('mail') + ' Mail</button><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">' + ic('event') + ' Naar vergadering</a><a class="btn" href="#/verslagen">' + ic('arrow_back') + ' Terug naar verslagen</a></div></div>';
     h += '<section class="card repcard"><div class="edwrap" id="repbox"></div></section>';
     setHTML($('#main'), h);
     var E = repEditor($('#repbox'), {

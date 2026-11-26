@@ -180,7 +180,7 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 **Stukken**
 - Sleep documenten op een geopende vergadering.
 - **Volgorde**: sleep een stuk omhoog of omlaag. Met **Ctrl+klik** selecteer je meer stukken, met **Shift+klik** een reeks; sleep je er een, dan gaan ze allemaal mee.
-- Elk stuk staat op één regel, met rechts **✕** om het te verwijderen. Bijzonderheden (een eigen PDF-versie, een bestand dat de viewer niet kan tonen, het aantal aantekeningen) zie je als je met de muis op de naam gaat. Het origineel download je via **⋯** in de viewer.
+- Elk stuk staat op één regel, met rechts **✕** om het te verwijderen. Bijzonderheden (een eigen PDF-versie, een bestand dat de viewer niet kan tonen, het aantal aantekeningen) zie je als je met de muis op de naam gaat. Het origineel download je met de downloadknop boven het stuk in de viewer.
 - De kolom met stukken maak je **breder of smaller** door de rand rechts ervan te verslepen (dubbelklik: standaardbreedte).
 - Elk stuk blijft in zijn **eigen formaat**; MeMeet maakt er geen PDF van. Een **zip** wordt uitgepakt: de bestanden erin worden losse stukken.
 - Sleep je een **mail met bijlagen** op een vergadering, dan kies je: **alleen de mail**, of **de mail én de bijlagen**, elk als apart stuk. Zit er in die mail weer een mail met bijlagen, dan komen die er ook apart bij.
@@ -195,7 +195,7 @@ Doordat het doel een programma is (`explorer.exe`) en niet het HTML-bestand zelf
 **Aantekeningen en acties**
 - Rechts staat altijd de kolom **Aantekeningen**. Versleep de linkerrand om de kolom breder of smaller te maken, of klik op **Apart venster** om de aantekeningen in een eigen venster rechts op je scherm te zetten, naast andere programma's. Een regel die met `!` begint, wordt een actie, bijvoorbeeld `! Jan stuurt de notitie rond`.
 - Een regel die met `=` begint, is een **besluit**, bijvoorbeeld `= livegang schuift naar maart`. Een regel die met `>` begint, is een **meeneempunt** (zie hieronder) en een regel die met `?` begint een **los idee**. Je tekst blijft staan zoals je hem typt, ook in het tekstbestand.
-- In het tabblad **Actielijst** voeg je ook **losse acties** toe, zonder vergadering: typ ze in het vak bovenaan en klik op **+ Toevoegen** (of Enter). Je kunt acties bewerken, afvinken, ⏰ snoozen, een begindatum geven en van de lijst halen. Wat je van de lijst haalt, staat onder *Verwijderd* en kun je terugzetten.
+- In het tabblad **Actielijst** voeg je ook **losse acties** toe, zonder vergadering: typ ze in het vak bovenaan en klik op **Toevoegen** (of Enter). Je kunt acties bewerken, afvinken, ⏰ snoozen, een begindatum geven en van de lijst halen. Wat je van de lijst haalt, staat onder *Verwijderd* en kun je terugzetten.
 - Sleep je een **mail** uit Outlook naar het tabblad **Actielijst**, dan wordt het onderwerp een actie, met ✉ ervoor (en 📎 met het aantal bijlagen). Klik op zo'n actie: een viewer toont de mail, met links de bijlagen die je aanklikt om ze te bekijken. Bovenin pas je de tekst van de actie aan; **⤓ Download** bewaart het bestand dat je ziet. De mail wordt bewaard in `Actielijst\Mails`.
 
 **Verslag mailen**
@@ -273,11 +273,11 @@ Je gegevens staan in de datamap, niet in het HTML-bestand. Vervangen is dus veil
 | **Er gebeurt niets als ik een mail sleep** | Sleep de mail eerst naar het bureaublad en daarna naar MeMeet. |
 | **"Map kiezen lukt niet"** | Je beheerder heeft toegang tot mappen misschien geblokkeerd. Kies **bewaar alles in de browser**. |
 | **Edge vraagt elke keer om toegang** | Dat is normaal, het is een beveiligingsregel van de browser. Klik op **Map openen** en dan op **Toestaan**. |
-| **De viewer kan een stuk niet tonen** | Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen. Download het origineel via **⋯** › *Origineel downloaden* en open het in Word of Excel. Wil je het in de viewer zien, kies dan in Word of Excel **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |
+| **De viewer kan een stuk niet tonen** | Oude formaten (`.doc`, `.xls`, `.ppt`) kan de viewer niet tonen. Download het origineel met de downloadknop boven de viewer en open het in Word of Excel. Wil je het in de viewer zien, kies dan in Word of Excel **Opslaan als** › **PDF** en sleep de PDF op de vergadering. MeMeet vraagt dan of die PDF als versie van het stuk moet dienen. |
 | **De opmaak van een stuk in de viewer wijkt af** | De viewer tekent Word, Excel en PowerPoint zelf, zonder Office. Dat is heel getrouw, maar bijzondere onderdelen (zoals tekstvakken die zweven, WordArt of ingesloten objecten) kunnen afwijken. Het bestand zelf blijft ongewijzigd. Gebruik voor de exacte opmaak de PDF-route hierboven. |
 | **Een gescande PDF: zoeken en markeren werkt niet** | Een scan zonder tekstherkenning (OCR) is alleen een afbeelding, zonder tekst. Opmerkingen werken wel. Heeft de scanner OCR gedaan, dan werken zoeken en markeren ook. |
 | **Een gescande PDF toont lege witte pagina's** | Dat kwam voor in versie 1.0.0, bij scans in zwart-wit (CCITT-fax of JBIG2) of JPEG 2000. Vanaf versie 1.0.1 worden die gewoon getoond. Werk MeMeet bij en open het stuk opnieuw. |
-| **De viewer blijft leeg** | Kies in ⋯ voor **PDF openen in nieuw tabblad**. |
+| **De viewer blijft leeg** | Klik op een ander stuk en weer terug. Blijft hij leeg, download het stuk dan met de downloadknop boven de viewer en open het in het programma dat erbij hoort. |
 | **De conceptmail opent als gewone mail** | Dat gebeurt in de nieuwe Outlook. Download de bestanden dan met ⤓ en sleep ze in een nieuwe mail. |
 | **Ik zie mijn vergaderingen niet meer** | Kies rechtsboven via **📁 Wijzig datamap** de juiste datamap. Kijk ook in het **Archief** onderaan de beginpagina. |
 
@@ -321,19 +321,25 @@ memeet/
 │  └─ archive/           ← alle eerdere versies (MeMeet-v<versie>.html)
 ├─ src/
 │  ├─ app.html           ← HTML-sjabloon en alle CSS
+│  ├─ core.js            ← gedeelde toestand, hulpfuncties en downloaden (staat vooraan in de build)
 │  ├─ mail-parser.js     ← .msg (CFB/OLE) en .eml (MIME) lezen; datum/tijd/locatie/link herkennen
-│  ├─ convert.js         ← stukken omzetten om ze in de viewer te tonen (Word/Excel/tekst/afbeelding/mail),
-│  │                       aantekeningen in een PDF zetten
-│  ├─ hview.js           ← viewer in de eigen opmaak: Word (docx-preview), Excel, tekst en mail, met markeren/opmerkingen/zoeken
+│  ├─ store.js           ← opslag: datamap (File System Access) of de browser (IndexedDB)
+│  ├─ convert.js         ← stukken omzetten naar PDF als dat nodig is (PowerPoint, afbeeldingen, oude formaten)
 │  ├─ pptx-render.js     ← PowerPoint-dia's getrouw tekenen (voor de viewer en de bewerkomgeving)
-│  ├─ editor.js          ← bewerkomgevingen Word/Excel/PowerPoint/tekst met ongedaan maken en opnieuw
-│  ├─ notes.js           ← aantekeningen tijdens de vergadering en de actielijst (snooze, begindatum)
+│  ├─ editor.js          ← bewerkomgevingen Word/Excel/PowerPoint/tekst met ongedaan maken, opnieuw en versies
+│  ├─ notes.js           ← aantekeningen tijdens de vergadering en de actielijst (snoozen, begindatum)
+│  ├─ hview.js           ← viewer in de eigen opmaak: Word (docx-preview), Excel, tekst en mail, met markeren/opmerkingen/zoeken
+│  ├─ inbreng.js         ← in te brengen punten en het tabblad Herinneringen
+│  ├─ annotatie.js       ← annotatie van een medewerker als tekst in de aantekeningen
+│  ├─ mailacts.js        ← pop-up met een mail of bestanden (ook bewerken)
 │  ├─ reports.js         ← tabblad Verslagen (lijst en Word-achtige editor), mailen
-│  ├─ vervolg.js         ← besluiten, acties en meeneempunten voor het vervolgoverleg
-│  ├─ files.js           ← tabblad Bestanden (alleen lezen, zoeken, filteren, mailen)
+│  ├─ vervolg.js         ← besluitenlijst: besluiten, acties en meeneempunten voor het vervolgoverleg
+│  ├─ files.js           ← tabblad Bestanden (zoeken, filteren, mappen, versies, mailen)
 │  ├─ help.js            ← helppaneel per pagina (knop ? en F1)
-│  ├─ app-ui.js          ← opslag (map / IndexedDB), routes, overzicht, vergaderpagina,
-│  │                       PDF-viewer met markeren/opmerkingen/zoeken
+│  ├─ intake.js          ← mail, uitnodiging of weekagenda omzetten naar vergaderingen
+│  ├─ install.js         ← installatiescherm, datamap en mappen openen in Verkenner
+│  ├─ pdfview.js         ← viewer voor PDF en PowerPoint (pdf.js), met markeren/opmerkingen/zoeken
+│  ├─ app-ui.js          ← schermen (start, vergadering, stukkenlijst), thema en het starten van de app
 │  └─ icon.svg           ← app-icoon (optie 2, Tafel)
 ├─ outlook/
 │  └─ MeMeet-weekagenda.bas ← Outlook-macro: agenda van de komende 30 dagen opslaan als .ics
@@ -341,11 +347,11 @@ memeet/
 ├─ docs/                 ← schermafbeeldingen voor deze README, en in films/ de instructie- en installatiefilm
 ├─ scripts/build.js      ← bouwscript
 ├─ LICENSE               ← EUPL-1.2
-├─ THIRD-PARTY-NOTICES.md ← licenties van pdf.js, pdf-lib en JSZip
+├─ THIRD-PARTY-NOTICES.md ← licenties van pdf.js, pdf-lib, JSZip, docx-preview en Material Symbols
 └─ package.json
 ```
 
-**Gebruikte techniek:** gewone JavaScript zonder framework, de File System Access API (`showDirectoryPicker`), IndexedDB voor de mapkoppeling en als reserveopslag, pdf.js, pdf-lib en JSZip.
+**Gebruikte techniek:** gewone JavaScript zonder framework, de File System Access API (`showDirectoryPicker`), IndexedDB voor de mapkoppeling en als reserveopslag, pdf.js, pdf-lib, JSZip en docx-preview.
 
 ---
 

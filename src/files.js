@@ -94,7 +94,7 @@
     var vs = it.vers || [it], h = '<div class="vhead">' + esc(it.name.replace(/\.[^.]*$/, '')) + '<small>' + vs.length + ' versie' + (vs.length === 1 ? '' : 's') + '</small></div>';
     h += vs.map(function (v, i) {
       return '<div class="vrow"><span class="fic">' + esc(v.ext.slice(0, 4).toUpperCase() || '—') + '</span><span class="vn" title="' + esc(v.name) + '">' + esc(v.name) + '<small>' + esc(VER_LABEL[v.kind] || v.kind) + (v.size ? ' · ' + esc(kb(v.size)) : '') + ' · ' + esc(fmtDT(v.mod)) + '</small></span>' +
-        '<button type="button" class="link" data-vo="' + i + '" title="Openen">' + ic('visibility') + '</button><button type="button" class="btn sm" data-vmail="' + i + '" title="Deze versie mailen">' + ic('mail') + ' Mailen</button><button type="button" class="btn sm" data-vd="' + i + '" title="Deze versie downloaden">' + ic('download') + ' Download</button></div>';
+        '<button type="button" class="link" data-vo="' + i + '" title="Openen">' + ic('visibility') + '</button><button type="button" class="btn sm" data-vmail="' + i + '" title="Deze versie mailen">' + ic('mail') + ' Mail</button><button type="button" class="btn sm" data-vd="' + i + '" title="Deze versie downloaden">' + ic('download') + ' Downloaden</button></div>';
     }).join('');
     setHTML(menu, h); menu.hidden = false;
     var w = menu.offsetWidth, hh = menu.offsetHeight;
@@ -135,7 +135,7 @@
     h += '<div class="fx-wrap"><nav class="card fxtree">' + th + '</nav><section class="card fxmain">';
     h += '<div class="fxbar"><input type="search" id="fxq" placeholder="Zoeken in bestandsnamen en vergaderingen…" value="' + esc(FX.q) + '">' +
       '<span class="fxsel">' + (nSel ? nSel + ' geselecteerd' : '') + '</span>' +
-      '<button class="btn sm" data-fa="open"' + (nSel ? '' : ' disabled') + '>' + ic('visibility') + ' Openen</button><button class="btn sm" data-fa="dl"' + (nSel ? '' : ' disabled') + '>' + ic('download') + ' Downloaden</button><button class="btn sm" data-fa="mail"' + (nSel ? '' : ' disabled') + '>' + ic('mail') + ' Mailen</button>' +
+      '<button class="btn sm" data-fa="open"' + (nSel ? '' : ' disabled') + '>' + ic('visibility') + ' Openen</button><button class="btn sm" data-fa="dl"' + (nSel ? '' : ' disabled') + '>' + ic('download') + ' Downloaden</button><button class="btn sm" data-fa="mail"' + (nSel ? '' : ' disabled') + '>' + ic('mail') + ' Mail</button>' +
       (FX.showHidden ? '<button class="btn sm" data-fa="restore"' + (nSel ? '' : ' disabled') + ' title="Weer tonen in het overzicht">' + ic('restore_from_trash') + ' Terugzetten</button>' : '<button class="btn sm" data-fa="hide"' + (nSel ? '' : ' disabled') + ' title="Alleen uit dit overzicht halen. Het bestand blijft in de vergadering.">' + ic('delete') + ' Verwijderen</button>') + '</div>';
     if (FX.folder.charAt(0) === '@') h += '<div class="fxhid">' + ic('folder_open') + ' Map <b>' + esc(fxDir(FX.folder.slice(1)).name) + '</b> <button type="button" class="link" data-fa="unfile"' + (nSel ? '' : ' disabled') + '>Geselecteerde bestanden uit deze map halen</button></div>';
     if (nHid) h += '<div class="fxhid">' + (FX.showHidden ? 'Je ziet de bestanden die uit het overzicht zijn verwijderd. <button type="button" class="link" id="fxhid">' + ic('chevron_left') + ' Terug naar alle bestanden</button>' : '<button type="button" class="link" id="fxhid">Verwijderd (' + nHid + ') tonen</button>') + '</div>';

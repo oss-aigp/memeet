@@ -46,7 +46,7 @@
     var sub = [x.mail.from ? 'Van ' + x.mail.from : '', sent && !isNaN(sent) ? sent.toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' }) : ''].filter(Boolean).join(' · ');
     setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-label="Actie uit een mail">' +
       '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('mail') + '</span><div class="mattl"><input id="maT" class="matitle" value="' + esc(x.text) + '" aria-label="Tekst van de actie" title="Tekst van de actie; je kunt hem hier aanpassen"><small class="muted">' + esc(sub) + '</small></div>' +
-      '<button type="button" class="btn sm" id="maDl" title="Het geselecteerde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<button type="button" class="btn sm" id="maDl" title="Het geselecteerde bestand downloaden">' + ic('download') + ' Downloaden</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="mabody"><ul class="malist" id="maList"><li class="muted">Mail wordt gelezen…</li></ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
     D.body.appendChild(bg);
     bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeMailAct(); });
@@ -75,7 +75,7 @@
     var it0 = items[start || 0];
     setHTML(bg, '<div class="dlg ma" role="dialog" aria-modal="true" aria-labelledby="maT">' +
       '<div class="mahead"><span class="maic" aria-hidden="true">' + ic('description') + '</span><div class="mattl"><b id="maT" class="mastatic">' + esc(title || it0.name) + '</b><small class="muted" id="maSub">' + esc(items.length > 1 ? items.length + ' bestanden' : (it0.sub || '')) + '</small></div>' +
-      '<button type="button" class="btn sm" id="maEd" hidden title="Het bestand hier bewerken (Word, Excel, PowerPoint of tekst)">' + ic('edit') + ' Bewerken</button><button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Download</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<button type="button" class="btn sm" id="maEd" hidden title="Het bestand hier bewerken (Word, Excel, PowerPoint of tekst)">' + ic('edit') + ' Bewerken</button><button type="button" class="btn sm" id="maDl" title="Het getoonde bestand downloaden">' + ic('download') + ' Downloaden</button><button type="button" class="vvx" id="maX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
       '<div class="mabody' + (items.length > 1 ? '' : ' one') + '"><ul class="malist" id="maList">' + items.map(function (it, i) {
         return '<li><button type="button" data-mi="' + i + '" title="' + esc(it.name) + '"><span class="mii" aria-hidden="true">' + ic(isMailItem(it) ? 'mail' : 'description') + '</span><span class="fn">' + esc(it.name) + '</span>' + (it.size ? '<small class="muted">' + esc(kb(it.size)) + '</small>' : '') + '</button></li>';
       }).join('') + '</ul><div class="mapv" id="maPv"><div class="pvmsg">Even geduld…</div></div></div></div>');
@@ -119,7 +119,7 @@
     }
     try { if (!it.blob) it.blob = await it.get(); var r = await convertToPdf(it.name, it.type || guessMime(it.name), it.blob); if (r) out = r.how === 'origineel' ? it.blob : new Blob([r.bytes], { type: 'application/pdf' }); } catch (e) { console.error(e); }
     if (tok !== MA.tok) return;
-    if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">' + ic('download') + ' Download</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
+    if (!out) { setHTML(pv, '<div class="pvmsg">Dit bestand kan de viewer niet tonen.<br><small>Download het en open het in het programma dat erbij hoort.</small><br><button type="button" class="btn" id="maDl2">' + ic('download') + ' Downloaden</button></div>'); $('#maDl2').onclick = function () { dl(it.blob, it.name); }; return; }
     var pdf;
     try { pdf = await W.pdfjsLib.getDocument(pdfOpts(new Uint8Array(await out.arrayBuffer()))).promise; }
     catch (e) { if (tok === MA.tok) setHTML(pv, '<div class="pvmsg">Dit bestand kan niet worden getoond (' + esc(e.message || e) + ').</div>'); return; }
