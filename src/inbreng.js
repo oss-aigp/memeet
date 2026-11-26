@@ -125,7 +125,7 @@
       if (ibFinished(c)) { carried++; continue; }
       return { st: 'open', m: c, path: path, carried: carried };
     }
-    if (st.done) return { st: 'done', m: byId(st.done), path: path, carried: carried };
+    if (st.done) return { st: 'done', m: byId(st.done) || null, path: path, carried: carried }; /* '*' = voltooid zonder overleg */
     return { st: 'wait', path: path, carried: carried };
   }
   function ibWaitWhy(p, people) {
@@ -162,7 +162,7 @@
     return '<div class="inb" id="ibInb"><ul>' + pts.map(function (p) {
       var st = p.r.st === 'done' && p.r.m === m ? 'ticked' : p.r.st === 'open' && p.r.m === m ? 'open' : 'moved';
       var nC = st === 'moved' ? 0 : p.r.carried;
-      var where = st !== 'moved' ? '' : p.r.st === 'open' ? 'doorgeschoven naar ' + ibName(p.r.m) : p.r.st === 'done' ? 'besproken in ' + ibName(p.r.m) : 'wacht op een volgend overleg';
+      var where = st !== 'moved' ? '' : p.r.st === 'open' ? 'doorgeschoven naar ' + ibName(p.r.m) : p.r.st === 'done' ? (p.r.m ? 'besproken in ' + ibName(p.r.m) : 'voltooid') : 'wacht op een volgend overleg';
       var ask = st === 'open' && p.r.carried >= 2 && !ibGet(p.id).keep ? '<div class="ask">Nog relevant? <button type="button" class="btn sm" data-ibkeep="' + esc(p.id) + '">Ja, laten staan</button><button type="button" class="btn sm" data-ibdrop="' + esc(p.id) + '">Nee, weg</button></div>' : '';
       return '<li class="' + st + '"><input type="checkbox" data-ibtick="' + esc(p.id) + '"' + (st === 'ticked' ? ' checked' : '') + (st === 'moved' ? ' disabled' : '') + ' title="' + (st === 'moved' ? '' : 'Besproken in dit overleg') + '" aria-label="Besproken: ' + esc(p.text) + '">' +
         '<div><span class="tx">' + esc(p.text) + '</span>' + (nC ? '<span class="tag" title="' + nC + '× doorgeschoven">' + nC + '×</span>' : '') + ' <span class="src">' + ibSrcLink(p) + (where ? ' · ' + esc(where) : '') + '</span>' + ask + '</div></li>';
@@ -178,7 +178,7 @@
       if (it && it.k === '>') {
         var p = byId[it.id], to;
         if (ibGet(it.id).dismiss) to = '<span class="to muted">weggehaald</span>';
-        else if (p && p.r.st === 'done') to = '<span class="to go">' + ic('check') + ' besproken ' + esc(fmtDay(p.r.m.date)) + '</span>';
+        else if (p && p.r.st === 'done') to = '<span class="to go">' + ic('check') + (p.r.m ? ' besproken ' + esc(fmtDay(p.r.m.date)) : ' voltooid') + '</span>';
         else {
           var r = p ? p.r : ibResolve(it), pin = ibGet(it.id).pin;
           to = '<select class="to ' + (r.st === 'open' ? 'go' : 'wait') + '" data-ibpin="' + esc(it.id) + '" title="Klopt dit niet? Kies een ander overleg.">' +
@@ -274,7 +274,7 @@
 
   /* ---------- context: waar komt een punt vandaan? */
   function ibFindPoint(id) { var all = ibAll(); return all.pts.concat(all.ideas).filter(function (p) { return p.id === id; })[0]; }
-  function closeIbCtx() { var d = $('#ibCtx'); if (d) d.remove(); }
+  function closeIbCtx() { var d = $('#ibCtx'); if (!d) return; if (d._save) d._save(); d.remove(); }
   function openIbCtx(id) {
     var p = ibFindPoint(id); if (!p) return;
     closeIbCtx();
@@ -299,7 +299,7 @@
     var mk = $('mark', bg); if (mk) mk.scrollIntoView({ block: 'center' });
     try { $('#ibCtxX', bg).focus(); } catch (e) {}
   }
-  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('#ibCtx')) { e.preventDefault(); e.stopPropagation(); closeIbCtx(); } }, true);
+  D.addEventListener('keydown', function (e) { var d = $('#ibCtx'); if (e.key === 'Escape' && d) { e.preventDefault(); e.stopPropagation(); if (d._close) d._close(); else closeIbCtx(); } }, true);
   W.addEventListener('hashchange', function () { closeIbCtx(); });
 
   /* ================================================================== startscherm en tabblad Herinneringen */
@@ -317,7 +317,7 @@
   function ibDelBtn(p) { return p.src.rem ? '<button type="button" class="link ibx" data-ibdel="' + esc(p.src.id) + '" title="Herinnering verwijderen" aria-label="Herinnering verwijderen">' + ic('close') + '</button>' : ''; }
   /* één compacte regel per punt: de tekst, en rechts (of op een tweede regel) het label, de keuzelijst en de bron */
   function ibRowHtml(p, all, extra) {
-    return '<li class="ibrow2"><span class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</span><span class="ibmeta">' + (extra || '') + ibChipSel(p, all.people, true) + ibSrcShort(p) + ibDelBtn(p) + '</span></li>';
+    return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" data-ibdone="' + esc(p.id) + '" data-m="' + esc(p.r.st === 'open' && p.r.m ? p.r.m.id : '*') + '" title="Voltooid (besproken)" aria-label="Voltooid: ' + esc(p.text) + '"><span class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</span><span class="ibmeta">' + (extra || '') + ibChipSel(p, all.people, true) + ibSrcShort(p) + ibDelBtn(p) + '</span></li>';
   }
   function ibWaitHtml(all) {
     var w = all.pts.filter(function (p) { return p.r.st === 'wait'; });
@@ -347,16 +347,30 @@
     var s = it.src, line = it.where === 'rem' ? s.rem.line : String(s.minutes || '').split(/\r?\n/)[it.line];
     var np = ibParse(line, it.where === 'rem' ? ibRemSrc(s.rem) : s); return np && np.k === '>' ? np.id : null;
   }
-  /* het verslag van een overleg in een popup */
-  function ibOpenVerslag(id) {
+  /* het verslag van een overleg in een popup, meteen te bewerken: bovenaan de punten die in dit overleg zijn ingebracht (vinkje
+     aan of uit), daaronder de aantekeningen in een tekstvak dat vanzelf bewaart. after: de lijst erachter opnieuw tekenen. */
+  function ibOpenVerslag(id, after) {
     var m = byId(id); if (!m) return; closeIbCtx();
+    var all = ibAll(), inb = ibInbHtml(m, all).replace(' id="ibInb"', '');
     var bg = D.createElement('div'); bg.className = 'dlgbg'; bg.id = 'ibCtx';
-    setHTML(bg, '<div class="dlg ibctx" role="dialog" aria-modal="true" aria-labelledby="ibCtxT"><div class="vvhead"><div><p class="muted ibsmall">Verslag</p><h2 id="ibCtxT">' + esc(m.title) + '</h2><p class="muted">' + esc(fmtLong(m.date)) + (m.start ? ', ' + esc(m.start) : '') + '</p></div><button type="button" class="vvx" id="ibCtxX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
-      '<div class="ibctxb"><pre class="ibnotes">' + (String(m.minutes || '').trim() ? esc(m.minutes) : '<span class="muted">Nog geen aantekeningen.</span>') + '</pre></div><div class="dlgacts"><a class="btn" href="#/verslag/' + esc(encodeURIComponent(m.id)) + '">Verslag openen</a><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Naar de vergadering</a></div></div>');
+    setHTML(bg, '<div class="dlg ibctx" role="dialog" aria-modal="true" aria-labelledby="ibCtxT"><div class="vvhead"><div><p class="muted ibsmall">Verslag</p><h2 id="ibCtxT">' + esc(m.title) + '</h2><p class="muted">' + esc(fmtLong(m.date)) + (m.start ? ', ' + esc(m.start) : '') + ' <span class="npst" id="ibVst"></span></p></div><button type="button" class="vvx" id="ibCtxX" title="Sluiten (Esc)" aria-label="Sluiten">' + ic('close') + '</button></div>' +
+      '<div class="ibctxb">' + (inb ? '<p class="ibsmall muted">Ingebracht in dit overleg (vinkje = besproken)</p>' + inb : '') +
+      '<p class="ibsmall muted">Aantekeningen</p><textarea class="ibvta" id="ibVta" spellcheck="true" aria-label="Aantekeningen van ' + esc(m.title) + '"></textarea></div>' +
+      '<div class="dlgacts"><a class="btn" href="#/verslag/' + esc(encodeURIComponent(m.id)) + '">Verslag openen</a><a class="btn" href="#/v/' + esc(encodeURIComponent(m.id)) + '">Open vergadering</a></div></div>');
     D.body.appendChild(bg);
-    bg.addEventListener('mousedown', function (e) { if (e.target === bg) closeIbCtx(); });
-    $('#ibCtxX', bg).onclick = closeIbCtx; $$('a.btn', bg).forEach(function (a) { a.addEventListener('click', closeIbCtx); });
-    try { $('#ibCtxX', bg).focus(); } catch (e) {}
+    var ta = $('#ibVta', bg), st = $('#ibVst', bg), t = null, dirty = false;
+    ta.value = String(m.minutes || '');
+    function fit() { ta.style.height = 'auto'; ta.style.height = Math.min(Math.max(140, ta.scrollHeight + 4), Math.round(W.innerHeight * 0.5)) + 'px'; }
+    async function save() { t = null; if (!dirty) return; dirty = false; m.minutes = ta.value; delete m.minutesHtml; await saveMinutes(m); if (st) st.textContent = '\u2713 bewaard'; }
+    ta.addEventListener('input', function () { dirty = true; if (st) st.textContent = '\u2026'; fit(); clearTimeout(t); t = setTimeout(save, 700); });
+    ta.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Escape') close(); });
+    $$('[data-ibtick]', bg).forEach(function (cb) { cb.onchange = async function () { ibSet(cb.dataset.ibtick, 'done', cb.checked ? m.id : null); await persist(); var li = cb.closest('li'); if (li) li.classList.toggle('ticked', cb.checked); if (st) st.textContent = '\u2713 bewaard'; }; });
+    $$('.ibsrc', bg).forEach(function (b) { b.disabled = true; });
+    async function close() { clearTimeout(t); await save(); closeIbCtx(); if (after) after(); if (typeof renderSide === 'function') renderSide(); }
+    bg.addEventListener('mousedown', function (e) { if (e.target === bg) close(); });
+    $('#ibCtxX', bg).onclick = close; $$('a.btn', bg).forEach(function (a) { a.addEventListener('click', function () { clearTimeout(t); save(); closeIbCtx(); }); });
+    bg._close = close; bg._save = save;
+    fit(); try { ta.focus(); ta.setSelectionRange(0, 0); ta.scrollTop = 0; } catch (e) {}
   }
   async function ibRelink(it, to) {
     var nl = '> ' + to + ' ' + it.text, s = it.src;
@@ -376,7 +390,12 @@
       await ibRelink(it, ibTitleOf(m) + ':'); var np = ibFindRelinked(it); if (np) { ibSet(np, 'pin', m.id); await persist(); }
       after(); toast('Gekoppeld aan ' + ibName(m) + '.', 'ok');
     }; });
-    $$('[data-ibverslag]', root).forEach(function (b) { b.onclick = function (e) { e.preventDefault(); ibOpenVerslag(b.dataset.ibverslag); }; });
+    $$('[data-ibverslag]', root).forEach(function (b) { b.onclick = function (e) { e.preventDefault(); ibOpenVerslag(b.dataset.ibverslag, after); }; });
+    /* afvinken als voltooid (bij het overleg waar het opkomt, of zonder overleg); in Besproken het vinkje weghalen = weer open */
+    $$('[data-ibdone]', root).forEach(function (cb) { cb.onchange = async function () {
+      ibSet(cb.dataset.ibdone, 'done', cb.checked ? cb.dataset.m || '*' : null); await persist(); after(); if (typeof renderSide === 'function') renderSide();
+      toast(cb.checked ? 'Voltooid. Je vindt het onder Besproken.' : 'Weer open.', 'ok');
+    }; });
     $$('[data-ibpinsel]', root).forEach(function (s) { s.onchange = async function () {
       if (!s.value) return; ibSet(s.dataset.ibpinsel, 'pin', s.value === '-' ? null : s.value); await persist(); after();
       toast(s.value === '-' ? 'Weer automatisch.' : 'Komt op bij ' + ibName(byId(s.value)) + '.', 'ok');
@@ -406,7 +425,7 @@
         groups[m.id].map(function (p) { return ibRowHtml(p, all, p.r.carried ? '<span class="tag" title="' + p.r.carried + '× doorgeschoven">' + p.r.carried + '×</span>' : ''); }).join('') + '</ul></div>';
     }).join('') : '<p class="muted ibempty">Er ligt niets klaar.</p>') + '</div></section>';
     h += '<section class="card ibcard ibdone' + (showDone ? '' : ' shut') + '"><h2><button type="button" class="ibtoggle" id="ibDoneT" aria-expanded="' + showDone + '">' + ic(showDone ? 'keyboard_arrow_down' : 'chevron_right') + ' Besproken <span class="muted">' + done.length + '</span></button></h2>' +
-      (showDone ? '<div class="ibscroll">' + (done.length ? '<ul class="iblist2">' + done.map(function (p) { return '<li class="ibrow2"><s class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</s><span class="ibmeta">besproken in <button type="button" class="link" data-ibverslag="' + esc(p.r.m.id) + '" title="Het verslag van dit overleg bekijken">' + esc(ibShort(p.r.m.title, 24)) + ' ' + esc(fmtDay(p.r.m.date)) + '</button>' + ibSrcShort(p) + '</span></li>'; }).join('') + '</ul>' : '<p class="muted ibempty">Nog niets afgevinkt.</p>') + '</div>' : '') + '</section>';
+      (showDone ? '<div class="ibscroll">' + (done.length ? '<ul class="iblist2">' + done.map(function (p) { return '<li class="ibrow2 ibck"><input type="checkbox" class="ibdonecb" checked data-ibdone="' + esc(p.id) + '" title="Vinkje weghalen: weer open" aria-label="Weer open: ' + esc(p.text) + '"><s class="ibtx" title="' + esc(p.text) + '">' + esc(p.text) + '</s><span class="ibmeta">' + (p.r.m ? 'besproken in <button type="button" class="link" data-ibverslag="' + esc(p.r.m.id) + '" title="Het verslag van dit overleg bekijken en bewerken">' + esc(ibShort(p.r.m.title, 24)) + ' ' + esc(fmtDay(p.r.m.date)) + '</button>' : 'voltooid') + ibSrcShort(p) + '</span></li>'; }).join('') + '</ul>' : '<p class="muted ibempty">Nog niets afgevinkt.</p>') + '</div>' : '') + '</section>';
     h += '</div><div class="ibcol">' + ibWaitHtml(all) + ibIdeasHtml(all) + '</div></div>';
     setHTML(main, h);
     ibBindLists(main, all, renderReminders);
